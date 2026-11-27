@@ -201,6 +201,20 @@ The goal is to transfer **functional competencies**, not necessarily to dismantl
 
 To establish independence, compare bootstrap alone, bootstrap plus VibeWeights, VibeWeights with bootstrap disabled, and VibeWeights with external teachers unavailable. Evaluate unseen tasks and retention after restart; rule out the encoder, decoder or oracle doing the actual work.
 
+## Knowledge-first continual learning
+
+**Immediate research priority:** teach the ecosystem to acquire verified concrete knowledge and established methods, and consolidate them into durable neural weights, before attempting autonomous changes to its intelligence architecture.
+
+Fast learning in the indexed ledger and slower parametric consolidation are complementary. Initially keep productive experts and bootstrap weights immutable; create small, separate DIRECT or TRAINED candidates. New knowledge must have traceable evidence, validity, scope and permitted use. Model consensus and user satisfaction alone are not truth oracles.
+
+The first vertical experiment will compare memory-only retrieval, directly constructed associative weights and locally trained small experts on a controlled knowledge domain. Demonstrate retention after restart with teacher, bootstrap and target-answer retrieval disabled, then ablate the candidate to identify what the new weights actually contribute. Separately test corrections, unknown inputs, sequential knowledge packages, old and rare abilities, cost and recovery from failures. A remembered fact is not by itself evidence of general reasoning improvement.
+
+Use independent frozen holdouts, isolated candidate execution, staged release, replay, versioned artifacts, source-to-weight dependency tracking, revocation and rollback. Learning should be an interruptible activity of the ordinary application, not an unbounded or privileged self-modification loop.
+
+The hypothesis is that improved knowledge, cooperation and consolidation can also improve later learning and generalization. That must be evaluated against a frozen learning strategy at matched budgets.
+
+See the [Knowledge-first learning and validation contract](docs/KNOWLEDGE_FIRST_LEARNING.md) for the detailed safeguards, early acceptance experiment and additional research references (SERAC, GRACE, Progress & Compress, Voyager, Knowledge-Centric Self-Improvement and continual-learning evaluation).
+
 ## Expert Factory and VibeWeighting
 
 ### Creating new competencies
@@ -441,6 +455,7 @@ The commands above are for the existing Python research prototype, not the futur
 | Stage | Priority / deliverable |
 |---|---|
 | Public baseline | v0.7.0 source, weights and evidence imported; verify Windows/Linux CI |
+| Knowledge-first learning (P0) | Early validated factual/method acquisition into weights; immutable candidates, independent tests, correction, replay and recovery |
 | Unified Environment | Migrate the regular chat/API to the new core; generic events, dynamic topology, private recurrence, independent result release |
 | Memory | Universal semantic ABI, source/relationship indexing, cooperation and feedback integration, recovery, physical budgets |
 | Bootstrap | Real authorized local models; text vs latent adapter experiments, independent ablations |
@@ -463,6 +478,7 @@ The detailed project documents are currently primarily in German; this English o
 | [Platform v0.5](docs/platform_v05.md) | Reference runtime, API, telemetry and limits |
 | [Research survey](docs/FORSCHUNG_2026-11-26.md) | Literature and implications |
 | [Research supplement](docs/FORSCHUNG_ERGAENZUNG_v05.md) | Exploration, selection, learning and attribution |
+| [Knowledge-first learning](docs/KNOWLEDGE_FIRST_LEARNING.md) | Learning safety, provenance, isolation, evaluation and weight-acquisition milestones |
 | [Roadmap](docs/status.md) | Development priorities and acceptance |
 | [Original project brief](docs/PROJEKTAUFTRAG.md) | Historical starting point |
 | [Test evidence](evidence/summary.json) | Reproducible, bounded results |
