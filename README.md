@@ -292,7 +292,7 @@ Measure exposures, self-activations, invitations, actual contributions, verified
 
 ### Grow, specialize, consolidate, reactivate
 
-**Additive learning, additive consolidation, independent evolutionary selection.** Learning adds a new expert or version. Consolidation adds a new aggregate expert representing tested combined competencies; it never replaces, disables or deletes its parents. Both original and aggregate experts remain available and compete fairly. Only a separate population-level selection mechanism may change residency or retire experts based on sustained verified contribution, unique and rare competencies, counterfactual ablations, dependencies and resource costs. Low activation alone is not sufficient. Retirement is always reversible in normal evolution: dormant or archived experts retain their immutable weights, lineage and required dependencies on SSD, not in VRAM. A compact searchable catalog supports deliberate reactivation and budgeted exploration. Residency (GPU, CPU or SSD) is independent of lifecycle status; even an active expert may be loaded on demand. No evolutionary operation physically deletes experts. SSD exhaustion limits new learning rather than silently deleting old competencies. Evidence-based quarantine remains a separate safety mechanism.
+**Additive learning, additive consolidation, independent evolutionary selection.** Learning adds a new expert or version. Consolidation adds a new aggregate expert representing tested combined competencies; it never replaces, disables or deletes its parents. Both original and aggregate experts remain available and compete fairly. Only a separate population-level selection mechanism may change residency or retire experts based on sustained verified contribution, unique and rare competencies, counterfactual ablations, dependencies and resource costs. Low activation alone is not sufficient. Normal evolution uses exactly three expert states: **ACTIVE (VRAM)**, **LOW_ACTIVE_IMPORTANT (VRAM)** and **ARCHIVED (SSD)**. Rare but important competencies remain GPU-resident. Archived experts retain complete immutable artifacts and dependencies on SSD and remain discoverable for recruitment and budgeted reactivation. There is no separate CPU-RAM residency tier on Strix Halo. Temporary staging buffers are implementation details. VRAM pressure must not silently evict important experts; bound learning and admission rather than bypass selection. No evolutionary operation physically deletes experts. SSD exhaustion limits new learning rather than silently deleting old competencies. Evidence-based quarantine remains a separate safety mechanism.
 
 See the [learning and selection contract](docs/KNOWLEDGE_FIRST_LEARNING.md#4a-verbindliche-trennung-additive-lernoperationen-und-evolutionäre-reduktion).
 
@@ -305,7 +305,7 @@ flowchart LR
  Y --> A["V1 remains"]
  Y --> B["Coexist / specialize"]
  Y --> C["V2 gains demand"]
- C -. original retained .-> D["Dormant / archived V1"]
+ C -. original retained .-> D["Archived V1 on SSD"]
  D -. reactivate .-> X
  G["Recurring coalition"] --> F["Consolidation candidate"]
  F --> X
@@ -313,7 +313,7 @@ flowchart LR
 
 Evolution is not only expansion. Frequently recurring collective competencies might be consolidated into a smaller network; specialized modules might be pruned, quantized or distilled to reduce cost. A replacement must demonstrate comparable or better behavior on independent tests, including rare capabilities. Originals and prior versions remain recoverable.
 
-Variants can coexist, specialize or become dormant; popularity must not be the sole selection signal. Fair exposure for new candidates, independent validation, quarantine and rollback prevent a feedback loop from silently redefining success or discarding useful abilities.
+Variants can coexist, specialize or be archived; popularity must not be the sole selection signal. Fair exposure for new candidates, independent validation, quarantine and rollback prevent a feedback loop from silently redefining success or discarding useful abilities.
 
 A first exact case exists: for affine maps, composing a second map B with a first map A yields a single affine map with matrix BA and bias Ba + b. The prototype demonstrates seven parameters reduced to two, with 201 additional checked inputs. This is a bounded algebraic result, not evidence that arbitrary nonlinear expert networks can already be compressed.
 
