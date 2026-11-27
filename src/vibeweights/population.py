@@ -3,6 +3,8 @@ One owner per catalog while running; no physical deletion, no RAM cache tier.
 CPU is a reference emulation of VRAM residency, not a GPU measurement.
 """
 from dataclasses import asdict, dataclass
+from contextlib import nullcontext
+from functools import wraps
 import json
 from .abi import ContractError
 from .environment import Environment, identifier
@@ -36,6 +38,17 @@ class SelectionEvidence:
                 raise ContractError('selection evidence must be boolean')
 
 
+def source_checked(fn):
+    @wraps(fn)
+    def checked(self, *args, **kwargs):
+        if self._source_owner is None and any('learning_job' in m for m in self.catalog.list()):
+            if not self._allow_offline_knowledge or fn.__name__ not in ('compute','run'):
+                raise ContractError('knowledge source owner required; historical offline inference must be explicit')
+        with self._source_guard():
+            return fn(self, *args, **kwargs)
+    return checked
+
+
 class Population:
     """Own resident affine tensors; explicit selection, never automatic eviction.
 
@@ -45,10 +58,13 @@ class Population:
     Legacy direct Catalog APIs are not a security or resource isolation boundary.
     """
     def __init__(self, catalog, *, tensor_budget, artifact_budget=64*1024*1024,
-                 min_observations=1, device='cpu'):
+                 min_observations=1, device='cpu', allow_offline_knowledge=False):
         for value in (tensor_budget, artifact_budget, min_observations):
             if type(value) is not int or value < 1:
                 raise ContractError('invalid population budget or policy')
+        if type(allow_offline_knowledge) is not bool:
+            raise ContractError('invalid offline policy')
+        self._allow_offline_knowledge=allow_offline_knowledge
         self.catalog = catalog
         self.tensor_budget = tensor_budget
         self.artifact_budget = artifact_budget
@@ -56,6 +72,8 @@ class Population:
         self.device = device
         self._resident = {}
         self._closed = False
+        self._source_guard = nullcontext
+        self._source_owner = None
         self.catalog.db.execute('''CREATE TABLE IF NOT EXISTS selection_events(
             expert_id TEXT NOT NULL, revision INTEGER NOT NULL, old_state TEXT NOT NULL,
             new_state TEXT NOT NULL, report TEXT NOT NULL,
@@ -92,17 +110,23 @@ class Population:
         self._check()
         return tuple(sorted(self._resident))
 
+    @source_checked
     def compute(self, id, values):
         self._check()
         if id not in self._resident:
             raise ContractError('expert is not resident')
         return self._resident[id].compute(values)
 
+    @source_checked
     def run(self, inputs, goal, validators, *, ledger=None, **options):
         """Numerical runtime sees only resident, approved experts."""
         self._check()
+        if (self._source_owner is not None and options.get('knowledge') is self._source_owner.knowledge
+                and options.get('remember_experts')):
+            raise ContractError('live source-guarded run must be read-only on source ledger')
         return Environment(tuple(self._resident.values()), validators, ledger).run(inputs, goal, **options)
 
+    @source_checked
     def admit(self, id, cases, *, learning_job=None):
         """Add only; a full budget leaves the candidate STAGED."""
         self._check()
@@ -124,6 +148,7 @@ class Population:
         return [dict(revision=n, old_state=a, new_state=b, evidence=json.loads(r))
                 for n,a,b,r in self.catalog.db.execute('SELECT revision,old_state,new_state,report FROM selection_events WHERE expert_id=? ORDER BY revision',(id,))]
 
+    @source_checked
     def select(self, id, target, *, expected_revision, evidence):
         """Separate host selection operation; validates evidence gates and CAS.
         No claim that evidence supplied by a caller is objectively true.

@@ -1,0 +1,58 @@
+{
+  "blocked_after_revision": true,
+  "derived_facts": 3,
+  "derived_provenance": [
+    [
+      1,
+      6
+    ],
+    [
+      3,
+      5
+    ],
+    [
+      4,
+      7
+    ]
+  ],
+  "evaluation": {
+    "accepted": true,
+    "artifact_sha256": "45ea94dce9459df96e1d5fdb7a136dbd670eea2979b23a54b86be314bf8100ac",
+    "case_sha256": "a5b75865f9a0344616944968377c255d21ba6d4809137c5545ebf9bd125fa35c",
+    "cases": 8,
+    "known": 3,
+    "oracle_id": "independent-join-fixture",
+    "passed": 8,
+    "unknown": 5
+  },
+  "known_without_weights": 0,
+  "learning": {
+    "examples": 3,
+    "final_loss": 2.1316282072803006e-14,
+    "initial_loss": 1.5,
+    "optimizer_steps": 80
+  },
+  "manifest_parents": [
+    "first",
+    "second"
+  ],
+  "parameters": 21,
+  "resident_after": [
+    "first",
+    "joined",
+    "second"
+  ],
+  "resident_after_revision": [
+    "second"
+  ],
+  "resident_before": [
+    "first",
+    "second"
+  ],
+  "scope": "synthetic, declared two-hop identity join; no autonomous semantic discovery",
+  "states_after_revision": {
+    "first": "QUARANTINED",
+    "joined": "QUARANTINED",
+    "second": "ACTIVE"
+  }
+}

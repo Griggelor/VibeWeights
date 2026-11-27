@@ -46,7 +46,7 @@ def test_learning_and_isolated_restart(tmp_path,method):
     close(c,p,k)
     # Restart with fact DB removed; no teacher, no ledger in inference.
     (tmp_path/'knowledge.sqlite').unlink()
-    c=Catalog(tmp_path/'experts'); p=Population(c,tensor_budget=65536)
+    c=Catalog(tmp_path/'experts'); p=Population(c,tensor_budget=65536,allow_offline_knowledge=True)
     assert all(d.decode(p.compute('new-expert',d.encode(i)))==truth.get(i) for i in range(-1,13))
     # Fresh Python process receives ONLY a copied weight file and identity dimensions.
     isolated=tmp_path/'isolated'; isolated.mkdir()

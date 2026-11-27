@@ -93,7 +93,16 @@ class KnowledgeLedger:
         if row is None or row[1] not in access.scopes: raise ContractError('record unavailable')
         return self._record(row)
     def store(self,access,*,scope,key,topic,values,source,kind='semantic',status='OBSERVED',expected=None,parents=(),space=None,embedding=None):
-        """Host-only append. expected=None creates, exact current ID revises. No implicit promotion."""
+        """Host-only append in its own transaction."""
+        with self.db:
+            self.db.execute('BEGIN IMMEDIATE')
+            return self._store_locked(access,scope=scope,key=key,topic=topic,values=values,
+                source=source,kind=kind,status=status,expected=expected,parents=parents,
+                space=space,embedding=embedding)
+
+    def _store_locked(self,access,*,scope,key,topic,values,source,kind='semantic',status='OBSERVED',expected=None,parents=(),space=None,embedding=None):
+        """Internal append; caller owns an IMMEDIATE transaction."""
+        if not self.db.in_transaction: raise ContractError('knowledge transaction required')
         for x in (scope,key,topic,source): identifier(x)
         if scope not in access.scopes or kind not in KINDS or status not in STATES: raise ContractError('record contract')
         values=vector(values)
@@ -101,24 +110,22 @@ class KnowledgeLedger:
         if type(parents) is not tuple or len(parents)>64 or len(set(parents))!=len(parents): raise ContractError('parent contract')
         if (space is None)!=(embedding is None): raise ContractError('embedding space required')
         if space is not None: identifier(space); embedding=vector(embedding,unit=True)
-        with self.db:
-            self.db.execute('BEGIN IMMEDIATE')
-            row=self.db.execute('SELECT id FROM knowledge_heads_v1 WHERE scope=? AND key=?',(scope,key)).fetchone()
-            current=None if row is None else row[0]
-            if current!=expected: raise ContractError('stale knowledge revision')
-            # A derived record must not widen visibility of private/group sources.
-            for parent in parents+(() if current is None else (current,)):
-                rec=self.read(parent,access)
-                if rec.scope not in ('global',scope): raise ContractError('source scope cannot be widened')
-            version=1 if current is None else self.read(current,access).version+1
-            if space is not None:
-                self.db.execute('INSERT OR IGNORE INTO knowledge_spaces_v1 VALUES(?,?)',(space,len(embedding)))
-                width=self.db.execute('SELECT width FROM knowledge_spaces_v1 WHERE space=?',(space,)).fetchone()[0]
-                if width!=len(embedding): raise ContractError('embedding width mismatch')
-            cur=self.db.execute('INSERT INTO knowledge_v1(scope,key,version,topic,kind,status,payload,source,previous,parents,space,embedding,created_ns) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)',
-                (scope,key,version,topic,kind,status,json.dumps(values),source,current,json.dumps(parents),space,None if embedding is None else json.dumps(embedding),time.time_ns()))
-            rid=cur.lastrowid
-            self.db.execute('INSERT INTO knowledge_heads_v1 VALUES(?,?,?) ON CONFLICT(scope,key) DO UPDATE SET id=excluded.id',(scope,key,rid))
+        row=self.db.execute('SELECT id FROM knowledge_heads_v1 WHERE scope=? AND key=?',(scope,key)).fetchone()
+        current=None if row is None else row[0]
+        if current!=expected: raise ContractError('stale knowledge revision')
+        # A derived record must not widen visibility of private/group sources.
+        for parent in parents+(() if current is None else (current,)):
+            rec=self.read(parent,access)
+            if rec.scope not in ('global',scope): raise ContractError('source scope cannot be widened')
+        version=1 if current is None else self.read(current,access).version+1
+        if space is not None:
+            self.db.execute('INSERT OR IGNORE INTO knowledge_spaces_v1 VALUES(?,?)',(space,len(embedding)))
+            width=self.db.execute('SELECT width FROM knowledge_spaces_v1 WHERE space=?',(space,)).fetchone()[0]
+            if width!=len(embedding): raise ContractError('embedding width mismatch')
+        cur=self.db.execute('INSERT INTO knowledge_v1(scope,key,version,topic,kind,status,payload,source,previous,parents,space,embedding,created_ns) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)',
+            (scope,key,version,topic,kind,status,json.dumps(values),source,current,json.dumps(parents),space,None if embedding is None else json.dumps(embedding),time.time_ns()))
+        rid=cur.lastrowid
+        self.db.execute('INSERT INTO knowledge_heads_v1 VALUES(?,?,?) ON CONFLICT(scope,key) DO UPDATE SET id=excluded.id',(scope,key,rid))
         return self.read(rid,access)
     def search(self,access,*,topic=None,kind=None,source=None,status='VERIFIED',space=None,query=None,limit=8,scan_limit=4096,since_ns=None,until_ns=None):
         """Current heads only. Exact indexed filters; optional bounded exact cosine scan.

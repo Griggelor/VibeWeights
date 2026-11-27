@@ -3,7 +3,7 @@
 **A self-organizing, self-learning, self-optimizing and self-scaling neural ecosystem**
 
 ![Research prototype](https://img.shields.io/badge/status-research%20prototype-orange)
-![Version](https://img.shields.io/badge/development-v0.8.0.dev2-blue)
+![Version](https://img.shields.io/badge/development-v0.8.0.dev3-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 
 **Local-first AI research · Decentralized neural experts · Weight-space programming · Continual learning**
@@ -386,6 +386,14 @@ The full [research survey](docs/FORSCHUNG_2026-11-26.md) and [learning/evolution
 
 Independent holdouts must not become synthesis inputs. Report failures as research results. Distinguish expert activation, causal contribution, user satisfaction, factual correctness, resource consumption and independent capability. Do not equate greater parameter count or test count with intelligence.
 
+## Development snapshot v0.8.0.dev3 — relational knowledge transfer
+
+**142 local CPU tests passed** (127 regression cases + 15 new cases). Two independently acquired associative experts can now be connected through an explicitly declared identity bridge. Their forward outputs yield a new derived relation, checked against an independent synthetic oracle before atomic fact-batch storage and separate DIRECT/TRAINED candidate admission. Original experts remain available. In the demo the new 21-parameter expert learns three derived facts in 80 SGD steps and passes all eight known/unknown cases; isolated-process tests load only the new candidate weights.
+
+Live knowledge-bound population operations automatically check source revisions before inference, admission and selection. Stale sources quarantine declared descendants, retaining the artifacts. Unbound inference with learned weights requires explicit historical-offline opt-in. The local teacher adapter accepts strict numeric JSON proposals only after independent verification. Tests use a transport double, not a real LLM.
+
+See [implementation and reproducible demo](docs/RELATION_LEARNING_v08.md), [demo results](evidence/v08-relations-demo.json) and [test evidence](evidence/v08-relations-summary.json). The relation bridge and learning goal are host-declared; no autonomous semantic discovery, generalization beyond the declared composition, real teacher inference, full cross-database recovery, GPU or Windows measurement is claimed.
+
 ## Development snapshot v0.8.0.dev2 — first knowledge acquisition in weights
 
 **127 local CPU tests passed** (115 regression tests + 12 new tests). The numerical knowledge-learning slice constructs DIRECT associative weights or learns the same associations through actual SGD optimization. The learning ledger links immutable candidates to source revisions, dataset hashes, build statistics and an independent fixture evaluation. Admission is additive; failed evaluations and exhausted budgets leave the candidate unadmitted.
@@ -476,7 +484,7 @@ The commands above are for the existing Python research prototype, not the futur
 | Stage | Priority / deliverable |
 |---|---|
 | Public baseline | v0.7.0 source, weights and evidence imported; verify Windows/Linux CI |
-| Knowledge-first learning (P0) | First bounded DIRECT/TRAINED recall demonstrated; next: real teacher, automatic revision enforcement, method/transfer holdouts, recovery and retention |
+| Knowledge-first learning (P0) | Bounded DIRECT/TRAINED recall and declared relational transfer demonstrated; live source guards and strict teacher proposal intake implemented. Next: real teacher, recovery, method/transfer holdouts, cost and retention |
 | Unified Environment | Migrate the regular chat/API to the new core; generic events, dynamic topology, private recurrence, independent result release |
 | Memory | Universal semantic ABI, source/relationship indexing, cooperation and feedback integration, recovery, physical budgets |
 | Bootstrap | Real authorized local models; text vs latent adapter experiments, independent ablations |
@@ -499,6 +507,7 @@ The detailed project documents are currently primarily in German; this English o
 | [Platform v0.5](docs/platform_v05.md) | Reference runtime, API, telemetry and limits |
 | [Research survey](docs/FORSCHUNG_2026-11-26.md) | Literature and implications |
 | [Research supplement](docs/FORSCHUNG_ERGAENZUNG_v05.md) | Exploration, selection, learning and attribution |
+| [Relational learning v0.8.dev3](docs/RELATION_LEARNING_v08.md) | Derived facts, additive candidate, live source guards and teacher proposal verification |
 | [Knowledge acquisition v0.8.dev2](docs/KNOWLEDGE_LEARNING_v08.md) | First DIRECT/TRAINED weights, learning ledger, evaluation, source audit and evidence |
 | [Population / residency v0.8.dev1](docs/POPULATION_v08.md) | Three states, additive learning interface, separate selection and CPU evidence |
 | [Knowledge-first learning](docs/KNOWLEDGE_FIRST_LEARNING.md) | Learning safety, provenance, isolation, evaluation and weight-acquisition milestones |

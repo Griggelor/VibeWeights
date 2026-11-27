@@ -1,0 +1,22 @@
+{
+  "version": "0.8.0.dev3",
+  "tests": {
+    "tests": 142,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "baseline_tests": 127,
+  "new_tests": 15,
+  "duration_seconds": 27.932,
+  "python": "3.13.5",
+  "torch": "2.10.0+cpu",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "test_command": "PYTHONPATH=$PWD/src python -m pytest -q --junitxml=evidence/v08-relations-tests.xml",
+  "demo_command": "PYTHONPATH=$PWD/src python scripts/relation_learning_demo.py",
+  "real_llm": false,
+  "windows_gpu": false,
+  "remote_ci": false,
+  "scope": "local CPU reference, synthetic bounded relational learning and source guards",
+  "demo_sha256": "2abf73bc0eb0bb849165690d53f599637e0d2b3f6719c82dadbf8295c21f1ef2"
+}

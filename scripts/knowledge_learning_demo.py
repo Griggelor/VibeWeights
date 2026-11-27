@@ -28,7 +28,7 @@ def main():
             results['methods'][method]={'build':record['build'],'evaluation':record['report'],
                 'parameters':manifest['parameters'],'sha256':manifest['sha256']}
         p.close(); c.close(); k.close(); (root/'knowledge.sqlite').unlink()
-        c=Catalog(root/'experts'); p=Population(c,tensor_budget=65536)
+        c=Catalog(root/'experts'); p=Population(c,tensor_budget=65536,allow_offline_knowledge=True)
         results['resident_after_restart']=list(p.resident_ids())
         results['knowledge_db_present_after_restart']=(root/'knowledge.sqlite').exists()
         for method,row in results['methods'].items():

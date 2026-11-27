@@ -4,6 +4,7 @@ Trusted host supplies current verified records and an independently defined orac
 No external model, natural-language semantics or autonomous authority is implied.
 """
 from dataclasses import asdict, dataclass
+from contextlib import contextmanager
 import hashlib
 import json
 import math
@@ -56,10 +57,12 @@ class KnowledgeLearning:
     """Persistent job/evaluation ledger in the population catalog DB.
 
     One trusted owner. The separate knowledge DB is write-locked during source
-    validation and admission. Audit after source revisions is explicit; there is
-    no automatic cross-DB invalidation or sandbox for a malicious host.
+    validation, live inference, and selection. Offline population instances remain
+    historical snapshots; no sandbox for a malicious host.
     """
     def __init__(self, population, knowledge, access):
+        if population._source_owner is not None:
+            raise ContractError('population already has a source owner')
         self.population=population; self.catalog=population.catalog
         self.knowledge=knowledge; self.access=access; self.db=self.catalog.db
         self.db.executescript('''
@@ -72,6 +75,29 @@ class KnowledgeLearning:
         CREATE TABLE IF NOT EXISTS knowledge_builds_v08(
           job_id TEXT PRIMARY KEY, stats TEXT NOT NULL);
         ''')
+        self._locked_depth=0
+        self._guard_depth=0
+        population._source_owner=self
+        population._source_guard=self._guard
+
+    @contextmanager
+    def _locked(self):
+        db=self.knowledge.db
+        outer=self._locked_depth==0
+        if outer: db.execute('BEGIN IMMEDIATE')
+        self._locked_depth+=1
+        try: yield
+        finally:
+            self._locked_depth-=1
+            if outer: db.rollback()
+
+    @contextmanager
+    def _guard(self):
+        with self._locked():
+            if self._guard_depth==0: self._audit_locked()
+            self._guard_depth+=1
+            try: yield
+            finally: self._guard_depth-=1
 
     def _snapshot(self, roots, domain):
         roots=tuple(roots)
@@ -102,18 +128,24 @@ class KnowledgeLearning:
         refs=[{'id':i,'sha256':_hash(asdict(records[i])),'source':records[i].source} for i in sorted(records)]
         return examples,refs
 
-    def prepare(self, job_id, expert_id, domain, record_ids, *, method, steps=80):
+    def prepare(self, job_id, expert_id, domain, record_ids, *, method, steps=80, parents=(), derivation=None):
         """Stage only; record exact source revisions and dataset hash, not answers."""
         identifier(job_id); identifier(expert_id)
         if method not in ('DIRECT','TRAINED') or type(steps) is not int or not 1<=steps<=256:
             raise ContractError('learning method/budget')
         ids=tuple(record_ids)
+        parents=tuple(parents)
+        if len(set(parents))!=len(parents): raise ContractError('duplicate expert parents')
+        for parent in parents:
+            if self.catalog.manifest(parent)['state'] not in ('ACTIVE','LOW_ACTIVE_IMPORTANT'):
+                raise ContractError('learning parent not resident')
         examples,refs=self._snapshot(ids,domain)
         spec={'domain':asdict(domain),'roots':ids,'sources':refs,
               'dataset_sha256':_hash(sorted(examples.items())),
               'steps':steps if method=='TRAINED' else 0,'optimizer':'SGD' if method=='TRAINED' else None,
               'learning_rate':0.25 if method=='TRAINED' else None,
-              'torch_version':str(torch.__version__),'initialization':'zero','contract':'association-v1'}
+              'torch_version':str(torch.__version__),'initialization':'zero','contract':'association-v1',
+              'expert_parents':parents,'derivation':derivation}
         if self.db.execute('SELECT 1 FROM experts WHERE id=?',(expert_id,)).fetchone() or self.db.execute('SELECT 1 FROM knowledge_jobs_v08 WHERE id=? OR expert_id=?',(job_id,expert_id)).fetchone():
             raise ContractError('duplicate learning identity')
         with self.db:
@@ -140,7 +172,7 @@ class KnowledgeLearning:
             self.db.execute('INSERT INTO knowledge_builds_v08 VALUES(?,?)',(job_id,json.dumps(stats,sort_keys=True)))
         return self.catalog.stage_affine(expert_id,domain.topic,w.tolist(),b.tolist(),
             source_topic=domain.topic+':query',target_scope='global',target_topic=domain.topic+':answer',
-            origin=method,learning_job=job_id)
+            origin=method,learning_job=job_id,parents=parents)
 
     def job(self, job_id):
         row=self.db.execute('SELECT expert_id,method,spec,created_ns FROM knowledge_jobs_v08 WHERE id=?',(job_id,)).fetchone()
@@ -170,9 +202,7 @@ class KnowledgeLearning:
         identifier(oracle_id)
         job=self.job(job_id)
         if job['state']!='STAGED' or job['build'] is None: raise ContractError('job not staged')
-        db=self.knowledge.db
-        db.execute('BEGIN IMMEDIATE')
-        try:
+        with self._locked():
             d=self._check_sources(job)
             m=self.catalog.manifest(job['expert_id'])
             e=self.catalog.load(m['id'],experimental=True,byte_budget=self.population.artifact_budget)
@@ -191,20 +221,15 @@ class KnowledgeLearning:
                 with self.db: self.db.execute('INSERT INTO knowledge_reports_v08 VALUES(?,?,?,?,?,?)',(job_id,*receipt,time.time_ns()))
             if not report['accepted']: return False
             return self.population.admit(m['id'],cases,learning_job=job_id)
-        finally:
-            db.rollback()  # source DB was read-only under write lock
 
     def audit_sources(self):
         """Explicit safety audit; quarantine invalid sources and all descendants.
 
-        No evolutionary deletion/retirement. Call after revisions and before use
-        of a live knowledge-connected population. Offline artifacts cannot know
+        No evolutionary deletion/retirement. The live population automatically
+        invokes this check before compute/run/admit/select. Offline artifacts cannot know
         about later corrections until synchronized; this is not automatic unlearning.
         """
-        db=self.knowledge.db
-        db.execute('BEGIN IMMEDIATE')
-        try: return self._audit_locked()
-        finally: db.rollback()
+        with self._locked(): return self._audit_locked()
 
     def _audit_locked(self):
         invalid=set()

@@ -1,6 +1,6 @@
 # v0.8.0.dev2 — erster parametrischer Wissenserwerb
 
-Status: ausführbarer CPU-Referenzslice. 127 lokale Tests bestanden (115 Regressionen + 12 neue Fälle). Ergänzt den [Lernvertrag](KNOWLEDGE_FIRST_LEARNING.md) und die [Population](POPULATION_v08.md). Kein vollständiges v0.8-Release, kein allgemeines autonomes Lernen.
+Historischer Status dev2: ausführbarer CPU-Referenzslice. Für aktuelle automatische Quellenprüfung und relationale Lernkette siehe [dev3](RELATION_LEARNING_v08.md). 127 lokale Tests bestanden (115 Regressionen + 12 neue Fälle). Ergänzt den [Lernvertrag](KNOWLEDGE_FIRST_LEARNING.md) und die [Population](POPULATION_v08.md). Kein vollständiges v0.8-Release, kein allgemeines autonomes Lernen.
 
 ## Wissensdomäne und Verfahren
 
