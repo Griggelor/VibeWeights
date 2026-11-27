@@ -1,0 +1,37 @@
+{
+  "version": "0.7.0",
+  "command": "OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONUTF8=1 python -m pytest -q --junitxml=evidence/v07-tests.xml",
+  "tests": {
+    "tests": 104,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "duration_seconds": 16.118,
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "torch": "2.10.0+cpu",
+  "safetensors": "0.7.0",
+  "pytest": "9.0.2",
+  "training_steps": 0,
+  "remote_ci": "not run",
+  "real_llm": "not run; local HTTP test double plus context transport double",
+  "windows_gpu": "not run",
+  "baseline_weight_and_catalog_files_unchanged": 22,
+  "new_tests": 17,
+  "memory_demo": {
+    "input": 7,
+    "value": 13,
+    "operations": [
+      "SEARCH",
+      "READ",
+      "REMEMBER",
+      "EVICT"
+    ],
+    "restart_input": -7,
+    "restart_value": -1,
+    "followup_test_distractors": 1000,
+    "followup_value": 26
+  },
+  "limitations": "New Environment path only; legacy chat not migrated; logical limits; no learned semantic encoder; no cross-database atomic recovery."
+}

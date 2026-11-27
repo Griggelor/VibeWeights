@@ -1,0 +1,17 @@
+{
+  "identical": true,
+  "files": {
+    "artifacts/language/lexical.safetensors": "f37a126592df69cd04514d5045c311b9764a0c98a6ecce5971c64420fe73ec9f",
+    "artifacts/language/manifest.json": "63c13da32a10cda3bc64b62e1fe9e1ffa5b139503f0f5d755b37574394499bc6",
+    "artifacts/weights/arith.finish.safetensors": "d8e79b719b7aa1574363436b9f271f13e9be9328d303dd2900d2d865e6be02e6",
+    "artifacts/weights/arith.init.safetensors": "7f6ab5c2a994e16edba7e6d7a16301fa7e3f1c85b9d444266939df4e7583b39a",
+    "artifacts/weights/arith.step.safetensors": "981fffb2636c7c6e6d7d02f3bcfe425c1216a5f5a1b411660502a470072fa93f",
+    "artifacts/weights/logic.ge.safetensors": "caca46e21a09a88513d14ad347d6be3b440520be5ac72395ae09d79cd86b5045",
+    "artifacts/weights/memory.action.safetensors": "dc7cb9035252766997dc5a5f7ae9f8ddbc83f6dc0e7a0488fe76890964ea732f",
+    "catalog/manifests/arith.finish.json": "e2adda032675038de5afc667f5a9c73b50fa0bce305b4e898e54f17df2a30e96",
+    "catalog/manifests/arith.init.json": "58d3d064113e9d53b30d3f216fc6c513806deca41bd857e9a400769acdfb3973",
+    "catalog/manifests/arith.step.json": "e6e572ebbd0f8bba4384c92c61a7a8d9d9f014a2c21e2891a55a7077ca0e2a9a",
+    "catalog/manifests/logic.ge.json": "e8c327d920a712745b184267a861f66af6bcf5f092b4043e0e7e2db256153a82",
+    "catalog/manifests/memory.action.json": "31cab8d962cbbba8973160edfcbc248a173e7f0fd0fad36e18c24eccb814c613"
+  }
+}

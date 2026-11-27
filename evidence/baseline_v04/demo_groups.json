@@ -1,0 +1,1428 @@
+{
+  "status": "OK",
+  "verified": true,
+  "output": "Das Produkt ist 42. Es ist mindestens 30. Das Produkt ist 40. Es ist kleiner als 41.",
+  "groups": [
+    {
+      "status": "OK",
+      "output": "Das Produkt ist 42. Es ist mindestens 30.",
+      "verified": true,
+      "steps": 9,
+      "trace": [
+        "arith.init",
+        "arith.step",
+        "arith.step",
+        "arith.step",
+        "arith.step",
+        "arith.step",
+        "arith.step",
+        "arith.finish",
+        "logic.ge"
+      ],
+      "task": "bounded.multiply_compare",
+      "parameter_visits": 413,
+      "head_visits": 350,
+      "members": [
+        "arith.finish",
+        "arith.init",
+        "arith.step",
+        "logic.ge"
+      ],
+      "contributors": [
+        "arith.finish",
+        "arith.init",
+        "arith.step",
+        "logic.ge"
+      ],
+      "events": [
+        {
+          "seq": 1,
+          "group": 1,
+          "op": 1,
+          "source": 0,
+          "target": 0,
+          "revision": 0,
+          "cause": 0,
+          "kind": "NEED"
+        },
+        {
+          "seq": 2,
+          "group": 1,
+          "op": 2,
+          "source": 2,
+          "target": 0,
+          "revision": 0,
+          "cause": 1,
+          "kind": "OFFER"
+        },
+        {
+          "seq": 3,
+          "group": 1,
+          "op": 4,
+          "source": 2,
+          "target": 0,
+          "revision": 0,
+          "cause": 2,
+          "kind": "JOIN"
+        },
+        {
+          "seq": 4,
+          "group": 1,
+          "op": 5,
+          "source": 2,
+          "target": 0,
+          "revision": 1,
+          "cause": 2,
+          "kind": "PROPOSE"
+        },
+        {
+          "seq": 9,
+          "group": 1,
+          "op": 2,
+          "source": 3,
+          "target": 0,
+          "revision": 1,
+          "cause": 4,
+          "kind": "OFFER"
+        },
+        {
+          "seq": 10,
+          "group": 1,
+          "op": 4,
+          "source": 3,
+          "target": 0,
+          "revision": 1,
+          "cause": 9,
+          "kind": "JOIN"
+        },
+        {
+          "seq": 11,
+          "group": 1,
+          "op": 5,
+          "source": 3,
+          "target": 0,
+          "revision": 2,
+          "cause": 9,
+          "kind": "PROPOSE"
+        },
+        {
+          "seq": 15,
+          "group": 1,
+          "op": 6,
+          "source": 3,
+          "target": 0,
+          "revision": 2,
+          "cause": 11,
+          "kind": "LOOP"
+        },
+        {
+          "seq": 16,
+          "group": 1,
+          "op": 2,
+          "source": 3,
+          "target": 0,
+          "revision": 2,
+          "cause": 11,
+          "kind": "OFFER"
+        },
+        {
+          "seq": 17,
+          "group": 1,
+          "op": 5,
+          "source": 3,
+          "target": 0,
+          "revision": 3,
+          "cause": 16,
+          "kind": "PROPOSE"
+        },
+        {
+          "seq": 21,
+          "group": 1,
+          "op": 6,
+          "source": 3,
+          "target": 0,
+          "revision": 3,
+          "cause": 17,
+          "kind": "LOOP"
+        },
+        {
+          "seq": 22,
+          "group": 1,
+          "op": 2,
+          "source": 3,
+          "target": 0,
+          "revision": 3,
+          "cause": 17,
+          "kind": "OFFER"
+        },
+        {
+          "seq": 23,
+          "group": 1,
+          "op": 5,
+          "source": 3,
+          "target": 0,
+          "revision": 4,
+          "cause": 22,
+          "kind": "PROPOSE"
+        },
+        {
+          "seq": 27,
+          "group": 1,
+          "op": 6,
+          "source": 3,
+          "target": 0,
+          "revision": 4,
+          "cause": 23,
+          "kind": "LOOP"
+        },
+        {
+          "seq": 28,
+          "group": 1,
+          "op": 2,
+          "source": 3,
+          "target": 0,
+          "revision": 4,
+          "cause": 23,
+          "kind": "OFFER"
+        },
+        {
+          "seq": 29,
+          "group": 1,
+          "op": 5,
+          "source": 3,
+          "target": 0,
+          "revision": 5,
+          "cause": 28,
+          "kind": "PROPOSE"
+        },
+        {
+          "seq": 33,
+          "group": 1,
+          "op": 6,
+          "source": 3,
+          "target": 0,
+          "revision": 5,
+          "cause": 29,
+          "kind": "LOOP"
+        },
+        {
+          "seq": 34,
+          "group": 1,
+          "op": 2,
+          "source": 3,
+          "target": 0,
+          "revision": 5,
+          "cause": 29,
+          "kind": "OFFER"
+        },
+        {
+          "seq": 35,
+          "group": 1,
+          "op": 5,
+          "source": 3,
+          "target": 0,
+          "revision": 6,
+          "cause": 34,
+          "kind": "PROPOSE"
+        },
+        {
+          "seq": 39,
+          "group": 1,
+          "op": 6,
+          "source": 3,
+          "target": 0,
+          "revision": 6,
+          "cause": 35,
+          "kind": "LOOP"
+        },
+        {
+          "seq": 40,
+          "group": 1,
+          "op": 2,
+          "source": 3,
+          "target": 0,
+          "revision": 6,
+          "cause": 35,
+          "kind": "OFFER"
+        },
+        {
+          "seq": 41,
+          "group": 1,
+          "op": 5,
+          "source": 3,
+          "target": 0,
+          "revision": 7,
+          "cause": 40,
+          "kind": "PROPOSE"
+        },
+        {
+          "seq": 45,
+          "group": 1,
+          "op": 2,
+          "source": 1,
+          "target": 0,
+          "revision": 7,
+          "cause": 41,
+          "kind": "OFFER"
+        },
+        {
+          "seq": 46,
+          "group": 1,
+          "op": 4,
+          "source": 1,
+          "target": 0,
+          "revision": 7,
+          "cause": 45,
+          "kind": "JOIN"
+        },
+        {
+          "seq": 47,
+          "group": 1,
+          "op": 5,
+          "source": 1,
+          "target": 0,
+          "revision": 8,
+          "cause": 45,
+          "kind": "PROPOSE"
+        },
+        {
+          "seq": 51,
+          "group": 1,
+          "op": 2,
+          "source": 4,
+          "target": 0,
+          "revision": 8,
+          "cause": 47,
+          "kind": "OFFER"
+        },
+        {
+          "seq": 52,
+          "group": 1,
+          "op": 4,
+          "source": 4,
+          "target": 0,
+          "revision": 8,
+          "cause": 51,
+          "kind": "JOIN"
+        },
+        {
+          "seq": 53,
+          "group": 1,
+          "op": 5,
+          "source": 4,
+          "target": 0,
+          "revision": 9,
+          "cause": 51,
+          "kind": "PROPOSE"
+        },
+        {
+          "seq": 61,
+          "group": 1,
+          "op": 7,
+          "source": 0,
+          "target": 0,
+          "revision": 9,
+          "cause": 53,
+          "kind": "VERIFY"
+        },
+        {
+          "seq": 62,
+          "group": 1,
+          "op": 8,
+          "source": 0,
+          "target": 0,
+          "revision": 9,
+          "cause": 61,
+          "kind": "READY"
+        },
+        {
+          "seq": 63,
+          "group": 1,
+          "op": 9,
+          "source": 0,
+          "target": 0,
+          "revision": 9,
+          "cause": 62,
+          "kind": "HALT"
+        },
+        {
+          "seq": 64,
+          "group": 1,
+          "op": 10,
+          "source": 1,
+          "target": 0,
+          "revision": 9,
+          "cause": 63,
+          "kind": "LEAVE"
+        },
+        {
+          "seq": 65,
+          "group": 1,
+          "op": 10,
+          "source": 2,
+          "target": 0,
+          "revision": 9,
+          "cause": 64,
+          "kind": "LEAVE"
+        },
+        {
+          "seq": 66,
+          "group": 1,
+          "op": 10,
+          "source": 3,
+          "target": 0,
+          "revision": 9,
+          "cause": 65,
+          "kind": "LEAVE"
+        },
+        {
+          "seq": 67,
+          "group": 1,
+          "op": 10,
+          "source": 4,
+          "target": 0,
+          "revision": 9,
+          "cause": 66,
+          "kind": "LEAVE"
+        }
+      ],
+      "error": ""
+    },
+    {
+      "status": "OK",
+      "output": "Das Produkt ist 40. Es ist kleiner als 41.",
+      "verified": true,
+      "steps": 8,
+      "trace": [
+        "arith.init",
+        "arith.step",
+        "arith.step",
+        "arith.step",
+        "arith.step",
+        "arith.step",
+        "arith.finish",
+        "logic.ge"
+      ],
+      "task": "bounded.multiply_compare",
+      "parameter_visits": 405,
+      "head_visits": 350,
+      "members": [
+        "arith.finish",
+        "arith.init",
+        "arith.step",
+        "logic.ge"
+      ],
+      "contributors": [
+        "arith.finish",
+        "arith.init",
+        "arith.step",
+        "logic.ge"
+      ],
+      "events": [
+        {
+          "seq": 5,
+          "group": 2,
+          "op": 1,
+          "source": 0,
+          "target": 0,
+          "revision": 0,
+          "cause": 0,
+          "kind": "NEED"
+        },
+        {
+          "seq": 6,
+          "group": 2,
+          "op": 2,
+          "source": 2,
+          "target": 0,
+          "revision": 0,
+          "cause": 5,
+          "kind": "OFFER"
+        },
+        {
+          "seq": 7,
+          "group": 2,
+          "op": 4,
+          "source": 2,
+          "target": 0,
+          "revision": 0,
+          "cause": 6,
+          "kind": "JOIN"
+        },
+        {
+          "seq": 8,
+          "group": 2,
+          "op": 5,
+          "source": 2,
+          "target": 0,
+          "revision": 1,
+          "cause": 6,
+          "kind": "PROPOSE"
+        },
+        {
+          "seq": 12,
+          "group": 2,
+          "op": 2,
+          "source": 3,
+          "target": 0,
+          "revision": 1,
+          "cause": 8,
+          "kind": "OFFER"
+        },
+        {
+          "seq": 13,
+          "group": 2,
+          "op": 4,
+          "source": 3,
+          "target": 0,
+          "revision": 1,
+          "cause": 12,
+          "kind": "JOIN"
+        },
+        {
+          "seq": 14,
+          "group": 2,
+          "op": 5,
+          "source": 3,
+          "target": 0,
+          "revision": 2,
+          "cause": 12,
+          "kind": "PROPOSE"
+        },
+        {
+          "seq": 18,
+          "group": 2,
+          "op": 6,
+          "source": 3,
+          "target": 0,
+          "revision": 2,
+          "cause": 14,
+          "kind": "LOOP"
+        },
+        {
+          "seq": 19,
+          "group": 2,
+          "op": 2,
+          "source": 3,
+          "target": 0,
+          "revision": 2,
+          "cause": 14,
+          "kind": "OFFER"
+        },
+        {
+          "seq": 20,
+          "group": 2,
+          "op": 5,
+          "source": 3,
+          "target": 0,
+          "revision": 3,
+          "cause": 19,
+          "kind": "PROPOSE"
+        },
+        {
+          "seq": 24,
+          "group": 2,
+          "op": 6,
+          "source": 3,
+          "target": 0,
+          "revision": 3,
+          "cause": 20,
+          "kind": "LOOP"
+        },
+        {
+          "seq": 25,
+          "group": 2,
+          "op": 2,
+          "source": 3,
+          "target": 0,
+          "revision": 3,
+          "cause": 20,
+          "kind": "OFFER"
+        },
+        {
+          "seq": 26,
+          "group": 2,
+          "op": 5,
+          "source": 3,
+          "target": 0,
+          "revision": 4,
+          "cause": 25,
+          "kind": "PROPOSE"
+        },
+        {
+          "seq": 30,
+          "group": 2,
+          "op": 6,
+          "source": 3,
+          "target": 0,
+          "revision": 4,
+          "cause": 26,
+          "kind": "LOOP"
+        },
+        {
+          "seq": 31,
+          "group": 2,
+          "op": 2,
+          "source": 3,
+          "target": 0,
+          "revision": 4,
+          "cause": 26,
+          "kind": "OFFER"
+        },
+        {
+          "seq": 32,
+          "group": 2,
+          "op": 5,
+          "source": 3,
+          "target": 0,
+          "revision": 5,
+          "cause": 31,
+          "kind": "PROPOSE"
+        },
+        {
+          "seq": 36,
+          "group": 2,
+          "op": 6,
+          "source": 3,
+          "target": 0,
+          "revision": 5,
+          "cause": 32,
+          "kind": "LOOP"
+        },
+        {
+          "seq": 37,
+          "group": 2,
+          "op": 2,
+          "source": 3,
+          "target": 0,
+          "revision": 5,
+          "cause": 32,
+          "kind": "OFFER"
+        },
+        {
+          "seq": 38,
+          "group": 2,
+          "op": 5,
+          "source": 3,
+          "target": 0,
+          "revision": 6,
+          "cause": 37,
+          "kind": "PROPOSE"
+        },
+        {
+          "seq": 42,
+          "group": 2,
+          "op": 2,
+          "source": 1,
+          "target": 0,
+          "revision": 6,
+          "cause": 38,
+          "kind": "OFFER"
+        },
+        {
+          "seq": 43,
+          "group": 2,
+          "op": 4,
+          "source": 1,
+          "target": 0,
+          "revision": 6,
+          "cause": 42,
+          "kind": "JOIN"
+        },
+        {
+          "seq": 44,
+          "group": 2,
+          "op": 5,
+          "source": 1,
+          "target": 0,
+          "revision": 7,
+          "cause": 42,
+          "kind": "PROPOSE"
+        },
+        {
+          "seq": 48,
+          "group": 2,
+          "op": 2,
+          "source": 4,
+          "target": 0,
+          "revision": 7,
+          "cause": 44,
+          "kind": "OFFER"
+        },
+        {
+          "seq": 49,
+          "group": 2,
+          "op": 4,
+          "source": 4,
+          "target": 0,
+          "revision": 7,
+          "cause": 48,
+          "kind": "JOIN"
+        },
+        {
+          "seq": 50,
+          "group": 2,
+          "op": 5,
+          "source": 4,
+          "target": 0,
+          "revision": 8,
+          "cause": 48,
+          "kind": "PROPOSE"
+        },
+        {
+          "seq": 54,
+          "group": 2,
+          "op": 7,
+          "source": 0,
+          "target": 0,
+          "revision": 8,
+          "cause": 50,
+          "kind": "VERIFY"
+        },
+        {
+          "seq": 55,
+          "group": 2,
+          "op": 8,
+          "source": 0,
+          "target": 0,
+          "revision": 8,
+          "cause": 54,
+          "kind": "READY"
+        },
+        {
+          "seq": 56,
+          "group": 2,
+          "op": 9,
+          "source": 0,
+          "target": 0,
+          "revision": 8,
+          "cause": 55,
+          "kind": "HALT"
+        },
+        {
+          "seq": 57,
+          "group": 2,
+          "op": 10,
+          "source": 1,
+          "target": 0,
+          "revision": 8,
+          "cause": 56,
+          "kind": "LEAVE"
+        },
+        {
+          "seq": 58,
+          "group": 2,
+          "op": 10,
+          "source": 2,
+          "target": 0,
+          "revision": 8,
+          "cause": 57,
+          "kind": "LEAVE"
+        },
+        {
+          "seq": 59,
+          "group": 2,
+          "op": 10,
+          "source": 3,
+          "target": 0,
+          "revision": 8,
+          "cause": 58,
+          "kind": "LEAVE"
+        },
+        {
+          "seq": 60,
+          "group": 2,
+          "op": 10,
+          "source": 4,
+          "target": 0,
+          "revision": 8,
+          "cause": 59,
+          "kind": "LEAVE"
+        }
+      ],
+      "error": ""
+    }
+  ],
+  "steps": 17,
+  "parameter_visits": 818,
+  "head_visits": 700,
+  "events": [
+    {
+      "seq": 1,
+      "group": 1,
+      "op": 1,
+      "source": 0,
+      "target": 0,
+      "revision": 0,
+      "cause": 0,
+      "kind": "NEED"
+    },
+    {
+      "seq": 2,
+      "group": 1,
+      "op": 2,
+      "source": 2,
+      "target": 0,
+      "revision": 0,
+      "cause": 1,
+      "kind": "OFFER"
+    },
+    {
+      "seq": 3,
+      "group": 1,
+      "op": 4,
+      "source": 2,
+      "target": 0,
+      "revision": 0,
+      "cause": 2,
+      "kind": "JOIN"
+    },
+    {
+      "seq": 4,
+      "group": 1,
+      "op": 5,
+      "source": 2,
+      "target": 0,
+      "revision": 1,
+      "cause": 2,
+      "kind": "PROPOSE"
+    },
+    {
+      "seq": 5,
+      "group": 2,
+      "op": 1,
+      "source": 0,
+      "target": 0,
+      "revision": 0,
+      "cause": 0,
+      "kind": "NEED"
+    },
+    {
+      "seq": 6,
+      "group": 2,
+      "op": 2,
+      "source": 2,
+      "target": 0,
+      "revision": 0,
+      "cause": 5,
+      "kind": "OFFER"
+    },
+    {
+      "seq": 7,
+      "group": 2,
+      "op": 4,
+      "source": 2,
+      "target": 0,
+      "revision": 0,
+      "cause": 6,
+      "kind": "JOIN"
+    },
+    {
+      "seq": 8,
+      "group": 2,
+      "op": 5,
+      "source": 2,
+      "target": 0,
+      "revision": 1,
+      "cause": 6,
+      "kind": "PROPOSE"
+    },
+    {
+      "seq": 9,
+      "group": 1,
+      "op": 2,
+      "source": 3,
+      "target": 0,
+      "revision": 1,
+      "cause": 4,
+      "kind": "OFFER"
+    },
+    {
+      "seq": 10,
+      "group": 1,
+      "op": 4,
+      "source": 3,
+      "target": 0,
+      "revision": 1,
+      "cause": 9,
+      "kind": "JOIN"
+    },
+    {
+      "seq": 11,
+      "group": 1,
+      "op": 5,
+      "source": 3,
+      "target": 0,
+      "revision": 2,
+      "cause": 9,
+      "kind": "PROPOSE"
+    },
+    {
+      "seq": 12,
+      "group": 2,
+      "op": 2,
+      "source": 3,
+      "target": 0,
+      "revision": 1,
+      "cause": 8,
+      "kind": "OFFER"
+    },
+    {
+      "seq": 13,
+      "group": 2,
+      "op": 4,
+      "source": 3,
+      "target": 0,
+      "revision": 1,
+      "cause": 12,
+      "kind": "JOIN"
+    },
+    {
+      "seq": 14,
+      "group": 2,
+      "op": 5,
+      "source": 3,
+      "target": 0,
+      "revision": 2,
+      "cause": 12,
+      "kind": "PROPOSE"
+    },
+    {
+      "seq": 15,
+      "group": 1,
+      "op": 6,
+      "source": 3,
+      "target": 0,
+      "revision": 2,
+      "cause": 11,
+      "kind": "LOOP"
+    },
+    {
+      "seq": 16,
+      "group": 1,
+      "op": 2,
+      "source": 3,
+      "target": 0,
+      "revision": 2,
+      "cause": 11,
+      "kind": "OFFER"
+    },
+    {
+      "seq": 17,
+      "group": 1,
+      "op": 5,
+      "source": 3,
+      "target": 0,
+      "revision": 3,
+      "cause": 16,
+      "kind": "PROPOSE"
+    },
+    {
+      "seq": 18,
+      "group": 2,
+      "op": 6,
+      "source": 3,
+      "target": 0,
+      "revision": 2,
+      "cause": 14,
+      "kind": "LOOP"
+    },
+    {
+      "seq": 19,
+      "group": 2,
+      "op": 2,
+      "source": 3,
+      "target": 0,
+      "revision": 2,
+      "cause": 14,
+      "kind": "OFFER"
+    },
+    {
+      "seq": 20,
+      "group": 2,
+      "op": 5,
+      "source": 3,
+      "target": 0,
+      "revision": 3,
+      "cause": 19,
+      "kind": "PROPOSE"
+    },
+    {
+      "seq": 21,
+      "group": 1,
+      "op": 6,
+      "source": 3,
+      "target": 0,
+      "revision": 3,
+      "cause": 17,
+      "kind": "LOOP"
+    },
+    {
+      "seq": 22,
+      "group": 1,
+      "op": 2,
+      "source": 3,
+      "target": 0,
+      "revision": 3,
+      "cause": 17,
+      "kind": "OFFER"
+    },
+    {
+      "seq": 23,
+      "group": 1,
+      "op": 5,
+      "source": 3,
+      "target": 0,
+      "revision": 4,
+      "cause": 22,
+      "kind": "PROPOSE"
+    },
+    {
+      "seq": 24,
+      "group": 2,
+      "op": 6,
+      "source": 3,
+      "target": 0,
+      "revision": 3,
+      "cause": 20,
+      "kind": "LOOP"
+    },
+    {
+      "seq": 25,
+      "group": 2,
+      "op": 2,
+      "source": 3,
+      "target": 0,
+      "revision": 3,
+      "cause": 20,
+      "kind": "OFFER"
+    },
+    {
+      "seq": 26,
+      "group": 2,
+      "op": 5,
+      "source": 3,
+      "target": 0,
+      "revision": 4,
+      "cause": 25,
+      "kind": "PROPOSE"
+    },
+    {
+      "seq": 27,
+      "group": 1,
+      "op": 6,
+      "source": 3,
+      "target": 0,
+      "revision": 4,
+      "cause": 23,
+      "kind": "LOOP"
+    },
+    {
+      "seq": 28,
+      "group": 1,
+      "op": 2,
+      "source": 3,
+      "target": 0,
+      "revision": 4,
+      "cause": 23,
+      "kind": "OFFER"
+    },
+    {
+      "seq": 29,
+      "group": 1,
+      "op": 5,
+      "source": 3,
+      "target": 0,
+      "revision": 5,
+      "cause": 28,
+      "kind": "PROPOSE"
+    },
+    {
+      "seq": 30,
+      "group": 2,
+      "op": 6,
+      "source": 3,
+      "target": 0,
+      "revision": 4,
+      "cause": 26,
+      "kind": "LOOP"
+    },
+    {
+      "seq": 31,
+      "group": 2,
+      "op": 2,
+      "source": 3,
+      "target": 0,
+      "revision": 4,
+      "cause": 26,
+      "kind": "OFFER"
+    },
+    {
+      "seq": 32,
+      "group": 2,
+      "op": 5,
+      "source": 3,
+      "target": 0,
+      "revision": 5,
+      "cause": 31,
+      "kind": "PROPOSE"
+    },
+    {
+      "seq": 33,
+      "group": 1,
+      "op": 6,
+      "source": 3,
+      "target": 0,
+      "revision": 5,
+      "cause": 29,
+      "kind": "LOOP"
+    },
+    {
+      "seq": 34,
+      "group": 1,
+      "op": 2,
+      "source": 3,
+      "target": 0,
+      "revision": 5,
+      "cause": 29,
+      "kind": "OFFER"
+    },
+    {
+      "seq": 35,
+      "group": 1,
+      "op": 5,
+      "source": 3,
+      "target": 0,
+      "revision": 6,
+      "cause": 34,
+      "kind": "PROPOSE"
+    },
+    {
+      "seq": 36,
+      "group": 2,
+      "op": 6,
+      "source": 3,
+      "target": 0,
+      "revision": 5,
+      "cause": 32,
+      "kind": "LOOP"
+    },
+    {
+      "seq": 37,
+      "group": 2,
+      "op": 2,
+      "source": 3,
+      "target": 0,
+      "revision": 5,
+      "cause": 32,
+      "kind": "OFFER"
+    },
+    {
+      "seq": 38,
+      "group": 2,
+      "op": 5,
+      "source": 3,
+      "target": 0,
+      "revision": 6,
+      "cause": 37,
+      "kind": "PROPOSE"
+    },
+    {
+      "seq": 39,
+      "group": 1,
+      "op": 6,
+      "source": 3,
+      "target": 0,
+      "revision": 6,
+      "cause": 35,
+      "kind": "LOOP"
+    },
+    {
+      "seq": 40,
+      "group": 1,
+      "op": 2,
+      "source": 3,
+      "target": 0,
+      "revision": 6,
+      "cause": 35,
+      "kind": "OFFER"
+    },
+    {
+      "seq": 41,
+      "group": 1,
+      "op": 5,
+      "source": 3,
+      "target": 0,
+      "revision": 7,
+      "cause": 40,
+      "kind": "PROPOSE"
+    },
+    {
+      "seq": 42,
+      "group": 2,
+      "op": 2,
+      "source": 1,
+      "target": 0,
+      "revision": 6,
+      "cause": 38,
+      "kind": "OFFER"
+    },
+    {
+      "seq": 43,
+      "group": 2,
+      "op": 4,
+      "source": 1,
+      "target": 0,
+      "revision": 6,
+      "cause": 42,
+      "kind": "JOIN"
+    },
+    {
+      "seq": 44,
+      "group": 2,
+      "op": 5,
+      "source": 1,
+      "target": 0,
+      "revision": 7,
+      "cause": 42,
+      "kind": "PROPOSE"
+    },
+    {
+      "seq": 45,
+      "group": 1,
+      "op": 2,
+      "source": 1,
+      "target": 0,
+      "revision": 7,
+      "cause": 41,
+      "kind": "OFFER"
+    },
+    {
+      "seq": 46,
+      "group": 1,
+      "op": 4,
+      "source": 1,
+      "target": 0,
+      "revision": 7,
+      "cause": 45,
+      "kind": "JOIN"
+    },
+    {
+      "seq": 47,
+      "group": 1,
+      "op": 5,
+      "source": 1,
+      "target": 0,
+      "revision": 8,
+      "cause": 45,
+      "kind": "PROPOSE"
+    },
+    {
+      "seq": 48,
+      "group": 2,
+      "op": 2,
+      "source": 4,
+      "target": 0,
+      "revision": 7,
+      "cause": 44,
+      "kind": "OFFER"
+    },
+    {
+      "seq": 49,
+      "group": 2,
+      "op": 4,
+      "source": 4,
+      "target": 0,
+      "revision": 7,
+      "cause": 48,
+      "kind": "JOIN"
+    },
+    {
+      "seq": 50,
+      "group": 2,
+      "op": 5,
+      "source": 4,
+      "target": 0,
+      "revision": 8,
+      "cause": 48,
+      "kind": "PROPOSE"
+    },
+    {
+      "seq": 51,
+      "group": 1,
+      "op": 2,
+      "source": 4,
+      "target": 0,
+      "revision": 8,
+      "cause": 47,
+      "kind": "OFFER"
+    },
+    {
+      "seq": 52,
+      "group": 1,
+      "op": 4,
+      "source": 4,
+      "target": 0,
+      "revision": 8,
+      "cause": 51,
+      "kind": "JOIN"
+    },
+    {
+      "seq": 53,
+      "group": 1,
+      "op": 5,
+      "source": 4,
+      "target": 0,
+      "revision": 9,
+      "cause": 51,
+      "kind": "PROPOSE"
+    },
+    {
+      "seq": 54,
+      "group": 2,
+      "op": 7,
+      "source": 0,
+      "target": 0,
+      "revision": 8,
+      "cause": 50,
+      "kind": "VERIFY"
+    },
+    {
+      "seq": 55,
+      "group": 2,
+      "op": 8,
+      "source": 0,
+      "target": 0,
+      "revision": 8,
+      "cause": 54,
+      "kind": "READY"
+    },
+    {
+      "seq": 56,
+      "group": 2,
+      "op": 9,
+      "source": 0,
+      "target": 0,
+      "revision": 8,
+      "cause": 55,
+      "kind": "HALT"
+    },
+    {
+      "seq": 57,
+      "group": 2,
+      "op": 10,
+      "source": 1,
+      "target": 0,
+      "revision": 8,
+      "cause": 56,
+      "kind": "LEAVE"
+    },
+    {
+      "seq": 58,
+      "group": 2,
+      "op": 10,
+      "source": 2,
+      "target": 0,
+      "revision": 8,
+      "cause": 57,
+      "kind": "LEAVE"
+    },
+    {
+      "seq": 59,
+      "group": 2,
+      "op": 10,
+      "source": 3,
+      "target": 0,
+      "revision": 8,
+      "cause": 58,
+      "kind": "LEAVE"
+    },
+    {
+      "seq": 60,
+      "group": 2,
+      "op": 10,
+      "source": 4,
+      "target": 0,
+      "revision": 8,
+      "cause": 59,
+      "kind": "LEAVE"
+    },
+    {
+      "seq": 61,
+      "group": 1,
+      "op": 7,
+      "source": 0,
+      "target": 0,
+      "revision": 9,
+      "cause": 53,
+      "kind": "VERIFY"
+    },
+    {
+      "seq": 62,
+      "group": 1,
+      "op": 8,
+      "source": 0,
+      "target": 0,
+      "revision": 9,
+      "cause": 61,
+      "kind": "READY"
+    },
+    {
+      "seq": 63,
+      "group": 1,
+      "op": 9,
+      "source": 0,
+      "target": 0,
+      "revision": 9,
+      "cause": 62,
+      "kind": "HALT"
+    },
+    {
+      "seq": 64,
+      "group": 1,
+      "op": 10,
+      "source": 1,
+      "target": 0,
+      "revision": 9,
+      "cause": 63,
+      "kind": "LEAVE"
+    },
+    {
+      "seq": 65,
+      "group": 1,
+      "op": 10,
+      "source": 2,
+      "target": 0,
+      "revision": 9,
+      "cause": 64,
+      "kind": "LEAVE"
+    },
+    {
+      "seq": 66,
+      "group": 1,
+      "op": 10,
+      "source": 3,
+      "target": 0,
+      "revision": 9,
+      "cause": 65,
+      "kind": "LEAVE"
+    },
+    {
+      "seq": 67,
+      "group": 1,
+      "op": 10,
+      "source": 4,
+      "target": 0,
+      "revision": 9,
+      "cause": 66,
+      "kind": "LEAVE"
+    }
+  ],
+  "expert_ids": {
+    "1": "arith.finish",
+    "2": "arith.init",
+    "3": "arith.step",
+    "4": "logic.ge",
+    "5": "memory.action"
+  }
+}

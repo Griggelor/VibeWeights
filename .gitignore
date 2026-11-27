@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+ci-results.xml
+.env
+
+# Portable mutable data and model imports
+Data/
+Models/

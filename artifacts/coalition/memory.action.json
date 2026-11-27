@@ -1,0 +1,22 @@
+{
+  "id": "memory.action",
+  "version": "0.4.0",
+  "abi": "coalition.scalar.1",
+  "features": [
+    "X",
+    "Y",
+    "THRESHOLD",
+    "ACC",
+    "REMAIN",
+    "PRODUCT",
+    "GE",
+    "KEY",
+    "RECORD",
+    "READY",
+    "HALTED",
+    "REMAIN_POSITIVE"
+  ],
+  "weight_origin": "DIRECT",
+  "parameters": 84,
+  "sha256": "66111623fc0de58f20033e009cf0aefb7ac024912dc96e40e668114ef54a23e4"
+}

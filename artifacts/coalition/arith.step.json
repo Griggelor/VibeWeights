@@ -1,0 +1,22 @@
+{
+  "id": "arith.step",
+  "version": "0.4.0",
+  "abi": "coalition.scalar.1",
+  "features": [
+    "X",
+    "Y",
+    "THRESHOLD",
+    "ACC",
+    "REMAIN",
+    "PRODUCT",
+    "GE",
+    "KEY",
+    "RECORD",
+    "READY",
+    "HALTED",
+    "REMAIN_POSITIVE"
+  ],
+  "weight_origin": "DIRECT",
+  "parameters": 28,
+  "sha256": "ef3da98da43314a40026e643c5f2c19f860034b4c8e9f5ec3227d1ab3501c0f6"
+}

@@ -1,0 +1,30 @@
+{
+  "id": "logic.ge",
+  "version": "0.1.0",
+  "category": "logic",
+  "status": "experimental",
+  "weight_origin": "DIRECT",
+  "latent_abi": "0.1",
+  "architecture": "affine_relu",
+  "parameters": 9,
+  "input_contract": [
+    "PRODUCT",
+    "THRESHOLD"
+  ],
+  "output_contract": [
+    "GE"
+  ],
+  "mask_input": false,
+  "layer_dimensions": [
+    2,
+    2,
+    1
+  ],
+  "weight_generator": "vibeweights.weights.generate",
+  "weights_sha256": "caca46e21a09a88513d14ad347d6be3b440520be5ac72395ae09d79cd86b5045",
+  "loop_policy": "single",
+  "memory_permissions": [],
+  "verification_suite": "tests/",
+  "tolerance": 0,
+  "limitations": "bounded integer ABI; no language understanding"
+}

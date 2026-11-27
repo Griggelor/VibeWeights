@@ -1,0 +1,202 @@
+{
+  "scope": "synthetic CPU broad discovery overhead; not GPU nor 100M-expert throughput",
+  "python": "3.13.5",
+  "torch": "2.10.0+cpu",
+  "threads": 1,
+  "baseline_v03": {
+    "steps": 9,
+    "parameter_visits": 63
+  },
+  "results": [
+    {
+      "cache_heads": false,
+      "inventory": 5,
+      "real_participants": 5,
+      "inactive_placeholders": 0,
+      "members": 4,
+      "steps": 9,
+      "parameter_visits": 1113,
+      "head_visits": 1050,
+      "events": 35,
+      "median_ms": 3.365,
+      "samples_ms": [
+        3.896,
+        3.455,
+        3.274,
+        3.609,
+        3.032
+      ]
+    },
+    {
+      "cache_heads": true,
+      "inventory": 5,
+      "real_participants": 5,
+      "inactive_placeholders": 0,
+      "members": 4,
+      "steps": 9,
+      "parameter_visits": 413,
+      "head_visits": 350,
+      "events": 35,
+      "median_ms": 1.959,
+      "samples_ms": [
+        2.342,
+        2.229,
+        1.976,
+        1.943,
+        1.767
+      ]
+    },
+    {
+      "cache_heads": false,
+      "inventory": 8,
+      "real_participants": 5,
+      "inactive_placeholders": 3,
+      "members": 4,
+      "steps": 9,
+      "parameter_visits": 1407,
+      "head_visits": 1344,
+      "events": 35,
+      "median_ms": 3.717,
+      "samples_ms": [
+        3.7,
+        3.51,
+        3.925,
+        3.439,
+        4.294
+      ]
+    },
+    {
+      "cache_heads": true,
+      "inventory": 8,
+      "real_participants": 5,
+      "inactive_placeholders": 3,
+      "members": 4,
+      "steps": 9,
+      "parameter_visits": 455,
+      "head_visits": 392,
+      "events": 35,
+      "median_ms": 2.115,
+      "samples_ms": [
+        2.594,
+        2.062,
+        2.169,
+        2.039,
+        2.449
+      ]
+    },
+    {
+      "cache_heads": false,
+      "inventory": 32,
+      "real_participants": 5,
+      "inactive_placeholders": 27,
+      "members": 4,
+      "steps": 9,
+      "parameter_visits": 3759,
+      "head_visits": 3696,
+      "events": 35,
+      "median_ms": 11.558,
+      "samples_ms": [
+        10.765,
+        11.918,
+        11.198,
+        10.343,
+        11.919
+      ]
+    },
+    {
+      "cache_heads": true,
+      "inventory": 32,
+      "real_participants": 5,
+      "inactive_placeholders": 27,
+      "members": 4,
+      "steps": 9,
+      "parameter_visits": 791,
+      "head_visits": 728,
+      "events": 35,
+      "median_ms": 3.882,
+      "samples_ms": [
+        4.214,
+        3.898,
+        3.73,
+        3.866,
+        4.031
+      ]
+    },
+    {
+      "cache_heads": false,
+      "inventory": 128,
+      "real_participants": 5,
+      "inactive_placeholders": 123,
+      "members": 4,
+      "steps": 9,
+      "parameter_visits": 13167,
+      "head_visits": 13104,
+      "events": 35,
+      "median_ms": 41.432,
+      "samples_ms": [
+        42.861,
+        43.317,
+        45.266,
+        39.548,
+        38.912
+      ]
+    },
+    {
+      "cache_heads": true,
+      "inventory": 128,
+      "real_participants": 5,
+      "inactive_placeholders": 123,
+      "members": 4,
+      "steps": 9,
+      "parameter_visits": 2135,
+      "head_visits": 2072,
+      "events": 35,
+      "median_ms": 10.244,
+      "samples_ms": [
+        9.724,
+        10.595,
+        10.599,
+        9.73,
+        9.892
+      ]
+    },
+    {
+      "cache_heads": false,
+      "inventory": 512,
+      "real_participants": 5,
+      "inactive_placeholders": 507,
+      "members": 4,
+      "steps": 9,
+      "parameter_visits": 50799,
+      "head_visits": 50736,
+      "events": 35,
+      "median_ms": 163.36,
+      "samples_ms": [
+        165.903,
+        162.749,
+        163.97,
+        194.07,
+        162.144
+      ]
+    },
+    {
+      "cache_heads": true,
+      "inventory": 512,
+      "real_participants": 5,
+      "inactive_placeholders": 507,
+      "members": 4,
+      "steps": 9,
+      "parameter_visits": 7511,
+      "head_visits": 7448,
+      "events": 35,
+      "median_ms": 35.906,
+      "samples_ms": [
+        32.474,
+        37.713,
+        35.173,
+        34.495,
+        36.639
+      ]
+    }
+  ]
+}

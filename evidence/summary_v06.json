@@ -1,0 +1,26 @@
+{
+  "version": "0.6.0",
+  "command": "OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 python -m pytest -q --junitxml=evidence/v06-tests.xml",
+  "tests": {
+    "tests": 87,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "duration_seconds": 14.921,
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "torch": "2.10.0+cpu",
+  "safetensors": "0.7.0",
+  "pytest": "9.0.2",
+  "training_steps": 0,
+  "remote_ci": "not run",
+  "real_llm": "not run; local HTTP test double only",
+  "windows_gpu": "not run",
+  "affine_consolidation": {
+    "source_parameters": 7,
+    "candidate_parameters": 2,
+    "additional_cases": 201
+  },
+  "bit_identical_baseline_weight_and_manifest_files": 22
+}

@@ -1,0 +1,1 @@
+{"status": "OK", "output": "42 ist mindestens 30.", "verified": true, "steps": 1, "trace": ["logic.ge"], "task": "bounded.compare", "parameter_visits": 9}

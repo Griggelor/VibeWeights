@@ -1,0 +1,14 @@
+{
+  "name": "pytest",
+  "errors": "0",
+  "failures": "0",
+  "skipped": "0",
+  "tests": "26",
+  "time": "2.008",
+  "timestamp": "2026-11-26T20:06:47.616490+00:00",
+  "hostname": "2835a2f2fa0b",
+  "comparison_pairs": 925444,
+  "production_multiplication_pairs": 1024,
+  "indexed_boundary_pairs": 32,
+  "notes": "Counts of tested cases inside pytest tests, not extra pytest tests."
+}

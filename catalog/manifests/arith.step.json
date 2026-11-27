@@ -1,0 +1,31 @@
+{
+  "id": "arith.step",
+  "version": "0.1.0",
+  "category": "arith",
+  "status": "experimental",
+  "weight_origin": "DIRECT",
+  "latent_abi": "0.1",
+  "architecture": "affine_relu",
+  "parameters": 8,
+  "input_contract": [
+    "ACC",
+    "X",
+    "REMAIN"
+  ],
+  "output_contract": [
+    "ACC",
+    "REMAIN"
+  ],
+  "mask_input": false,
+  "layer_dimensions": [
+    3,
+    2
+  ],
+  "weight_generator": "vibeweights.weights.generate",
+  "weights_sha256": "981fffb2636c7c6e6d7d02f3bcfe425c1216a5f5a1b411660502a470072fa93f",
+  "loop_policy": "recurrent_shared",
+  "memory_permissions": [],
+  "verification_suite": "tests/",
+  "tolerance": 0,
+  "limitations": "bounded integer ABI; no language understanding"
+}

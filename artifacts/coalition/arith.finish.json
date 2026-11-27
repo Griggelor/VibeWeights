@@ -1,0 +1,22 @@
+{
+  "id": "arith.finish",
+  "version": "0.4.0",
+  "abi": "coalition.scalar.1",
+  "features": [
+    "X",
+    "Y",
+    "THRESHOLD",
+    "ACC",
+    "REMAIN",
+    "PRODUCT",
+    "GE",
+    "KEY",
+    "RECORD",
+    "READY",
+    "HALTED",
+    "REMAIN_POSITIVE"
+  ],
+  "weight_origin": "DIRECT",
+  "parameters": 28,
+  "sha256": "8ac8e34354198ef44b88dff6c199c9bddc493a00b9e21c3a3b328165dd0effba"
+}

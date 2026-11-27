@@ -1,0 +1,34 @@
+{
+  "id": "memory.action",
+  "version": "0.1.0",
+  "category": "memory",
+  "status": "experimental",
+  "weight_origin": "DIRECT",
+  "latent_abi": "0.1",
+  "architecture": "affine_relu",
+  "parameters": 20,
+  "input_contract": [
+    "RECORD",
+    "Y",
+    "GE"
+  ],
+  "output_contract": [
+    "ACTION_SCORES_5"
+  ],
+  "mask_input": true,
+  "layer_dimensions": [
+    3,
+    5
+  ],
+  "weight_generator": "vibeweights.weights.generate",
+  "weights_sha256": "dc7cb9035252766997dc5a5f7ae9f8ddbc83f6dc0e7a0488fe76890964ea732f",
+  "loop_policy": "single",
+  "memory_permissions": [
+    "SEARCH",
+    "READ",
+    "EVICT"
+  ],
+  "verification_suite": "tests/",
+  "tolerance": 0,
+  "limitations": "bounded integer ABI; no language understanding"
+}

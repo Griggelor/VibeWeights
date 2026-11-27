@@ -1,0 +1,35 @@
+{
+  "base": "v0.5.0",
+  "baseline_uninstalled": {
+    "passed": 70,
+    "failed": 2,
+    "seconds": 10.47
+  },
+  "baseline_installed": {
+    "passed": 72,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 12.66
+  },
+  "characterization": {
+    "passed": 10,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 4.01,
+    "meaning": "reproduced limitations, not target compliance"
+  },
+  "manifest": {
+    "verified": 104,
+    "mismatches": 0
+  },
+  "environment": {
+    "python": "3.13.5",
+    "torch": "2.10.0+cpu",
+    "safetensors": "0.7.0",
+    "pytest": "9.0.2",
+    "os": "Linux"
+  },
+  "code_changed": false,
+  "github_ci_executed": false,
+  "windows_gpu_tested": false
+}

@@ -1,0 +1,24 @@
+{
+  "version": "0.5.0",
+  "command": "OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src python -m pytest -q --junitxml=evidence/pytest.xml",
+  "tests": {
+    "tests": 72,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "duration_seconds": 12.994,
+  "core_experts": 5,
+  "core_parameters": 43,
+  "head_parameters": 210,
+  "language_parameters": 85,
+  "total_direct_parameters": 338,
+  "training_steps": 0,
+  "remote_ci": "not run",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "torch": "2.10.0+cpu",
+  "safetensors": "0.7.0",
+  "pytest": "9.0.2",
+  "bit_identical_files": 22
+}

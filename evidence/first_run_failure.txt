@@ -1,0 +1,92 @@
+...................................................................F...  [100%]
+=================================== FAILURES ===================================
+_______________________________ test_local_http ________________________________
+
+    def test_local_http():
+        # SQLite and HTTPServer constructed and used in same worker thread.
+        from queue import Queue
+        q=Queue(); stop=threading.Event()
+        def worker():
+            with Application(ROOT) as app,make_server(app,0) as server:
+                server.timeout=.1; q.put(server.server_port)
+                while not stop.is_set(): server.handle_request()
+        th=threading.Thread(target=worker,daemon=True); th.start()
+        try:
+            port=q.get(timeout=10); base=f'http://127.0.0.1:{port}'
+            with urllib.request.urlopen(base+'/health',timeout=5) as r: assert json.load(r)['status']=='OK'
+            req=urllib.request.Request(base+'/v1/ask',data=json.dumps({'text':'Ist 7 mal 6 mindestens 30?'}).encode(),headers={'Content-Type':'application/json'})
+>           with urllib.request.urlopen(req,timeout=5) as r: assert json.load(r)['verified']
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_platform.py:129: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.13/urllib/request.py:189: in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/urllib/request.py:489: in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/urllib/request.py:506: in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+/usr/lib/python3.13/urllib/request.py:466: in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+/usr/lib/python3.13/urllib/request.py:1348: in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/urllib/request.py:1323: in do_open
+    r = h.getresponse()
+        ^^^^^^^^^^^^^^^
+/usr/lib/python3.13/http/client.py:1430: in getresponse
+    response.begin()
+/usr/lib/python3.13/http/client.py:331: in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <http.client.HTTPResponse object at 0x7f06735760b0>
+
+    def _read_status(self):
+        line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+        if len(line) > _MAXLINE:
+            raise LineTooLong("status line")
+        if self.debuglevel > 0:
+            print("reply:", repr(line))
+        if not line:
+            # Presumably, the server closed the connection before
+            # sending a valid response.
+>           raise RemoteDisconnected("Remote end closed connection without"
+                                     " response")
+E           http.client.RemoteDisconnected: Remote end closed connection without response
+
+/usr/lib/python3.13/http/client.py:300: RemoteDisconnected
+----------------------------- Captured stderr call -----------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 36574)
+Traceback (most recent call last):
+  File "/usr/lib/python3.13/socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/http/server.py", line 436, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/http/server.py", line 424, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "<workspace>/VibeWeights_v0.5.0/src/vibeweights/local_api.py", line 36, in do_POST
+    contracts={'/v1/ask':({'text'},{'text','session','budget','work_budget','recall','shots','shot_seed','parent_answer_id'},app.ask),'/v1/feedback':({'answer_id','kind'},{'answer_id','kind','note','session'},app.feedback),'/v1/metrics':(set(),{'session'},app.metrics),'/v1/reflections':(set(),{'session'},app.reflections)}
+                                                                                                                                                                                                                 ^^^^^^^^^^^^
+AttributeError: 'BaselineApplication' object has no attribute 'feedback'
+----------------------------------------
+=========================== short test summary info ============================
+FAILED tests/test_platform.py::test_local_http - http.client.RemoteDisconnected: Remote end closed connection without response
+1 failed, 70 passed in 12.49s

@@ -1,0 +1,18 @@
+{
+  "pytest": {
+    "tests": "52",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "7.912"
+  },
+  "passed": 52,
+  "command": "OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src python -m pytest -q --junitxml=evidence/pytest.xml",
+  "direct_expert_parameters": 43,
+  "direct_lexical_parameters": 85,
+  "training_steps": 0,
+  "weight_reproduction": "identical",
+  "remote_ci": "not run",
+  "fresh_venv": "blocked: setuptools and pytest unavailable; no downloads attempted",
+  "existing_environment_editable_install": "success"
+}

@@ -1,0 +1,14 @@
+WARNING: The directory '<home>/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.
+Obtaining file://<workspace>/VibeWeights_v0.3.0
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: vibeweights
+  Building editable for vibeweights (pyproject.toml): started
+  Building editable for vibeweights (pyproject.toml): finished with status 'done'
+  Created wheel for vibeweights: filename=vibeweights-0.3.0-0.editable-py3-none-any.whl size=1303 sha256=e37f475c4f3957cfe58b1a9339e68a2a049290b0b794fe934c1c9a3ea9340448
+  Stored in directory: <temp>/pip-ephem-wheel-cache-v3o5sx5c/wheels/a2/ad/ac/53b481559ee35f642d60d8ce58cfc863e8ecc9f750b2aafe2a
+Successfully built vibeweights
+Installing collected packages: vibeweights
+Successfully installed vibeweights-0.3.0

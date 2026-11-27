@@ -1,0 +1,484 @@
+{
+  "control": {
+    "status": "OK",
+    "output": "3 ist kleiner als 4.",
+    "verified": true,
+    "steps": 1,
+    "trace": [
+      "logic.ge"
+    ],
+    "task": "bounded.compare",
+    "parameter_visits": 233,
+    "head_visits": 224,
+    "members": [
+      "logic.ge"
+    ],
+    "contributors": [
+      "logic.ge"
+    ],
+    "events": [
+      {
+        "seq": 1,
+        "group": 1,
+        "op": 1,
+        "source": 0,
+        "target": 0,
+        "revision": 0,
+        "cause": 0,
+        "kind": "NEED"
+      },
+      {
+        "seq": 2,
+        "group": 1,
+        "op": 2,
+        "source": 4,
+        "target": 0,
+        "revision": 0,
+        "cause": 1,
+        "kind": "OFFER"
+      },
+      {
+        "seq": 3,
+        "group": 1,
+        "op": 4,
+        "source": 4,
+        "target": 0,
+        "revision": 0,
+        "cause": 2,
+        "kind": "JOIN"
+      },
+      {
+        "seq": 4,
+        "group": 1,
+        "op": 5,
+        "source": 4,
+        "target": 0,
+        "revision": 1,
+        "cause": 2,
+        "kind": "PROPOSE"
+      },
+      {
+        "seq": 5,
+        "group": 1,
+        "op": 7,
+        "source": 0,
+        "target": 0,
+        "revision": 1,
+        "cause": 4,
+        "kind": "VERIFY"
+      },
+      {
+        "seq": 6,
+        "group": 1,
+        "op": 8,
+        "source": 0,
+        "target": 0,
+        "revision": 1,
+        "cause": 5,
+        "kind": "READY"
+      },
+      {
+        "seq": 7,
+        "group": 1,
+        "op": 9,
+        "source": 0,
+        "target": 0,
+        "revision": 1,
+        "cause": 6,
+        "kind": "HALT"
+      },
+      {
+        "seq": 8,
+        "group": 1,
+        "op": 10,
+        "source": 4,
+        "target": 0,
+        "revision": 1,
+        "cause": 7,
+        "kind": "LEAVE"
+      }
+    ],
+    "error": "",
+    "expert_ids": {
+      "1": "arith.finish",
+      "2": "arith.init",
+      "3": "arith.step",
+      "4": "logic.ge",
+      "5": "memory.action"
+    },
+    "exploration": {
+      "shots_budget": 0,
+      "seed": 0
+    },
+    "answer_id": "383433c3a37e419dad7c07b7d7ac942c",
+    "parent_answer_id": null
+  },
+  "initial": {
+    "status": "OK",
+    "output": "3 ist kleiner als 4.",
+    "verified": true,
+    "steps": 2,
+    "trace": [
+      "logic.ge"
+    ],
+    "task": "bounded.compare",
+    "parameter_visits": 253,
+    "head_visits": 224,
+    "members": [
+      "arith.init",
+      "logic.ge",
+      "memory.action"
+    ],
+    "contributors": [
+      "logic.ge"
+    ],
+    "events": [
+      {
+        "seq": 1,
+        "group": 1,
+        "op": 1,
+        "source": 0,
+        "target": 0,
+        "revision": 0,
+        "cause": 0,
+        "kind": "NEED"
+      },
+      {
+        "seq": 2,
+        "group": 1,
+        "op": 12,
+        "source": 0,
+        "target": 2,
+        "revision": 0,
+        "cause": 1,
+        "kind": "SHOT"
+      },
+      {
+        "seq": 3,
+        "group": 1,
+        "op": 4,
+        "source": 2,
+        "target": 0,
+        "revision": 0,
+        "cause": 2,
+        "kind": "JOIN"
+      },
+      {
+        "seq": 4,
+        "group": 1,
+        "op": 2,
+        "source": 4,
+        "target": 0,
+        "revision": 0,
+        "cause": 1,
+        "kind": "OFFER"
+      },
+      {
+        "seq": 5,
+        "group": 1,
+        "op": 4,
+        "source": 4,
+        "target": 0,
+        "revision": 0,
+        "cause": 4,
+        "kind": "JOIN"
+      },
+      {
+        "seq": 6,
+        "group": 1,
+        "op": 5,
+        "source": 4,
+        "target": 0,
+        "revision": 1,
+        "cause": 4,
+        "kind": "PROPOSE"
+      },
+      {
+        "seq": 7,
+        "group": 1,
+        "op": 12,
+        "source": 0,
+        "target": 5,
+        "revision": 1,
+        "cause": 6,
+        "kind": "SHOT"
+      },
+      {
+        "seq": 8,
+        "group": 1,
+        "op": 4,
+        "source": 5,
+        "target": 0,
+        "revision": 1,
+        "cause": 7,
+        "kind": "JOIN"
+      },
+      {
+        "seq": 9,
+        "group": 1,
+        "op": 13,
+        "source": 5,
+        "target": 0,
+        "revision": 1,
+        "cause": 7,
+        "kind": "PROBE"
+      },
+      {
+        "seq": 10,
+        "group": 1,
+        "op": 7,
+        "source": 0,
+        "target": 0,
+        "revision": 1,
+        "cause": 6,
+        "kind": "VERIFY"
+      },
+      {
+        "seq": 11,
+        "group": 1,
+        "op": 8,
+        "source": 0,
+        "target": 0,
+        "revision": 1,
+        "cause": 10,
+        "kind": "READY"
+      },
+      {
+        "seq": 12,
+        "group": 1,
+        "op": 9,
+        "source": 0,
+        "target": 0,
+        "revision": 1,
+        "cause": 11,
+        "kind": "HALT"
+      },
+      {
+        "seq": 13,
+        "group": 1,
+        "op": 10,
+        "source": 2,
+        "target": 0,
+        "revision": 1,
+        "cause": 12,
+        "kind": "LEAVE"
+      },
+      {
+        "seq": 14,
+        "group": 1,
+        "op": 10,
+        "source": 4,
+        "target": 0,
+        "revision": 1,
+        "cause": 13,
+        "kind": "LEAVE"
+      },
+      {
+        "seq": 15,
+        "group": 1,
+        "op": 10,
+        "source": 5,
+        "target": 0,
+        "revision": 1,
+        "cause": 14,
+        "kind": "LEAVE"
+      }
+    ],
+    "error": "",
+    "expert_ids": {
+      "1": "arith.finish",
+      "2": "arith.init",
+      "3": "arith.step",
+      "4": "logic.ge",
+      "5": "memory.action"
+    },
+    "exploration": {
+      "shots_budget": 4,
+      "seed": 0
+    },
+    "answer_id": "b4cfd67ed1894041a2f96a7e8c3cace2",
+    "parent_answer_id": null
+  },
+  "feedback": {
+    "feedback_id": 1,
+    "reflection_id": "aac5d54362d84c0dbd4ee137b5cd7b68",
+    "state": "PENDING",
+    "answer_id": "b4cfd67ed1894041a2f96a7e8c3cace2"
+  },
+  "revision": {
+    "status": "OK",
+    "output": "3 ist kleiner als 4.",
+    "verified": true,
+    "steps": 1,
+    "trace": [
+      "logic.ge"
+    ],
+    "task": "bounded.compare",
+    "parameter_visits": 233,
+    "head_visits": 224,
+    "members": [
+      "logic.ge"
+    ],
+    "contributors": [
+      "logic.ge"
+    ],
+    "events": [
+      {
+        "seq": 1,
+        "group": 1,
+        "op": 1,
+        "source": 0,
+        "target": 0,
+        "revision": 0,
+        "cause": 0,
+        "kind": "NEED"
+      },
+      {
+        "seq": 2,
+        "group": 1,
+        "op": 2,
+        "source": 4,
+        "target": 0,
+        "revision": 0,
+        "cause": 1,
+        "kind": "OFFER"
+      },
+      {
+        "seq": 3,
+        "group": 1,
+        "op": 4,
+        "source": 4,
+        "target": 0,
+        "revision": 0,
+        "cause": 2,
+        "kind": "JOIN"
+      },
+      {
+        "seq": 4,
+        "group": 1,
+        "op": 5,
+        "source": 4,
+        "target": 0,
+        "revision": 1,
+        "cause": 2,
+        "kind": "PROPOSE"
+      },
+      {
+        "seq": 5,
+        "group": 1,
+        "op": 7,
+        "source": 0,
+        "target": 0,
+        "revision": 1,
+        "cause": 4,
+        "kind": "VERIFY"
+      },
+      {
+        "seq": 6,
+        "group": 1,
+        "op": 8,
+        "source": 0,
+        "target": 0,
+        "revision": 1,
+        "cause": 5,
+        "kind": "READY"
+      },
+      {
+        "seq": 7,
+        "group": 1,
+        "op": 9,
+        "source": 0,
+        "target": 0,
+        "revision": 1,
+        "cause": 6,
+        "kind": "HALT"
+      },
+      {
+        "seq": 8,
+        "group": 1,
+        "op": 10,
+        "source": 4,
+        "target": 0,
+        "revision": 1,
+        "cause": 7,
+        "kind": "LEAVE"
+      }
+    ],
+    "error": "",
+    "expert_ids": {
+      "1": "arith.finish",
+      "2": "arith.init",
+      "3": "arith.step",
+      "4": "logic.ge",
+      "5": "memory.action"
+    },
+    "exploration": {
+      "shots_budget": 0,
+      "seed": 0
+    },
+    "answer_id": "578525317e8e4f25b70458fb6c208d52",
+    "parent_answer_id": "b4cfd67ed1894041a2f96a7e8c3cace2"
+  },
+  "metrics": [
+    {
+      "expert": "arith.init@0.1.0+heads:4c3379afff6afa4e47bb4d24c31446e653f96f8a0414055e20aac40077e51d7f+core:7f6ab5c2a994e16edba7e6d7a16301fa7e3f1c85b9d444266939df4e7583b39a",
+      "context": "bounded.compare",
+      "observed_groups": 1,
+      "joins": 1,
+      "shots": 1,
+      "probes": 0,
+      "invitations": 0,
+      "offers": 0,
+      "proposals": 0,
+      "verified_group_contributions": 0,
+      "positive_answer_associations": 0,
+      "negative_or_corrected_answer_associations": 0
+    },
+    {
+      "expert": "logic.ge@0.1.0+heads:0a71ed8a87eb912401d774741f083961a5c88af2d65a510551e2bf6ed672fdfb+core:caca46e21a09a88513d14ad347d6be3b440520be5ac72395ae09d79cd86b5045",
+      "context": "bounded.compare",
+      "observed_groups": 3,
+      "joins": 3,
+      "shots": 0,
+      "probes": 0,
+      "invitations": 0,
+      "offers": 3,
+      "proposals": 3,
+      "verified_group_contributions": 3,
+      "positive_answer_associations": 1,
+      "negative_or_corrected_answer_associations": 1
+    },
+    {
+      "expert": "memory.action@0.1.0+heads:66111623fc0de58f20033e009cf0aefb7ac024912dc96e40e668114ef54a23e4+core:dc7cb9035252766997dc5a5f7ae9f8ddbc83f6dc0e7a0488fe76890964ea732f",
+      "context": "bounded.compare",
+      "observed_groups": 1,
+      "joins": 1,
+      "shots": 1,
+      "probes": 1,
+      "invitations": 0,
+      "offers": 0,
+      "proposals": 0,
+      "verified_group_contributions": 0,
+      "positive_answer_associations": 0,
+      "negative_or_corrected_answer_associations": 0
+    }
+  ],
+  "reflection_queue": [
+    {
+      "reflection_id": "aac5d54362d84c0dbd4ee137b5cd7b68",
+      "feedback_id": 1,
+      "answer_id": "b4cfd67ed1894041a2f96a7e8c3cace2",
+      "kind": "negative",
+      "note": "Synthetisches Testfeedback",
+      "state": "PENDING"
+    },
+    {
+      "reflection_id": "445d1a51bfa441c5bb3a0ac627dd6ce7",
+      "feedback_id": 2,
+      "answer_id": "578525317e8e4f25b70458fb6c208d52",
+      "kind": "positive",
+      "note": "Synthetisches Testfeedback",
+      "state": "PENDING"
+    }
+  ]
+}

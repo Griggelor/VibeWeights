@@ -1,0 +1,22 @@
+{
+  "id": "logic.ge",
+  "version": "0.4.0",
+  "abi": "coalition.scalar.1",
+  "features": [
+    "X",
+    "Y",
+    "THRESHOLD",
+    "ACC",
+    "REMAIN",
+    "PRODUCT",
+    "GE",
+    "KEY",
+    "RECORD",
+    "READY",
+    "HALTED",
+    "REMAIN_POSITIVE"
+  ],
+  "weight_origin": "DIRECT",
+  "parameters": 28,
+  "sha256": "0a71ed8a87eb912401d774741f083961a5c88af2d65a510551e2bf6ed672fdfb"
+}

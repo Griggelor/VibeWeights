@@ -1,0 +1,8 @@
+{
+  "id": "language.lexical",
+  "version": "0.1.0",
+  "weight_origin": "DIRECT",
+  "parameters": 85,
+  "sha256": "f37a126592df69cd04514d5045c311b9764a0c98a6ecce5971c64420fe73ec9f",
+  "limitations": "decimal lexical conversion and binary relation lexeme selection only; symbolic grammar and formatting"
+}

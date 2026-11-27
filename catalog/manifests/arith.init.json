@@ -1,0 +1,29 @@
+{
+  "id": "arith.init",
+  "version": "0.1.0",
+  "category": "arith",
+  "status": "experimental",
+  "weight_origin": "DIRECT",
+  "latent_abi": "0.1",
+  "architecture": "affine_relu",
+  "parameters": 4,
+  "input_contract": [
+    "Y"
+  ],
+  "output_contract": [
+    "ACC",
+    "REMAIN"
+  ],
+  "mask_input": false,
+  "layer_dimensions": [
+    1,
+    2
+  ],
+  "weight_generator": "vibeweights.weights.generate",
+  "weights_sha256": "7f6ab5c2a994e16edba7e6d7a16301fa7e3f1c85b9d444266939df4e7583b39a",
+  "loop_policy": "single",
+  "memory_permissions": [],
+  "verification_suite": "tests/",
+  "tolerance": 0,
+  "limitations": "bounded integer ABI; no language understanding"
+}

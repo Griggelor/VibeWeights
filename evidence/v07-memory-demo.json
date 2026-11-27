@@ -1,0 +1,102 @@
+{
+  "status": "OK",
+  "value": [
+    13.0
+  ],
+  "steps": 2,
+  "probes": 0,
+  "trace": [
+    [
+      2,
+      "demo.recall@1",
+      "PROPOSE",
+      1
+    ],
+    [
+      5,
+      "demo.recall@1",
+      "PROPOSE",
+      0
+    ]
+  ],
+  "faults": [],
+  "facts": [
+    {
+      "scope": "global",
+      "topic": "input",
+      "values": [
+        7
+      ]
+    },
+    {
+      "scope": "global",
+      "topic": "result",
+      "values": [
+        13.0
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "scope": "global",
+      "topic": "result",
+      "source": "demo.recall@1",
+      "values": [
+        13.0
+      ]
+    }
+  ],
+  "memory_actions": 4,
+  "memory_trace": [
+    [
+      "demo.recall@1",
+      1,
+      null,
+      [
+        1
+      ],
+      []
+    ],
+    [
+      "demo.recall@1",
+      2,
+      1,
+      [
+        1
+      ],
+      [
+        1
+      ]
+    ],
+    [
+      "demo.recall@1",
+      5,
+      null,
+      [
+        1
+      ],
+      [
+        1
+      ]
+    ],
+    [
+      "demo.recall@1",
+      3,
+      1,
+      [
+        1
+      ],
+      []
+    ]
+  ],
+  "remembered": {
+    "id": 3,
+    "experts": [
+      "demo.recall@1"
+    ],
+    "parents": [
+      1
+    ]
+  },
+  "run_id": "56cc84f8623e4db082ba185585cc17cc"
+}

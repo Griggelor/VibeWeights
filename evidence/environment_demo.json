@@ -1,0 +1,109 @@
+{
+  "status": "OK",
+  "value": [
+    15.0
+  ],
+  "steps": 8,
+  "probes": 0,
+  "trace": [
+    [
+      0,
+      "demo.scale@1",
+      "PROPOSE",
+      1
+    ],
+    [
+      0,
+      "demo.scale@2",
+      "PROPOSE",
+      1
+    ],
+    [
+      1,
+      "demo.scale@1",
+      "PROPOSE",
+      1
+    ],
+    [
+      1,
+      "demo.scale@2",
+      "PROPOSE",
+      1
+    ],
+    [
+      1,
+      "demo.shift@1",
+      "PROPOSE",
+      1
+    ],
+    [
+      2,
+      "demo.scale@1",
+      "PROPOSE",
+      1
+    ],
+    [
+      2,
+      "demo.scale@2",
+      "PROPOSE",
+      1
+    ],
+    [
+      2,
+      "demo.shift@1",
+      "PROPOSE",
+      1
+    ]
+  ],
+  "faults": [],
+  "facts": [
+    {
+      "scope": "global",
+      "topic": "input",
+      "values": [
+        7
+      ]
+    },
+    {
+      "scope": "global",
+      "topic": "result",
+      "values": [
+        15.0
+      ]
+    },
+    {
+      "scope": "work",
+      "topic": "scaled",
+      "values": [
+        14.0
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "scope": "global",
+      "topic": "result",
+      "source": "demo.shift@1",
+      "values": [
+        15.0
+      ]
+    },
+    {
+      "scope": "work",
+      "topic": "scaled",
+      "source": "demo.scale@1",
+      "values": [
+        14.0
+      ]
+    },
+    {
+      "scope": "work",
+      "topic": "scaled",
+      "source": "demo.scale@2",
+      "values": [
+        21.0
+      ]
+    }
+  ],
+  "run_id": "2bb62c2117e9450e9ab65d2cf1040341"
+}
