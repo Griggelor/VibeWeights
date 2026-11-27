@@ -16,7 +16,7 @@ The long-term ambition is a system that becomes more capable through use, with l
 
 [Architecture](#architecture) · [Memory](#memory-and-context) · [Expert Factory](#expert-factory-and-vibeweighting) · [Bootstrap and assimilation](#bootstrap-and-assimilation) · [Evolution](#continual-learning-and-evolution) · [Research](#research-foundations) · [Status](#current-implementation-v070) · [Quick start](#quick-start) · [Roadmap](#roadmap)
 
-## 1. Why VibeWeights?
+## Why VibeWeights?
 
 Conventional language models usually combine knowledge, skills, reasoning and language generation in one trained architecture. Even a sparse MoE normally has a fixed model topology and learned internal routing. VibeWeights investigates a different separation of concerns: competencies are independently addressable, the population can change, memory is external to any one expert's context window, and the amount of computation can depend on the problem instead of the number of generated tokens.
 
@@ -33,7 +33,7 @@ These dimensions should be able to scale independently. A new fact need not requ
 
 This is not a rejection of conventional models or training. Existing open-weight models and explicitly recorded distillation are useful bootstrap and learning mechanisms. The research question is whether a persistent, evolving ecosystem can acquire durable capabilities beyond its starting models.
 
-## 2. Five development objectives
+## Five development objectives
 
 | Objective | Motivation and acceptance criterion |
 |---|---|
@@ -58,7 +58,7 @@ The objectives are ordered development gates, not a rigid cognitive pipeline. Af
 
 ## Architecture
 
-### 3. Overall system — target architecture
+### Overall system — target architecture
 
 ```mermaid
 flowchart TB
@@ -94,7 +94,7 @@ flowchart TB
 
 **No central cognitive router.** A technical scheduler, registry, event bus and resource manager may enforce execution contracts, delivery, permissions and budgets. They must not decide the substantive reasoning path, impose a permanent expert hierarchy or hide a central planning LLM. Experts determine their relevance and cooperation locally. Independent evaluation is a technical acceptance boundary, not a centralized cognitive controller.
 
-### 4. The universal expert
+### The universal expert
 
 The outer contract is standardized; the inner architecture is free. An expert may be a small analytically constructed MLP, a recurrent circuit, an associative network, a transformer, an SSM, an imported dense/MoE model or a distilled competency. There is no requirement that all experts have the same size or topology.
 
@@ -115,7 +115,7 @@ The intended application binary interface (ABI) includes entities, relationships
 
 Technical IDs and metadata can be strings; native reasoning communication is intended to be numerical, not a conversation of text prompts. Early symbolic reference heads must be identified as such.
 
-### 5. Self-organization: global → detail → global
+### Self-organization: global → detail → global
 
 ```mermaid
 flowchart LR
@@ -139,7 +139,7 @@ Input and output are separate from thinking. The encoder should represent the ta
 
 ## Memory and context
 
-### 6. An indexed, self-managed memory rather than one expanding context window
+### An indexed, self-managed memory rather than one expanding context window
 
 ```mermaid
 flowchart TB
@@ -173,7 +173,7 @@ See [Memory Architecture v0.7](docs/MEMORY_ARCHITECTURE_v07.md).
 
 ## Bootstrap and assimilation
 
-### 7. Start with existing intelligence, then acquire independent capabilities
+### Start with existing intelligence, then acquire independent capabilities
 
 Instead of constructing all initial intelligence from scratch, VibeWeights may integrate a heterogeneous population of authorized open-weight models. A fast Qwen MoE in Q4 — potentially a 35B-class model — is a candidate for the initial generalist. Other models can contribute specialized reasoning, coding, mathematics, language or vision. Model selection, compatibility, licensing and actual performance remain to be tested.
 
@@ -203,7 +203,7 @@ To establish independence, compare bootstrap alone, bootstrap plus VibeWeights, 
 
 ## Expert Factory and VibeWeighting
 
-### 8. Creating new competencies
+### Creating new competencies
 
 Weight-space programming (WSP) investigates constructing or editing neural weights through reasoning rather than exclusively optimizing them through examples. It is an important inspiration for VibeWeights, not an already solved general-purpose route to intelligence.
 
@@ -242,7 +242,7 @@ A declarative Weight Compiler should translate supported operations to executabl
 
 ## Continual learning and evolution
 
-### 9. Learning during ordinary use
+### Learning during ordinary use
 
 ```mermaid
 flowchart TB
@@ -268,7 +268,7 @@ There are three complementary learning paths:
 
 Inference, reflection and learning should be internal activities of the same application, not separate manual environments. User requests take priority. Learning is interruptible and limited to explicitly authorized compute, time, storage and external access. Isolated evaluation and recovery remain necessary even when the user does not manage training manually.
 
-### 10. Exploration, cooperation memory and attribution
+### Exploration, cooperation memory and attribution
 
 The system should remember successful and unsuccessful partners in a context-dependent cooperation graph. Past cooperation is useful evidence, not a permanent hierarchy. Random exploration helps discover specialists that would otherwise never be activated.
 
@@ -276,7 +276,7 @@ Exploration Shots include random, cold/new-expert, diversity, stagnation and cha
 
 Measure exposures, self-activations, invitations, actual contributions, verified corrections, unique competencies, cost, user satisfaction and marginal utility separately. Compare runs with and without a particular contribution under matched conditions. Frequent activation is not a proof of intelligence, nor should a whole coalition receive credit solely because the final answer was good.
 
-### 11. Grow, specialize, consolidate, reactivate
+### Grow, specialize, consolidate, reactivate
 
 ```mermaid
 flowchart LR
@@ -298,7 +298,7 @@ Variants can coexist, specialize or become dormant; popularity must not be the s
 
 A first exact case exists: for affine maps, composing a second map B with a first map A yields a single affine map with matrix BA and bias Ba + b. The prototype demonstrates seven parameters reduced to two, with 201 additional checked inputs. This is a bounded algebraic result, not evidence that arbitrary nonlinear expert networks can already be compressed.
 
-## 12. Hardware, packaging and local operation
+## Hardware, packaging and local operation
 
 The intended deployment separates the runtime, interface, immutable model artifacts and evolving user data.
 
@@ -354,7 +354,7 @@ VibeWeights combines several established research directions and newer experimen
 
 The full [research survey](docs/FORSCHUNG_2026-11-26.md) and [learning/evolution supplement](docs/FORSCHUNG_ERGAENZUNG_v05.md) contain further references, including recent WSP and latent-communication preprints, limitations and concrete experiment proposals. Very recent papers should be treated as preliminary. The project makes no claim of worldwide novelty, exhaustive literature coverage or general autonomous self-improvement.
 
-## 13. Experimental program and falsifiable success criteria
+## Experimental program and falsifiable success criteria
 
 | Research question | Control / evidence |
 |---|---|
@@ -417,23 +417,22 @@ Ist 7 mal 6 mindestens 30?; Ist 8 mal 5 mindestens 41?
 /exit
 ```
 
-`/revise` verknüpft eine manuell formulierte erneute Anfrage mit der vorherigen Antwort; es ist keine autonome Korrektur. Ohne explizite Pfadangabe werden Daten jetzt unter `Data/` relativ zum Projektroot abgelegt. Flüchtiger Testbetrieb: `--memory :memory: --journal :memory:`. Für ein eingebettetes `Application`-Objekt bleiben die alten expliziten Referenz-Defaults erhalten. Standardmäßig sind Shots aus; zum Experimentieren `--shots` und `--shot-seed` setzen. `--memory memory.sqlite --seed 42 6 Quelle` erzeugt einen versionierten numerischen Speichereintrag. Die lokale API (`--serve 8765`) bietet `/v1/ask`, `/v1/feedback`, `/v1/metrics`, `/v1/reflections`, `/health`. Nur Loopback, keine Authentifizierung zwischen lokalen Nutzern; nicht im Netz exponieren.
+The `/revise` command links a manually rephrased request to the previous answer; it is not an autonomous correction. Unless an explicit path is provided, the CLI stores data under `Data/` relative to the project root. For ephemeral tests, use `--memory :memory: --journal :memory:`. Embedded `Application` objects retain the original explicit reference defaults. Shots are disabled by default; enable them with `--shots` and `--shot-seed`. The option `--memory memory.sqlite --seed 42 6 Quelle` creates a versioned numerical memory record. The local API (`--serve 8765`) offers `/v1/ask`, `/v1/feedback`, `/v1/metrics`, `/v1/reflections` and `/health`. It is loopback-only and has no authentication between local users; do not expose it to the network.
 
 ### New Environment slice, memory and bootstrap
 
 ```sh
 python -m vibeweights.next demo 7
-# Erwartet: status OK, value [15.0], getrennte Hypothesen.
+# Expected: status OK, value [15.0], separate hypotheses.
 python -m vibeweights.next memory-demo 7 --initialize --remember
-# Erwartet: status OK, value [13.0], SEARCH/READ/REMEMBER/EVICT.
+# Expected: status OK, value [13.0], SEARCH/READ/REMEMBER/EVICT.
 python -m vibeweights.next memory-demo -7
-# Wiederabruf aus persistenter DB: value [-1.0].
-# Nur bei bereits laufendem lokalem, kompatiblem Modellserver:
+# Recall from the persistent database: value [-1.0].
+# Requires an already running, compatible local model server:
 python -m vibeweights.next bootstrap --model MODEL_ID --port 1234 --text "Erkläre eine lineare Abbildung."
 ```
 
-Das konkrete Modell (z. B. ein Qwen-MoE) wird außerhalb des Slices bereitgestellt. Kein automatischer Download; die Engine ersetzt den Modellserver noch nicht. Die Textbrücke ist eine frühe PRETRAINED-Integrationsstufe und nicht mit nativem latentem Austausch gleichzusetzen. Ziel ist eine heterogene Bootstrap-Population, die über unabhängige Kompetenzerwerbs- und Lehrer-offline-Tests zunehmend entbehrlich werden soll. Die Factory ist derzeit ein begrenzter Compiler für affine Schaltungen, kein universeller Weight-Space-Compiler.
-
+The actual model (for example a Qwen MoE) must be supplied separately. There is no automatic model download; the Engine does not yet replace the model server. The text bridge is an early PRETRAINED integration stage, not native latent exchange. The goal is a heterogeneous bootstrap population that becomes less necessary through independently verified skill acquisition and teacher-offline tests. The Factory currently compiles affine circuits only.
 
 The commands above are for the existing Python research prototype, not the future portable Studio. See the [German technical documentation](docs/MEMORY_ARCHITECTURE_v07.md) for detailed contracts and limitations.
 
