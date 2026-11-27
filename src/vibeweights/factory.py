@@ -9,6 +9,9 @@ from .abi import ContractError
 from .environment import identifier, Signal
 
 
+def case_digest(cases):
+    return hashlib.sha256(json.dumps(cases, separators=(',',':'), allow_nan=False).encode()).hexdigest()
+
 def digest(path):
     with open(path,'rb') as f: return hashlib.file_digest(f,'sha256').hexdigest() if hasattr(hashlib,'file_digest') else _digest(f)
 def _digest(f):
@@ -26,8 +29,13 @@ class Catalog:
         if row is None: raise ContractError('unknown instance')
         return dict(json.loads(row[0]),state=row[1])
     def list(self): return [dict(json.loads(m),state=s) for m,s in self.db.execute('SELECT manifest,state FROM experts ORDER BY id')]
-    def stage_affine(self,id,family,matrix,bias,*,source_topic,target_scope,target_topic,parents=()):
+    def stage_affine(self,id,family,matrix,bias,*,source_topic,target_scope,target_topic,parents=(),origin="DIRECT",learning_job=None):
         for s in (id,family,source_topic,target_scope,target_topic): identifier(s)
+        if origin not in ("DIRECT","TRAINED") or (origin=="TRAINED" and learning_job is None): raise ContractError("learning origin")
+        if learning_job is not None:
+            identifier(learning_job)
+            row=self.db.execute("SELECT expert_id,method FROM knowledge_jobs_v08 WHERE id=?",(learning_job,)).fetchone()
+            if row!=(id,origin): raise ContractError("learning job mismatch")
         if type(parents) not in (tuple,list) or len(set(parents))!=len(parents): raise ContractError('parents')
         for p in parents: self.manifest(p)
         w=torch.tensor(matrix,dtype=torch.float32); b=torch.tensor(bias,dtype=torch.float32)
@@ -40,7 +48,8 @@ class Catalog:
             if path.exists():
                 if digest(path)!=sha: raise ContractError('corrupt existing artifact')
             else: temp.replace(path)
-            m={'id':id,'family':family,'parents':list(parents),'origin':'DIRECT','abi':'numeric-events/0.1','op':'affine','shape':list(w.shape),'parameters':w.numel()+b.numel(),'sha256':sha,'bytes':path.stat().st_size,'source_topic':source_topic,'target_scope':target_scope,'target_topic':target_topic}
+            m={'id':id,'family':family,'parents':list(parents),'origin':origin,'abi':'numeric-events/0.1','op':'affine','shape':list(w.shape),'parameters':w.numel()+b.numel(),'sha256':sha,'bytes':path.stat().st_size,'source_topic':source_topic,'target_scope':target_scope,'target_topic':target_topic}
+            if learning_job is not None: m["learning_job"]=learning_job
             with self.db: self.db.execute('INSERT INTO experts VALUES(?,?,?,?)',(id,family,json.dumps(m,sort_keys=True),'STAGED'))
             return self.manifest(id)
         finally: temp.unlink(missing_ok=True)
@@ -53,12 +62,16 @@ class Catalog:
         tensors=load_file(str(path)); w,b=tensors['w'],tensors['b']
         if list(w.shape)!=m['shape'] or b.shape!=(w.shape[0],) or any(t.dtype!=torch.float32 or not torch.isfinite(t).all() for t in (w,b)): raise ContractError('tensor contract')
         return AffineExpert(m,w.to(device),b.to(device))
-    def admit(self,id,cases):
+    def admit(self,id,cases,*,learning_job=None):
         """Host-supplied independent expected pairs. Limited, not proof of general competence."""
         m=self.manifest(id)
         if m['state']!='STAGED': raise ContractError('not staged')
         cases=tuple(cases)
         if not cases: raise ContractError('empty evaluation')
+        if "learning_job" in m:
+            if learning_job!=m["learning_job"]: raise ContractError("use knowledge learning promotion")
+            row=self.db.execute("SELECT passed,case_sha,artifact_sha FROM knowledge_reports_v08 WHERE job_id=?",(m["learning_job"],)).fetchone()
+            if row!=(1,case_digest(cases),m["sha256"]): raise ContractError("learning evaluation receipt required")
         e=self.load(id,experimental=True)
         for values,expected in cases:
             actual=e.compute(tuple(values)); expected=tuple(expected)

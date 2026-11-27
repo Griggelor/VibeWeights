@@ -103,14 +103,14 @@ class Population:
         self._check()
         return Environment(tuple(self._resident.values()), validators, ledger).run(inputs, goal, **options)
 
-    def admit(self, id, cases):
+    def admit(self, id, cases, *, learning_job=None):
         """Add only; a full budget leaves the candidate STAGED."""
         self._check()
         m = self.catalog.manifest(id)
         if m['state'] != 'STAGED':
             raise ContractError('not staged')
         expert = self._prepare(m, experimental=True)
-        if not self.catalog.admit(id, cases):
+        if not self.catalog.admit(id, cases, learning_job=learning_job):
             return False
         self._resident[id] = expert
         return True
@@ -158,6 +158,30 @@ class Population:
         elif expert is not None:
             self._resident[id] = expert
         return expected_revision+1
+
+    def quarantine(self, ids, *, reason):
+        """Independent safety withdrawal, never an evolutionary archive/delete.
+
+        Trusted host supplies a reason. Quarantined artifacts cannot be reactivated
+        via SELECT; reconstruct a new candidate from valid sources instead.
+        """
+        self._check()
+        identifier(reason)
+        ids=tuple(dict.fromkeys(ids))
+        if not ids: return
+        db=self.catalog.db
+        with db:
+            db.execute('BEGIN IMMEDIATE')
+            for id in ids:
+                old=self.catalog.manifest(id)['state']
+                if old=='QUARANTINED': continue
+                if old not in STATES|{'STAGED'}: raise ContractError('invalid quarantine state')
+                revision=self.revision(id)+1
+                if db.execute('UPDATE experts SET state=? WHERE id=? AND state=?',('QUARANTINED',id,old)).rowcount!=1:
+                    raise ContractError('stale quarantine state')
+                db.execute('INSERT INTO selection_events VALUES(?,?,?,?,?)',
+                           (id,revision,old,'QUARANTINED',json.dumps({'safety_reason':reason})))
+        for id in ids: self._resident.pop(id,None)
 
     def close(self):
         self._resident.clear()

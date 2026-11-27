@@ -1,0 +1,60 @@
+{
+  "baseline_resident": [],
+  "classes": 5,
+  "entities": 12,
+  "facts": 6,
+  "knowledge_db_present_after_restart": false,
+  "methods": {
+    "DIRECT": {
+      "build": {
+        "examples": 6,
+        "final_loss": 0.0,
+        "initial_loss": 3.0,
+        "optimizer_steps": 0
+      },
+      "evaluation": {
+        "accepted": true,
+        "artifact_sha256": "2f2014afb51aca1292d1e510acbf8f4eaf6c3d736aa1c98fe8a980ba434a80a1",
+        "case_sha256": "2d17546e6108f3bd6c41079f1f20a08ff70ade7d3fd2fc58be9cb04cac23600c",
+        "cases": 14,
+        "known": 6,
+        "oracle_id": "independent-fixture",
+        "passed": 14,
+        "unknown": 8
+      },
+      "known_recall_without_candidate_zero_output": 0,
+      "parameters": 65,
+      "restart_cases": 14,
+      "restart_correct": 14,
+      "sha256": "2f2014afb51aca1292d1e510acbf8f4eaf6c3d736aa1c98fe8a980ba434a80a1"
+    },
+    "TRAINED": {
+      "build": {
+        "examples": 6,
+        "final_loss": 4.263256414560601e-14,
+        "initial_loss": 3.0,
+        "optimizer_steps": 80
+      },
+      "evaluation": {
+        "accepted": true,
+        "artifact_sha256": "e78ad8e8f693293600d0ef0ed33e7528a5a7f0c8fe845fdd5190a4580adb0aa7",
+        "case_sha256": "2d17546e6108f3bd6c41079f1f20a08ff70ade7d3fd2fc58be9cb04cac23600c",
+        "cases": 14,
+        "known": 6,
+        "oracle_id": "independent-fixture",
+        "passed": 14,
+        "unknown": 8
+      },
+      "known_recall_without_candidate_zero_output": 0,
+      "parameters": 65,
+      "restart_cases": 14,
+      "restart_correct": 14,
+      "sha256": "e78ad8e8f693293600d0ef0ed33e7528a5a7f0c8fe845fdd5190a4580adb0aa7"
+    }
+  },
+  "resident_after_restart": [
+    "direct",
+    "trained"
+  ],
+  "scope": "synthetic closed-domain recall; no generalization claim"
+}

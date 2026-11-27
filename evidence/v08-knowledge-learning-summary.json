@@ -1,0 +1,24 @@
+{
+  "version": "0.8.0.dev2",
+  "scope": "bounded association knowledge acquisition; CPU reference",
+  "command": "PYTHONPATH=\"$PWD/src\" OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONUTF8=1 python -m pytest -q --junitxml=evidence/v08-knowledge-learning-tests.xml",
+  "tests": {
+    "tests": 127,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "duration_seconds": 21.352,
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "torch": "2.10.0+cpu",
+  "safetensors": "0.7.0",
+  "pytest": "9.0.2",
+  "baseline_tests": 115,
+  "new_tests": 12,
+  "optimizer_steps_in_new_tests": 241,
+  "optimizer_steps_demo": 80,
+  "gpu_windows_remote_ci": "not run",
+  "real_teacher": "not run; synthetic fixture",
+  "limitations": "trusted host, finite one-hot association, no generalization claim, explicit source audit, no cross-DB crash injection or OS sandbox, logical CPU residency only"
+}

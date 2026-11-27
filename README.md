@@ -3,7 +3,7 @@
 **A self-organizing, self-learning, self-optimizing and self-scaling neural ecosystem**
 
 ![Research prototype](https://img.shields.io/badge/status-research%20prototype-orange)
-![Version](https://img.shields.io/badge/development-v0.8.0.dev1-blue)
+![Version](https://img.shields.io/badge/development-v0.8.0.dev2-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 
 **Local-first AI research · Decentralized neural experts · Weight-space programming · Continual learning**
@@ -386,6 +386,14 @@ The full [research survey](docs/FORSCHUNG_2026-11-26.md) and [learning/evolution
 
 Independent holdouts must not become synthesis inputs. Report failures as research results. Distinguish expert activation, causal contribution, user satisfaction, factual correctness, resource consumption and independent capability. Do not equate greater parameter count or test count with intelligence.
 
+## Development snapshot v0.8.0.dev2 — first knowledge acquisition in weights
+
+**127 local CPU tests passed** (115 regression tests + 12 new tests). The numerical knowledge-learning slice constructs DIRECT associative weights or learns the same associations through actual SGD optimization. The learning ledger links immutable candidates to source revisions, dataset hashes, build statistics and an independent fixture evaluation. Admission is additive; failed evaluations and exhausted budgets leave the candidate unadmitted.
+
+In the reproducible synthetic demo, both 65-parameter experts retain 6 known facts and abstain on 8 unknown queries (14/14 after restart without the knowledge database). The TRAINED expert uses 80 optimization steps. Separate-process tests load only the weight artifact and identity dimensions; zero-weight ablation loses all known facts. This is finite associative recall, not semantic generalization or autonomous assimilation. Explicit source audits can quarantine affected experts and declared descendants while preserving artifacts. Automatic source-revision enforcement is still pending.
+
+See [implementation and demo](docs/KNOWLEDGE_LEARNING_v08.md), [demo results](evidence/v08-knowledge-learning-demo.json) and [test evidence](evidence/v08-knowledge-learning-summary.json). Run `python scripts/knowledge_learning_demo.py` from the installed repository. The three-state VRAM/SSD target and additive consolidation remain unchanged. No real teacher model, Windows, physical GPU residency or remote CI was tested in this run.
+
 ## Development snapshot v0.8.0.dev1 — resident population
 
 The first executable population manager now implements the three approved expert states (ACTIVE, LOW_ACTIVE_IMPORTANT and ARCHIVED), additive admission and composition, separate evidence-gated selection with persistent revision history, and budgeted reactivation of immutable artifacts. The numerical Environment can run only the resident population. No automatic eviction or physical deletion is implemented.
@@ -468,7 +476,7 @@ The commands above are for the existing Python research prototype, not the futur
 | Stage | Priority / deliverable |
 |---|---|
 | Public baseline | v0.7.0 source, weights and evidence imported; verify Windows/Linux CI |
-| Knowledge-first learning (P0) | Early validated factual/method acquisition into weights; immutable candidates, independent tests, correction, replay and recovery |
+| Knowledge-first learning (P0) | First bounded DIRECT/TRAINED recall demonstrated; next: real teacher, automatic revision enforcement, method/transfer holdouts, recovery and retention |
 | Unified Environment | Migrate the regular chat/API to the new core; generic events, dynamic topology, private recurrence, independent result release |
 | Memory | Universal semantic ABI, source/relationship indexing, cooperation and feedback integration, recovery, physical budgets |
 | Bootstrap | Real authorized local models; text vs latent adapter experiments, independent ablations |
@@ -491,6 +499,7 @@ The detailed project documents are currently primarily in German; this English o
 | [Platform v0.5](docs/platform_v05.md) | Reference runtime, API, telemetry and limits |
 | [Research survey](docs/FORSCHUNG_2026-11-26.md) | Literature and implications |
 | [Research supplement](docs/FORSCHUNG_ERGAENZUNG_v05.md) | Exploration, selection, learning and attribution |
+| [Knowledge acquisition v0.8.dev2](docs/KNOWLEDGE_LEARNING_v08.md) | First DIRECT/TRAINED weights, learning ledger, evaluation, source audit and evidence |
 | [Population / residency v0.8.dev1](docs/POPULATION_v08.md) | Three states, additive learning interface, separate selection and CPU evidence |
 | [Knowledge-first learning](docs/KNOWLEDGE_FIRST_LEARNING.md) | Learning safety, provenance, isolation, evaluation and weight-acquisition milestones |
 | [Roadmap](docs/status.md) | Development priorities and acceptance |
