@@ -55,10 +55,12 @@ def derive_relation(learning, *, first_job, second_job, result_domain, job_id,
         for i,value,refs in inferred:
             rec=learning.knowledge._store_locked(learning.access,scope='global',key=f'{d.topic}:entity:{i}',topic=d.topic,values=(value,),source=source,status='VERIFIED',parents=refs)
             ids.append(rec.id)
+        metadata={'contract':'two-hop-identity-v1','bridge_id':bridge_id,'parent_jobs':[first_job,second_job],
+                  'oracle_id':oracle_id,'evaluated_cases':d.entities+2,'derived_facts':len(ids)}
+        learning.record_intake(job_id=job_id,expert_id=expert_id,domain=d,ids=ids,method=method,
+                               steps=steps,parents=parents,derivation=metadata)
         learning.knowledge.db.commit()
-    metadata={'contract':'two-hop-identity-v1','bridge_id':bridge_id,'parent_jobs':[first_job,second_job],
-              'oracle_id':oracle_id,'evaluated_cases':d.entities+2,'derived_facts':len(ids)}
-    m=learning.prepare(job_id,expert_id,d,ids,method=method,steps=steps,parents=parents,derivation=metadata)
+    m=learning.resume_intake(job_id)
     return m,tuple(ids)
 
 
@@ -117,8 +119,10 @@ def stage_teacher_knowledge(learning, teacher, *, domain, request, job_id, exper
         for i,value in sorted(facts.items()):
             rec=learning.knowledge._store_locked(learning.access,scope='global',key=f'{domain.topic}:entity:{i}',topic=domain.topic,values=(value,),source=source,status='VERIFIED')
             ids.append(rec.id)
+        metadata={'contract':'local-teacher-json-v1','teacher_id':teacher.spec.id,'model':teacher.spec.model,
+                  'oracle_id':oracle_id,'request_sha256':hashlib.sha256(request.encode()).hexdigest(),
+                  'proposal_sha256':hashlib.sha256(raw.encode()).hexdigest(),'verified_facts':len(ids)}
+        learning.record_intake(job_id=job_id,expert_id=expert_id,domain=domain,ids=ids,method=method,
+                               steps=steps,derivation=metadata)
         learning.knowledge.db.commit()
-    metadata={'contract':'local-teacher-json-v1','teacher_id':teacher.spec.id,'model':teacher.spec.model,
-              'oracle_id':oracle_id,'request_sha256':hashlib.sha256(request.encode()).hexdigest(),
-              'proposal_sha256':hashlib.sha256(raw.encode()).hexdigest(),'verified_facts':len(ids)}
-    return learning.prepare(job_id,expert_id,domain,ids,method=method,steps=steps,derivation=metadata),tuple(ids)
+    return learning.resume_intake(job_id),tuple(ids)

@@ -1,0 +1,110 @@
+{
+  "aggregate_artifact_bytes": 204,
+  "aggregate_derivation_build_and_admission_ms": 23.87316,
+  "aggregate_parameters": 21,
+  "all_artifact_bytes": 1712,
+  "catalog_db_bytes": 81920,
+  "knowledge_db_bytes": 77824,
+  "originals_unchanged": true,
+  "parent_build_and_admission_ms": [
+    823.511737,
+    9.843523
+  ],
+  "parent_parameters": 43,
+  "population_parameters_after_consolidation": 64,
+  "restart_cases": 100,
+  "restart_correct": 100,
+  "retention": [
+    {
+      "build_and_admission_ms": 13.810316,
+      "cases": 10,
+      "correct": 10,
+      "packages": 1,
+      "resident_tensor_bytes": 400
+    },
+    {
+      "build_and_admission_ms": 33.05117,
+      "cases": 20,
+      "correct": 20,
+      "packages": 2,
+      "resident_tensor_bytes": 544
+    },
+    {
+      "build_and_admission_ms": 17.762738,
+      "cases": 30,
+      "correct": 30,
+      "packages": 3,
+      "resident_tensor_bytes": 688
+    },
+    {
+      "build_and_admission_ms": 29.583457,
+      "cases": 40,
+      "correct": 40,
+      "packages": 4,
+      "resident_tensor_bytes": 832
+    },
+    {
+      "build_and_admission_ms": 18.800631,
+      "cases": 50,
+      "correct": 50,
+      "packages": 5,
+      "resident_tensor_bytes": 976
+    },
+    {
+      "build_and_admission_ms": 30.130612,
+      "cases": 60,
+      "correct": 60,
+      "packages": 6,
+      "resident_tensor_bytes": 1120
+    },
+    {
+      "build_and_admission_ms": 16.931967,
+      "cases": 70,
+      "correct": 70,
+      "packages": 7,
+      "resident_tensor_bytes": 1264
+    },
+    {
+      "build_and_admission_ms": 37.087467,
+      "cases": 80,
+      "correct": 80,
+      "packages": 8,
+      "resident_tensor_bytes": 1408
+    },
+    {
+      "build_and_admission_ms": 18.586237,
+      "cases": 90,
+      "correct": 90,
+      "packages": 9,
+      "resident_tensor_bytes": 1552
+    },
+    {
+      "build_and_admission_ms": 32.448652,
+      "cases": 100,
+      "correct": 100,
+      "packages": 10,
+      "resident_tensor_bytes": 1696
+    }
+  ],
+  "scope": "synthetic CPU single-process microbenchmark; no GPU or generalization",
+  "timings": {
+    "aggregate_live": {
+      "correct": 100,
+      "median_us": 664.851,
+      "min_us": 580.564,
+      "queries": 100
+    },
+    "ledger_only": {
+      "correct": 100,
+      "median_us": 3.85,
+      "min_us": 3.515,
+      "queries": 100
+    },
+    "two_hop_live": {
+      "correct": 100,
+      "median_us": 743.024,
+      "min_us": 611.31,
+      "queries": 100
+    }
+  }
+}

@@ -3,7 +3,7 @@
 **A self-organizing, self-learning, self-optimizing and self-scaling neural ecosystem**
 
 ![Research prototype](https://img.shields.io/badge/status-research%20prototype-orange)
-![Version](https://img.shields.io/badge/development-v0.8.0.dev3-blue)
+![Version](https://img.shields.io/badge/development-v0.8.0.dev4-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 
 **Local-first AI research · Decentralized neural experts · Weight-space programming · Continual learning**
@@ -386,6 +386,16 @@ The full [research survey](docs/FORSCHUNG_2026-11-26.md) and [learning/evolution
 
 Independent holdouts must not become synthesis inputs. Report failures as research results. Distinguish expert activation, causal contribution, user satisfaction, factual correctness, resource consumption and independent capability. Do not equate greater parameter count or test count with intelligence.
 
+## Development snapshot v0.8.0.dev4 — recoverable learning and learning economics
+
+**153 local CPU tests passed** (142 regression cases + 11 new cases). Verified teacher and relation fact batches now commit a durable learning intent in the same source-database transaction. Explicit recovery reconstructs incomplete jobs and builds, checks source revisions and identity, and returns an existing staged or admitted artifact without duplicating it. Recovery never bypasses independent promotion. Six actual process-exit tests cover committed boundaries through admission; this is not universal cross-database or power-loss atomicity.
+
+The synthetic economics demo compares 100 identical known/unknown queries per path: indexed lookup (median 3.85 µs), two-hop live expert cooperation (743.02 µs), and an additive aggregate expert (664.85 µs). All 300 answers are correct. Guards differ in scope, so these are implementation-level CPU measurements, not isolated kernel comparisons. The aggregate needs 21 parameters rather than 43 for the two parents, but all originals remain available and the total grows to 64. No claim that weights outperform indexed factual memory.
+
+Ten sequential disjoint knowledge packages pass full replay after each addition and retain 100/100 cases after restart. Original artifact hashes remain unchanged. This demonstrates bounded additive retention, not general continual learning within a jointly trained model.
+
+See [recovery and economics implementation](docs/LEARNING_RECOVERY_v08.md), [demo](evidence/v08-learning-economics-demo.json) and [test evidence](evidence/v08-learning-recovery-summary.json). Real teacher inference, autonomous job initiation, unified source/memory transactions, scalable source guards, GPU/Windows and remote CI remain open.
+
 ## Development snapshot v0.8.0.dev3 — relational knowledge transfer
 
 **142 local CPU tests passed** (127 regression cases + 15 new cases). Two independently acquired associative experts can now be connected through an explicitly declared identity bridge. Their forward outputs yield a new derived relation, checked against an independent synthetic oracle before atomic fact-batch storage and separate DIRECT/TRAINED candidate admission. Original experts remain available. In the demo the new 21-parameter expert learns three derived facts in 80 SGD steps and passes all eight known/unknown cases; isolated-process tests load only the new candidate weights.
@@ -484,7 +494,7 @@ The commands above are for the existing Python research prototype, not the futur
 | Stage | Priority / deliverable |
 |---|---|
 | Public baseline | v0.7.0 source, weights and evidence imported; verify Windows/Linux CI |
-| Knowledge-first learning (P0) | Bounded DIRECT/TRAINED recall and declared relational transfer demonstrated; live source guards and strict teacher proposal intake implemented. Next: real teacher, recovery, method/transfer holdouts, cost and retention |
+| Knowledge-first learning (P0) | Bounded recall, relational transfer, explicit recovery and ten-package retention demonstrated. Next: unified source/memory transactions, scalable dependency checks, real teacher, autonomous proposals and method/transfer holdouts |
 | Unified Environment | Migrate the regular chat/API to the new core; generic events, dynamic topology, private recurrence, independent result release |
 | Memory | Universal semantic ABI, source/relationship indexing, cooperation and feedback integration, recovery, physical budgets |
 | Bootstrap | Real authorized local models; text vs latent adapter experiments, independent ablations |
@@ -507,6 +517,7 @@ The detailed project documents are currently primarily in German; this English o
 | [Platform v0.5](docs/platform_v05.md) | Reference runtime, API, telemetry and limits |
 | [Research survey](docs/FORSCHUNG_2026-11-26.md) | Literature and implications |
 | [Research supplement](docs/FORSCHUNG_ERGAENZUNG_v05.md) | Exploration, selection, learning and attribution |
+| [Learning recovery and economics v0.8.dev4](docs/LEARNING_RECOVERY_v08.md) | Durable intents, crash tests, cost comparison and ten-package retention |
 | [Relational learning v0.8.dev3](docs/RELATION_LEARNING_v08.md) | Derived facts, additive candidate, live source guards and teacher proposal verification |
 | [Knowledge acquisition v0.8.dev2](docs/KNOWLEDGE_LEARNING_v08.md) | First DIRECT/TRAINED weights, learning ledger, evaluation, source audit and evidence |
 | [Population / residency v0.8.dev1](docs/POPULATION_v08.md) | Three states, additive learning interface, separate selection and CPU evidence |

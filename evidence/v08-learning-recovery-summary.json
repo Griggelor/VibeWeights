@@ -1,0 +1,22 @@
+{
+  "version": "0.8.0.dev4",
+  "tests": {
+    "tests": 153,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "baseline_tests": 142,
+  "new_tests": 11,
+  "duration_seconds": 40.596,
+  "python": "3.13.5",
+  "torch": "2.10.0+cpu",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "test_command": "PYTHONPATH=$PWD/src python -m pytest -q --junitxml=evidence/v08-learning-recovery-tests.xml",
+  "demo_command": "PYTHONPATH=$PWD/src python scripts/learning_economics_demo.py",
+  "real_llm": false,
+  "windows_gpu": false,
+  "remote_ci": false,
+  "scope": "local CPU reference; six unclean process exits at committed boundaries, explicit recovery, economics and ten disjoint packages",
+  "demo_sha256": "1ad49691dbd5ad0bebd4605c5cfecd833929efc5a01921b8228a41dd5377c165"
+}

@@ -75,6 +75,11 @@ class KnowledgeLearning:
         CREATE TABLE IF NOT EXISTS knowledge_builds_v08(
           job_id TEXT PRIMARY KEY, stats TEXT NOT NULL);
         ''')
+        self.knowledge.db.executescript('''
+        CREATE TABLE IF NOT EXISTS learning_intakes_v08(
+          job_id TEXT PRIMARY KEY, expert_id TEXT NOT NULL UNIQUE,
+          spec TEXT NOT NULL, created_ns INTEGER NOT NULL);
+        ''')
         self._locked_depth=0
         self._guard_depth=0
         population._source_owner=self
@@ -146,10 +151,37 @@ class KnowledgeLearning:
               'learning_rate':0.25 if method=='TRAINED' else None,
               'torch_version':str(torch.__version__),'initialization':'zero','contract':'association-v1',
               'expert_parents':parents,'derivation':derivation}
+        pending=self.knowledge.db.execute('SELECT job_id,expert_id,spec FROM learning_intakes_v08 WHERE job_id=? OR expert_id=?',(job_id,expert_id)).fetchall()
+        if pending:
+            expected={'domain':asdict(domain),'roots':list(ids),'sources':refs,
+                      'dataset_sha256':spec['dataset_sha256'],'method':method,'steps':steps,
+                      'expert_parents':list(parents),'derivation':derivation}
+            if pending!=[(job_id,expert_id,json.dumps(expected,sort_keys=True))]:
+                raise ContractError('learning identity reserved by intake')
         if self.db.execute('SELECT 1 FROM experts WHERE id=?',(expert_id,)).fetchone() or self.db.execute('SELECT 1 FROM knowledge_jobs_v08 WHERE id=? OR expert_id=?',(job_id,expert_id)).fetchone():
             raise ContractError('duplicate learning identity')
         with self.db:
             self.db.execute('INSERT INTO knowledge_jobs_v08 VALUES(?,?,?,?,?)',(job_id,expert_id,method,json.dumps(spec,sort_keys=True),time.time_ns()))
+        return self.resume_build(job_id)
+
+    def resume_build(self, job_id):
+        """Explicit restart of an incomplete build; never promotes a candidate."""
+        with self._guard():
+            job=self.job(job_id)
+            if job['state']!='INCOMPLETE' or job['report'] is not None:
+                raise ContractError('job is not an incomplete build')
+            domain=self._check_sources(job)
+            spec=job['spec']; method=job['method']; expert_id=job['expert_id']
+            steps=spec['steps']; parents=tuple(spec['expert_parents'])
+            if spec['torch_version']!=str(torch.__version__):
+                raise ContractError('recovery requires original torch version')
+            for parent in parents:
+                if self.catalog.manifest(parent)['state'] not in ('ACTIVE','LOW_ACTIVE_IMPORTANT'):
+                    raise ContractError('learning parent not resident')
+            examples,_=self._snapshot(spec['roots'],domain)
+            return self._build(job_id,expert_id,domain,examples,spec,method,steps,parents)
+
+    def _build(self, job_id, expert_id, domain, examples, spec, method, steps, parents):
         w=torch.zeros((domain.labels,domain.entities),dtype=torch.float32)
         b=torch.zeros(domain.labels,dtype=torch.float32)
         # Sorted independent identity vectors, target labels only in this learning process.
@@ -168,11 +200,63 @@ class KnowledgeLearning:
         w=w.detach()
         final=float((x@w.T-y).square().sum()/2)
         stats={'initial_loss':initial,'final_loss':final,'optimizer_steps':spec['steps'],'examples':len(examples)}
-        with self.db:
-            self.db.execute('INSERT INTO knowledge_builds_v08 VALUES(?,?)',(job_id,json.dumps(stats,sort_keys=True)))
+        encoded=json.dumps(stats,sort_keys=True)
+        prior=self.db.execute('SELECT stats FROM knowledge_builds_v08 WHERE job_id=?',(job_id,)).fetchone()
+        if prior is not None and prior!=(encoded,):
+            raise ContractError('recovered build statistics differ')
+        if prior is None:
+            with self.db:
+                self.db.execute('INSERT INTO knowledge_builds_v08 VALUES(?,?)',(job_id,encoded))
         return self.catalog.stage_affine(expert_id,domain.topic,w.tolist(),b.tolist(),
             source_topic=domain.topic+':query',target_scope='global',target_topic=domain.topic+':answer',
             origin=method,learning_job=job_id,parents=parents)
+
+
+    def record_intake(self, *, job_id, expert_id, domain, ids, method, steps, parents=(), derivation=None):
+        """Append a durable intent in the SAME transaction as verified facts."""
+        if not self.knowledge.db.in_transaction or not self._locked_depth:
+            raise ContractError('intake requires guarded source transaction')
+        identifier(job_id); identifier(expert_id)
+        if method not in ('DIRECT','TRAINED') or type(steps) is not int or not 1<=steps<=256:
+            raise ContractError('learning method/budget')
+        examples,refs=self._snapshot(ids,domain)
+        spec={'domain':asdict(domain),'roots':list(ids),'sources':refs,
+              'dataset_sha256':_hash(sorted(examples.items())), 'method':method,
+              'steps':steps,'expert_parents':list(parents),'derivation':derivation}
+        self.knowledge.db.execute('INSERT INTO learning_intakes_v08 VALUES(?,?,?,?)',
+            (job_id,expert_id,json.dumps(spec,sort_keys=True),time.time_ns()))
+
+    def intakes(self):
+        """List persisted intake intents with current catalog state (no mutation)."""
+        result=[]
+        for job,expert,spec in self.knowledge.db.execute('SELECT job_id,expert_id,spec FROM learning_intakes_v08 ORDER BY job_id'):
+            exists=self.db.execute('SELECT 1 FROM knowledge_jobs_v08 WHERE id=?',(job,)).fetchone()
+            result.append({'job_id':job,'expert_id':expert,'spec':json.loads(spec),
+                           'state':self.job(job)['state'] if exists else 'PENDING'})
+        return result
+
+    def resume_intake(self, job_id):
+        """Resume a committed fact batch; idempotent after staging, no promotion."""
+        with self._guard():
+            row=self.knowledge.db.execute('SELECT expert_id,spec FROM learning_intakes_v08 WHERE job_id=?',(job_id,)).fetchone()
+            if row is None: raise ContractError('unknown intake')
+            expert,raw=row; spec=json.loads(raw); d=Domain(**spec['domain'])
+            examples,refs=self._snapshot(spec['roots'],d)
+            if refs!=spec['sources'] or _hash(sorted(examples.items()))!=spec['dataset_sha256']:
+                raise ContractError('intake sources changed')
+            exists=self.db.execute('SELECT 1 FROM knowledge_jobs_v08 WHERE id=?',(job_id,)).fetchone()
+            if not exists:
+                return self.prepare(job_id,expert,d,spec['roots'],method=spec['method'],
+                    steps=spec['steps'],parents=tuple(spec['expert_parents']),derivation=spec['derivation'])
+            j=self.job(job_id); js=j['spec']
+            if (j['expert_id']!=expert or j['method']!=spec['method'] or
+                js['steps']!=(spec['steps'] if spec['method']=='TRAINED' else 0) or
+                any(js[key]!=spec[key] for key in ('domain','roots','sources','dataset_sha256','expert_parents','derivation'))):
+                raise ContractError('intake/job mismatch')
+            if j['state']=='INCOMPLETE': return self.resume_build(job_id)
+            if j['state']=='QUARANTINED': raise ContractError('intake quarantined')
+            self.catalog.load(expert,experimental=True,byte_budget=self.population.artifact_budget)
+            return self.catalog.manifest(expert)
 
     def job(self, job_id):
         row=self.db.execute('SELECT expert_id,method,spec,created_ns FROM knowledge_jobs_v08 WHERE id=?',(job_id,)).fetchone()

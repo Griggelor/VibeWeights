@@ -1,5 +1,7 @@
 # v0.8.0.dev3 — Wissensverknüpfung, erneutes Lernen und Live-Quellenschutz
 
+Historischer Stand dev3. Für persistente Intake-Intents, Wiederanlauf und die neueren Kosten-/Retentionstests siehe [dev4](LEARNING_RECOVERY_v08.md).
+
 Status: ausführbarer CPU-Referenzslice; keine Environment-Abnahme. Baut auf [dev2](KNOWLEDGE_LEARNING_v08.md) und dem [Lernvertrag](KNOWLEDGE_FIRST_LEARNING.md) auf. Die drei regulären Zustände ACTIVE (VRAM), LOW_ACTIVE_IMPORTANT (VRAM), ARCHIVED (SSD), additive Aufnahme/Konsolidierung, unabhängige Selektion und keine evolutionäre Löschung bleiben unverändert. QUARANTINED ist ein separater Sicherheitszustand.
 
 ## 1. Neue relationale Lernkette
