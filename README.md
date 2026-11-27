@@ -3,7 +3,7 @@
 **A self-organizing, self-learning, self-optimizing and self-scaling neural ecosystem**
 
 ![Research prototype](https://img.shields.io/badge/status-research%20prototype-orange)
-![Version](https://img.shields.io/badge/baseline-v0.7.0-blue)
+![Version](https://img.shields.io/badge/development-v0.8.0.dev1-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 
 **Local-first AI research · Decentralized neural experts · Weight-space programming · Continual learning**
@@ -386,6 +386,14 @@ The full [research survey](docs/FORSCHUNG_2026-11-26.md) and [learning/evolution
 
 Independent holdouts must not become synthesis inputs. Report failures as research results. Distinguish expert activation, causal contribution, user satisfaction, factual correctness, resource consumption and independent capability. Do not equate greater parameter count or test count with intelligence.
 
+## Development snapshot v0.8.0.dev1 — resident population
+
+The first executable population manager now implements the three approved expert states (ACTIVE, LOW_ACTIVE_IMPORTANT and ARCHIVED), additive admission and composition, separate evidence-gated selection with persistent revision history, and budgeted reactivation of immutable artifacts. The numerical Environment can run only the resident population. No automatic eviction or physical deletion is implemented.
+
+**115 local CPU tests passed** (104 baseline + 11 new). This is a CPU reference for the target VRAM/SSD design, not a physical GPU-memory measurement. Selection evidence is supplied by trusted host code, not autonomously inferred. The legacy chat path has not yet migrated; no actual new knowledge was learned into weights in this round.
+
+See [implementation and usage](docs/POPULATION_v08.md) and [test evidence](evidence/v08-population-summary.json). The original v0.7.0 evidence remains historical.
+
 ## Current implementation (v0.7.0)
 
 **Goal 1 — Environment is in development; it has not passed the full acceptance gate.**
@@ -483,6 +491,7 @@ The detailed project documents are currently primarily in German; this English o
 | [Platform v0.5](docs/platform_v05.md) | Reference runtime, API, telemetry and limits |
 | [Research survey](docs/FORSCHUNG_2026-11-26.md) | Literature and implications |
 | [Research supplement](docs/FORSCHUNG_ERGAENZUNG_v05.md) | Exploration, selection, learning and attribution |
+| [Population / residency v0.8.dev1](docs/POPULATION_v08.md) | Three states, additive learning interface, separate selection and CPU evidence |
 | [Knowledge-first learning](docs/KNOWLEDGE_FIRST_LEARNING.md) | Learning safety, provenance, isolation, evaluation and weight-acquisition milestones |
 | [Roadmap](docs/status.md) | Development priorities and acceptance |
 | [Original project brief](docs/PROJEKTAUFTRAG.md) | Historical starting point |

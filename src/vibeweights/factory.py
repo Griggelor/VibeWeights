@@ -44,15 +44,15 @@ class Catalog:
             with self.db: self.db.execute('INSERT INTO experts VALUES(?,?,?,?)',(id,family,json.dumps(m,sort_keys=True),'STAGED'))
             return self.manifest(id)
         finally: temp.unlink(missing_ok=True)
-    def load(self,id,*,byte_budget=64*1024*1024,experimental=False):
+    def load(self,id,*,byte_budget=64*1024*1024,experimental=False,device="cpu"):
         m=self.manifest(id)
-        if m['state']!='ACTIVE' and not experimental: raise ContractError('candidate not admitted')
+        if m['state'] not in ('ACTIVE','LOW_ACTIVE_IMPORTANT') and not experimental: raise ContractError('candidate not admitted')
         if type(byte_budget) is not int or byte_budget<1: raise ContractError('byte budget')
         path=self.root/(m['sha256']+'.safetensors')
-        if path.stat().st_size!=m['bytes'] or m['bytes']>byte_budget or digest(path)!=m['sha256']: raise ContractError('artifact budget or integrity')
+        if not path.is_file() or path.stat().st_size!=m['bytes'] or m['bytes']>byte_budget or digest(path)!=m['sha256']: raise ContractError('artifact budget or integrity')
         tensors=load_file(str(path)); w,b=tensors['w'],tensors['b']
         if list(w.shape)!=m['shape'] or b.shape!=(w.shape[0],) or any(t.dtype!=torch.float32 or not torch.isfinite(t).all() for t in (w,b)): raise ContractError('tensor contract')
-        return AffineExpert(m,w,b)
+        return AffineExpert(m,w.to(device),b.to(device))
     def admit(self,id,cases):
         """Host-supplied independent expected pairs. Limited, not proof of general competence."""
         m=self.manifest(id)
@@ -63,7 +63,9 @@ class Catalog:
         for values,expected in cases:
             actual=e.compute(tuple(values)); expected=tuple(expected)
             if len(actual)!=len(expected) or any(not math.isclose(a,b,abs_tol=1e-6,rel_tol=1e-6) for a,b in zip(actual,expected)): return False
-        with self.db: self.db.execute('UPDATE experts SET state=? WHERE id=?',('ACTIVE',id))
+        with self.db:
+            if self.db.execute('UPDATE experts SET state=? WHERE id=? AND state=?',('ACTIVE',id,'STAGED')).rowcount!=1:
+                raise ContractError('stale admission')
         return True
     def compose_affine(self,id,family,first,second,*,byte_budget=64*1024*1024):
         """Analytic fusion of compatible affine maps; candidate still requires admission.
@@ -82,7 +84,7 @@ class AffineExpert:
     @torch.inference_mode()
     def compute(self,values):
         if len(values)!=self.w.shape[1]: raise ContractError('input width')
-        v=torch.tensor(values,dtype=torch.float32); y=torch.nn.functional.linear(v,self.w,self.b)
+        v=torch.tensor(values,dtype=torch.float32,device=self.w.device); y=torch.nn.functional.linear(v,self.w,self.b)
         if not torch.isfinite(y).all(): raise ContractError('nonfinite output')
         return tuple(y.tolist())
     def forward(self,snapshot):

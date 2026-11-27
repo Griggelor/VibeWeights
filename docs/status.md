@@ -1,8 +1,12 @@
-# Status v0.7.0
+# Status v0.8.0.dev1
 
 **Ziel 1 (Environment) in Arbeit; keine Environment-Abnahme.** 104 lokale CPU-Tests bestanden (87 Regressionen + 17 neue Testfälle). Siehe [Memory Architecture v0.7](MEMORY_ARCHITECTURE_v07.md), [Implementierung v0.6](platform_v06.md), [Zielarchitektur](ARCHITEKTUR_v06.md) und [Review v0.5](review/v0.5.0/REVIEW_UND_ROADMAP_v06.md). Der reguläre Chat/API-Pfad ist weiterhin die korrigierte arithmetische Referenz; der neue Environment-Pfad ist opt-in.
 
-## Fortschritt
+## Entwicklungsstand v0.8.0.dev1 (Population)
+
+115 lokale CPU-Tests bestanden (104 Regressionen + 11 neue Testfälle). Siehe [Population/Residency](POPULATION_v08.md) und [aktuelle Testevidenz](../evidence/v08-population-summary.json). Implementiert: drei freigegebene Zustände, getrennte additive Aufnahme und Konsolidierung, explizite evidenzbasierte Selektionsschnittstelle, SQLite-Revisionsjournal, Budgetverweigerung ohne automatische Verdrängung, Archivierung/Reaktivierung und numerischer Environment-Anschluss. Nur affine FP32-Experten, ein vertrauenswürdiger Host-Owner, logisches Tensorbudget. Kein gemessener GPU-Residency-Nachweis, keine autonomen Selektionsberichte, keine echte Wissensaufnahme. Nächster P0: Learning Ledger + DIRECT/TRAINED-Wissensexperiment, Abnahme ohne Lehrer/Bootstrap/Faktenabruf, dann Langzeitevidenz für die Selektion.
+
+## Fortschritt der historischen v0.7.0-Baseline
 
 - Persistentes numerisches Wissensledger mit unveränderlichen Revisionen, atomarem Head-Wechsel, Zeit-/Quellen-/Topic-/Relationsindex, Sichtbarkeitsregeln und expliziter Embeddingraum-Suche.
 - Eigene Arbeitskontexte für Experten, logische Gruppenbereiche, native SEARCH/READ/RELATED/EVICT/REMEMBER-Aktionen und Ressourcenlimits.

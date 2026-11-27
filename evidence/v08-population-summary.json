@@ -1,0 +1,23 @@
+{
+  "version": "0.8.0.dev1",
+  "scope": "population/residency CPU reference",
+  "command": "PYTHONPATH=\"$PWD/src\" OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONUTF8=1 python -m pytest -q --junitxml=evidence/v08-population-tests.xml",
+  "tests": {
+    "tests": 115,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "duration_seconds": 15.354,
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "torch": "2.10.0+cpu",
+  "safetensors": "0.7.0",
+  "pytest": "9.0.2",
+  "new_tests": 11,
+  "baseline_tests": 104,
+  "training_steps": 0,
+  "gpu_windows_remote_ci": "not run",
+  "initial_test_setup": "3 CLI subprocess failures without installed package/PYTHONPATH; rerun with absolute PYTHONPATH passed",
+  "limitations": "trusted host reports, single owner, logical FP32 tensor byte budget, no physical VRAM measurement, no autonomous knowledge acquisition or selection"
+}
