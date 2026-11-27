@@ -9,14 +9,19 @@
 - Nachweis der Wiederverwendung einer neu gespeicherten Erkenntnis durch einen anderen direkt konstruierten Rechenexperten nach Neustart der DB mit 1.000 zusätzlichen Ablenkungsdatensätzen.
 - Kontextübergabe an Bootstrap-Textadapter über explizit ausgewählte, verifizierte IDs. Kein echtes LLM oder autonomer Lehrbetrieb.
 
-## Nächste Arbeitspakete in Reihenfolge
+## Nächste Arbeitspakete — Knowledge-first-Priorisierung
 
-1. GitHub-Import der aktuellen Baseline, Windows/Linux-CI tatsächlich ausführen. Öffentliches Repository und Apache-2.0 beschlossen; vollständiger Import und CI noch offen.
-2. Neuer Environment-Kern als regulärer Chat/API-Pfad mit Migration: gemeinsamer Kontext- und Sessionvertrag, dynamische Topologie, Eventbus, eigene rekurrente Zustände, unabhängige Verifikation, alte Review-Solltests. Keine zweite dauerhaft konkurrierende Produktionsruntime.
-3. Memory: semantisches ABI/Encoder, universelles Wissens-/Quellenformat einschließlich Text/Dokumenten, Index- und Konfliktverwaltung, integrierte Kooperation/Feedback/Episoden, autonome Konsolidierung, transitive Provenienz, Recovery und tatsächliche Byte-/Zeitgrenzen. Gruppenrechte dynamisch aber überprüfbar.
-4. Bootstrap: echte Qwen-MoE oder andere zulässige lokale Modelle, native Latentadapter erforschen; separate Text-/Latent-Evaluation und Bootstrap-Ablation. Kein zentraler Planer.
-5. Expert Factory: weitere deklarative Operatorgraphen, Kandidatenvalidierung, Versionenvergleich, Feedbackreflexion, Lernjobs und Verdichtung; einen dauerhaften Kompetenzerwerb mit deaktiviertem Lehrer nachweisen.
-6. Hardware/Studio parallel nach stabilen Verträgen: Q4-Tests, GGUF, C++-CPU-Parität, Vulkan/HIP auf Strix Halo, Lazy Cache und Peak-Budget, Windows Portable. Data und Models getrennt.
-7. Environment-Abnahme, danach systematischer Ausbau der Basisintelligenz, Assimilation, Recherche und Neugier. Vergleich gegen eingefrorene Referenz und deaktivierte Bootstrap-Modelle.
+Verbindliche Ergänzung: [Knowledge-first Learning und Validierungsvertrag](KNOWLEDGE_FIRST_LEARNING.md). Konkretes Wissen und stabile Methoden vor autonomer Veränderung von Intelligenzstrukturen. Die fünf Ziele bleiben bestehen; erster vertikaler Gewichtslern-Nachweis hat P0-Priorität innerhalb des Environment-Ausbaus.
+
+1. P0: GitHub-Baseline ist importiert; tatsächliche Windows/Linux-CI-Ergebnisse prüfen.
+2. P0: gemeinsamer Environment-/Ledger-/Factory-Vertrag, neuer regulärer Chat/API-Pfad, sichere Migration, Events und unabhängige Verifikation. Keine zweite dauerhaft konkurrierende Produktionsruntime.
+3. P0: Lernledger, Quellenrevisionen und transitive Abhängigkeiten, unveränderliche Kandidaten, getrennte Evaluationsrechte, atomare Freigabe und Recovery. Falsches, widerrufenes und privates Wissen nicht automatisch einlernen.
+4. P0: realer lokaler Bootstrap- und Lehreradapter parallel; kontrollierte Lehrer-Fixture zuerst, echte Modellabnahme getrennt. Kein zentraler Planer.
+5. P0: erster vertikaler parametrischer Wissenserwerb mit kleinen DIRECT-Assoziationsgewichten und separatem TRAINED-Experiment; Neustart, Lehrer/Bootstrap/Faktenabruf aus, Kandidatenablation, Korrektur, Vergessen und Vergleich gegen Ledger-only. Kein Generalisierungsanspruch durch bloße Wiederholung gelernter Fakten.
+6. P1: sequenzielle Wissenspakete, Replay, überprüfbare Konsolidierung, sichere Feedbackreflexion, modellinitiierte Lernjobs, Methodenübertragung und effizientere Lernverfahren.
+7. P1: freie dynamische Topologie, private Rekursion, semantisches ABI/Encoder, universelles Wissens-/Quellenformat, Index- und Konfliktverwaltung, integrierte Kooperation/Feedback/Episoden, tatsächliche Byte-/Zeitgrenzen. Gruppenrechte dynamisch aber überprüfbar; latent adapter experiments.
+8. P2: Hardware/Studio parallel nach stabilen Verträgen: Q4-Tests, GGUF, C++-CPU-Parität, Vulkan/HIP auf Strix Halo, Lazy Cache und Peak-Budget, Windows Portable. Data und Models getrennt.
+9. Environment-Abnahme und systematischer Ausbau der Basisintelligenz, Assimilation, Recherche und Neugier. Vergleich gegen eingefrorene Referenz und deaktivierte Bootstrap-Modelle; Verbesserung der Lernfähigkeit erst separat nachweisen.
+
 
 Keine allgemeine Sprachintelligenz, keine autonome Expertensynthese, keine Qwen-Inferenz, kein GPU-/Windows-/GitHub-Lauf in dieser Version. Keine klassischen Trainingsschritte. Historische Nachweise unverändert archiviert. Siehe `evidence/summary.json`.
