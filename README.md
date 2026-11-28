@@ -3,7 +3,7 @@
 **A self-organizing, self-learning, self-optimizing and self-scaling neural ecosystem**
 
 ![Research prototype](https://img.shields.io/badge/status-research%20prototype-orange)
-![Version](https://img.shields.io/badge/development-v0.8.0.dev26-blue)
+![Version](https://img.shields.io/badge/development-v0.8.0.dev28-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 
 **Local-first AI research · Decentralized neural experts · Weight-space programming · Continual learning**
@@ -396,7 +396,11 @@ The full [research survey](docs/FORSCHUNG_2026-11-26.md) and [learning/evolution
 
 Independent holdouts must not become synthesis inputs. Report failures as research results. Distinguish expert activation, causal contribution, user satisfaction, factual correctness, resource consumption and independent capability. Do not equate greater parameter count or test count with intelligence.
 
-## Development snapshot v0.8.0.dev26 — conditioned latent fragment adapter
+## Development snapshot v0.8.0.dev28 — experiential social heads
+
+266/266 baseline CPU tests on all four Windows/Linux Python 3.12/3.13 jobs; 13/13 optional fragment tests on Windows/Linux. Three seeded, persistent five-core social learning experiments: 72/72 new magnitudes after restart with learned local heads and historical invitations, 144 core calls, 72 invitations; no recall 0/72, no training shots 0/72, frozen random shots 3/72, all active 0/72. Narrow synthetic additive numeric contract, host-defined goal features and utility; no general semantic routing or real multi-fragment cooperation claim. [CI](https://github.com/Griggelor/VibeWeights/actions/runs/46171935723), [verified summary](evidence/v08-social-learning-ci.json), [contract](docs/EMERGENT_SOCIAL_HEADS.md). Optional dev27 competence diagnostic retained; not a prerequisite for social specialization. Next: genuine pretrained readout bridge, learned social interactions, independent evaluation.
+
+## Historical development snapshot v0.8.0.dev26 — conditioned latent fragment adapter
 
 Real pretrained Qwen3 16-block prefix with tokenwise L2 pooling and training-only centered-radius scaling passed all 16 training and 16 distinct authored sentiment holdouts, including local-head replay. Six-block conditioned variants 15/16, six-block baseline 13/16, random 6/16-block and embedding-only controls each 11/16. One narrowly qualified experimental candidate; no broad or autonomous assimilation claim. All CPU workflows green. [CI](https://github.com/Griggelor/VibeWeights/actions/runs/46163192152), [full report](evidence/v08-fragment-conditioning-a1.json), [contract](docs/FRAGMENT_CONDITIONING_A1.md). Next: systematic competence localization, untouched follow-up and general population/latent interfaces.
 

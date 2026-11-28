@@ -1,0 +1,170 @@
+{
+  "status": "COMPLETED",
+  "summary": {
+    "7": {
+      "learned": {
+        "cases": 24,
+        "passed": 24,
+        "core_calls": 48,
+        "invitations": 24
+      },
+      "learned_without_recall": {
+        "cases": 24,
+        "passed": 0,
+        "core_calls": 24,
+        "invitations": 0
+      },
+      "frozen_neutral": {
+        "cases": 24,
+        "passed": 0,
+        "core_calls": 0,
+        "invitations": 0
+      },
+      "frozen_random_shots": {
+        "cases": 24,
+        "passed": 1,
+        "core_calls": 48,
+        "invitations": 0
+      },
+      "learned_without_training_shots": {
+        "cases": 24,
+        "passed": 0,
+        "core_calls": 0,
+        "invitations": 0
+      },
+      "all_active": {
+        "cases": 24,
+        "passed": 0,
+        "core_calls": 120,
+        "invitations": 0
+      }
+    },
+    "19": {
+      "learned": {
+        "cases": 24,
+        "passed": 24,
+        "core_calls": 48,
+        "invitations": 24
+      },
+      "learned_without_recall": {
+        "cases": 24,
+        "passed": 0,
+        "core_calls": 24,
+        "invitations": 0
+      },
+      "frozen_neutral": {
+        "cases": 24,
+        "passed": 0,
+        "core_calls": 0,
+        "invitations": 0
+      },
+      "frozen_random_shots": {
+        "cases": 24,
+        "passed": 0,
+        "core_calls": 48,
+        "invitations": 0
+      },
+      "learned_without_training_shots": {
+        "cases": 24,
+        "passed": 0,
+        "core_calls": 0,
+        "invitations": 0
+      },
+      "all_active": {
+        "cases": 24,
+        "passed": 0,
+        "core_calls": 120,
+        "invitations": 0
+      }
+    },
+    "41": {
+      "learned": {
+        "cases": 24,
+        "passed": 24,
+        "core_calls": 48,
+        "invitations": 24
+      },
+      "learned_without_recall": {
+        "cases": 24,
+        "passed": 0,
+        "core_calls": 24,
+        "invitations": 0
+      },
+      "frozen_neutral": {
+        "cases": 24,
+        "passed": 0,
+        "core_calls": 0,
+        "invitations": 0
+      },
+      "frozen_random_shots": {
+        "cases": 24,
+        "passed": 2,
+        "core_calls": 48,
+        "invitations": 0
+      },
+      "learned_without_training_shots": {
+        "cases": 24,
+        "passed": 0,
+        "core_calls": 0,
+        "invitations": 0
+      },
+      "all_active": {
+        "cases": 24,
+        "passed": 0,
+        "core_calls": 120,
+        "invitations": 0
+      }
+    }
+  },
+  "elapsed_seconds": 8.086796368999998,
+  "ci": {
+    "run": 46171935723,
+    "job": 141062071749,
+    "commit": "dfe79a4b4b3fed3cab6c0d634562b35dafd0ed23",
+    "artifact": [
+      {
+        "id": 15274415692,
+        "name": "social-experiment-evidence",
+        "size_in_bytes": 6425,
+        "expired": false
+      }
+    ],
+    "baseline_run": 46171935632,
+    "baseline_jobs": [
+      {
+        "id": 141062072138,
+        "passed": 266,
+        "seconds": 286.25
+      },
+      {
+        "id": 141062072384,
+        "passed": 266,
+        "seconds": 80.6
+      },
+      {
+        "id": 141062072385,
+        "passed": 266,
+        "seconds": 48.44
+      },
+      {
+        "id": 141062072407,
+        "passed": 266,
+        "seconds": 272.77
+      }
+    ],
+    "tiny_run": 46171935635,
+    "tiny_jobs": [
+      {
+        "id": 141062071484,
+        "passed": 13,
+        "seconds": 7.32
+      },
+      {
+        "id": 141062071670,
+        "passed": 13,
+        "seconds": 3.86
+      }
+    ],
+    "optional_mapping_run": 46171935655
+  }
+}
