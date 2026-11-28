@@ -13,6 +13,7 @@ import torch
 from .abi import ContractError
 from .environment import identifier
 from .factory import case_digest
+from .dependency_index import DependencyIndex
 
 
 def _hash(obj):
@@ -85,6 +86,7 @@ class KnowledgeLearning:
           resolution TEXT, closed INTEGER NOT NULL DEFAULT 0);
         CREATE UNIQUE INDEX IF NOT EXISTS conflict_open_v08 ON conflict_cases_v08(topic,entity) WHERE closed=0;
         ''')
+        self.dependencies=DependencyIndex(self)
         self._locked_depth=0
         self._guard_depth=0
         population._source_owner=self
@@ -311,33 +313,16 @@ class KnowledgeLearning:
             if not report['accepted']: return False
             return self.population.admit(m['id'],cases,learning_job=job_id)
 
-    def audit_sources(self):
+    def audit_sources(self, *, full=False):
         """Explicit safety audit; quarantine invalid sources and all descendants.
 
         No evolutionary deletion/retirement. The live population automatically
         invokes this check before compute/run/admit/select. Offline artifacts cannot know
         about later corrections until synchronized; this is not automatic unlearning.
         """
-        with self._locked(): return self._audit_locked()
+        if type(full) is not bool: raise ContractError('full audit policy')
+        with self._locked():
+            return self.dependencies.audit(full=True) if full else self._audit_locked()
 
     def _audit_locked(self):
-        invalid=set()
-        for job_id, in self.db.execute('SELECT id FROM knowledge_jobs_v08').fetchall():
-            job=self.job(job_id)
-            if job['state'] in ('INCOMPLETE','QUARANTINED'): continue
-            try: self._check_sources(job)
-            except ContractError: invalid.add(job['expert_id'])
-        manifests=self.catalog.list()
-        # Persisted observations are a safety hold, never evolutionary selection.
-        for (raw,) in self.knowledge.db.execute('SELECT receipt FROM conflict_cases_v08'):
-            invalid.update(json.loads(raw)['suspects'])
-        # Include descendants of already quarantined parents, even from a later audit.
-        invalid.update(m['id'] for m in manifests if m['state']=='QUARANTINED')
-        changed=True
-        while changed:
-            n=len(invalid)
-            invalid.update(m['id'] for m in manifests if invalid.intersection(m['parents']))
-            changed=len(invalid)!=n
-        affected=sorted(m['id'] for m in manifests if m['id'] in invalid and m['state']!='QUARANTINED')
-        self.population.quarantine(affected,reason='knowledge-source-revision')
-        return tuple(affected)
+        return self.dependencies.audit()

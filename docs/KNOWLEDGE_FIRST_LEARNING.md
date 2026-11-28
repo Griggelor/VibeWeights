@@ -121,3 +121,8 @@ v0.7 hat getrennte Kandidaten/affine Factory, Quellenrevisionen, logisch begrenz
 ## Experimentjournal (verbindlich ab dev13)
 
 Jede Implementierungsrunde dokumentiert Ausgangsstand, Hypothesen, Entscheidungen, Zwischenresultate, Fehler und Korrekturen, finale Evidenz und Grenzen im [Entwicklungsjournal](DEVELOPMENT_LOG.md). Historische Evidenz bleibt erhalten; geplante Fähigkeiten werden nicht als nachgewiesene Resultate dargestellt.
+
+
+## Ergänzung dev14: indexierte deklarierte Provenienz
+
+[dev14](DEPENDENCY_INDEX_v08.md) indexiert die in Lernjobs dokumentierten transitiven Quellensnapshots und die Elternkanten von Manifesten. Transaktionslokale Änderungsjournale ermöglichen gezielte Wiederprüfung und Sicherheitsquarantäne; erste und explizite Vollprüfungen bleiben verfügbar. Keine semantische Entdeckung und keine Cross-DB-Atomarität daraus ableiten. Unabhängige Freigabe und additive Population bleiben unverändert.

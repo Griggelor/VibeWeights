@@ -1,5 +1,7 @@
 # v0.8.0.dev13 – Evidenzgebundene additive Konsolidierung einer Arbeitsgruppe
 
+Historischer Stand dev13. [dev14](DEPENDENCY_INDEX_v08.md) ergänzt die indexierte Quellenprüfung und transitive Sicherheitsquarantäne; keine trainierte Konsolidierung.
+
 ## Ziel und Grenzen
 
 Die bisher getrennten Schritte aus dev10–12 (globaler Impuls, lokale trainierte Wahrnehmungsköpfe, freiwillige Arbeitsgruppe und unabhängig geprüfte Zwischen-/Zielsignale) werden mit der Expert Factory verbunden. `GroupLearning` akzeptiert zwei bis 64 erfolgreiche historische Ausführungsreceipts derselben aktuellen Gruppe mit verschiedenen Eingaben. Die ausgewählte Gruppe muss genau zwei affine FP32-Experten bilden, deren deklarierte Topics und Dimensionen einen eindeutigen gerichteten Ein-Eingang-/Ein-Ausgang-Pfad bilden. Kein zentraler fachlicher Router, keine automatische Auswahl eines Lernziels; der vertrauenswürdige Host beantragt die Konsolidierung. Keine freie Programminduktion oder semantische Aufgabeninterpretation.

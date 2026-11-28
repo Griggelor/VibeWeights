@@ -36,16 +36,10 @@ def record_conflict(l, task, d, entity, outputs):
     prior=_head(l,d,entity)
     suspects=sorted(k for k,v in outputs.items() if v is not None)
     affected=set(suspects)
-    manifests=l.catalog.list()
-    for m in manifests:
-        if 'learning_job' in m and prior is not None:
-            j=l.job(m['learning_job'])
-            if any(r['id']==prior.id for r in j['spec']['sources']): affected.add(m['id'])
-    changed=True
-    while changed:
-        n=len(affected)
-        affected.update(m['id'] for m in manifests if affected.intersection(m['parents']))
-        changed=len(affected)!=n
+    if prior is not None: affected.update(l.dependencies.consumers(prior.id))
+    affected=l.dependencies.descendants(affected)
+    # Intents without an artifact are not operational reconstruction targets.
+    affected={e for e in affected if l.db.execute('SELECT 1 FROM experts WHERE id=?',(e,)).fetchone()}
     # Preserve the old fact and all competing outputs for review. The head is
     # not verified and cannot be consumed by the ordinary memory/learning path.
     rec=l.knowledge._store_locked(l.access,scope='global',key=f'{d.topic}:entity:{entity}',topic=d.topic,

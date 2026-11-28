@@ -1,0 +1,51 @@
+{
+  "version": "0.8.0.dev14",
+  "base_commit": "f5403c624ee37424adecc257fa7bf238153586dc",
+  "environment": {
+    "python": "3.13.5",
+    "torch": "2.10.0+cpu",
+    "sqlite": "3.46.1",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "OMP_NUM_THREADS": 1,
+    "MKL_NUM_THREADS": 1
+  },
+  "tests": {
+    "tests": 223,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "pytest_seconds": 76.77,
+  "regression_cases": 217,
+  "new_cases": 6,
+  "intermediate_runs": [
+    {
+      "log": "v08-dependency-intermediate-1.log",
+      "passed": 37,
+      "failed": 5,
+      "cause": "relative PYTHONPATH not visible from isolated subprocess cwd"
+    },
+    {
+      "log": "v08-dependency-intermediate-2.log",
+      "passed": 5,
+      "failed": 0
+    },
+    {
+      "log": "v08-dependency-intermediate-3.log",
+      "passed": 48,
+      "failed": 0
+    },
+    {
+      "log": "v08-dependency-intermediate-4.log",
+      "outcome": "interrupted by execution timeout; no final result"
+    }
+  ],
+  "demo": "v08-dependency-demo.json",
+  "limitations": [
+    "single owner",
+    "no general cross-database atomicity",
+    "no physical GPU/Windows/remote CI",
+    "only declared dependencies",
+    "no journal compaction"
+  ]
+}

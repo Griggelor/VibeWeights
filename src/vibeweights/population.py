@@ -94,7 +94,7 @@ class Population:
     def _check(self):
         if self._closed:
             raise ContractError('population closed')
-        expected = {m['id'] for m in self.catalog.list() if m['state'] in RESIDENT}
+        expected = {r[0] for r in self.catalog.db.execute("SELECT id FROM experts WHERE state IN ('ACTIVE','LOW_ACTIVE_IMPORTANT')")}
         if expected != set(self._resident):
             raise ContractError('catalog changed outside population; reopen')
 

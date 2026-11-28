@@ -1,0 +1,611 @@
+FF..........FF.......................F....                               [100%]
+=================================== FAILURES ===================================
+__________________ test_learning_and_isolated_restart[DIRECT] __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-7/test_learning_and_isolated_res0')
+method = 'DIRECT'
+
+    @pytest.mark.parametrize('method',['DIRECT','TRAINED'])
+    def test_learning_and_isolated_restart(tmp_path,method):
+        c,p,k,a,l=fixture(tmp_path); d=Domain('catalog',12,5)
+        rng=random.Random(67); truth={i:rng.randrange(d.labels) for i in (0,1,3,5,7,9)}
+        # Oracle is the pre-existing fixture, never created from candidate/ledger.
+        ids=facts(k,a,d,truth)
+        assert p.resident_ids()==()
+        m=l.prepare('job','new-expert',d,ids,method=method)
+        assert m['origin']==method and m['state']=='STAGED'
+        with pytest.raises(ContractError): p.admit('new-expert',[(d.encode(0),d.target(truth[0]))])
+        assert l.promote('job',truth.get,oracle_id='fixture-oracle')
+        j=l.job('job'); assert j['state']==ACTIVE and j['report']['passed']==14
+        assert j['build']['optimizer_steps']==(80 if method=='TRAINED' else 0)
+        assert j['build']['initial_loss']>0 and j['build']['final_loss']<1e-10
+        for i in range(-1,13): assert d.decode(p.compute('new-expert',d.encode(i)))==truth.get(i)
+        close(c,p,k)
+        # Restart with fact DB removed; no teacher, no ledger in inference.
+        (tmp_path/'knowledge.sqlite').unlink()
+        c=Catalog(tmp_path/'experts'); p=Population(c,tensor_budget=65536,allow_offline_knowledge=True)
+        assert all(d.decode(p.compute('new-expert',d.encode(i)))==truth.get(i) for i in range(-1,13))
+        # Fresh Python process receives ONLY a copied weight file and identity dimensions.
+        isolated=tmp_path/'isolated'; isolated.mkdir()
+        shutil.copyfile(c.root/(m['sha256']+'.safetensors'),isolated/'model.safetensors')
+        code='''import json,sys,torch
+    from safetensors.torch import load_file
+    from vibeweights.factory import AffineExpert
+    from vibeweights.knowledge_learning import Domain
+    d=Domain('catalog',12,5); t=load_file('model.safetensors'); e=AffineExpert({'id':'isolated'},t['w'],t['b'])
+    print(json.dumps([[d.decode(e.compute(d.encode(i))),d.decode(torch.zeros(d.labels).tolist())] for i in range(-1,13)]))
+    '''
+>       result=json.loads(subprocess.check_output([sys.executable,'-c',code],cwd=isolated,text=True))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tmp/vw11/source/tests/test_knowledge_learning_v08.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.13/subprocess.py:472: in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input = None, capture_output = False, timeout = None, check = True
+popenargs = (['/opt/pyvenv/bin/python', '-c', 'import json,sys,torch\nfrom safetensors.torch import load_file\nfrom vibeweights.fa...(json.dumps([[d.decode(e.compute(d.encode(i))),d.decode(torch.zeros(d.labels).tolist())] for i in range(-1,13)]))\n'],)
+kwargs = {'cwd': PosixPath('/tmp/pytest-of-root/pytest-7/test_learning_and_isolated_res0/isolated'), 'stdout': -1, 'text': True}
+process = <Popen: returncode: 1 args: ['/opt/pyvenv/bin/python', '-c', "import json,sy...>
+stdout = '', stderr = None, retcode = 1
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+    
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+    
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output & stderr attributes if those streams
+        were captured.
+    
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+    
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+    
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+    
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+    
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+    
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+>               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/opt/pyvenv/bin/python', '-c', "import json,sys,torch\nfrom safetensors.torch import load_file\nfrom vibeweights.factory import AffineExpert\nfrom vibeweights.knowledge_learning import Domain\nd=Domain('catalog',12,5); t=load_file('model.safetensors'); e=AffineExpert({'id':'isolated'},t['w'],t['b'])\nprint(json.dumps([[d.decode(e.compute(d.encode(i))),d.decode(torch.zeros(d.labels).tolist())] for i in range(-1,13)]))\n"]' returned non-zero exit status 1.
+
+/usr/lib/python3.13/subprocess.py:577: CalledProcessError
+----------------------------- Captured stderr call -----------------------------
+Traceback (most recent call last):
+  File "<string>", line 3, in <module>
+    from vibeweights.factory import AffineExpert
+ModuleNotFoundError: No module named 'vibeweights'
+_________________ test_learning_and_isolated_restart[TRAINED] __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-7/test_learning_and_isolated_res1')
+method = 'TRAINED'
+
+    @pytest.mark.parametrize('method',['DIRECT','TRAINED'])
+    def test_learning_and_isolated_restart(tmp_path,method):
+        c,p,k,a,l=fixture(tmp_path); d=Domain('catalog',12,5)
+        rng=random.Random(67); truth={i:rng.randrange(d.labels) for i in (0,1,3,5,7,9)}
+        # Oracle is the pre-existing fixture, never created from candidate/ledger.
+        ids=facts(k,a,d,truth)
+        assert p.resident_ids()==()
+        m=l.prepare('job','new-expert',d,ids,method=method)
+        assert m['origin']==method and m['state']=='STAGED'
+        with pytest.raises(ContractError): p.admit('new-expert',[(d.encode(0),d.target(truth[0]))])
+        assert l.promote('job',truth.get,oracle_id='fixture-oracle')
+        j=l.job('job'); assert j['state']==ACTIVE and j['report']['passed']==14
+        assert j['build']['optimizer_steps']==(80 if method=='TRAINED' else 0)
+        assert j['build']['initial_loss']>0 and j['build']['final_loss']<1e-10
+        for i in range(-1,13): assert d.decode(p.compute('new-expert',d.encode(i)))==truth.get(i)
+        close(c,p,k)
+        # Restart with fact DB removed; no teacher, no ledger in inference.
+        (tmp_path/'knowledge.sqlite').unlink()
+        c=Catalog(tmp_path/'experts'); p=Population(c,tensor_budget=65536,allow_offline_knowledge=True)
+        assert all(d.decode(p.compute('new-expert',d.encode(i)))==truth.get(i) for i in range(-1,13))
+        # Fresh Python process receives ONLY a copied weight file and identity dimensions.
+        isolated=tmp_path/'isolated'; isolated.mkdir()
+        shutil.copyfile(c.root/(m['sha256']+'.safetensors'),isolated/'model.safetensors')
+        code='''import json,sys,torch
+    from safetensors.torch import load_file
+    from vibeweights.factory import AffineExpert
+    from vibeweights.knowledge_learning import Domain
+    d=Domain('catalog',12,5); t=load_file('model.safetensors'); e=AffineExpert({'id':'isolated'},t['w'],t['b'])
+    print(json.dumps([[d.decode(e.compute(d.encode(i))),d.decode(torch.zeros(d.labels).tolist())] for i in range(-1,13)]))
+    '''
+>       result=json.loads(subprocess.check_output([sys.executable,'-c',code],cwd=isolated,text=True))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tmp/vw11/source/tests/test_knowledge_learning_v08.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.13/subprocess.py:472: in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input = None, capture_output = False, timeout = None, check = True
+popenargs = (['/opt/pyvenv/bin/python', '-c', 'import json,sys,torch\nfrom safetensors.torch import load_file\nfrom vibeweights.fa...(json.dumps([[d.decode(e.compute(d.encode(i))),d.decode(torch.zeros(d.labels).tolist())] for i in range(-1,13)]))\n'],)
+kwargs = {'cwd': PosixPath('/tmp/pytest-of-root/pytest-7/test_learning_and_isolated_res1/isolated'), 'stdout': -1, 'text': True}
+process = <Popen: returncode: 1 args: ['/opt/pyvenv/bin/python', '-c', "import json,sy...>
+stdout = '', stderr = None, retcode = 1
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+    
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+    
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output & stderr attributes if those streams
+        were captured.
+    
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+    
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+    
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+    
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+    
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+    
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+>               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/opt/pyvenv/bin/python', '-c', "import json,sys,torch\nfrom safetensors.torch import load_file\nfrom vibeweights.factory import AffineExpert\nfrom vibeweights.knowledge_learning import Domain\nd=Domain('catalog',12,5); t=load_file('model.safetensors'); e=AffineExpert({'id':'isolated'},t['w'],t['b'])\nprint(json.dumps([[d.decode(e.compute(d.encode(i))),d.decode(torch.zeros(d.labels).tolist())] for i in range(-1,13)]))\n"]' returned non-zero exit status 1.
+
+/usr/lib/python3.13/subprocess.py:577: CalledProcessError
+----------------------------- Captured stderr call -----------------------------
+Traceback (most recent call last):
+  File "<string>", line 3, in <module>
+    from vibeweights.factory import AffineExpert
+ModuleNotFoundError: No module named 'vibeweights'
+_________________ test_new_relation_additive_transfer[DIRECT] __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-7/test_new_relation_additive_tra0')
+method = 'DIRECT'
+
+    @pytest.mark.parametrize('method',['DIRECT','TRAINED'])
+    def test_new_relation_additive_transfer(tmp_path,method):
+        c,p,k,a,l,d1,d2,ar,br=setup_rel(tmp_path);d=Domain('object-class',6,3)
+        assert k.search(a,topic=d.topic)==()
+        m,ids=derive(l,method)
+        assert m['parents']==['e1','e2'] and len(ids)==3
+        assert k.read(ids[0],a).parents==(ar[0],br[1])
+        assert l.job('j3')['spec']['derivation']['evaluated_cases']==8
+        truth={0:0,3:1,4:2};assert l.promote('j3',truth.get,oracle_id='o3')
+        assert p.resident_ids()==('e1','e2','e3')
+        # The previously untrained end-to-end relation works; missing hops abstain.
+        assert [d.decode(p.compute('e3',d.encode(i))) for i in range(-1,7)]==[truth.get(i) for i in range(-1,7)]
+        goal=('global',d.topic+':answer'); result=p.run([Signal('global',d.topic+':query',d.encode(3))],goal,{goal:lambda s,v:d.decode(v)==1})
+        assert result['status']=='OK'
+        close(c,p,k)
+        # Fresh process sees only the candidate artifact, not the parents or ledger.
+        import json, shutil, subprocess, sys
+        isolated=tmp_path/'isolated';isolated.mkdir()
+        shutil.copyfile(tmp_path/'experts'/(m['sha256']+'.safetensors'),isolated/'model.safetensors')
+        code="""import json
+    from safetensors.torch import load_file
+    from vibeweights.factory import AffineExpert
+    from vibeweights.knowledge_learning import Domain
+    d=Domain('object-class',6,3);t=load_file('model.safetensors');e=AffineExpert({'id':'isolated'},t['w'],t['b'])
+    print(json.dumps([d.decode(e.compute(d.encode(i))) for i in range(-1,7)]))
+    """
+>       assert json.loads(subprocess.check_output([sys.executable,'-c',code],cwd=isolated,text=True))==[truth.get(i) for i in range(-1,7)]
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tmp/vw11/source/tests/test_relation_learning_v08.py:52: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.13/subprocess.py:472: in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input = None, capture_output = False, timeout = None, check = True
+popenargs = (['/opt/pyvenv/bin/python', '-c', "import json\nfrom safetensors.torch import load_file\nfrom vibeweights.factory impo...pert({'id':'isolated'},t['w'],t['b'])\nprint(json.dumps([d.decode(e.compute(d.encode(i))) for i in range(-1,7)]))\n"],)
+kwargs = {'cwd': PosixPath('/tmp/pytest-of-root/pytest-7/test_new_relation_additive_tra0/isolated'), 'stdout': -1, 'text': True}
+process = <Popen: returncode: 1 args: ['/opt/pyvenv/bin/python', '-c', "import json\nf...>
+stdout = '', stderr = None, retcode = 1
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+    
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+    
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output & stderr attributes if those streams
+        were captured.
+    
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+    
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+    
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+    
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+    
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+    
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+>               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/opt/pyvenv/bin/python', '-c', "import json\nfrom safetensors.torch import load_file\nfrom vibeweights.factory import AffineExpert\nfrom vibeweights.knowledge_learning import Domain\nd=Domain('object-class',6,3);t=load_file('model.safetensors');e=AffineExpert({'id':'isolated'},t['w'],t['b'])\nprint(json.dumps([d.decode(e.compute(d.encode(i))) for i in range(-1,7)]))\n"]' returned non-zero exit status 1.
+
+/usr/lib/python3.13/subprocess.py:577: CalledProcessError
+----------------------------- Captured stderr call -----------------------------
+Traceback (most recent call last):
+  File "<string>", line 3, in <module>
+    from vibeweights.factory import AffineExpert
+ModuleNotFoundError: No module named 'vibeweights'
+_________________ test_new_relation_additive_transfer[TRAINED] _________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-7/test_new_relation_additive_tra1')
+method = 'TRAINED'
+
+    @pytest.mark.parametrize('method',['DIRECT','TRAINED'])
+    def test_new_relation_additive_transfer(tmp_path,method):
+        c,p,k,a,l,d1,d2,ar,br=setup_rel(tmp_path);d=Domain('object-class',6,3)
+        assert k.search(a,topic=d.topic)==()
+        m,ids=derive(l,method)
+        assert m['parents']==['e1','e2'] and len(ids)==3
+        assert k.read(ids[0],a).parents==(ar[0],br[1])
+        assert l.job('j3')['spec']['derivation']['evaluated_cases']==8
+        truth={0:0,3:1,4:2};assert l.promote('j3',truth.get,oracle_id='o3')
+        assert p.resident_ids()==('e1','e2','e3')
+        # The previously untrained end-to-end relation works; missing hops abstain.
+        assert [d.decode(p.compute('e3',d.encode(i))) for i in range(-1,7)]==[truth.get(i) for i in range(-1,7)]
+        goal=('global',d.topic+':answer'); result=p.run([Signal('global',d.topic+':query',d.encode(3))],goal,{goal:lambda s,v:d.decode(v)==1})
+        assert result['status']=='OK'
+        close(c,p,k)
+        # Fresh process sees only the candidate artifact, not the parents or ledger.
+        import json, shutil, subprocess, sys
+        isolated=tmp_path/'isolated';isolated.mkdir()
+        shutil.copyfile(tmp_path/'experts'/(m['sha256']+'.safetensors'),isolated/'model.safetensors')
+        code="""import json
+    from safetensors.torch import load_file
+    from vibeweights.factory import AffineExpert
+    from vibeweights.knowledge_learning import Domain
+    d=Domain('object-class',6,3);t=load_file('model.safetensors');e=AffineExpert({'id':'isolated'},t['w'],t['b'])
+    print(json.dumps([d.decode(e.compute(d.encode(i))) for i in range(-1,7)]))
+    """
+>       assert json.loads(subprocess.check_output([sys.executable,'-c',code],cwd=isolated,text=True))==[truth.get(i) for i in range(-1,7)]
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tmp/vw11/source/tests/test_relation_learning_v08.py:52: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.13/subprocess.py:472: in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input = None, capture_output = False, timeout = None, check = True
+popenargs = (['/opt/pyvenv/bin/python', '-c', "import json\nfrom safetensors.torch import load_file\nfrom vibeweights.factory impo...pert({'id':'isolated'},t['w'],t['b'])\nprint(json.dumps([d.decode(e.compute(d.encode(i))) for i in range(-1,7)]))\n"],)
+kwargs = {'cwd': PosixPath('/tmp/pytest-of-root/pytest-7/test_new_relation_additive_tra1/isolated'), 'stdout': -1, 'text': True}
+process = <Popen: returncode: 1 args: ['/opt/pyvenv/bin/python', '-c', "import json\nf...>
+stdout = '', stderr = None, retcode = 1
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+    
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+    
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output & stderr attributes if those streams
+        were captured.
+    
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+    
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+    
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+    
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+    
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+    
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+>               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/opt/pyvenv/bin/python', '-c', "import json\nfrom safetensors.torch import load_file\nfrom vibeweights.factory import AffineExpert\nfrom vibeweights.knowledge_learning import Domain\nd=Domain('object-class',6,3);t=load_file('model.safetensors');e=AffineExpert({'id':'isolated'},t['w'],t['b'])\nprint(json.dumps([d.decode(e.compute(d.encode(i))) for i in range(-1,7)]))\n"]' returned non-zero exit status 1.
+
+/usr/lib/python3.13/subprocess.py:577: CalledProcessError
+----------------------------- Captured stderr call -----------------------------
+Traceback (most recent call last):
+  File "<string>", line 3, in <module>
+    from vibeweights.factory import AffineExpert
+ModuleNotFoundError: No module named 'vibeweights'
+_______________ test_group_consolidation_restart_and_weight_only _______________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-7/test_group_consolidation_resta0')
+
+    def test_group_consolidation_restart_and_weight_only(tmp_path):
+        c,p,k,a,l,h,e,rid,w,g=prepare(tmp_path)
+        old={m['id']:m['sha256'] for m in c.list()}; before=p.tensor_bytes
+        m=g.stage('fuse','sum',['second','first'],family='combined')
+        assert m['parents']==['z-first','a-second'] and m['parameters']==2 and m['state']=='STAGED'
+        assert p.tensor_bytes==before
+        with pytest.raises(ContractError): p.admit('sum',holdout())
+        close(c,p,k); c,p,k,a,l=fixture(tmp_path);g=GroupLearning(GroupWork(PerceptionHeads(LearningEvents(TaskLearning(l)))))
+        assert g.stage('fuse','sum',['first','second'],family='combined')==m
+        assert g.promote('fuse',holdout(),oracle_id='heldout-math')
+        assert g.promote('fuse',holdout(),oracle_id='heldout-math')
+        assert p.tensor_bytes==before+8 and p.compute('sum',(13,))==(83.,)
+        assert old=={x:c.manifest(x)['sha256'] for x in old}
+        iso=tmp_path/'isolated';iso.mkdir();shutil.copyfile(c.root/(m['sha256']+'.safetensors'),iso/'model.safetensors')
+        code='from safetensors.torch import load_file; from vibeweights.factory import AffineExpert; import json; t=load_file("model.safetensors"); e=AffineExpert({"id":"isolated"},t["w"],t["b"]); print(json.dumps([e.compute((x,)) for x in range(-10,11)]))'
+>       assert json.loads(subprocess.check_output([sys.executable,'-c',code],cwd=iso,text=True))==[[6*x+5] for x in range(-10,11)]
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/tmp/vw13/source/tests/test_group_learning_v08.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.13/subprocess.py:472: in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input = None, capture_output = False, timeout = None, check = True
+popenargs = (['/opt/pyvenv/bin/python', '-c', 'from safetensors.torch import load_file; from vibeweights.factory import AffineExpe...ors"); e=AffineExpert({"id":"isolated"},t["w"],t["b"]); print(json.dumps([e.compute((x,)) for x in range(-10,11)]))'],)
+kwargs = {'cwd': PosixPath('/tmp/pytest-of-root/pytest-7/test_group_consolidation_resta0/isolated'), 'stdout': -1, 'text': True}
+process = <Popen: returncode: 1 args: ['/opt/pyvenv/bin/python', '-c', 'from safetenso...>
+stdout = '', stderr = None, retcode = 1
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+    
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+    
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output & stderr attributes if those streams
+        were captured.
+    
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+    
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+    
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+    
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+    
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+    
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+>               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/opt/pyvenv/bin/python', '-c', 'from safetensors.torch import load_file; from vibeweights.factory import AffineExpert; import json; t=load_file("model.safetensors"); e=AffineExpert({"id":"isolated"},t["w"],t["b"]); print(json.dumps([e.compute((x,)) for x in range(-10,11)]))']' returned non-zero exit status 1.
+
+/usr/lib/python3.13/subprocess.py:577: CalledProcessError
+----------------------------- Captured stderr call -----------------------------
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from safetensors.torch import load_file; from vibeweights.factory import AffineExpert; import json; t=load_file("model.safetensors"); e=AffineExpert({"id":"isolated"},t["w"],t["b"]); print(json.dumps([e.compute((x,)) for x in range(-10,11)]))
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'vibeweights'
+=========================== short test summary info ============================
+FAILED tests/test_knowledge_learning_v08.py::test_learning_and_isolated_restart[DIRECT] - subprocess.CalledProcessError: Command '['/opt/pyvenv/bin/python', '-c', "import json,sys,torch\nfrom safetensors.torch import load_file\nfrom vibeweights.factory import AffineExpert\nfrom vibeweights.knowledge_learning import Domain\nd=Domain('catalog',12,5); t=load_file('model.safetensors'); e=AffineExpert({'id':'isolated'},t['w'],t['b'])\nprint(json.dumps([[d.decode(e.compute(d.encode(i))),d.decode(torch.zeros(d.labels).tolist())] for i in range(-1,13)]))\n"]' returned non-zero exit status 1.
+FAILED tests/test_knowledge_learning_v08.py::test_learning_and_isolated_restart[TRAINED] - subprocess.CalledProcessError: Command '['/opt/pyvenv/bin/python', '-c', "import json,sys,torch\nfrom safetensors.torch import load_file\nfrom vibeweights.factory import AffineExpert\nfrom vibeweights.knowledge_learning import Domain\nd=Domain('catalog',12,5); t=load_file('model.safetensors'); e=AffineExpert({'id':'isolated'},t['w'],t['b'])\nprint(json.dumps([[d.decode(e.compute(d.encode(i))),d.decode(torch.zeros(d.labels).tolist())] for i in range(-1,13)]))\n"]' returned non-zero exit status 1.
+FAILED tests/test_relation_learning_v08.py::test_new_relation_additive_transfer[DIRECT] - subprocess.CalledProcessError: Command '['/opt/pyvenv/bin/python', '-c', "import json\nfrom safetensors.torch import load_file\nfrom vibeweights.factory import AffineExpert\nfrom vibeweights.knowledge_learning import Domain\nd=Domain('object-class',6,3);t=load_file('model.safetensors');e=AffineExpert({'id':'isolated'},t['w'],t['b'])\nprint(json.dumps([d.decode(e.compute(d.encode(i))) for i in range(-1,7)]))\n"]' returned non-zero exit status 1.
+FAILED tests/test_relation_learning_v08.py::test_new_relation_additive_transfer[TRAINED] - subprocess.CalledProcessError: Command '['/opt/pyvenv/bin/python', '-c', "import json\nfrom safetensors.torch import load_file\nfrom vibeweights.factory import AffineExpert\nfrom vibeweights.knowledge_learning import Domain\nd=Domain('object-class',6,3);t=load_file('model.safetensors');e=AffineExpert({'id':'isolated'},t['w'],t['b'])\nprint(json.dumps([d.decode(e.compute(d.encode(i))) for i in range(-1,7)]))\n"]' returned non-zero exit status 1.
+FAILED tests/test_group_learning_v08.py::test_group_consolidation_restart_and_weight_only - subprocess.CalledProcessError: Command '['/opt/pyvenv/bin/python', '-c', 'from safetensors.torch import load_file; from vibeweights.factory import AffineExpert; import json; t=load_file("model.safetensors"); e=AffineExpert({"id":"isolated"},t["w"],t["b"]); print(json.dumps([e.compute((x,)) for x in range(-10,11)]))']' returned non-zero exit status 1.
+5 failed, 37 passed in 23.88s
