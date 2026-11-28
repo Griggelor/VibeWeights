@@ -41,3 +41,9 @@ Verwandte, nicht identische Ansätze: [MoEfication (2022)](https://aclanthology.
 ## Roadmap
 
 A0: lokal reproduzierbarer Fragmentimport, identische Originalkette, Inventar und Lizenz/Hashes. A1: kompatible latente Adapter, erste lokale Köpfe, kleine isolierte Kerne, Kontrollversuche. A2: mehrskalige und intelligente Schnitte vergleichend testen, dynamische Kooperation. A3: Wissenstransfer und additive Konsolidierung mit unabhängigen Holdouts; A4: unabhängige Selektion, Archivierung, Wiederaktivierung, neue Zusammenhänge. Abhängigkeiten: universelles numerisch/latentes ABI, reale Gruppenarbeit, Ressourcenmessung, unabhängige Abnahme, robuste Source-/Memory-Transaktionen. Parallel zu Behavioral Assimilation (Lehrmodell) und Weight-Space Assimilation (gezielte Analyse/Synthese). Kein festes Zeit-/Erfolgsversprechen.
+
+## Implementierungsstand A0 (dev24-Kandidat)
+
+[Qwen3-Fragmentimport und Reproduktionsvertrag](QWEN3_FRAGMENT_A0.md): strukturorientierte Blind-Schnitte, immutable Blockartefakte, geteilte logische Mehrskalen-Sichten, separat ausführbare Spans, Referenzparität über originale Reihenfolge. Separate Tiny-Architektur- und Pretrained-CI, Ergebnisse offen. Noch keine Aufnahme regulärer Experten oder Assimilationsbehauptung.
+
+A0-Nachweis erbracht am Codecommit b9d051921343914dc2f153e75268b0f4c7453c16: echte Qwen3-Gewichte, drei Partitionen, 15/15 exakte FP32-Logit-Vergleiche, Tiny-Tests 4/4 Windows und Linux. [Rohdaten](../evidence/v08-qwen3-fragment-a0.json). A1 bleibt eigenständige Prüfung.

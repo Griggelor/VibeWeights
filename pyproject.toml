@@ -3,12 +3,13 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 [project]
 name = "vibeweights"
-version = "0.8.0.dev23"
+version = "0.8.0.dev24"
 license = {text = "Apache-2.0"}
 requires-python = ">=3.10"
 dependencies = ["torch>=2.2,<3", "safetensors>=0.4,<1", "numpy>=1.26,<3"]
 [project.optional-dependencies]
 test = ["pytest>=8,<10"]
+fragments = ["transformers==4.57.1"]
 [tool.setuptools.packages.find]
 where = ["src"]
 [tool.pytest.ini_options]
