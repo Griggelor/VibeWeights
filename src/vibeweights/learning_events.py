@@ -134,6 +134,63 @@ class LearningEvents:
             self.db.commit()
             return event
 
+    def _recruitment_payload(self, run, requester, conflicts, *, expected_depth=None):
+        """Derive a missing-input impulse from a current, stagnated group receipt.
+
+        Only the requested topic is global; no task values or private signals
+        leave the originating group. This first reference uses core topic
+        contracts, not a learned request-generation policy.
+        """
+        identifier(run); identifier(requester)
+        if not self.db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='group_runs_v08'").fetchone():
+            raise ContractError('group work required')
+        row=self.db.execute('SELECT receipt,sha FROM group_runs_v08 WHERE id=?',(run,)).fetchone()
+        if row is None: raise ContractError('unknown recruitment run')
+        receipt=json.loads(row[0])
+        if _hash(receipt)!=row[1] or receipt.get('run')!=run or receipt.get('contract')!='group-work-v1':
+            raise ContractError('recruitment receipt integrity')
+        result=receipt['result']
+        if result['status']!='STAGNATION' or result['faults']:
+            raise ContractError('clean stagnated group required')
+        parent=self.event(receipt['event'])
+        depth=parent['payload'].get('depth',0) if parent['kind']=='RECRUIT' else 0
+        if type(depth) is not int or not 0<=depth<4 or (expected_depth is not None and depth+1!=expected_depth):
+            raise ContractError('recruitment depth budget')
+        if not self._live(parent,conflicts): raise ContractError('stale recruitment parent')
+        binding=next((m for m in receipt['members'] if m['expert']==requester),None)
+        if binding is None: raise ContractError('requester must be a group member')
+        residents=set(self.learning.population.resident_ids())
+        # Every originating member must still have its recorded core/head and
+        # membership; no requests from a superseded or quarantined group.
+        for member in receipt['members']:
+            expert=member['expert']
+            if expert not in residents:
+                raise ContractError('stale recruitment member')
+            m=self.learning.catalog.manifest(expert)
+            current=self.db.execute('''SELECT b.head,h.sha FROM perception_bindings_v08 b
+                JOIN perception_heads_v08 h ON h.id=b.head WHERE b.expert=?''',(expert,)).fetchone()
+            joined=self.db.execute('''SELECT 1 FROM learning_event_members_v08
+                WHERE event=? AND target=? AND name=? AND expert=?''',
+                (parent['id'],receipt['target'],receipt['group'],expert)).fetchone()
+            if m['sha256']!=member['core_sha256'] or current!=(member['head'],member['head_sha256']) or not joined:
+                raise ContractError('stale recruitment binding')
+        core=self.learning.catalog.manifest(requester)
+        topic=identifier(core['source_topic'])
+        if any(f['scope']==receipt['scope'] and f['topic']==topic for f in result['facts']):
+            raise ContractError('requester input not missing')
+        return {'scope':'global','parent_event':parent['id'],'run':run,'run_sha256':row[1],
+                'requester':requester,'artifact_sha256':core['sha256'],
+                'domain':{'topic':topic},'requested_topic':topic,'depth':depth+1,
+                'targets':['explore']}
+
+    def publish_recruitment(self, run, requester):
+        """Host-authorized publication; recipients still choose locally."""
+        with self.learning._guard():
+            payload=self._recruitment_payload(run,requester,self._conflicts())
+            event=self._insert('RECRUIT',payload)
+            self.db.commit()
+        return event
+
     def event(self, event):
         identifier(event)
         row=self.db.execute('SELECT kind,payload FROM learning_events_v08 WHERE id=?',(event,)).fetchone()
@@ -144,6 +201,13 @@ class LearningEvents:
         l=self.learning; p=e['payload']
         if e['kind']=='RELEARN':
             return _hash(p['impulse']) in conflicts
+        if e['kind']=='RECRUIT':
+            try:
+                if _hash({'kind':'RECRUIT','payload':p})!=e['id']:
+                    return False
+                return p==self._recruitment_payload(p['run'],p['requester'],conflicts,expected_depth=p['depth'])
+            except (ContractError, KeyError, TypeError, ValueError):
+                return False
         if e['kind']!='KNOWLEDGE': return False
         if 'group_job' in p:
             try: return p==self._group_knowledge_payload(p['group_job'])
