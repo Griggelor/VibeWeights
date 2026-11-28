@@ -1,8 +1,12 @@
-# Status v0.8.0.dev24
+# Status v0.8.0.dev25
 
 **Ziel 1 (Environment) in Arbeit; keine Environment-Abnahme.** 262/262 CPU-Tests auf Windows und Linux (Python 3.12/3.13) inklusive Geräteprobe, Artefaktreproduktion und Smoke-Tests bestanden. Siehe [Memory Architecture v0.7](MEMORY_ARCHITECTURE_v07.md), [Implementierung v0.6](platform_v06.md), [Zielarchitektur](ARCHITEKTUR_v06.md) und [Review v0.5](review/v0.5.0/REVIEW_UND_ROADMAP_v06.md). Der reguläre Chat/API-Pfad ist weiterhin die korrigierte arithmetische Referenz; der neue Environment-Pfad ist opt-in.
 
-## Entwicklungsstand v0.8.0.dev24 (Reale Qwen3-Fragmente A0)
+## Entwicklungsstand v0.8.0.dev25 (Erster A1-Adapterversuch)
+
+Alle technischen CI-Jobs erfolgreich. Echter eingefrorener Qwen3-Prefix 6 Blöcke mit trainiertem Ausgabeadapter, Zufallsdecoder und Embedding-only: Training 11/12, 12/12, 12/12; Holdout 7/12, 5/12, 6/12. Je 8/8 lokale Kopf-Holdouts. Keine Kompetenzaufnahme, Assimilationshypothese nicht bestätigt. [CI](https://github.com/Griggelor/VibeWeights/actions/runs/46160839256), [Rohdaten](../evidence/v08-fragment-adapter-a1.json), [Vertrag](FRAGMENT_ADAPTER_A1.md). Nächster Versuch: latente Signalaufbereitung und Mehrskalenvergleich mit neuen Holdouts. Keine Population-Integration oder GPU-Abnahme.
+
+## Historischer Entwicklungsstand v0.8.0.dev24 (Reale Qwen3-Fragmente A0)
 
 Fixierte echte Qwen3-0.6B-Base-Revision, 596.049.920 Parameter, 1.192.099.840 Byte einzigartige Tensorpayload. Drei vollständige logische Partitionen (6/8/16 Blöcke), 15/15 Vergleiche mit exakt 0 Logit-Abweichung in FP32 CPU, inklusive zwei Greedy-Erweiterungen. Tiny-Qwen3 4/4 auf Windows und Linux; Basis-CI erfolgreich. [CI](https://github.com/Griggelor/VibeWeights/actions/runs/46148469004), [Rohdaten](../evidence/v08-qwen3-fragment-a0.json), [Vertrag](QWEN3_FRAGMENT_A0.md). A0-Reproduktionsnachweis, keine Assimilation, keine fragmentbasierte Expertenaufnahme, keine GPU-Abnahme.
 

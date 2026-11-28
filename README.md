@@ -3,7 +3,7 @@
 **A self-organizing, self-learning, self-optimizing and self-scaling neural ecosystem**
 
 ![Research prototype](https://img.shields.io/badge/status-research%20prototype-orange)
-![Version](https://img.shields.io/badge/development-v0.8.0.dev24-blue)
+![Version](https://img.shields.io/badge/development-v0.8.0.dev25-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 
 **Local-first AI research · Decentralized neural experts · Weight-space programming · Continual learning**
@@ -396,7 +396,11 @@ The full [research survey](docs/FORSCHUNG_2026-11-26.md) and [learning/evolution
 
 Independent holdouts must not become synthesis inputs. Report failures as research results. Distinguish expert activation, causal contribution, user satisfaction, factual correctness, resource consumption and independent capability. Do not equate greater parameter count or test count with intelligence.
 
-## Development snapshot v0.8.0.dev24 — Qwen3 structural fragments A0
+## Development snapshot v0.8.0.dev25 — first controlled frozen-fragment adapter experiment
+
+CPU baseline and separate architecture tests passed. Real Qwen3 six-block prefix vs random decoder vs embedding-only: training 11/12, 12/12, 12/12; held-out 7/12, 5/12, 6/12. All local metadata heads 8/8 held out. No candidate admitted. This is a negative competence result, not an assimilation claim. The experimental adapter mechanism supports immutable reports, independent acceptance and local abstention. [CI](https://github.com/Griggelor/VibeWeights/actions/runs/46160839256), [raw report](evidence/v08-fragment-adapter-a1.json), [contract](docs/FRAGMENT_ADAPTER_A1.md). GPU and general Population integration remain open.
+
+## Historical development snapshot v0.8.0.dev24 — Qwen3 structural fragments A0
 
 Actual pinned Qwen3-0.6B-Base weights extracted into immutable decoder-block artifacts; 596,049,920 parameters, 1,192,099,840 bytes unique source tensor payload. Three logical partitions (6/8/16 blocks, including remainders) reproduce all 15 reference comparisons with zero maximum logit error in FP32 CPU execution. Four tiny architecture tests pass on both Windows and Linux; baseline CPU CI passed. [CI](https://github.com/Griggelor/VibeWeights/actions/runs/46148469004), [raw report](evidence/v08-qwen3-fragment-a0.json), [contract](docs/QWEN3_FRAGMENT_A0.md). Fixed original order only; no semantic assimilation, admitted fragment experts or GPU acceptance yet.
 
