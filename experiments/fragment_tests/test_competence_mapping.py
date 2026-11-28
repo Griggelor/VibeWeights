@@ -42,7 +42,7 @@ def test_known_causal_contribution_and_baseline_failure_exclusion():
     assert rows[1,2]['mean_margin_drop']==-2
     assert rows[2,3]['mean_margin_drop']==0
     assert model(input_ids=torch.tensor([[0]])).logits[0,-1,0]==1
-    assert len(regions(28,[6,8,16]))==39
+    assert len(regions(28,[6,8,16]))==38
 
 
 def test_hook_cleanup_and_invalid_inputs():

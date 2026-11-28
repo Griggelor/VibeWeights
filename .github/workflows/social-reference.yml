@@ -1,0 +1,38 @@
+name: Experiential social-head reference
+on:
+  pull_request:
+    paths:
+      - 'src/vibeweights/social_learning.py'
+      - 'src/vibeweights/social_experiment.py'
+      - 'scripts/probe_social_learning.py'
+      - 'tests/test_social_learning_v08.py'
+      - '.github/workflows/social-reference.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  experiment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install CPU dependencies
+        run: |
+          python -m pip install torch==2.10.0 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -e .
+          python -m pip check
+      - name: Run three seeded social learning experiments with restart
+        run: python scripts/probe_social_learning.py --output social-results
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: social-experiment-evidence
+          path: social-results/report.json
+          if-no-files-found: warn
