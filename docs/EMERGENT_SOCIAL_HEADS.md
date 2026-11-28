@@ -38,3 +38,7 @@ Versuch `social_experiment.py`: fünf opak bezeichnete eingefrorene affine Kerne
 ## Tatsächliche Abnahme dev28
 
 [CI 46171935723](https://github.com/Griggelor/VibeWeights/actions/runs/46171935723), Job 141062071749: Seeds 7/19/41 jeweils 24/24 nach Neustart, je 48 Kernaufrufe, 24 Einladungen. Ohne Recall 0/24 je Seed; frozen random shots 1/24, 0/24, 2/24; ohne Training oder Trainingsshots und all-active jeweils 0/24. Gesamtexperiment remote CPU 8,087 s. [Verifizierte CI-Log-Zusammenfassung](../evidence/v08-social-learning-ci.json); vollständiger Einzelreport als GitHub-Actions-Artefakt, nicht als im Repo kopierter Rohreport behauptet. Vier Basis-Jobs je 266/266, Tiny Windows/Linux je 13/13, optionaler Mapping-Job erfolgreich. Ergebnis ausschließlich für den synthetischen additiven Referenzfall. Next: tatsächliche eingefrorene Fragmente und produktive soziale Nutzung.
+
+## Anschluss an echte Modellfragmente (dev29-Kandidat)
+
+[Real-fragment social trial](REAL_FRAGMENT_SOCIAL.md): zwei echte Qwen3-Prefix-Readouts mit strikter separater A1-Abnahme, strukturierte gemeinsame Token-/Ausgabeports, neutrale lokale Köpfe, historisches Rekrutieren, Shots und unabhängige Nutzungs-Holdouts. Host-definierte Readout-/Portsemantik bleibt offen als spätere Aufgabe; keine allgemeine autonome Kompetenzentdeckung behauptet. CI offen.

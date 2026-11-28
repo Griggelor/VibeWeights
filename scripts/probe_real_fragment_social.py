@@ -113,7 +113,9 @@ def train(pop,session,seed,trainsets,*,learn=True,shots=True,count=600):
 def evaluate(pop,session,usage,*,prefix='held',recall=True,shots=0,all_active=False,seed=0):
     rng=random.Random(seed);rows=[]
     for goal in range(3):
-        for i,(a,b) in enumerate(zip(*usage)):
+        # Rotate the form set: all four label combinations occur four times.
+        paired=list(zip(usage[0],usage[1][4:]+usage[1][:4]))
+        for i,(a,b) in enumerate(paired):
             r,target=run(pop,session,f'{prefix}-{goal}-{i}',goal,a,b,
                 learn=False,recall=recall,shots=shots,all_active=all_active,seed=rng.randrange(2**63))
             rows.append({'goal':goal,'case':i,'target':target,'candidate':r['candidate'],
