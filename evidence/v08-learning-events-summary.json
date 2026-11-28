@@ -1,0 +1,33 @@
+{
+  "version": "0.8.0.dev10",
+  "tests": {
+    "tests": 201,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "new_tests": 7,
+  "previous_tests": 194,
+  "duration_seconds": 43.45,
+  "environment": {
+    "python": "3.13.5",
+    "torch": "2.10.0+cpu",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "device": "CPU",
+    "thread_limits": {
+      "OMP_NUM_THREADS": 1,
+      "MKL_NUM_THREADS": 1,
+      "OPENBLAS_NUM_THREADS": 1
+    }
+  },
+  "evidence": {
+    "targeted": "7 passed",
+    "full": "201 passed",
+    "first_full_attempt": "aborted at 120 s execution limit; no failure reported before termination",
+    "real_llm": false,
+    "physical_gpu": false,
+    "windows": false,
+    "remote_ci": false
+  },
+  "scope": "persistent pull outbox, host callback groups, bounded callback count; no autonomous neural group formation or automatic training"
+}

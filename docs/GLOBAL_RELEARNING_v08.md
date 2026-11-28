@@ -1,5 +1,7 @@
 # v0.8.0.dev9 – Globaler Nachlernimpuls und domänenübergreifende Rekonstruktion
 
+Historischer Stand dev9. Persistente globale Zustellung und freiwillige Gruppenbildung über lokale Adapter wurden in [dev10](LEARNING_EVENTS_v08.md) ergänzt.
+
 ## Zielvertrag
 
 Nachlernen kann lokal, auf Arbeitsgruppenebene oder global angestoßen werden. Ein globaler Impuls eröffnet eine populationsweite Überprüfung, keine unbedingte Änderung sämtlicher Gewichte. Lernbedarf, Widerspruch, neue Evidenz und später neue Erkenntnisse/Exploration können solche Impulse begründen. Die kognitive Auswahl und Gruppenbildung sollen dezentral erfolgen. Globale Benachrichtigung, Persistenz, Budgets und unabhängige Freigabe sind technische Dienste, kein zentraler kognitiver Router.
