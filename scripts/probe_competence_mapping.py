@@ -54,11 +54,16 @@ def tokenize(tokenizer):
     cases=[];skipped=[]
     for i,(domain,family,prompt,a,b) in enumerate(CASES):
         row={'id':f'case-{i:02}','domain':domain,'family':family,'prompt':prompt,'answer':a,'distractor':b}
-        prefix=tokenizer.encode(prompt,add_special_tokens=False)
         x=tokenizer.encode(prompt+a,add_special_tokens=False)
         y=tokenizer.encode(prompt+b,add_special_tokens=False)
-        if x[:-1]!=prefix or y[:-1]!=prefix or not prefix or x[-1]==y[-1]:
-            skipped.append({**row,'reason':'not distinct single-token continuations with unchanged prefix'})
+        # Some tokenizers split the leading answer space from digits.
+        # It may be part of the shared prefix, but never include answer content.
+        prefix=x[:-1]
+        decode=lambda ids:tokenizer.decode(ids,skip_special_tokens=False,clean_up_tokenization_spaces=False)
+        if (not prefix or not y or prefix!=y[:-1] or x[-1]==y[-1] or
+            decode(prefix) not in (prompt,prompt+' ') or
+            decode(x)!=prompt+a or decode(y)!=prompt+b):
+            skipped.append({**row,'reason':'not distinct single-token continuations with exact shared prompt/space prefix'})
             continue
         cases.append({k:row[k] for k in ('id','domain','family')}|{'tokens':prefix,'correct':x[-1],'foil':y[-1]})
     return cases,skipped
