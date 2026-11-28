@@ -98,6 +98,42 @@ class LearningEvents:
             self.db.commit()
         return event
 
+    def _group_knowledge_payload(self, job_id, *, resident_only=False):
+        """Bind an announcement to an independently admitted group artifact.
+
+        The caller holds the source guard, which checks declared ancestors.
+        An archived result may remain historically relevant but never executes
+        unless separately reactivated. No new learning authority is granted.
+        """
+        l=self.learning; db=l.db
+        if not db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='group_learning_jobs_v08'").fetchone():
+            raise ContractError('group learning required')
+        row=db.execute('SELECT expert_id,spec,sha FROM group_learning_jobs_v08 WHERE id=?',(job_id,)).fetchone()
+        report=db.execute('SELECT passed,case_sha,artifact_sha,receipt FROM group_learning_reports_v08 WHERE job_id=?',(job_id,)).fetchone()
+        if row is None or report is None: raise ContractError('admitted group competency required')
+        expert,raw,sha=row; spec=json.loads(raw); receipt=json.loads(report[3])
+        if _hash(spec)!=sha or spec.get('expert')!=expert: raise ContractError('group job integrity')
+        m=l.catalog.manifest(expert)
+        allowed=RESIDENT if resident_only else RESIDENT|{'ARCHIVED'}
+        if (m['state'] not in allowed or m.get('group_job')!=job_id or m['parents']!=spec['parents'] or
+            m['family']!=spec['family'] or m['source_topic']!=spec['source'] or m['target_topic']!=spec['goal'] or
+            report[:3]!=(1,receipt.get('case_sha256'),m['sha256']) or receipt.get('accepted') is not True or
+            receipt.get('artifact_sha256')!=m['sha256'] or receipt.get('observed_passed')!=receipt.get('observed_cases') or
+            receipt.get('holdout_passed')!=receipt.get('holdout_cases')):
+            raise ContractError('admitted group competency required')
+        return {'scope':'global','group_job':job_id,'expert':expert,'domain':{'topic':m['family']},
+                'artifact_sha256':m['sha256'],'spec_sha256':sha,'report_sha256':_hash(receipt),
+                'source_topic':m['source_topic'],'target_topic':m['target_topic'],'targets':['explore']}
+
+    def publish_group_knowledge(self, job_id):
+        """Announce newly learned group competencies through the same event bus."""
+        identifier(job_id)
+        with self.learning._guard():
+            payload=self._group_knowledge_payload(job_id,resident_only=True)
+            event=self._insert('KNOWLEDGE',payload)
+            self.db.commit()
+            return event
+
     def event(self, event):
         identifier(event)
         row=self.db.execute('SELECT kind,payload FROM learning_events_v08 WHERE id=?',(event,)).fetchone()
@@ -109,6 +145,9 @@ class LearningEvents:
         if e['kind']=='RELEARN':
             return _hash(p['impulse']) in conflicts
         if e['kind']!='KNOWLEDGE': return False
+        if 'group_job' in p:
+            try: return p==self._group_knowledge_payload(p['group_job'])
+            except ContractError: return False
         j=l.job(p['job'])
         if j['state'] not in RESIDENT|{'ARCHIVED'} or not j['report'] or not j['report']['accepted']:
             return False

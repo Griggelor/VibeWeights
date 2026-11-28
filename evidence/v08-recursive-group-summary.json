@@ -1,0 +1,33 @@
+{
+  "version": "0.8.0.dev17",
+  "parent_commit": "8f55674e8e4492d182b06185638c3f6565aa6775",
+  "tests": {
+    "tests": 240,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "duration_seconds": 89.12,
+  "previous_tests": 236,
+  "new_tests": 4,
+  "targeted": {
+    "tests": 11,
+    "failures": 0,
+    "seconds": 6.99,
+    "log": "v08-recursive-group-intermediate-1.log"
+  },
+  "environment": {
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+    "torch": "2.10.0+cpu",
+    "sqlite": "3.46.1",
+    "device": "cpu",
+    "thread_limits": 1
+  },
+  "demo": "v08-recursive-group-demo.json",
+  "limitations": [
+    "synthetic affine competencies and binary features",
+    "host-defined tasks, labels, group names and publication",
+    "no autonomous recursive recruitment, nonlinear transfer, real LLM, imported fragment, GPU, Windows or remote CI validation"
+  ]
+}

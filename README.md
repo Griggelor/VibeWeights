@@ -3,7 +3,7 @@
 **A self-organizing, self-learning, self-optimizing and self-scaling neural ecosystem**
 
 ![Research prototype](https://img.shields.io/badge/status-research%20prototype-orange)
-![Version](https://img.shields.io/badge/development-v0.8.0.dev16-blue)
+![Version](https://img.shields.io/badge/development-v0.8.0.dev17-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 
 **Local-first AI research · Decentralized neural experts · Weight-space programming · Continual learning**
@@ -396,6 +396,10 @@ The full [research survey](docs/FORSCHUNG_2026-11-26.md) and [learning/evolution
 
 Independent holdouts must not become synthesis inputs. Report failures as research results. Distinguish expert activation, causal contribution, user satisfaction, factual correctness, resource consumption and independent capability. Do not equate greater parameter count or test count with intelligence.
 
+## Development snapshot v0.8.0.dev17 — learned experts rejoin cooperation
+
+**240 local CPU tests passed** (236 previous + 4 new). Independently admitted GroupLearning competencies can now publish hash-bound KNOWLEDGE events through the existing learning bus. Newly trained experts receive separately trained and evaluated perception heads and join further groups. In the controlled two-generation experiment, the first SGD-trained expert (6x+5) cooperates with a new affine expert (4z−1), producing two verified observations (2,67) and (5,139). A second expert learns 24x+19 from these observations using 256 SGD steps; loss 5952.5 → 5.05e-29 before FP32 export, 3/3 independent holdouts and 36/36 additional disjoint inputs after restart. Two new heads pass 64/64 disjoint acceptance cases collectively. Original artifacts remain unchanged. The second generation also publishes its own event and proposes a group after restart. A third learning cycle is not executed. Staged/rejected artifacts cannot publish, and stale reports or quarantined ancestors invalidate live announcements. See [implementation](docs/RECURSIVE_GROUP_v08.md), [raw demo](evidence/v08-recursive-group-demo.json), [test evidence](evidence/v08-recursive-group-summary.json) and [development journal](docs/DEVELOPMENT_LOG.md). Host-authorized training, events, group labels and tasks; synthetic affine kernels and binary perception features. No autonomous targeted recursive recruitment, nonlinear competency transfer, real fragment/LLM experiment, GPU/Windows or remote CI validation.
+
 ## Development snapshot v0.8.0.dev16 — trained group competency transfer
 
 **236 local CPU tests passed** (230 previous + 6 new). The new TRAINED group-learning mode fits a zero-initialized affine expert by bounded SGD exclusively from verified group input/output observations; parent tensors are used for evidence replay, not supplied to the optimizer. Two successful group observations (4,29) and (7,47) suffice for this affine family: 256 optimization steps, loss 762.5 → 7.89e-29 before FP32 export. Independent evaluation accepts 3/3 disjoint holdouts; 96/96 additional unseen inputs are correct, versus 0/96 for a zero-weight control. An isolated process computes 41/41 points from the new weight file alone (including some training and holdout inputs). Parent hashes unchanged; resident core payload grows 76 → 84 bytes. A separate multivariate trainer test covers a two-input/two-output affine mapping. Undertraining, rank deficiency, bad holdouts and interrupted artifact staging tested. See [implementation](docs/TRAINED_GROUP_v08.md), [raw demo and learning curve](evidence/v08-trained-group-demo.json), [test evidence](evidence/v08-trained-group-summary.json) and [development journal](docs/DEVELOPMENT_LOG.md). Host-selected examples, fixed affine model class, trusted independent verification and source lock during training; no generic nonlinear transfer, autonomous learning, real model/fragment, GPU/Windows or remote CI validation.
@@ -560,7 +564,7 @@ The commands above are for the existing Python research prototype, not the futur
 | Stage | Priority / deliverable |
 |---|---|
 | Public baseline | v0.7.0 source, weights and evidence imported; verify Windows/Linux CI |
-| Knowledge-first learning (P0) | Bounded recall, relational transfer, recovery, retention, model-directed selection, task-driven learning, additive extension and conflict-triggered correction implemented. Global cross-domain repair slice implemented. Persistent event delivery and local callback groups implemented. First trained binary-metadata perception heads implemented. First voluntary group execution and evidence-bound DIRECT group consolidation demonstrated. Indexed declared dependencies and incremental source guard implemented. Source-local atomic REMEMBER implemented. First affine TRAINED group transfer demonstrated. Next: recursive recruitment, new perception heads, nonlinear transfer, semantic perception, broader catalog/file recovery, bounded scheduling and real model/fragment experiments |
+| Knowledge-first learning (P0) | Bounded recall, relational transfer, recovery, retention, model-directed selection, task-driven learning, additive extension and conflict-triggered correction implemented. Global cross-domain repair slice implemented. Persistent event delivery and local callback groups implemented. First trained binary-metadata perception heads implemented. First voluntary group execution and evidence-bound DIRECT group consolidation demonstrated. Indexed declared dependencies and incremental source guard implemented. Source-local atomic REMEMBER implemented. First affine TRAINED group transfer demonstrated. Two-generation learned-expert participation demonstrated. Next: targeted recursive recruitment, nonlinear transfer, semantic perception, broader catalog/file recovery, bounded scheduling and real model/fragment experiments |
 | Unified Environment | Migrate the regular chat/API to the new core; generic events, dynamic topology, private recurrence, independent result release |
 | Memory | Universal semantic ABI, source/relationship indexing, cooperation and feedback integration, recovery, physical budgets |
 | Bootstrap | Real authorized local models; text vs latent adapter experiments, independent ablations |
@@ -584,6 +588,7 @@ The detailed project documents are currently primarily in German; this English o
 | [Platform v0.5](docs/platform_v05.md) | Reference runtime, API, telemetry and limits |
 | [Research survey](docs/FORSCHUNG_2026-11-26.md) | Literature and implications |
 | [Research supplement](docs/FORSCHUNG_ERGAENZUNG_v05.md) | Exploration, selection, learning and attribution |
+| [Learned expert participation v0.8.dev17](docs/RECURSIVE_GROUP_v08.md) | Two-generation trained cooperation, new perception heads and group-derived global events |
 | [TRAINED group transfer v0.8.dev16](docs/TRAINED_GROUP_v08.md) | SGD from verified group results, independent holdouts, learning curve and weight-only inference |
 | [Atomic memory writes v0.8.dev15](docs/MEMORY_TRANSACTION_v08.md) | Source-guarded REMEMBER, provenance, atomic receipt and crash recovery |
 | [Dependency index v0.8.dev14](docs/DEPENDENCY_INDEX_v08.md) | Indexed reverse provenance, incremental source guard and benchmark |

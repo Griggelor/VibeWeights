@@ -1,5 +1,7 @@
 # v0.8.0.dev16 – TRAINED-Kompetenztransfer aus Kooperation
 
+Historischer TRAINED-Stand dev16. [dev17](RECURSIVE_GROUP_v08.md) zeigt zwei aufeinanderfolgende Kompetenzgenerationen mit separat trainierten Wahrnehmungsköpfen und globalen GroupLearning-Impulsen.
+
 ## Hypothese und Vertrag
 
 Eine erfolgreich kooperierende Expertengruppe kann eine neue, eigenständig ausführbare Kompetenz erzeugen, ohne ihre Kerngewichte analytisch zu kopieren. Der erste Slice prüft dies für zwei kompatible affine Kerne (derselbe bereits verifizierte Arbeitsgruppenvertrag wie dev13). DIRECT-Komposition bleibt als unabhängiger Lernweg verfügbar. TRAINED erzeugt ausschließlich einen zusätzlichen Kandidaten; keine Änderung oder Ablösung der Eltern und keine implizite evolutionäre Selektion.
