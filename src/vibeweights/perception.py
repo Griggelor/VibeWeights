@@ -17,12 +17,15 @@ from .learning_events import LearningEvents
 FEATURES = ('knowledge', 'relearn', 'same_topic', 'affected', 'local', 'repair')
 
 
-def _samples(cases, width):
+RECRUIT_FEATURES = FEATURES + ('recruit', 'provides_topic', 'is_requester')
+
+
+def _samples(cases, width, features=FEATURES):
     if type(cases) not in (tuple, list) or not 1 <= len(cases) <= 256:
         raise ContractError('perception case count')
     xs, ys, seen = [], [], set()
     for x, y in cases:
-        if (type(x) not in (tuple, list) or len(x) != len(FEATURES) or
+        if (type(x) not in (tuple, list) or len(x) != len(features) or
             type(y) not in (tuple, list) or len(y) != width or
             any(type(v) is not int or v not in (0, 1) for v in (*x, *y))):
             raise ContractError('binary perception case')
@@ -51,7 +54,7 @@ class PerceptionHeads:
             raise ContractError('resident perception core required')
         return m
 
-    def stage(self, head, expert, groups, cases, *, steps=160):
+    def stage(self, head, expert, groups, cases, *, steps=160, feature_version=1):
         """Train a small affine sigmoid head, preserving the original core."""
         identifier(head); identifier(expert)
         if (type(groups) not in (tuple, list) or not 1 <= len(groups) <= 8 or
@@ -59,12 +62,15 @@ class PerceptionHeads:
             raise ContractError('perception groups')
         groups = [identifier(g) for g in groups]
         if type(steps) is not int or not 1 <= steps <= 512: raise ContractError('perception training budget')
-        x, y = _samples(cases, len(groups))
+        if type(feature_version) is not int or feature_version not in (1,2):
+            raise ContractError('perception feature version')
+        features=FEATURES if feature_version==1 else RECRUIT_FEATURES
+        x, y = _samples(cases, len(groups), features)
         with self.learning._guard():
             m = self._core(expert)
             if self.db.execute('SELECT 1 FROM perception_heads_v08 WHERE id=?',(head,)).fetchone():
                 raise ContractError('perception identity reserved')
-        w = torch.zeros((len(groups), len(FEATURES)), requires_grad=True)
+        w = torch.zeros((len(groups), len(features)), requires_grad=True)
         b = torch.zeros(len(groups), requires_grad=True)
         opt = torch.optim.SGD((w,b), lr=0.5)
         def loss(): return torch.nn.functional.binary_cross_entropy_with_logits(x @ w.T+b,y)
@@ -74,7 +80,7 @@ class PerceptionHeads:
         after = float(loss().detach())
         blob = save({'w':w.detach(), 'b':b.detach()})
         sha = hashlib.sha256(blob).hexdigest()
-        spec = {'contract':'perception-v1','features':list(FEATURES),'groups':groups,
+        spec = {'contract':f'perception-v{feature_version}','features':list(features),'groups':groups,
                 'training_sha256':_hash(cases),'training_inputs':sorted(_hash(list(x)) for x,_ in cases),'steps':steps,'loss_before':before,'loss_after':after,
                 'origin':'TRAINED','torch_version':str(torch.__version__)}
         with self.learning._guard():
@@ -90,9 +96,10 @@ class PerceptionHeads:
         expert,core,raw,blob,sha=row; spec=json.loads(raw)
         if hashlib.sha256(blob).hexdigest()!=sha or len(blob)>16384: raise ContractError('perception artifact integrity')
         if self._core(expert)['sha256']!=core: raise ContractError('perception core changed')
-        if spec['features']!=list(FEATURES): raise ContractError('perception feature ABI')
+        features={'perception-v1':FEATURES,'perception-v2':RECRUIT_FEATURES}.get(spec.get('contract'))
+        if features is None or spec['features']!=list(features): raise ContractError('perception feature ABI')
         tensors=load(blob); n=len(spec['groups'])
-        if (set(tensors)!={'w','b'} or tensors['w'].shape!=(n,len(FEATURES)) or tensors['b'].shape!=(n,) or
+        if (set(tensors)!={'w','b'} or tensors['w'].shape!=(n,len(features)) or tensors['b'].shape!=(n,) or
             any(t.dtype!=torch.float32 or not torch.isfinite(t).all() for t in tensors.values())):
             raise ContractError('perception weight contract')
         return expert,spec,sha,tensors
@@ -102,7 +109,7 @@ class PerceptionHeads:
         identifier(oracle_id)
         with self.learning._guard():
             expert,spec,sha,t=self._load(head)
-            x,y=_samples(cases,len(spec['groups']))
+            x,y=_samples(cases,len(spec['groups']),spec['features'])
             if set(spec['training_inputs']).intersection(_hash(list(v)) for v,_ in cases):
                 raise ContractError('disjoint acceptance inputs required')
             if not ((y.sum(dim=0)>0)&(y.sum(dim=0)<len(y))).all():
@@ -122,13 +129,18 @@ class PerceptionHeads:
                     self.db.execute('INSERT OR IGNORE INTO perception_bindings_v08 VALUES(?,?)',(expert,head))
             return report
 
-    def _features(self, expert, e, target):
+    def _features(self, expert, e, target, *, version=1):
         m=self._core(expert); p=e['payload']; repair=target.startswith('repair/')
         impulse=p.get('impulse',{}); domain=p.get('domain',impulse.get('domain',{}))
         topic=domain.get('topic')
         if repair: topic=self.learning.catalog.manifest(target.split('/',1)[1])['family']
-        return [int(e['kind']=='KNOWLEDGE'),int(e['kind']=='RELEARN'),int(m['family']==topic),
+        values=[int(e['kind']=='KNOWLEDGE'),int(e['kind']=='RELEARN'),int(m['family']==topic),
                 int(expert in impulse.get('affected',())),int(target=='local'),int(repair)]
+        if version==2:
+            recruit=e['kind']=='RECRUIT'
+            values.extend((int(recruit),int(recruit and m.get('target_topic')==p['requested_topic']),
+                           int(recruit and expert==p['requester'])))
+        return values
 
     def propose(self, expert, event):
         """Only admitted local weights decide which group outputs activate."""
@@ -142,10 +154,14 @@ class PerceptionHeads:
             r=self.db.execute('SELECT receipt FROM perception_reports_v08 WHERE id=?',row).fetchone()
             if not r or not json.loads(r[0])['accepted'] or json.loads(r[0])['artifact_sha256']!=sha:
                 raise ContractError('perception admission required')
+            # Existing admitted heads never receive an out-of-contract event.
+            version=2 if spec['contract']=='perception-v2' else 1
+            if version==1 and e['kind']=='RECRUIT':
+                return []
             choices=[]
             with torch.no_grad():
                 for target in e['payload']['targets']:
-                    x=torch.tensor(self._features(expert,e,target),dtype=torch.float32)
+                    x=torch.tensor(self._features(expert,e,target,version=version),dtype=torch.float32)
                     scores=t['w'] @ x+t['b']
                     if not torch.isfinite(scores).all(): raise ContractError('nonfinite perception output')
                     choices.extend((float(s),target,g) for s,g in zip(scores,spec['groups']) if float(s)>0)
