@@ -69,6 +69,7 @@ class SocialFragmentCore:
             _hash({k:v.tolist() for k,v in sorted(e.t.items())})!=self._tensor_sha):
             raise ContractError('social fragment adapter changed')
         if any(type(x) is not int for x in payload):raise ContractError('fragment token input')
+        e.assert_usage_live()
         x=e.encoder.features(payload)
         return (float((e.t['w']@x+e.t['b']).item()>0),)
 

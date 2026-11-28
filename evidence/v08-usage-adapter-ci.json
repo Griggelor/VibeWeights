@@ -1,0 +1,48 @@
+{
+  "status": "COMPLETED",
+  "elapsed_seconds": 36.29142042800004,
+  "verified_usage": 16,
+  "rejected_usage": 0,
+  "candidates": {
+    "pretrained": {
+      "training": 16,
+      "holdout": 14,
+      "admitted": false,
+      "reloaded_passed": null
+    },
+    "random": {
+      "training": 16,
+      "holdout": 9,
+      "admitted": false,
+      "reloaded_passed": null
+    },
+    "embedding-only": {
+      "training": 16,
+      "holdout": 10,
+      "admitted": false,
+      "reloaded_passed": null
+    }
+  },
+  "ci": {
+    "run": 46175434228,
+    "job": 141072919591,
+    "commit": "a9db8a2d92ebd69f0603b0ec3f5617e97bcd9703",
+    "artifact": [
+      {
+        "id": 15275492009,
+        "name": "usage-adapter-evidence",
+        "size_in_bytes": 276904,
+        "expired": false
+      }
+    ],
+    "baseline_run": 46175434194,
+    "tiny_run": 46175434191,
+    "regression_runs": [
+      46175434224,
+      46175434202,
+      46175434184,
+      46175434162,
+      46175434213
+    ]
+  }
+}

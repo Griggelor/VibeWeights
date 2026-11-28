@@ -150,7 +150,7 @@ def _head_cases(priority):
     return x,(x[:,0]*x[:,1]).long()
 
 
-def fit_experiment(encoder,training,holdout,*,topic,training_oracle,holdout_oracle,output,steps=64,conditioning='none'):
+def fit_experiment(encoder,training,holdout,*,topic,training_oracle,holdout_oracle,output,steps=64,conditioning='none',usage_evidence=None,evidence_store=None):
     """Fit once, evaluate disjoint labels, atomically persist candidate and receipt.
 
     A failed control is a result, not a workflow error. Only a fully passed
@@ -160,6 +160,12 @@ def fit_experiment(encoder,training,holdout,*,topic,training_oracle,holdout_orac
     if training_oracle==holdout_oracle:raise ContractError('independent adapter oracle required')
     train=_cases(encoder,training);test=_cases(encoder,holdout)
     if {x for x,_ in train}&{x for x,_ in test}:raise ContractError('disjoint adapter inputs required')
+    if usage_evidence is not None:
+        from .usage_adapters import validate_usage
+        source=validate_usage(evidence_store,usage_evidence)
+        if source!=train or usage_evidence['oracle_id']!=training_oracle or usage_evidence['training_sha256']!=_hash(train):
+            raise ContractError('usage evidence training mismatch')
+    elif evidence_store is not None:raise ContractError('unexpected usage evidence store')
     output=Path(output).resolve()
     if output.exists():raise ContractError('adapter output already exists')
     x=torch.stack([encoder.features(v) for v,_ in train]);y=torch.tensor([v for _,v in train])
@@ -188,6 +194,10 @@ def fit_experiment(encoder,training,holdout,*,topic,training_oracle,holdout_orac
               'adapter_parameters':sum(t.numel() for t in tensors.values()),
               'core_fp32_bytes':encoder.core_bytes,'embedding_fp32_bytes':encoder.embedding_bytes,
               'report':report,'torch':str(torch.__version__)}
+        if usage_evidence is not None:
+            from .usage_adapters import validate_usage
+            if validate_usage(evidence_store,usage_evidence)!=train:raise ContractError('usage evidence changed before publish')
+            spec['usage_evidence']=usage_evidence
         _write(stage/'manifest.json',{'manifest':spec,'sha256':_hash(spec)})
         stage.rename(output)
         return spec
@@ -197,7 +207,7 @@ def fit_experiment(encoder,training,holdout,*,topic,training_oracle,holdout_orac
 
 class FragmentCompetence:
     """Explicit experimental admitted frozen prefix; local head may abstain."""
-    def __init__(self,encoder,root):
+    def __init__(self,encoder,root,*,evidence_store=None):
         self.encoder=encoder;root=Path(root)
         e=json.loads((root/'manifest.json').read_text(encoding='utf-8'));m=e['manifest']
         if (_hash(m)!=e['sha256'] or m['contract']!=CONTRACT or m['core']!=encoder.ref or
@@ -207,6 +217,13 @@ class FragmentCompetence:
         if encoder.mode!='pretrained' or r['admitted'] is not True or r['passed'] is not True or any(
             r[k]['passed']!=r[k]['cases'] or not r[k]['cases'] for k in ('training','holdout','head_training','head_holdout')):
             raise ContractError('fragment adapter not admitted')
+        if 'usage_evidence' in m:
+            from .usage_adapters import validate_usage
+            proof=m['usage_evidence']
+            train=validate_usage(evidence_store,proof)
+            if _hash(train)!=r['training_sha256'] or proof['oracle_id']!=r['training_oracle']:
+                raise ContractError('usage evidence adapter mismatch')
+        elif evidence_store is not None:raise ContractError('unexpected usage evidence store')
         path=root/'adapter.safetensors'
         if path.stat().st_size>65536 or digest(path)!=m['adapter_sha256']:
             raise ContractError('adapter artifact integrity')
@@ -215,7 +232,13 @@ class FragmentCompetence:
         if set(t)!=set(shapes) or any(tuple(t[k].shape)!=s or t[k].dtype!=torch.float32 or not torch.isfinite(t[k]).all() for k,s in shapes.items()):
             raise ContractError('adapter tensor contract')
         if sum(x.numel() for x in t.values())!=m['adapter_parameters']:raise ContractError('adapter parameter count')
-        self.m=m;self.t=t
+        self.m=m;self.t=t;self._evidence_store=evidence_store
+
+    def assert_usage_live(self):
+        if 'usage_evidence' in self.m:
+            from .usage_adapters import validate_usage
+            if _hash(validate_usage(self._evidence_store,self.m['usage_evidence']))!=self.m['report']['training_sha256']:
+                raise ContractError('usage evidence adapter mismatch')
 
     @torch.inference_mode()
     def propose(self,topic,*,input_available,recruitment=False,priority=False):
@@ -230,6 +253,7 @@ class FragmentCompetence:
         if not self.propose(topic,input_available=tokens is not None,recruitment=recruitment,priority=priority):
             return None
         if tokens is None:raise ContractError('adapter input missing')
+        self.assert_usage_live()
         x=self.encoder.features(tokens)
         score=float((self.t['w']@x+self.t['b']).item())
         return int(score>0)
