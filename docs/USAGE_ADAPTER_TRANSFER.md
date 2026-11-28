@@ -1,6 +1,6 @@
 # dev31 candidate — usage-derived additive adapter learning
 
-**Implementation, actual CI pending.** dev30 matched real fragment trial: 144/144 vs old 80/144, no recall 96/144, no training shots 0/144. [Evidence](../evidence/v08-social-credit-ci.json). User target: continually learn and self-organize from use.
+**Technical CI passed; real competence admission failed.** dev30 matched real fragment trial: 144/144 vs old 80/144, no recall 96/144, no training shots 0/144. [Evidence](../evidence/v08-social-credit-ci.json). User target: continually learn and self-organize from use.
 
 ## Contract
 
@@ -13,3 +13,7 @@ The host still chooses the candidate prefix, port, episode IDs and independent e
 Reproduce the two admitted real Qwen3 readouts from dev30, learn their social heads with seed 7 and 600 episodes, then generate 16 actual joint usage episodes on dev30's fresh text family (previously evaluated; now source experience only). All 16 must verify; no success-subset selection. Close and reopen the database. Train a new 8-block frozen prefix with a new readout on released sentiment-port values, comparing same-size random core and embedding-only controls. Only admitted candidates can reload and execute. Evaluate on 16 newly authored texts, disjoint from source experience and parent readout train/admission; no threshold relaxation, no new holdout-based selection. Source social labels are used only by the independent task oracle, not the trainer. Full reports and source SQLite in Actions artifact. Actual results pending; failure is a valid result.
 
 One additional tiny Qwen3 integration test for actual verified receipts, training/reload, no source-store bypass, mutation rejection, and unaffected parent. CPU-only reference. Future: versioned social population growth, new candidate heads learn locally, learn input adapters and multiport outputs, autonomous candidate proposals, heterogeneous cores and target hardware.
+
+## Actual results
+
+[CI 46175434228](https://github.com/Griggelor/VibeWeights/actions/runs/46175434228), job 141072919591, commit a9db8a2d92ebd69f0603b0ec3f5617e97bcd9703: 16/16 verified joint source receipts, 0 rejected. All three readouts fit 16/16 training; pretrained 14/16 independent holdouts, random 9/16, embedding-only 10/16. None admitted, none reloaded. 36.291 s total remote CPU. All eight workflow runs succeeded technically. [Verified log summary](../evidence/v08-usage-adapter-ci.json); full report and source DB in Actions artifact. No competence admission claimed. Preserve strict gate; next local evidence selection/proposal, larger varied usage pool, new untouched holdout. The previously tested holdout must not become a new acceptance set.
