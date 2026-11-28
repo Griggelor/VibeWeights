@@ -1,0 +1,24 @@
+# Emergente soziale Expertenstruktur — Zielpräzisierung dev28
+
+Status: Forschungs- und Architekturentscheidung, noch keine Implementierung oder experimentelle Abnahme. Nutzerpräzisierung: Ein Fragment soll nicht zunächst extern einer Kompetenz zugeordnet werden. Die soziale Struktur entsteht während der Nutzung durch die selbstbestimmte Teilnahme von Fragmenten an Arbeitsimpulsen, die Bewertung ihres Beitrags und individuelles Lernen der Köpfe. Externe Kompetenzkartierung ist optionales Forschungsinstrument, keine Voraussetzung für diese Entwicklung.
+
+## Abgrenzung zum bisherigen Prototyp
+
+Der Kopf in fragment_adapters.py verwendet topic_matches, input_available, recruitment, priority und trainiert auf einer vorgegebenen Konjunktion aus Themenübereinstimmung und Eingabeverfügbarkeit. Der Host definiert zudem den Ausgabeadapter und das Thema. Das beweist eine technische neuronale Teilnahme-/Enthaltungsentscheidung, nicht eine gelernte Selbstzuordnung. dev27 Kompetenzscanner bleibt als unabhängige Diagnose/Kontrolle erhalten; seine Ergebnisse dürfen weder eine verbindliche Kompetenzzuordnung noch einen zentralen Router begründen.
+
+## Zielvertrag
+
+- Jeder importierte Kern beginnt mit eigener stabiler Identität, Provenienz und einem lernfähigen, zunächst uninformierten lokalen Kopf. Keine vorgegebenen Kompetenzlabels, keine Expert-ID oder richtige Gruppenzugehörigkeit als Eingangsfeature/Trainingsziel.
+- Gemeinsamer numerischer/latenter Arbeitsimpuls; Kopf verarbeitet dieselben verfügbaren Aufgabeninformationen plus eigene lokale Lernerfahrung, optional kleine lokale Kernprobe. Teilnahme, Enthaltung und begrenzte Exploration werden lokal entschieden. Themen können als Inhalt wahrgenommen werden, nicht als vorgegebene Zuordnung.
+- Beteiligte Kerne erzeugen Beiträge über kompatible Adapter; Gruppen entstehen durch lokale Vorschläge und Interaktion. Der Transport verwaltet nur technische Budgets, Zustellung und Konflikte, keine fachliche Auswahl. Kein globaler Top-k-Router.
+- Lernen des Kopfes aus verifizierten Ergebnissen und möglichst marginalem eigenem Beitrag, nicht aus behaupteter Selbstkompetenz oder bloßem Gruppenerfolg. Vergleich mit und ohne Beitrag, alternative Zusammensetzungen, Kosten und Unsicherheit können lokale Evidenz liefern. Unklarer Beitrag bleibt unklar; keine Belohnung erfinden. Auch Kooperationen, deren einzelne Mitglieder allein nicht erfolgreich sind, müssen erkannt werden.
+- Exploration erhält Chancen für neue, seltene und bislang wenig aktive Experten; Enthaltung ist legitim. Keine automatische Entfernung, keine globale Rangliste. Persistente individuelle Kopfversionen, Erfahrungsprovenienz, unabhängige Abnahme, Retention und Wiederanlauf. Betriebszustände ACTIVE/LOW_ACTIVE_IMPORTANT/ARCHIVED unverändert.
+- Expertenidentität ist eine emergente Verteilung erfolgreicher Beteiligungen und Beziehungen, nicht notwendigerweise eine sprachlich benannte Fachrolle. Mehrfachkompetenz und veränderliche Spezialisierung ausdrücklich zulässig. Keine Notwendigkeit eines zentralen Themenkatalogs.
+
+## Erster falsifizierbarer Versuch
+
+Kontrollierte kleine heterogene Kernpopulation (zunächst bereits nachweisbare synthetische Kompetenzen, danach eingefrorene echte Fragmente). Gemeinsames latentes Aufgabenformat, zufällig/neutral initialisierte lokale Köpfe, keine Kompetenznamen oder Mitgliedschaftslabels im Lernsignal. Aufgabenmix in wiederholten Episoden, getrennte neue Aufgabenfamilien und wechselnde Konstellationen. Alle Köpfe erhalten identischen Impuls; lokaler Wahrscheinlichkeitskopf und begrenzte Exploration, verifizierter Nutzwert (bei einfachen Aufgaben direkte unabhängige Prüfung, bei Gruppen zusätzlich Vergleich mit/ohne Beitrag). Kleiner Online-Lernschritt nur aus eigener Erfahrung; Zustellung darf die Entscheidung nicht vorwegnehmen.
+
+Kontrollen: unveränderte Zufallsköpfe, eingefrorene Köpfe, überall teilnehmende Experten, ggf. handverdrahtete Themenzuordnung als Referenz außerhalb des Zielsystems. Gleiche Ressourcen, gleiche Aufgaben, mehrere Seeds. Messen: Erfolgsquote, unnötige Beteiligung/Kosten, verpasste Beiträge, Lernkurve, Transfer auf unbekannte Aufgaben, Gruppenkonstellationen, Retention und persistenter Neustart. Evaluator kennt zur Messung die Aufgabenergebnisse, liefert jedoch keine ideale Expertenzuordnung an Köpfe. Bei echter Fragmentpopulation müssen randomisierte Kerne und Adapter-only-Kontrolle den tatsächlichen Nutzen importierter Gewichte abgrenzen.
+
+Wenn lernende Köpfe nicht besser als Kontrollen werden oder nur explizite Themenzuordnungen reproduzieren, ist die Hypothese im Versuchsaufbau nicht bestätigt. Kein Schluss auf universelle Intelligenz aus einem synthetischen Test. Die allgemeine latente ABI, experimentelle Integration in Population/LearningEvents, Gruppen-Credit-Assignment und GPU-/UMA-Abnahme bleiben offene Entwicklungsaufgaben.

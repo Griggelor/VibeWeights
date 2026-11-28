@@ -180,3 +180,8 @@ Verbindliche Arbeitsweise ab v0.8.0.dev13 (Nutzeranforderung): Jede Implementier
 - Keine CI-Ergebnisse für dev27, keine Kompetenzlokalisierung behauptet. Bypass kann generische Pfade stören; Forced Choice, kleine korrelierte Datenfamilie. Folge: neue unabhängige Fälle, gematchte Kontrollen, Activation Patching, evidence-driven Spans und individuelle Adapter-/Kopf-Abnahme. Kein zentraler Router, keine GPU-Abnahme.
 
 - Vor CI: Tokenizer-Grenze präzisiert. Ziffern können nach einem separat tokenisierten gemeinsamen Leerzeichen beginnen; akzeptiert nur exakt dekodierten Prompt bzw. Prompt+Leerzeichen und identische Präfix-IDs, keine Antwortinformation im gemeinsamen Präfix. Sonstige Fälle bleiben explizit ausgeschlossen.
+
+### dev28 – Zielpräzisierung des Nutzers: soziale Selbstzuordnung durch lernende Köpfe
+
+- Korrektur der zuletzt zu stark gewichteten externen Kompetenzkartierung: Expertenidentität und soziale Struktur sollen während Nutzung aus lokalen Entscheidungen, Exploration und verifizierten eigenen/kooperativen Beiträgen entstehen. Kartierung nur optionaler Diagnosepfad. Der bestehende fragment_adapters.py-Kopf mit topic_matches und hostdefinierter Konjunktion weist diese Selbstzuordnung ausdrücklich noch nicht nach.
+- [Architektur-/Versuchsvertrag](EMERGENT_SOCIAL_HEADS.md): neutrale individuelle Köpfe, gemeinsamer latenter Impuls, keine ideale Mitgliedschaft als Trainingslabel, marginale Beitragsbewertung, lokale Lernschritte, Ressourcen-/Persistenzgrenzen, Kontrollen und Falsifikationskriterien. Zunächst kontrollierte heterogene Kernpopulation, danach echte Fragmente. Dokumentationsstand, noch keine Codeimplementierung oder neuen Messwerte; laufender dev27-Scan nicht verändert.

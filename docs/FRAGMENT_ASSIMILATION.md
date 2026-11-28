@@ -63,3 +63,7 @@ A1 dev26: p16-combined 16/16 disjunkte Holdouts und experimentell freigegeben, a
 ## Kompetenzkartierung (dev27-Kandidat, Nutzerimpuls)
 
 [Diagnosevertrag](COMPETENCE_MAPPING.md): systematische Mehrdomänen-Abfrage des vollständigen Ursprungsmodells, blockweise Aktivierungsprofile, reversible kausale Bypass-Interventionen auf Einzelblock und Mehrskalenschnitt. Diagnose getrennt vom Betriebsrouting; kein automatisches Kompetenzlabel aus Aktivierung, keine Aufnahme ohne unabhängige Fragmentabnahme. CI offen.
+
+## Zielpräzisierung: emergente soziale Struktur
+
+Die spätere Nutzerpräzisierung ersetzt die Vorstellung, eine Kompetenzkartierung sei Voraussetzung der Assimilation. Fragmente sollen sich durch Nutzung, lokale Köpfe und bewertete eigene Beiträge selbst zu Arbeitsimpulsen und Kooperationen zuordnen. Externe Kartierung bleibt optionaler Forschungs-/Kontrollpfad. [Zielvertrag und erster Versuch](EMERGENT_SOCIAL_HEADS.md). Keine Implementierungs- oder Abnahmebehauptung.

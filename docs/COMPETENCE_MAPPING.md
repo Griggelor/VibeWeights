@@ -1,6 +1,6 @@
 # dev27 candidate — systematic competence localization
 
-**User-directed research change; implementation, CI pending.** Do not arbitrarily assign one competence to a fragment. First map what existing regions contribute to a task. Base dev26 `5f76af4ca5e39051e78cd509f2e49aed6e039c39`: 16-block conditioned prefix passed 16/16 authored sentiment holdouts, 6-block improved variants 15/16, random and embedding controls 11/16; narrow experimental admission only. [Report](../evidence/v08-fragment-conditioning-a1.json).
+**Optional offline research diagnostic; implementation, CI pending.** Later user clarification: external mapping is not a prerequisite for assimilation or a source of mandatory competence labels. The primary goal is emergent self-assignment during use via learning local heads. See [target clarification](EMERGENT_SOCIAL_HEADS.md). Base dev26 `5f76af4ca5e39051e78cd509f2e49aed6e039c39`: 16-block conditioned prefix passed 16/16 authored sentiment holdouts, 6-block improved variants 15/16, random and embedding controls 11/16; narrow experimental admission only. [Report](../evidence/v08-fragment-conditioning-a1.json).
 
 ## Method
 
@@ -16,8 +16,8 @@ Reversible causal screening: substitute each selected block's output with its in
 
 1. Inspect both activity and causal maps. Hypotheses about sensitive regions must survive new cases, other templates, matched controls and different intervention sizes; a longer span has more capacity and may cause generic disruption.
 2. Contrastive activation patching with matched clean/counterfactual inputs at aligned positions to test sufficiency, followed by matched-size submodule or attention/MLP interventions. See [Towards Best Practices of Activation Patching in Language Models](https://openreview.net/pdf?id=9eJv5PS27Q) (general methodology; current implementation uses bypass, not activation patching).
-3. Extract candidate spans at evidence-driven boundaries, preserve dependencies, learn appropriate input/output adapters, evaluate against random and adapter-only controls. Test on independent data families before assigning local competence labels/heads. A region can participate in multiple domains; a competence can be distributed across regions.
-4. Only then use in decentralized group cooperation; the diagnostic map is not a permanent central routing table.
+3. Extract candidate spans at evidence-driven boundaries, preserve dependencies, learn appropriate input/output adapters, evaluate against random and adapter-only controls. Test on independent data families; do not impose competence labels or group membership on local heads. A region can participate in multiple domains; a competence can be distributed across regions.
+4. This optional diagnostic does not gate decentralized group cooperation; the diagnostic map is not a permanent central routing table.
 
 ## Tests and execution
 
