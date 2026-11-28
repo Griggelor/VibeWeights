@@ -57,3 +57,5 @@ A1 erster Vergleich: 7/12 Pretrained, 5/12 Zufall, 6/12 Embedding-only; keine Au
 ## A1 Folgerunde dev26 (Kandidat)
 
 [Latente Konditionierung](FRAGMENT_CONDITIONING_A1.md): vierarmiger Vergleich für Pooling/Skalierung am 6-Block-Prefix, 16-Block-Skalenpaar, gematchte Zufalls- und Embeddingkontrolle. Neue Holdouts; unveränderte Abnahmeschwelle. Keine dynamische Kooperation behauptet. Ergebnisse offen.
+
+A1 dev26: p16-combined 16/16 disjunkte Holdouts und experimentell freigegeben, alle Zufalls-/Embedding-Kontrollen je 11/16. [Rohdaten](../evidence/v08-fragment-conditioning-a1.json). Entscheidung des Nutzers: Kompetenzen nicht vorab willkürlich zuweisen, sondern systematisch durch Aktivierungsprofile und kausale Interventionen kartieren. A1 bleibt eng begrenzt; keine allgemeine Assimilation.

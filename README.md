@@ -3,7 +3,7 @@
 **A self-organizing, self-learning, self-optimizing and self-scaling neural ecosystem**
 
 ![Research prototype](https://img.shields.io/badge/status-research%20prototype-orange)
-![Version](https://img.shields.io/badge/development-v0.8.0.dev25-blue)
+![Version](https://img.shields.io/badge/development-v0.8.0.dev26-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 
 **Local-first AI research · Decentralized neural experts · Weight-space programming · Continual learning**
@@ -396,7 +396,11 @@ The full [research survey](docs/FORSCHUNG_2026-11-26.md) and [learning/evolution
 
 Independent holdouts must not become synthesis inputs. Report failures as research results. Distinguish expert activation, causal contribution, user satisfaction, factual correctness, resource consumption and independent capability. Do not equate greater parameter count or test count with intelligence.
 
-## Development snapshot v0.8.0.dev25 — first controlled frozen-fragment adapter experiment
+## Development snapshot v0.8.0.dev26 — conditioned latent fragment adapter
+
+Real pretrained Qwen3 16-block prefix with tokenwise L2 pooling and training-only centered-radius scaling passed all 16 training and 16 distinct authored sentiment holdouts, including local-head replay. Six-block conditioned variants 15/16, six-block baseline 13/16, random 6/16-block and embedding-only controls each 11/16. One narrowly qualified experimental candidate; no broad or autonomous assimilation claim. All CPU workflows green. [CI](https://github.com/Griggelor/VibeWeights/actions/runs/46163192152), [full report](evidence/v08-fragment-conditioning-a1.json), [contract](docs/FRAGMENT_CONDITIONING_A1.md). Next: systematic competence localization, untouched follow-up and general population/latent interfaces.
+
+## Historical development snapshot v0.8.0.dev25 — first controlled frozen-fragment adapter experiment
 
 CPU baseline and separate architecture tests passed. Real Qwen3 six-block prefix vs random decoder vs embedding-only: training 11/12, 12/12, 12/12; held-out 7/12, 5/12, 6/12. All local metadata heads 8/8 held out. No candidate admitted. This is a negative competence result, not an assimilation claim. The experimental adapter mechanism supports immutable reports, independent acceptance and local abstention. [CI](https://github.com/Griggelor/VibeWeights/actions/runs/46160839256), [raw report](evidence/v08-fragment-adapter-a1.json), [contract](docs/FRAGMENT_ADAPTER_A1.md). GPU and general Population integration remain open.
 
