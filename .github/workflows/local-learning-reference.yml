@@ -1,0 +1,45 @@
+name: Real Qwen3 local learning requests
+on:
+  pull_request:
+    paths:
+      - 'src/vibeweights/local_learning.py'
+      - 'scripts/probe_local_learning.py'
+      - '.github/workflows/local-learning-reference.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: local-learning-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  experiment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      OMP_NUM_THREADS: '2'
+      MKL_NUM_THREADS: '2'
+      PYTHONUTF8: '1'
+      HF_HUB_DISABLE_TELEMETRY: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned CPU and fragment dependencies
+        run: |
+          python -m pip install torch==2.10.0 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install safetensors==0.7.0
+          python -m pip install -e ".[fragments]"
+          python -m pip check
+      - name: Local evidence discovery and independently gated adapter training
+        run: python scripts/probe_local_learning.py --download-pinned-qwen3 --output local-learning
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: local-learning-evidence
+          path: |
+            local-learning/report.json
+            local-learning/usage.sqlite
+            local-learning/*/manifest.json
+            local-learning/*/adapter.safetensors
+          if-no-files-found: warn
