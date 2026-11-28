@@ -1,0 +1,101 @@
+{
+  "status": "COMPLETED",
+  "elapsed_seconds": 46.905530107999994,
+  "usage_verified": 31,
+  "usage_cases": 32,
+  "arms": {
+    "pretrained": [
+      {
+        "port": 0,
+        "status": "REQUESTED",
+        "evidence_classes": [
+          23,
+          24
+        ],
+        "calibration": 8,
+        "holdout": 15,
+        "admitted": false,
+        "reloaded_passed": null
+      },
+      {
+        "port": 1,
+        "status": "REQUESTED",
+        "evidence_classes": [
+          23,
+          24
+        ],
+        "calibration": 8,
+        "holdout": 16,
+        "admitted": true,
+        "reloaded_passed": 16
+      }
+    ],
+    "random": [
+      {
+        "port": 0,
+        "status": "ABSTAINED",
+        "evidence_classes": [
+          23,
+          24
+        ],
+        "calibration": 4,
+        "holdout": null,
+        "admitted": false,
+        "reloaded_passed": null
+      },
+      {
+        "port": 1,
+        "status": "REQUESTED",
+        "evidence_classes": [
+          23,
+          24
+        ],
+        "calibration": 7,
+        "holdout": 15,
+        "admitted": false,
+        "reloaded_passed": null
+      }
+    ],
+    "embedding-only": [
+      {
+        "port": 0,
+        "status": "REQUESTED",
+        "evidence_classes": [
+          23,
+          24
+        ],
+        "calibration": 7,
+        "holdout": 14,
+        "admitted": false,
+        "reloaded_passed": null
+      },
+      {
+        "port": 1,
+        "status": "REQUESTED",
+        "evidence_classes": [
+          23,
+          24
+        ],
+        "calibration": 8,
+        "holdout": 16,
+        "admitted": false,
+        "reloaded_passed": null
+      }
+    ]
+  },
+  "ci": {
+    "run": 46176396995,
+    "job": 141075984398,
+    "commit": "eece814dc3bf0cb69f9dce4f92b6ca579175c014",
+    "artifact": [
+      {
+        "id": 15275414051,
+        "name": "local-learning-evidence",
+        "size_in_bytes": 335929,
+        "expired": false
+      }
+    ],
+    "baseline_run": 46176396950,
+    "tiny_run": 46176396843
+  }
+}
