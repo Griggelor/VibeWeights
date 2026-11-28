@@ -1,6 +1,7 @@
-"""Evidence-bound additive DIRECT composition of a two-member affine group."""
+"""Evidence-bound additive DIRECT composition or TRAINED behavioral transfer."""
 import json
 import math
+import torch
 from .abi import ContractError
 from .environment import Signal, identifier
 from .factory import case_digest
@@ -13,6 +14,41 @@ def _same(a,b):
     return len(a)==len(b) and all(math.isclose(x,y,rel_tol=1e-6,abs_tol=1e-6) for x,y in zip(a,b))
 
 
+def train_affine(observations, steps):
+    """Fit from input/output pairs alone, without parent tensors or holdouts.
+
+    Float64 CPU SGD on standardized inputs; export an independent FP32 affine
+    map. Full affine rank is required to avoid unidentifiable coefficients.
+    """
+    x=torch.tensor([v[0] for v in observations],dtype=torch.float64,device='cpu')
+    y=torch.tensor([v[1] for v in observations],dtype=torch.float64,device='cpu')
+    if x.shape[1]+1>len(x) or (x.shape[1]+1)*y.shape[1]>65536:
+        raise ContractError('trained group dimension budget')
+    if not torch.isfinite(x).all() or not torch.isfinite(y).all() or max(x.abs().max().item(),y.abs().max().item())>1e6:
+        raise ContractError('trained group sample bounds')
+    center=x.mean(0); scale=(x-center).abs().amax(0)
+    if (scale==0).any(): raise ContractError('trained group rank')
+    z=(x-center)/scale
+    design=torch.cat((z,torch.ones((len(z),1),dtype=z.dtype)),dim=1)
+    if int(torch.linalg.matrix_rank(design))!=design.shape[1]: raise ContractError('trained group rank')
+    # Fixed zero initialization; a bounded optimization run, not a closed-form fit.
+    weights=torch.zeros((design.shape[1],y.shape[1]),dtype=z.dtype,requires_grad=True)
+    lr=0.5/float(design.square().sum()/len(z))
+    optimizer=torch.optim.SGD([weights],lr=lr)
+    def loss(): return (design@weights-y).square().sum()/(2*len(z))
+    initial=float(loss().detach())
+    for _ in range(steps):
+        optimizer.zero_grad(); value=loss(); value.backward(); optimizer.step()
+    final=float(loss().detach())
+    if not math.isfinite(final): raise ContractError('trained group nonfinite loss')
+    with torch.no_grad():
+        w=(weights[:-1]/scale[:,None]).T; b=weights[-1]-w@center
+        matrix=w.float(); bias=b.float()
+    return matrix.tolist(),bias.tolist(),{'initial_loss':initial,'final_loss':final,'steps':steps,
+        'learning_rate':lr,'optimizer':'SGD','initialization':'zero','training_dtype':'float64',
+        'export_dtype':'float32','dataset_sha256':_hash(observations),'torch_version':str(torch.__version__)}
+
+
 class GroupLearning:
     def __init__(self, work):
         if not isinstance(work,GroupWork): raise ContractError('group work required')
@@ -23,6 +59,8 @@ class GroupLearning:
         CREATE TABLE IF NOT EXISTS group_learning_reports_v08(
           job_id TEXT PRIMARY KEY, passed INTEGER NOT NULL, case_sha TEXT NOT NULL,
           artifact_sha TEXT NOT NULL, receipt TEXT NOT NULL);
+        CREATE TABLE IF NOT EXISTS group_training_builds_v08(
+          job_id TEXT PRIMARY KEY, stats TEXT NOT NULL);
         ''')
 
     def job(self, job):
@@ -32,7 +70,11 @@ class GroupLearning:
         spec=json.loads(row[1])
         if _hash(spec)!=row[2] or spec['expert']!=row[0]: raise ContractError('group job integrity')
         report=self.db.execute('SELECT receipt FROM group_learning_reports_v08 WHERE job_id=?',(job,)).fetchone()
-        return {'spec':spec,'report':None if report is None else json.loads(report[0])}
+        result={'spec':spec,'report':None if report is None else json.loads(report[0])}
+        if spec['contract']=='group-trained-v1':
+            stats=self.db.execute('SELECT stats FROM group_training_builds_v08 WHERE job_id=?',(job,)).fetchone()
+            result['build']=None if stats is None else json.loads(stats[0])
+        return result
 
     def _live(self,spec):
         w=self.work; l=self.learning
@@ -50,10 +92,12 @@ class GroupLearning:
         for ref in spec['runs']:
             if _hash(w.receipt(ref['id']))!=ref['sha256']: raise ContractError('group evidence changed')
 
-    def stage(self,job,expert,runs,*,family):
+    def stage(self,job,expert,runs,*,family,method='DIRECT',steps=256):
         """Require multiple successful runs of the same unambiguous affine chain."""
         l=self.learning; w=self.work
         for x in (job,expert,family): identifier(x)
+        if method not in ('DIRECT','TRAINED') or type(steps) is not int or not 1<=steps<=1024:
+            raise ContractError('group learning method/budget')
         if type(runs) not in (tuple,list) or not 2<=len(runs)<=64 or len(set(runs))!=len(runs): raise ContractError('group evidence count')
         with l._guard():
             receipts=[w.receipt(r) for r in sorted(runs)]
@@ -76,6 +120,9 @@ class GroupLearning:
                   'event':base['event'],'target':base['target'],'group':base['group'],'source':source,'goal':goal,
                   'runs':[{'id':r['run'],'sha256':_hash(r)} for r in receipts], 'observations':seen,
                   'input_width':a['shape'][1],'output_width':b['shape'][0]}
+            if method=='TRAINED':
+                spec.update(contract='group-trained-v1',steps=steps,torch_version=str(torch.__version__),
+                            training_oracle=base['oracle_id'],target_scope=b['target_scope'])
             self._live(spec)
             raw=json.dumps(spec,sort_keys=True)
             prior=self.db.execute('SELECT expert_id,spec,sha FROM group_learning_jobs_v08 WHERE id=? OR expert_id=?',(job,expert)).fetchall()
@@ -86,9 +133,18 @@ class GroupLearning:
                 with self.db: self.db.execute('INSERT INTO group_learning_jobs_v08 VALUES(?,?,?,?)',(job,expert,raw,_hash(spec)))
             if any(m['id']==expert for m in l.catalog.list()):
                 m=l.catalog.manifest(expert)
-                if m.get('group_job')!=job or m['parents']!=parents: raise ContractError('group artifact mismatch')
+                if m.get('group_job')!=job or m['parents']!=parents or m['origin']!=method: raise ContractError('group artifact mismatch')
                 return m
-            return l.catalog.compose_affine(expert,family,*parents,byte_budget=l.population.artifact_budget,group_job=job)
+            if method=='DIRECT':
+                return l.catalog.compose_affine(expert,family,*parents,byte_budget=l.population.artifact_budget,group_job=job)
+            matrix,bias,stats=train_affine(spec['observations'],steps)
+            encoded=json.dumps(stats,sort_keys=True)
+            prior=self.db.execute('SELECT stats FROM group_training_builds_v08 WHERE job_id=?',(job,)).fetchone()
+            if prior is not None and prior!=(encoded,): raise ContractError('group training build changed')
+            if prior is None:
+                with self.db: self.db.execute('INSERT INTO group_training_builds_v08 VALUES(?,?)',(job,encoded))
+            return l.catalog.stage_affine(expert,family,matrix,bias,source_topic=source,target_scope=spec['target_scope'],
+                target_topic=goal,parents=parents,origin='TRAINED',group_job=job)
 
     def promote(self,job,cases,*,oracle_id):
         """Separate independent holdout evaluation; no seen input may be reused."""
@@ -96,6 +152,9 @@ class GroupLearning:
         with l._guard():
             spec=self.job(job)['spec']; self._live(spec)
             m=l.catalog.manifest(spec['expert'])
+            if spec['contract']=='group-trained-v1':
+                if oracle_id==spec['training_oracle']: raise ContractError('independent training holdout oracle required')
+                if self.job(job)['build'] is None or m['origin']!='TRAINED': raise ContractError('trained group build required')
             if m.get('group_job')!=job or m['parents']!=spec['parents']: raise ContractError('group artifact mismatch')
             if type(cases) not in (list,tuple) or not 3<=len(cases)<=256: raise ContractError('group holdout count')
             seen={tuple(x) for x,_ in spec['observations']}; normalized=[]

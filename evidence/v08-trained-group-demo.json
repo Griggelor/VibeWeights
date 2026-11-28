@@ -1,0 +1,980 @@
+{
+  "contract": "group-trained-v1",
+  "event": "be466bf2233386e9ed247cea0ade36f7c15c0241473aedb34f202a3d866d590c",
+  "group": [
+    {
+      "target": "explore",
+      "group": "research",
+      "experts": [
+        "a-second",
+        "z-first"
+      ]
+    }
+  ],
+  "runs": [
+    {
+      "contract": "group-work-v1",
+      "event": "be466bf2233386e9ed247cea0ade36f7c15c0241473aedb34f202a3d866d590c",
+      "goal": "answer",
+      "group": "research",
+      "inputs": {
+        "input": [
+          4
+        ]
+      },
+      "limits": {
+        "probes": 0,
+        "rounds": 16,
+        "signals": 256,
+        "steps": 64
+      },
+      "members": [
+        {
+          "core_sha256": "d7d77fbb939dd4b0425f2b6f160d8440d50a05c9828621bfe157ce24b07f1878",
+          "expert": "a-second",
+          "head": "a-second-head",
+          "head_sha256": "7f7274b1f326c681007de0c475aae4d61c3370081a24461ecd38005c1f060078"
+        },
+        {
+          "core_sha256": "576aed318b8d6083009b0c1dd244dc9e3dcd00401165aab746092358edb50983",
+          "expert": "z-first",
+          "head": "z-first-head",
+          "head_sha256": "7f7274b1f326c681007de0c475aae4d61c3370081a24461ecd38005c1f060078"
+        }
+      ],
+      "oracle_id": "math",
+      "result": {
+        "facts": [
+          {
+            "scope": "group:88ba19f1a333dc6a44166ad2b983f98a5994f8662457effa371b6b5a2e5bc26c",
+            "topic": "answer",
+            "values": [
+              29.0
+            ]
+          },
+          {
+            "scope": "group:88ba19f1a333dc6a44166ad2b983f98a5994f8662457effa371b6b5a2e5bc26c",
+            "topic": "input",
+            "values": [
+              4
+            ]
+          },
+          {
+            "scope": "group:88ba19f1a333dc6a44166ad2b983f98a5994f8662457effa371b6b5a2e5bc26c",
+            "topic": "mid",
+            "values": [
+              9.0
+            ]
+          }
+        ],
+        "faults": [],
+        "hypotheses": [
+          {
+            "scope": "group:88ba19f1a333dc6a44166ad2b983f98a5994f8662457effa371b6b5a2e5bc26c",
+            "source": "a-second",
+            "topic": "answer",
+            "values": [
+              29.0
+            ]
+          },
+          {
+            "scope": "group:88ba19f1a333dc6a44166ad2b983f98a5994f8662457effa371b6b5a2e5bc26c",
+            "source": "z-first",
+            "topic": "mid",
+            "values": [
+              9.0
+            ]
+          }
+        ],
+        "probes": 0,
+        "status": "OK",
+        "steps": 5,
+        "trace": [
+          [
+            0,
+            "z-first",
+            "PROPOSE",
+            1
+          ],
+          [
+            1,
+            "a-second",
+            "PROPOSE",
+            1
+          ],
+          [
+            1,
+            "z-first",
+            "PROPOSE",
+            1
+          ],
+          [
+            2,
+            "a-second",
+            "PROPOSE",
+            1
+          ],
+          [
+            2,
+            "z-first",
+            "PROPOSE",
+            1
+          ]
+        ],
+        "value": [
+          29.0
+        ]
+      },
+      "run": "run-4",
+      "scope": "group:88ba19f1a333dc6a44166ad2b983f98a5994f8662457effa371b6b5a2e5bc26c",
+      "target": "explore",
+      "validator_topics": [
+        "answer",
+        "mid"
+      ]
+    },
+    {
+      "contract": "group-work-v1",
+      "event": "be466bf2233386e9ed247cea0ade36f7c15c0241473aedb34f202a3d866d590c",
+      "goal": "answer",
+      "group": "research",
+      "inputs": {
+        "input": [
+          7
+        ]
+      },
+      "limits": {
+        "probes": 0,
+        "rounds": 16,
+        "signals": 256,
+        "steps": 64
+      },
+      "members": [
+        {
+          "core_sha256": "d7d77fbb939dd4b0425f2b6f160d8440d50a05c9828621bfe157ce24b07f1878",
+          "expert": "a-second",
+          "head": "a-second-head",
+          "head_sha256": "7f7274b1f326c681007de0c475aae4d61c3370081a24461ecd38005c1f060078"
+        },
+        {
+          "core_sha256": "576aed318b8d6083009b0c1dd244dc9e3dcd00401165aab746092358edb50983",
+          "expert": "z-first",
+          "head": "z-first-head",
+          "head_sha256": "7f7274b1f326c681007de0c475aae4d61c3370081a24461ecd38005c1f060078"
+        }
+      ],
+      "oracle_id": "math",
+      "result": {
+        "facts": [
+          {
+            "scope": "group:960d954f1a0035e021eeda0af98b76f695066b97186474f4432a907b4209b129",
+            "topic": "answer",
+            "values": [
+              47.0
+            ]
+          },
+          {
+            "scope": "group:960d954f1a0035e021eeda0af98b76f695066b97186474f4432a907b4209b129",
+            "topic": "input",
+            "values": [
+              7
+            ]
+          },
+          {
+            "scope": "group:960d954f1a0035e021eeda0af98b76f695066b97186474f4432a907b4209b129",
+            "topic": "mid",
+            "values": [
+              15.0
+            ]
+          }
+        ],
+        "faults": [],
+        "hypotheses": [
+          {
+            "scope": "group:960d954f1a0035e021eeda0af98b76f695066b97186474f4432a907b4209b129",
+            "source": "a-second",
+            "topic": "answer",
+            "values": [
+              47.0
+            ]
+          },
+          {
+            "scope": "group:960d954f1a0035e021eeda0af98b76f695066b97186474f4432a907b4209b129",
+            "source": "z-first",
+            "topic": "mid",
+            "values": [
+              15.0
+            ]
+          }
+        ],
+        "probes": 0,
+        "status": "OK",
+        "steps": 5,
+        "trace": [
+          [
+            0,
+            "z-first",
+            "PROPOSE",
+            1
+          ],
+          [
+            1,
+            "a-second",
+            "PROPOSE",
+            1
+          ],
+          [
+            1,
+            "z-first",
+            "PROPOSE",
+            1
+          ],
+          [
+            2,
+            "a-second",
+            "PROPOSE",
+            1
+          ],
+          [
+            2,
+            "z-first",
+            "PROPOSE",
+            1
+          ]
+        ],
+        "value": [
+          47.0
+        ]
+      },
+      "run": "run-7",
+      "scope": "group:960d954f1a0035e021eeda0af98b76f695066b97186474f4432a907b4209b129",
+      "target": "explore",
+      "validator_topics": [
+        "answer",
+        "mid"
+      ]
+    }
+  ],
+  "job": {
+    "spec": {
+      "contract": "group-trained-v1",
+      "event": "be466bf2233386e9ed247cea0ade36f7c15c0241473aedb34f202a3d866d590c",
+      "expert": "student",
+      "family": "combined",
+      "goal": "answer",
+      "group": "research",
+      "input_width": 1,
+      "members": [
+        {
+          "core_sha256": "d7d77fbb939dd4b0425f2b6f160d8440d50a05c9828621bfe157ce24b07f1878",
+          "expert": "a-second",
+          "head": "a-second-head",
+          "head_sha256": "7f7274b1f326c681007de0c475aae4d61c3370081a24461ecd38005c1f060078"
+        },
+        {
+          "core_sha256": "576aed318b8d6083009b0c1dd244dc9e3dcd00401165aab746092358edb50983",
+          "expert": "z-first",
+          "head": "z-first-head",
+          "head_sha256": "7f7274b1f326c681007de0c475aae4d61c3370081a24461ecd38005c1f060078"
+        }
+      ],
+      "observations": [
+        [
+          [
+            4
+          ],
+          [
+            29.0
+          ]
+        ],
+        [
+          [
+            7
+          ],
+          [
+            47.0
+          ]
+        ]
+      ],
+      "output_width": 1,
+      "parents": [
+        "z-first",
+        "a-second"
+      ],
+      "runs": [
+        {
+          "id": "run-4",
+          "sha256": "f42785c57043b20ca6549980349371a384944d049ae5928c50d380d5a405bffc"
+        },
+        {
+          "id": "run-7",
+          "sha256": "4f3528e0cd0083ddbe4ccd6a7be966d01020b1ea7637bcb8a83089f890f13ef1"
+        }
+      ],
+      "source": "input",
+      "steps": 256,
+      "target": "explore",
+      "target_scope": "global",
+      "torch_version": "2.10.0+cpu",
+      "training_oracle": "math"
+    },
+    "report": {
+      "accepted": true,
+      "artifact_sha256": "b23ef1cb24df5e1382c17fa8b81a8bf217de95ef0ce8b3d33270785ce0073386",
+      "case_sha256": "32064cd54633591c016b591a4fc13a9370d5d66f55c87d3f292e24e9d0063d0a",
+      "holdout_cases": 3,
+      "holdout_passed": 3,
+      "observed_cases": 2,
+      "observed_passed": 2,
+      "oracle_id": "math-heldout"
+    },
+    "build": {
+      "dataset_sha256": "c1230d9a127d8aae819e7e913cc5e68bc1b68b81e347536e033749f225861aff",
+      "export_dtype": "float32",
+      "final_loss": 7.888609052210118e-29,
+      "initial_loss": 762.5,
+      "initialization": "zero",
+      "learning_rate": 0.25,
+      "optimizer": "SGD",
+      "steps": 256,
+      "torch_version": "2.10.0+cpu",
+      "training_dtype": "float64"
+    }
+  },
+  "new_artifact": {
+    "abi": "numeric-events/0.1",
+    "bytes": 128,
+    "family": "combined",
+    "group_job": "student-job",
+    "id": "student",
+    "op": "affine",
+    "origin": "TRAINED",
+    "parameters": 2,
+    "parents": [
+      "z-first",
+      "a-second"
+    ],
+    "sha256": "b23ef1cb24df5e1382c17fa8b81a8bf217de95ef0ce8b3d33270785ce0073386",
+    "shape": [
+      1,
+      1
+    ],
+    "source_topic": "input",
+    "target_scope": "global",
+    "target_topic": "answer",
+    "state": "STAGED"
+  },
+  "parent_parameters": 4,
+  "candidate_parameters": 2,
+  "population_core_tensor_bytes_before": 76,
+  "population_core_tensor_bytes_after": 84,
+  "original_core_hashes_unchanged": true,
+  "build_ms": 50.07124,
+  "admission_ms": 8.694527,
+  "learning_curve": [
+    {
+      "steps": 1,
+      "loss": 428.90625
+    },
+    {
+      "steps": 4,
+      "loss": 76.33609771728516
+    },
+    {
+      "steps": 16,
+      "loss": 0.07659497461198289
+    },
+    {
+      "steps": 64,
+      "loss": 7.763928838667247e-14
+    },
+    {
+      "steps": 256,
+      "loss": 7.888609052210118e-29
+    }
+  ],
+  "additional_unseen": {
+    "cases": 96,
+    "correct": 96,
+    "zero_weight_correct": 0,
+    "results": [
+      {
+        "input": -50,
+        "actual": -295.0,
+        "expected": -295,
+        "correct": true
+      },
+      {
+        "input": -49,
+        "actual": -289.0,
+        "expected": -289,
+        "correct": true
+      },
+      {
+        "input": -48,
+        "actual": -283.0,
+        "expected": -283,
+        "correct": true
+      },
+      {
+        "input": -47,
+        "actual": -277.0,
+        "expected": -277,
+        "correct": true
+      },
+      {
+        "input": -46,
+        "actual": -271.0,
+        "expected": -271,
+        "correct": true
+      },
+      {
+        "input": -45,
+        "actual": -265.0,
+        "expected": -265,
+        "correct": true
+      },
+      {
+        "input": -44,
+        "actual": -259.0,
+        "expected": -259,
+        "correct": true
+      },
+      {
+        "input": -43,
+        "actual": -253.0,
+        "expected": -253,
+        "correct": true
+      },
+      {
+        "input": -42,
+        "actual": -247.0,
+        "expected": -247,
+        "correct": true
+      },
+      {
+        "input": -41,
+        "actual": -241.0,
+        "expected": -241,
+        "correct": true
+      },
+      {
+        "input": -40,
+        "actual": -235.0,
+        "expected": -235,
+        "correct": true
+      },
+      {
+        "input": -39,
+        "actual": -229.0,
+        "expected": -229,
+        "correct": true
+      },
+      {
+        "input": -38,
+        "actual": -223.0,
+        "expected": -223,
+        "correct": true
+      },
+      {
+        "input": -37,
+        "actual": -217.0,
+        "expected": -217,
+        "correct": true
+      },
+      {
+        "input": -36,
+        "actual": -211.0,
+        "expected": -211,
+        "correct": true
+      },
+      {
+        "input": -35,
+        "actual": -205.0,
+        "expected": -205,
+        "correct": true
+      },
+      {
+        "input": -34,
+        "actual": -199.0,
+        "expected": -199,
+        "correct": true
+      },
+      {
+        "input": -33,
+        "actual": -193.0,
+        "expected": -193,
+        "correct": true
+      },
+      {
+        "input": -32,
+        "actual": -187.0,
+        "expected": -187,
+        "correct": true
+      },
+      {
+        "input": -31,
+        "actual": -181.0,
+        "expected": -181,
+        "correct": true
+      },
+      {
+        "input": -30,
+        "actual": -175.0,
+        "expected": -175,
+        "correct": true
+      },
+      {
+        "input": -29,
+        "actual": -169.0,
+        "expected": -169,
+        "correct": true
+      },
+      {
+        "input": -28,
+        "actual": -163.0,
+        "expected": -163,
+        "correct": true
+      },
+      {
+        "input": -27,
+        "actual": -157.0,
+        "expected": -157,
+        "correct": true
+      },
+      {
+        "input": -26,
+        "actual": -151.0,
+        "expected": -151,
+        "correct": true
+      },
+      {
+        "input": -25,
+        "actual": -145.0,
+        "expected": -145,
+        "correct": true
+      },
+      {
+        "input": -24,
+        "actual": -139.0,
+        "expected": -139,
+        "correct": true
+      },
+      {
+        "input": -23,
+        "actual": -133.0,
+        "expected": -133,
+        "correct": true
+      },
+      {
+        "input": -22,
+        "actual": -127.0,
+        "expected": -127,
+        "correct": true
+      },
+      {
+        "input": -21,
+        "actual": -121.0,
+        "expected": -121,
+        "correct": true
+      },
+      {
+        "input": -20,
+        "actual": -115.0,
+        "expected": -115,
+        "correct": true
+      },
+      {
+        "input": -19,
+        "actual": -109.0,
+        "expected": -109,
+        "correct": true
+      },
+      {
+        "input": -18,
+        "actual": -103.0,
+        "expected": -103,
+        "correct": true
+      },
+      {
+        "input": -17,
+        "actual": -97.0,
+        "expected": -97,
+        "correct": true
+      },
+      {
+        "input": -16,
+        "actual": -91.0,
+        "expected": -91,
+        "correct": true
+      },
+      {
+        "input": -15,
+        "actual": -85.0,
+        "expected": -85,
+        "correct": true
+      },
+      {
+        "input": -14,
+        "actual": -79.0,
+        "expected": -79,
+        "correct": true
+      },
+      {
+        "input": -13,
+        "actual": -73.0,
+        "expected": -73,
+        "correct": true
+      },
+      {
+        "input": -12,
+        "actual": -67.0,
+        "expected": -67,
+        "correct": true
+      },
+      {
+        "input": -11,
+        "actual": -61.0,
+        "expected": -61,
+        "correct": true
+      },
+      {
+        "input": -10,
+        "actual": -55.0,
+        "expected": -55,
+        "correct": true
+      },
+      {
+        "input": -9,
+        "actual": -49.0,
+        "expected": -49,
+        "correct": true
+      },
+      {
+        "input": -8,
+        "actual": -43.0,
+        "expected": -43,
+        "correct": true
+      },
+      {
+        "input": -7,
+        "actual": -37.0,
+        "expected": -37,
+        "correct": true
+      },
+      {
+        "input": -6,
+        "actual": -31.0,
+        "expected": -31,
+        "correct": true
+      },
+      {
+        "input": -5,
+        "actual": -25.0,
+        "expected": -25,
+        "correct": true
+      },
+      {
+        "input": -4,
+        "actual": -19.0,
+        "expected": -19,
+        "correct": true
+      },
+      {
+        "input": -2,
+        "actual": -7.0,
+        "expected": -7,
+        "correct": true
+      },
+      {
+        "input": -1,
+        "actual": -1.0,
+        "expected": -1,
+        "correct": true
+      },
+      {
+        "input": 1,
+        "actual": 11.0,
+        "expected": 11,
+        "correct": true
+      },
+      {
+        "input": 2,
+        "actual": 17.0,
+        "expected": 17,
+        "correct": true
+      },
+      {
+        "input": 3,
+        "actual": 23.0,
+        "expected": 23,
+        "correct": true
+      },
+      {
+        "input": 5,
+        "actual": 35.0,
+        "expected": 35,
+        "correct": true
+      },
+      {
+        "input": 6,
+        "actual": 41.0,
+        "expected": 41,
+        "correct": true
+      },
+      {
+        "input": 8,
+        "actual": 53.0,
+        "expected": 53,
+        "correct": true
+      },
+      {
+        "input": 9,
+        "actual": 59.0,
+        "expected": 59,
+        "correct": true
+      },
+      {
+        "input": 10,
+        "actual": 65.0,
+        "expected": 65,
+        "correct": true
+      },
+      {
+        "input": 12,
+        "actual": 77.0,
+        "expected": 77,
+        "correct": true
+      },
+      {
+        "input": 13,
+        "actual": 83.0,
+        "expected": 83,
+        "correct": true
+      },
+      {
+        "input": 14,
+        "actual": 89.0,
+        "expected": 89,
+        "correct": true
+      },
+      {
+        "input": 15,
+        "actual": 95.0,
+        "expected": 95,
+        "correct": true
+      },
+      {
+        "input": 16,
+        "actual": 101.0,
+        "expected": 101,
+        "correct": true
+      },
+      {
+        "input": 17,
+        "actual": 107.0,
+        "expected": 107,
+        "correct": true
+      },
+      {
+        "input": 18,
+        "actual": 113.0,
+        "expected": 113,
+        "correct": true
+      },
+      {
+        "input": 19,
+        "actual": 119.0,
+        "expected": 119,
+        "correct": true
+      },
+      {
+        "input": 20,
+        "actual": 125.0,
+        "expected": 125,
+        "correct": true
+      },
+      {
+        "input": 21,
+        "actual": 131.0,
+        "expected": 131,
+        "correct": true
+      },
+      {
+        "input": 22,
+        "actual": 137.0,
+        "expected": 137,
+        "correct": true
+      },
+      {
+        "input": 23,
+        "actual": 143.0,
+        "expected": 143,
+        "correct": true
+      },
+      {
+        "input": 24,
+        "actual": 149.0,
+        "expected": 149,
+        "correct": true
+      },
+      {
+        "input": 25,
+        "actual": 155.0,
+        "expected": 155,
+        "correct": true
+      },
+      {
+        "input": 26,
+        "actual": 161.0,
+        "expected": 161,
+        "correct": true
+      },
+      {
+        "input": 27,
+        "actual": 167.0,
+        "expected": 167,
+        "correct": true
+      },
+      {
+        "input": 28,
+        "actual": 173.0,
+        "expected": 173,
+        "correct": true
+      },
+      {
+        "input": 29,
+        "actual": 179.0,
+        "expected": 179,
+        "correct": true
+      },
+      {
+        "input": 30,
+        "actual": 185.0,
+        "expected": 185,
+        "correct": true
+      },
+      {
+        "input": 31,
+        "actual": 191.0,
+        "expected": 191,
+        "correct": true
+      },
+      {
+        "input": 32,
+        "actual": 197.0,
+        "expected": 197,
+        "correct": true
+      },
+      {
+        "input": 33,
+        "actual": 203.0,
+        "expected": 203,
+        "correct": true
+      },
+      {
+        "input": 34,
+        "actual": 209.0,
+        "expected": 209,
+        "correct": true
+      },
+      {
+        "input": 35,
+        "actual": 215.0,
+        "expected": 215,
+        "correct": true
+      },
+      {
+        "input": 36,
+        "actual": 221.0,
+        "expected": 221,
+        "correct": true
+      },
+      {
+        "input": 37,
+        "actual": 227.0,
+        "expected": 227,
+        "correct": true
+      },
+      {
+        "input": 38,
+        "actual": 233.0,
+        "expected": 233,
+        "correct": true
+      },
+      {
+        "input": 39,
+        "actual": 239.0,
+        "expected": 239,
+        "correct": true
+      },
+      {
+        "input": 40,
+        "actual": 245.0,
+        "expected": 245,
+        "correct": true
+      },
+      {
+        "input": 41,
+        "actual": 251.0,
+        "expected": 251,
+        "correct": true
+      },
+      {
+        "input": 42,
+        "actual": 257.0,
+        "expected": 257,
+        "correct": true
+      },
+      {
+        "input": 43,
+        "actual": 263.0,
+        "expected": 263,
+        "correct": true
+      },
+      {
+        "input": 44,
+        "actual": 269.0,
+        "expected": 269,
+        "correct": true
+      },
+      {
+        "input": 45,
+        "actual": 275.0,
+        "expected": 275,
+        "correct": true
+      },
+      {
+        "input": 46,
+        "actual": 281.0,
+        "expected": 281,
+        "correct": true
+      },
+      {
+        "input": 47,
+        "actual": 287.0,
+        "expected": 287,
+        "correct": true
+      },
+      {
+        "input": 48,
+        "actual": 293.0,
+        "expected": 293,
+        "correct": true
+      },
+      {
+        "input": 49,
+        "actual": 299.0,
+        "expected": 299,
+        "correct": true
+      },
+      {
+        "input": 50,
+        "actual": 305.0,
+        "expected": 305,
+        "correct": true
+      }
+    ]
+  },
+  "scope": "synthetic affine function; CPU; no direct parent tensor transfer; not general intelligence or fragment assimilation"
+}

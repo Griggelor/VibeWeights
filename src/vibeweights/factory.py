@@ -31,17 +31,22 @@ class Catalog:
     def list(self): return [dict(json.loads(m),state=s) for m,s in self.db.execute('SELECT manifest,state FROM experts ORDER BY id')]
     def stage_affine(self,id,family,matrix,bias,*,source_topic,target_scope,target_topic,parents=(),origin="DIRECT",learning_job=None,group_job=None):
         for s in (id,family,source_topic,target_scope,target_topic): identifier(s)
-        if origin not in ("DIRECT","TRAINED") or (origin=="TRAINED" and learning_job is None): raise ContractError("learning origin")
+        if origin not in ("DIRECT","TRAINED") or (origin=="TRAINED" and learning_job is None and group_job is None): raise ContractError("learning origin")
         if learning_job is not None:
             identifier(learning_job)
             row=self.db.execute("SELECT expert_id,method FROM knowledge_jobs_v08 WHERE id=?",(learning_job,)).fetchone()
             if row!=(id,origin): raise ContractError("learning job mismatch")
         if group_job is not None:
             identifier(group_job)
-            if learning_job is not None or origin != 'DIRECT': raise ContractError('group origin')
+            if learning_job is not None: raise ContractError('group origin')
             row=self.db.execute('SELECT expert_id,spec FROM group_learning_jobs_v08 WHERE id=?',(group_job,)).fetchone()
-            if row is None or row[0]!=id or json.loads(row[1])['parents']!=list(parents):
+            if row is None or row[0]!=id: raise ContractError('group learning job mismatch')
+            spec=json.loads(row[1])
+            contract={'DIRECT':'group-direct-v1','TRAINED':'group-trained-v1'}[origin]
+            if spec['parents']!=list(parents) or spec['contract']!=contract:
                 raise ContractError('group learning job mismatch')
+            if origin=='TRAINED' and self.db.execute('SELECT 1 FROM group_training_builds_v08 WHERE job_id=?',(group_job,)).fetchone() is None:
+                raise ContractError('trained group build required')
         if type(parents) not in (tuple,list) or len(set(parents))!=len(parents): raise ContractError('parents')
         for p in parents: self.manifest(p)
         w=torch.tensor(matrix,dtype=torch.float32); b=torch.tensor(bias,dtype=torch.float32)

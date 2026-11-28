@@ -1,5 +1,7 @@
 # v0.8.0.dev13 – Evidenzgebundene additive Konsolidierung einer Arbeitsgruppe
 
+Historischer DIRECT-Stand dev13. [dev16](TRAINED_GROUP_v08.md) ergänzt einen separaten SGD-basierten TRAINED-Pfad aus Gruppenergebnissen; beide Methoden bleiben verfügbar.
+
 Historischer Stand dev13. [dev14](DEPENDENCY_INDEX_v08.md) ergänzt die indexierte Quellenprüfung und transitive Sicherheitsquarantäne; keine trainierte Konsolidierung.
 
 ## Ziel und Grenzen
