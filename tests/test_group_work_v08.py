@@ -16,22 +16,24 @@ def training(affected, join=True):
             for k,r,s,lo,rep in product((0,1),repeat=5)]
 
 
-def setup(tmp_path):
+def setup(tmp_path, *, include_shortcut=True):
     c,p,k,a,l=fixture(tmp_path)
     d=Domain('notice',4,3); ids=facts(k,a,d,{0:1})
     l.prepare('notice-job','notice',d,ids,method='DIRECT')
     assert l.promote('notice-job',{0:1}.get,oracle_id='notice-proof')
     # Deliberately reversed alphabetical order: runtime needs a second round.
     for eid,w,b,src,dst in [('z-first',2,1,'input','mid'),('a-second',3,2,'mid','answer'),('shortcut',6,5,'input','answer')]:
+        if eid=='shortcut' and not include_shortcut: continue
         c.stage_affine(eid,eid,[[w]],[b],source_topic=src,target_scope='global',target_topic=dst)
         assert p.admit(eid,[((0,),(b,)),((2,),(2*w+b,))])
     bus=LearningEvents(TaskLearning(l));h=PerceptionHeads(bus)
     for eid in ('z-first','a-second','shortcut'):
+        if eid=='shortcut' and not include_shortcut: continue
         join=eid!='shortcut'
         h.stage(eid+'-head',eid,['research'],training(0,join),steps=512)
         assert h.admit(eid+'-head',training(1,join),oracle_id='heldout')['accepted']
     e=bus.publish_knowledge('notice-job')
-    assert len(h.tick())==3
+    assert len(h.tick())==(3 if include_shortcut else 2)
     assert bus.groups(e)==({'target':'explore','group':'research','experts':('a-second','z-first')},)
     return c,p,k,a,l,h,e,ids[0]
 

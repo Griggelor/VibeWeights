@@ -29,13 +29,19 @@ class Catalog:
         if row is None: raise ContractError('unknown instance')
         return dict(json.loads(row[0]),state=row[1])
     def list(self): return [dict(json.loads(m),state=s) for m,s in self.db.execute('SELECT manifest,state FROM experts ORDER BY id')]
-    def stage_affine(self,id,family,matrix,bias,*,source_topic,target_scope,target_topic,parents=(),origin="DIRECT",learning_job=None):
+    def stage_affine(self,id,family,matrix,bias,*,source_topic,target_scope,target_topic,parents=(),origin="DIRECT",learning_job=None,group_job=None):
         for s in (id,family,source_topic,target_scope,target_topic): identifier(s)
         if origin not in ("DIRECT","TRAINED") or (origin=="TRAINED" and learning_job is None): raise ContractError("learning origin")
         if learning_job is not None:
             identifier(learning_job)
             row=self.db.execute("SELECT expert_id,method FROM knowledge_jobs_v08 WHERE id=?",(learning_job,)).fetchone()
             if row!=(id,origin): raise ContractError("learning job mismatch")
+        if group_job is not None:
+            identifier(group_job)
+            if learning_job is not None or origin != 'DIRECT': raise ContractError('group origin')
+            row=self.db.execute('SELECT expert_id,spec FROM group_learning_jobs_v08 WHERE id=?',(group_job,)).fetchone()
+            if row is None or row[0]!=id or json.loads(row[1])['parents']!=list(parents):
+                raise ContractError('group learning job mismatch')
         if type(parents) not in (tuple,list) or len(set(parents))!=len(parents): raise ContractError('parents')
         for p in parents: self.manifest(p)
         w=torch.tensor(matrix,dtype=torch.float32); b=torch.tensor(bias,dtype=torch.float32)
@@ -50,6 +56,7 @@ class Catalog:
             else: temp.replace(path)
             m={'id':id,'family':family,'parents':list(parents),'origin':origin,'abi':'numeric-events/0.1','op':'affine','shape':list(w.shape),'parameters':w.numel()+b.numel(),'sha256':sha,'bytes':path.stat().st_size,'source_topic':source_topic,'target_scope':target_scope,'target_topic':target_topic}
             if learning_job is not None: m["learning_job"]=learning_job
+            if group_job is not None: m["group_job"]=group_job
             with self.db: self.db.execute('INSERT INTO experts VALUES(?,?,?,?)',(id,family,json.dumps(m,sort_keys=True),'STAGED'))
             return self.manifest(id)
         finally: temp.unlink(missing_ok=True)
@@ -62,7 +69,7 @@ class Catalog:
         tensors=load_file(str(path)); w,b=tensors['w'],tensors['b']
         if list(w.shape)!=m['shape'] or b.shape!=(w.shape[0],) or any(t.dtype!=torch.float32 or not torch.isfinite(t).all() for t in (w,b)): raise ContractError('tensor contract')
         return AffineExpert(m,w.to(device),b.to(device))
-    def admit(self,id,cases,*,learning_job=None):
+    def admit(self,id,cases,*,learning_job=None,group_job=None):
         """Host-supplied independent expected pairs. Limited, not proof of general competence."""
         m=self.manifest(id)
         if m['state']!='STAGED': raise ContractError('not staged')
@@ -72,6 +79,10 @@ class Catalog:
             if learning_job!=m["learning_job"]: raise ContractError("use knowledge learning promotion")
             row=self.db.execute("SELECT passed,case_sha,artifact_sha FROM knowledge_reports_v08 WHERE job_id=?",(m["learning_job"],)).fetchone()
             if row!=(1,case_digest(cases),m["sha256"]): raise ContractError("learning evaluation receipt required")
+        if 'group_job' in m:
+            if group_job!=m['group_job']: raise ContractError('use group learning promotion')
+            row=self.db.execute('SELECT passed,case_sha,artifact_sha FROM group_learning_reports_v08 WHERE job_id=?',(group_job,)).fetchone()
+            if row!=(1,case_digest(cases),m['sha256']): raise ContractError('group evaluation receipt required')
         e=self.load(id,experimental=True)
         for values,expected in cases:
             actual=e.compute(tuple(values)); expected=tuple(expected)
@@ -80,7 +91,7 @@ class Catalog:
             if self.db.execute('UPDATE experts SET state=? WHERE id=? AND state=?',('ACTIVE',id,'STAGED')).rowcount!=1:
                 raise ContractError('stale admission')
         return True
-    def compose_affine(self,id,family,first,second,*,byte_budget=64*1024*1024):
+    def compose_affine(self,id,family,first,second,*,byte_budget=64*1024*1024,group_job=None):
         """Analytic fusion of compatible affine maps; candidate still requires admission.
         Original experts remain untouched. Composition is not arbitrary weight merging.
         """
@@ -88,7 +99,7 @@ class Catalog:
         if a.m['target_topic']!=b.m['source_topic'] or a.w.shape[0]!=b.w.shape[1]: raise ContractError('incompatible composition')
         if a.m['bytes']+b.m['bytes']>byte_budget: raise ContractError('composition input budget')
         w=b.w@a.w; bias=b.w@a.b+b.b
-        return self.stage_affine(id,family,w.tolist(),bias.tolist(),source_topic=a.m['source_topic'],target_scope=b.m['target_scope'],target_topic=b.m['target_topic'],parents=(first,second))
+        return self.stage_affine(id,family,w.tolist(),bias.tolist(),source_topic=a.m['source_topic'],target_scope=b.m['target_scope'],target_topic=b.m['target_topic'],parents=(first,second),group_job=group_job)
     def close(self): self.db.close()
 
 class AffineExpert:

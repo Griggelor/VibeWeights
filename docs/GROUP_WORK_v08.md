@@ -1,5 +1,7 @@
 # v0.8.0.dev12 – Ausführung freiwilliger neuronaler Arbeitsgruppen
 
+Historischer Stand dev12. [dev13](GROUP_LEARNING_v08.md) ergänzt die evidenzgebundene additive DIRECT-Konsolidierung einer ausgeführten Gruppe; keine allgemeine trainierte Kompetenzübertragung.
+
 ## Ziel und Vertrag
 
 Dev11 zeigt trainierte lokale Beteiligungsentscheidungen. Dev12 verbindet diese Entscheidungen mit der bereits vorhandenen numerischen `Environment`-Runtime. Eine Gruppe ist eine durch Event, Ziel und Gruppenschlüssel definierte Menge aktuell residenter Experten, die sich unabhängig mit ihren freigegebenen Wahrnehmungsköpfen gemeldet haben. Kein zentraler Router legt Reihenfolge, fachliche Rollen oder Signalpfade fest. Die technische Runtime prüft lokale Relevanz gegen einen unveränderlichen Snapshot, führt aktive Gewichte aus und veröffentlicht unabhängig validierte Zwischensignale in Folgerunden.

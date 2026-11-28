@@ -1,0 +1,68 @@
+{
+  "version": "0.8.0.dev13",
+  "baseline_commit": "c075ebdb0b91419feb975ffa643c02c7949bd399",
+  "tests": {
+    "tests": 217,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "previous_cases": 212,
+  "new_cases": 5,
+  "test_duration_seconds": 81.25,
+  "command": "OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=\"$PWD/src\" PYTHONUTF8=1 python -m pytest -q --junitxml=evidence/v08-group-learning-tests.xml",
+  "python": "3.13.5",
+  "torch": "2.10.0+cpu",
+  "safetensors": "0.7.0",
+  "pytest": "9.0.2",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "device": "CPU",
+  "intermediate": [
+    {
+      "passed": 4,
+      "failed": 1,
+      "seconds": 9.16,
+      "cause": "isolated test lacked expert id; fixed test harness"
+    },
+    {
+      "passed": 5,
+      "failed": 0,
+      "seconds": 8.3
+    }
+  ],
+  "experiment": {
+    "parent_parameters": 4,
+    "candidate_parameters": 2,
+    "population_core_tensor_bytes_before": 76,
+    "population_core_tensor_bytes_after": 84,
+    "original_core_hashes_unchanged": true,
+    "build_ms": 14.064964,
+    "admission_ms": 18.830434,
+    "benchmark": {
+      "queries_per_path": 100,
+      "correct_per_path": 100,
+      "median_us": {
+        "two_parent_compute": 494.7925,
+        "sum_compute": 380.76300000000003
+      },
+      "scope": "same outer source guard; resident compute only; no group scheduler, head inference or GPU timing"
+    }
+  },
+  "acceptance": {
+    "accepted": true,
+    "artifact_sha256": "b23ef1cb24df5e1382c17fa8b81a8bf217de95ef0ce8b3d33270785ce0073386",
+    "case_sha256": "32064cd54633591c016b591a4fc13a9370d5d66f55c87d3f292e24e9d0063d0a",
+    "holdout_cases": 3,
+    "holdout_passed": 3,
+    "observed_cases": 2,
+    "observed_passed": 2,
+    "oracle_id": "math-heldout"
+  },
+  "isolated_weight_only_cases": 21,
+  "limitations": [
+    "two affine DIRECT cores, host-triggered job and independent synthetic oracle; no SGD distillation",
+    "group-job identity reservation not unified across job tables",
+    "benchmark single CPU run during regression; not end-to-end or GPU",
+    "no source index, shared memory transaction, real LLM, imported fragment, Windows or remote CI validation"
+  ]
+}

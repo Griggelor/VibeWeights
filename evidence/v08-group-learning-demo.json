@@ -1,0 +1,367 @@
+{
+  "contract": "group-direct-v1",
+  "event": "be466bf2233386e9ed247cea0ade36f7c15c0241473aedb34f202a3d866d590c",
+  "group": [
+    {
+      "target": "explore",
+      "group": "research",
+      "experts": [
+        "a-second",
+        "z-first"
+      ]
+    }
+  ],
+  "runs": [
+    {
+      "contract": "group-work-v1",
+      "event": "be466bf2233386e9ed247cea0ade36f7c15c0241473aedb34f202a3d866d590c",
+      "goal": "answer",
+      "group": "research",
+      "inputs": {
+        "input": [
+          4
+        ]
+      },
+      "limits": {
+        "probes": 0,
+        "rounds": 16,
+        "signals": 256,
+        "steps": 64
+      },
+      "members": [
+        {
+          "core_sha256": "d7d77fbb939dd4b0425f2b6f160d8440d50a05c9828621bfe157ce24b07f1878",
+          "expert": "a-second",
+          "head": "a-second-head",
+          "head_sha256": "7f7274b1f326c681007de0c475aae4d61c3370081a24461ecd38005c1f060078"
+        },
+        {
+          "core_sha256": "576aed318b8d6083009b0c1dd244dc9e3dcd00401165aab746092358edb50983",
+          "expert": "z-first",
+          "head": "z-first-head",
+          "head_sha256": "7f7274b1f326c681007de0c475aae4d61c3370081a24461ecd38005c1f060078"
+        }
+      ],
+      "oracle_id": "math",
+      "result": {
+        "facts": [
+          {
+            "scope": "group:88ba19f1a333dc6a44166ad2b983f98a5994f8662457effa371b6b5a2e5bc26c",
+            "topic": "answer",
+            "values": [
+              29.0
+            ]
+          },
+          {
+            "scope": "group:88ba19f1a333dc6a44166ad2b983f98a5994f8662457effa371b6b5a2e5bc26c",
+            "topic": "input",
+            "values": [
+              4
+            ]
+          },
+          {
+            "scope": "group:88ba19f1a333dc6a44166ad2b983f98a5994f8662457effa371b6b5a2e5bc26c",
+            "topic": "mid",
+            "values": [
+              9.0
+            ]
+          }
+        ],
+        "faults": [],
+        "hypotheses": [
+          {
+            "scope": "group:88ba19f1a333dc6a44166ad2b983f98a5994f8662457effa371b6b5a2e5bc26c",
+            "source": "a-second",
+            "topic": "answer",
+            "values": [
+              29.0
+            ]
+          },
+          {
+            "scope": "group:88ba19f1a333dc6a44166ad2b983f98a5994f8662457effa371b6b5a2e5bc26c",
+            "source": "z-first",
+            "topic": "mid",
+            "values": [
+              9.0
+            ]
+          }
+        ],
+        "probes": 0,
+        "status": "OK",
+        "steps": 5,
+        "trace": [
+          [
+            0,
+            "z-first",
+            "PROPOSE",
+            1
+          ],
+          [
+            1,
+            "a-second",
+            "PROPOSE",
+            1
+          ],
+          [
+            1,
+            "z-first",
+            "PROPOSE",
+            1
+          ],
+          [
+            2,
+            "a-second",
+            "PROPOSE",
+            1
+          ],
+          [
+            2,
+            "z-first",
+            "PROPOSE",
+            1
+          ]
+        ],
+        "value": [
+          29.0
+        ]
+      },
+      "run": "run-4",
+      "scope": "group:88ba19f1a333dc6a44166ad2b983f98a5994f8662457effa371b6b5a2e5bc26c",
+      "target": "explore",
+      "validator_topics": [
+        "answer",
+        "mid"
+      ]
+    },
+    {
+      "contract": "group-work-v1",
+      "event": "be466bf2233386e9ed247cea0ade36f7c15c0241473aedb34f202a3d866d590c",
+      "goal": "answer",
+      "group": "research",
+      "inputs": {
+        "input": [
+          7
+        ]
+      },
+      "limits": {
+        "probes": 0,
+        "rounds": 16,
+        "signals": 256,
+        "steps": 64
+      },
+      "members": [
+        {
+          "core_sha256": "d7d77fbb939dd4b0425f2b6f160d8440d50a05c9828621bfe157ce24b07f1878",
+          "expert": "a-second",
+          "head": "a-second-head",
+          "head_sha256": "7f7274b1f326c681007de0c475aae4d61c3370081a24461ecd38005c1f060078"
+        },
+        {
+          "core_sha256": "576aed318b8d6083009b0c1dd244dc9e3dcd00401165aab746092358edb50983",
+          "expert": "z-first",
+          "head": "z-first-head",
+          "head_sha256": "7f7274b1f326c681007de0c475aae4d61c3370081a24461ecd38005c1f060078"
+        }
+      ],
+      "oracle_id": "math",
+      "result": {
+        "facts": [
+          {
+            "scope": "group:960d954f1a0035e021eeda0af98b76f695066b97186474f4432a907b4209b129",
+            "topic": "answer",
+            "values": [
+              47.0
+            ]
+          },
+          {
+            "scope": "group:960d954f1a0035e021eeda0af98b76f695066b97186474f4432a907b4209b129",
+            "topic": "input",
+            "values": [
+              7
+            ]
+          },
+          {
+            "scope": "group:960d954f1a0035e021eeda0af98b76f695066b97186474f4432a907b4209b129",
+            "topic": "mid",
+            "values": [
+              15.0
+            ]
+          }
+        ],
+        "faults": [],
+        "hypotheses": [
+          {
+            "scope": "group:960d954f1a0035e021eeda0af98b76f695066b97186474f4432a907b4209b129",
+            "source": "a-second",
+            "topic": "answer",
+            "values": [
+              47.0
+            ]
+          },
+          {
+            "scope": "group:960d954f1a0035e021eeda0af98b76f695066b97186474f4432a907b4209b129",
+            "source": "z-first",
+            "topic": "mid",
+            "values": [
+              15.0
+            ]
+          }
+        ],
+        "probes": 0,
+        "status": "OK",
+        "steps": 5,
+        "trace": [
+          [
+            0,
+            "z-first",
+            "PROPOSE",
+            1
+          ],
+          [
+            1,
+            "a-second",
+            "PROPOSE",
+            1
+          ],
+          [
+            1,
+            "z-first",
+            "PROPOSE",
+            1
+          ],
+          [
+            2,
+            "a-second",
+            "PROPOSE",
+            1
+          ],
+          [
+            2,
+            "z-first",
+            "PROPOSE",
+            1
+          ]
+        ],
+        "value": [
+          47.0
+        ]
+      },
+      "run": "run-7",
+      "scope": "group:960d954f1a0035e021eeda0af98b76f695066b97186474f4432a907b4209b129",
+      "target": "explore",
+      "validator_topics": [
+        "answer",
+        "mid"
+      ]
+    }
+  ],
+  "job": {
+    "spec": {
+      "contract": "group-direct-v1",
+      "event": "be466bf2233386e9ed247cea0ade36f7c15c0241473aedb34f202a3d866d590c",
+      "expert": "sum",
+      "family": "combined",
+      "goal": "answer",
+      "group": "research",
+      "input_width": 1,
+      "members": [
+        {
+          "core_sha256": "d7d77fbb939dd4b0425f2b6f160d8440d50a05c9828621bfe157ce24b07f1878",
+          "expert": "a-second",
+          "head": "a-second-head",
+          "head_sha256": "7f7274b1f326c681007de0c475aae4d61c3370081a24461ecd38005c1f060078"
+        },
+        {
+          "core_sha256": "576aed318b8d6083009b0c1dd244dc9e3dcd00401165aab746092358edb50983",
+          "expert": "z-first",
+          "head": "z-first-head",
+          "head_sha256": "7f7274b1f326c681007de0c475aae4d61c3370081a24461ecd38005c1f060078"
+        }
+      ],
+      "observations": [
+        [
+          [
+            4
+          ],
+          [
+            29.0
+          ]
+        ],
+        [
+          [
+            7
+          ],
+          [
+            47.0
+          ]
+        ]
+      ],
+      "output_width": 1,
+      "parents": [
+        "z-first",
+        "a-second"
+      ],
+      "runs": [
+        {
+          "id": "run-4",
+          "sha256": "f42785c57043b20ca6549980349371a384944d049ae5928c50d380d5a405bffc"
+        },
+        {
+          "id": "run-7",
+          "sha256": "4f3528e0cd0083ddbe4ccd6a7be966d01020b1ea7637bcb8a83089f890f13ef1"
+        }
+      ],
+      "source": "input",
+      "target": "explore"
+    },
+    "report": {
+      "accepted": true,
+      "artifact_sha256": "b23ef1cb24df5e1382c17fa8b81a8bf217de95ef0ce8b3d33270785ce0073386",
+      "case_sha256": "32064cd54633591c016b591a4fc13a9370d5d66f55c87d3f292e24e9d0063d0a",
+      "holdout_cases": 3,
+      "holdout_passed": 3,
+      "observed_cases": 2,
+      "observed_passed": 2,
+      "oracle_id": "math-heldout"
+    }
+  },
+  "new_artifact": {
+    "abi": "numeric-events/0.1",
+    "bytes": 128,
+    "family": "combined",
+    "group_job": "fuse",
+    "id": "sum",
+    "op": "affine",
+    "origin": "DIRECT",
+    "parameters": 2,
+    "parents": [
+      "z-first",
+      "a-second"
+    ],
+    "sha256": "b23ef1cb24df5e1382c17fa8b81a8bf217de95ef0ce8b3d33270785ce0073386",
+    "shape": [
+      1,
+      1
+    ],
+    "source_topic": "input",
+    "target_scope": "global",
+    "target_topic": "answer",
+    "state": "STAGED"
+  },
+  "parent_parameters": 4,
+  "candidate_parameters": 2,
+  "population_core_tensor_bytes_before": 76,
+  "population_core_tensor_bytes_after": 84,
+  "original_core_hashes_unchanged": true,
+  "build_ms": 14.064964,
+  "admission_ms": 18.830434,
+  "benchmark": {
+    "queries_per_path": 100,
+    "correct_per_path": 100,
+    "median_us": {
+      "two_parent_compute": 494.7925,
+      "sum_compute": 380.76300000000003
+    },
+    "scope": "same outer source guard; resident compute only; no group scheduler, head inference or GPU timing"
+  }
+}

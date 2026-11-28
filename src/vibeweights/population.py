@@ -41,7 +41,7 @@ class SelectionEvidence:
 def source_checked(fn):
     @wraps(fn)
     def checked(self, *args, **kwargs):
-        if self._source_owner is None and any('learning_job' in m for m in self.catalog.list()):
+        if self._source_owner is None and any('learning_job' in m or 'group_job' in m for m in self.catalog.list()):
             if not self._allow_offline_knowledge or fn.__name__ not in ('compute','run'):
                 raise ContractError('knowledge source owner required; historical offline inference must be explicit')
         with self._source_guard():
@@ -127,14 +127,14 @@ class Population:
         return Environment(tuple(self._resident.values()), validators, ledger).run(inputs, goal, **options)
 
     @source_checked
-    def admit(self, id, cases, *, learning_job=None):
+    def admit(self, id, cases, *, learning_job=None, group_job=None):
         """Add only; a full budget leaves the candidate STAGED."""
         self._check()
         m = self.catalog.manifest(id)
         if m['state'] != 'STAGED':
             raise ContractError('not staged')
         expert = self._prepare(m, experimental=True)
-        if not self.catalog.admit(id, cases, learning_job=learning_job):
+        if not self.catalog.admit(id, cases, learning_job=learning_job, group_job=group_job):
             return False
         self._resident[id] = expert
         return True

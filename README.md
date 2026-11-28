@@ -3,7 +3,7 @@
 **A self-organizing, self-learning, self-optimizing and self-scaling neural ecosystem**
 
 ![Research prototype](https://img.shields.io/badge/status-research%20prototype-orange)
-![Version](https://img.shields.io/badge/development-v0.8.0.dev12-blue)
+![Version](https://img.shields.io/badge/development-v0.8.0.dev13-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 
 **Local-first AI research · Decentralized neural experts · Weight-space programming · Continual learning**
@@ -396,6 +396,10 @@ The full [research survey](docs/FORSCHUNG_2026-11-26.md) and [learning/evolution
 
 Independent holdouts must not become synthesis inputs. Report failures as research results. Distinguish expert activation, causal contribution, user satisfaction, factual correctness, resource consumption and independent capability. Do not equate greater parameter count or test count with intelligence.
 
+## Development snapshot v0.8.0.dev13 — evidence-bound additive group consolidation
+
+**217 local CPU tests passed** (212 previous + 5 new). Two successful independently validated runs of the same voluntary neural group are bound to an immutable consolidation job. The existing affine compiler analytically creates a new DIRECT expert, with separate disjoint holdout admission and historical parent dependencies. In the demonstration, 4 → 9 → 29 and 7 → 15 → 47 become the two-parameter function 6x+5; all parent artifacts remain unchanged. Two replay cases and three independent holdout cases pass. A fresh process computes 21/21 cases using the single new weight file alone. The demo records 100/100 correct queries per path: median two-parent computation 494.79 µs vs new expert 380.76 µs with identical outer source guard. Single CPU run during regression, not an end-to-end or GPU benchmark. Core population grows from 76 to 84 bytes; no automatic removal. See [implementation](docs/GROUP_LEARNING_v08.md), [raw demo](evidence/v08-group-learning-demo.json), [test evidence](evidence/v08-group-learning-summary.json) and the new [development journal](docs/DEVELOPMENT_LOG.md), which retains intermediate failures and corrections. Host-initiated two-affine-core DIRECT composition, not trained distillation or autonomous group learning. Source indexing, shared transactions, recursive recruitment, semantic perception, real fragment assimilation, LLM and GPU/Windows validation remain open.
+
 ## Development snapshot v0.8.0.dev12 — executing voluntary neural groups
 
 **212 local CPU tests passed** (206 previous + 6 new). The new group-work adapter connects admitted local perception heads and their event groups to the existing numerical Environment. Only current participating resident cores can execute; group signals are isolated by run, intermediate proposals require independent validation, and no central cognitive router orders members. The synthetic demonstration uses two DIRECT affine experts with trained participation heads: input 4 yields intermediate 9 and answer 29, input 7 after restart yields 47. Either member's ablation prevents the answer, even with an equivalent nonmember shortcut still resident. Historical receipts bind event, group, task, member/core/head hashes, limits, verification topics, hypotheses and traces. See [group execution](docs/GROUP_WORK_v08.md) and [test evidence](evidence/v08-group-work-summary.json). Host-defined numeric tasks, validators and invocation; no autonomous recursive recruitment, semantic routing, learned cooperation consolidation, real LLM, imported fragment or GPU/Windows validation.
@@ -544,7 +548,7 @@ The commands above are for the existing Python research prototype, not the futur
 | Stage | Priority / deliverable |
 |---|---|
 | Public baseline | v0.7.0 source, weights and evidence imported; verify Windows/Linux CI |
-| Knowledge-first learning (P0) | Bounded recall, relational transfer, recovery, retention, model-directed selection, task-driven learning, additive extension and conflict-triggered correction implemented. Global cross-domain repair slice implemented. Persistent event delivery and local callback groups implemented. First trained binary-metadata perception heads implemented. First voluntary group execution demonstrated. Next: semantic perception, group-result learning, recursive recruitment, indexed dependencies, unified source/memory transactions, bounded scheduling, real model exercise and method/transfer holdouts |
+| Knowledge-first learning (P0) | Bounded recall, relational transfer, recovery, retention, model-directed selection, task-driven learning, additive extension and conflict-triggered correction implemented. Global cross-domain repair slice implemented. Persistent event delivery and local callback groups implemented. First trained binary-metadata perception heads implemented. First voluntary group execution and evidence-bound DIRECT group consolidation demonstrated. Next: indexed dependencies, unified source/memory transactions, trained group transfer, semantic perception, recursive recruitment, bounded scheduling and real model/fragment experiments |
 | Unified Environment | Migrate the regular chat/API to the new core; generic events, dynamic topology, private recurrence, independent result release |
 | Memory | Universal semantic ABI, source/relationship indexing, cooperation and feedback integration, recovery, physical budgets |
 | Bootstrap | Real authorized local models; text vs latent adapter experiments, independent ablations |
@@ -568,6 +572,8 @@ The detailed project documents are currently primarily in German; this English o
 | [Platform v0.5](docs/platform_v05.md) | Reference runtime, API, telemetry and limits |
 | [Research survey](docs/FORSCHUNG_2026-11-26.md) | Literature and implications |
 | [Research supplement](docs/FORSCHUNG_ERGAENZUNG_v05.md) | Exploration, selection, learning and attribution |
+| [Group consolidation v0.8.dev13](docs/GROUP_LEARNING_v08.md) | Evidence-bound DIRECT composition, independent holdouts, weight-only execution and timing |
+| [Development journal](docs/DEVELOPMENT_LOG.md) | Intermediate experiments, failures, decisions, final evidence and limitations |
 | [Voluntary group work v0.8.dev12](docs/GROUP_WORK_v08.md) | Execution through existing Environment, group scopes, causal ablation and historical receipts |
 | [Local perception heads v0.8.dev11](docs/PERCEPTION_HEADS_v08.md) | Trained local participation policies, independent acceptance and event integration |
 | [Multi-scale fragment assimilation](docs/FRAGMENT_ASSIMILATION.md) | Research objective 3, multiple cuts, figures and falsifiable experiments |
