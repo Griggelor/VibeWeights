@@ -85,6 +85,11 @@ Verbindliche Arbeitsweise ab v0.8.0.dev13 (Nutzeranforderung): Jede Implementier
 - **Korrektur:** explizites `newline='\\n'` in Coalition-Manifestgenerator, bestehender strenger Bytes-Vergleich bleibt unverändert. Commit `2a8d1753c555f5602233eea72097f914c434a15c`, [CI 46141672717](https://github.com/Griggelor/VibeWeights/actions/runs/46141672717) gestartet, Ergebnis offen.
 - **Zielsystem:** Windows 11 / AMD Strix Halo (Nutzervorgabe). CPU-CI ist Basisprüfung, keine GPU-/UMA-Abnahme. Lokaler Container: Git, cURL und Python-Namensauflösung unabhängig erneut geprüft, DNS-Fehler auch für andere öffentliche Domains. GitHub-Connector funktioniert; kein Fehler des Zielrechners.
 
+### dev19 – Geräte-Abnahme zusätzlich zur lokalen Rekrutierung
+
+- Basis `a352250fa350a2196af8e79a1ff313c6df7184ae`; lokale Request-Initiierung und Batch-Recovery gemäß `docs/LOCAL_RECRUITMENT_v08.md`. Windows-LF-Fix übernommen (`7dc16f8f34ac93657cffa9ae365246420ea4e49e`).
+- Neu: `scripts/probe_population_device.py` (`0e3f3dce4f5953f29b47e1eb44aeec5e791258e5`), explizites CPU-/torch.cuda-Gerät, tatsächliche Tensorresidenz, Inferenz, Archivierung und Wiederaktivierung nach Neustart, keine CPU-Fallbacks. CI-CPU-Probe und JSON-Evidenz (`bfa19d895cd073246e36d8108d190e0686070478`). `docs/TARGET_WINDOWS_STRIX_HALO.md` definiert Abnahmestufen. Keine tatsächliche GPU-Ausführung oder Performancebehauptung. Dev19 noch nicht abgenommen.
+
 ### dev18 – vollständige CPU-CI-Abnahme
 
 - Getesteter Codecommit `2a8d1753c555f5602233eea72097f914c434a15c`, [Run 46141672717](https://github.com/Griggelor/VibeWeights/actions/runs/46141672717): vier erfolgreiche Jobs. Windows 3.12 242/242 in 221,09 s, Windows 3.13 242/242 in 228,33 s, Ubuntu 3.12 242/242 in 65,21 s, Ubuntu 3.13 242/242 in 38,78 s. Alle Artefakt-Rebuilds, Language-, Application-, Exploration-, Environment- und Memory-Smoke-Tests erfolgreich. [Maschinenlesbarer Nachweis](../evidence/v08-targeted-recruitment-ci-final.json).

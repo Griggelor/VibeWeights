@@ -188,11 +188,27 @@ class LearningEvents:
 
     def publish_recruitment(self, run, requester):
         """Host-authorized publication; recipients still choose locally."""
+        return self.publish_recruitments(run,(requester,))[0]
+
+    def publish_recruitments(self, run, requesters):
+        """Validate all requests before one source-DB commit; idempotent retry.
+
+        The caller authorizes publication of topic metadata, not task values.
+        The source guard revalidates the historical run and all its ancestors.
+        No semantic ranking or selection of the requested experts.
+        """
+        identifier(run)
+        if type(requesters) not in (tuple,list) or not 1<=len(requesters)<=64:
+            raise ContractError('recruitment batch budget')
+        requesters=tuple(identifier(x) for x in requesters)
+        if len(set(requesters))!=len(requesters):
+            raise ContractError('duplicate recruitment requester')
         with self.learning._guard():
-            payload=self._recruitment_payload(run,requester,self._conflicts())
-            event=self._insert('RECRUIT',payload)
+            conflicts=self._conflicts()
+            payloads=tuple(self._recruitment_payload(run,x,conflicts) for x in requesters)
+            events=tuple(self._insert('RECRUIT',p) for p in payloads)
             self.db.commit()
-        return event
+        return events
 
     def event(self, event):
         identifier(event)
