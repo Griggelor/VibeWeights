@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 from time import perf_counter
 from vibeweights.coalition import Cooperation
-from vibeweights.qwen3_fragments import MODEL_ID,REVISION,extract,FragmentStore,_write
+from vibeweights.qwen3_fragments import MODEL_ID,REVISION,extract,FragmentStore,_write,_hash
 from vibeweights.fragment_adapters import FrozenPrefix,FragmentCompetence,fit_experiment
 from vibeweights.fragment_social_ports import FragmentPortCore,OfflineMemo
 from vibeweights.social_learning import SocialFragmentCore,SocialPopulation
@@ -53,10 +53,55 @@ FINAL_FORM=[
 ]
 
 
+# New evaluation texts after the independent dev32 gate. No training on them.
+GROWTH_SENT=[('The exhibit was delightful.',1),('The service was appalling.',0),
+ ('The bread was exceptionally good.',1),('The delay ruined our evening.',0),
+ ('The guide was thoughtful and kind.',1),('The flat was filthy.',0),
+ ('The orchestra sounded magnificent.',1),('The repairs were useless.',0)]
+GROWTH_FORM=[('Who found the missing ring?',1),('The ring lay beneath the sofa.',0),
+ ('Where is the next crossing?',1),('The crossing is beyond the bridge.',0),
+ ('Has the printer run out of paper?',1),('The printer ran out of paper.',0),
+ ('Can you see the lighthouse?',1),('We saw the lighthouse.',0)]
+
+
+def growth_trial(db,cores,added,usage,held):
+    from vibeweights.social_revisions import history
+    from vibeweights.usage_adapters import validate_usage
+    p=SocialPopulation(db,[*[OfflineMemo(c) for c in cores],Distractor()],width=3,
+                       credit_policy='isolated-activation-v2')
+    def assess(pop,prefix,data,*,shots=0,learn=False,goals=(0,1,2)):
+        rows=[]
+        for goal in goals:
+            for i,(a,b) in enumerate(zip(*data)):
+                r,_=run(pop,'source',f'{prefix}-{goal}-{i}',goal,a,b,learn=learn,shots=shots,seed=i)
+                rows.append({'goal':goal,'case':i,'verified':r['verified'],'members':r['members'],
+                             'scores':r['scores'],'shot_ids':r['shot_ids'],'events':r['events'],
+                             'core_calls':r['core_calls'],'candidate':r['candidate'],'released':r['released']})
+        return {'cases':len(rows),'passed':sum(v['verified'] for v in rows),
+                'new_calls':sum(c.id in v['members'] for v in rows for c in added),'rows':rows}
+    before=assess(p,'growth-before',held)
+    rows=db.db.execute('SELECT * FROM social_heads_v1 ORDER BY owner,peer,revision').fetchall()
+    old_proofs=[c._core._expert.m['usage_evidence'] for c in added]
+    old=history(db.db,'source')[-1][1]
+    grown=p.extend('source',added,expected_sha=old)
+    assert rows==db.db.execute('SELECT * FROM social_heads_v1 ORDER BY owner,peer,revision').fetchall()
+    assert all(validate_usage(db,proof) for proof in old_proofs)
+    after=assess(grown,'growth-neutral',held)
+    # Explore redundant readouts on already observed data. Preserve any
+    # interference as a negative result, never lower the verification gate.
+    exploration=assess(grown,'growth-shots',usage,shots=1,learn=True,goals=(1,2))
+    result=assess(grown,'growth-after-shots',held)
+    assert all(validate_usage(db,proof) for proof in old_proofs)
+    return {'genesis_sha':old,'revision_sha':history(db.db,'source')[-1][1],
+            'added':[c.id for c in added],'old_head_rows_unchanged_at_admission':True,
+            'before':before,'neutral_after':after,'exploration':exploration,'after_training':result}
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--download-pinned-qwen3',action='store_true',required=True)
     p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--growth',action='store_true')
     args=p.parse_args()
     from huggingface_hub import snapshot_download
     from transformers import AutoTokenizer
@@ -71,10 +116,12 @@ def main():
     store=FragmentStore(root/'fragments',device='cpu',max_tokens=63)
     cores=[];trainsets=[];parents={};final=[cases(FINAL_SENT),cases(FINAL_FORM)]
     usage=[cases(SENT_USAGE+NEW_SENT),cases(FORM_USAGE+NEW_FORM)]
+    held_growth=[cases(GROWTH_SENT),cases(GROWTH_FORM)]
     for i,(name,depth,pooling,train_text,admission_text) in enumerate(ARMS):
         t,a=cases(train_text),cases(admission_text);trainsets.append(t)
         prior=t+a+usage[i]+(cases(PREVIOUS_HOLDOUT) if i==0 else [])
         if {x for x,_ in final[i]}&{x for x,_ in prior}:raise RuntimeError('final overlap')
+        if {x for x,_ in held_growth[i]}&{x for x,_ in prior+final[i]}:raise RuntimeError('growth holdout overlap')
         enc=FrozenPrefix(store,depth,pooling=pooling)
         spec=fit_experiment(enc,t,a,topic=name,training_oracle='readout-train-v1',
             holdout_oracle='readout-admission-v1',output=root/name,conditioning='train-centered-radius-v1')
@@ -100,6 +147,7 @@ def main():
         finally:db.close()
         db=Cooperation(root/'usage.sqlite')
         try:
+            added=[]
             # Candidate set is fixed before discovery. Each explores both ports.
             for mode in ('pretrained','random','embedding-only'):
                 enc=FrozenPrefix(store,8,mode=mode,pooling='token-l2-mean-v1')
@@ -117,11 +165,16 @@ def main():
                         if spec['report']['admitted']:
                             e=FragmentCompetence(enc,path,evidence_store=db)
                             row['reloaded_passed']=sum(e.predict('usage-candidate',x)==y for x,y in final[req['port']])
+                            if args.growth:
+                                port=req['port']
+                                added.append(FragmentPortCore(SocialFragmentCore(f'new-p{port}',e),port=port,scale=(1.,.25)[port]))
                             del e
                         item['candidate']=row
                     arms.append(item)
                 report['arms'][mode]=arms
                 del enc;gc.collect()
+            if args.growth:
+                report['growth']=growth_trial(db,cores,added,usage,held_growth) if added else {'status':'NO_ADMITTED_CANDIDATE'}
             report['status']='COMPLETED'
         finally:db.close()
     report['elapsed_seconds']=perf_counter()-start
@@ -136,6 +189,9 @@ def main():
             'admitted':False if v['candidate'] is None else v['candidate']['report']['admitted'],
             'reloaded_passed':None if v['candidate'] is None else v['candidate'].get('reloaded_passed')}
             for v in rows] for mode,rows in report['arms'].items()}}
+    if args.growth:
+        g=report.get('growth',{'status':'NO_GROWTH'})
+        summary['growth']={k:({j:v[j] for j in ('cases','passed','new_calls')} if isinstance(v,dict) and 'rows' in v else v) for k,v in g.items()}
     print(json.dumps(summary,indent=2))
     return 0
 

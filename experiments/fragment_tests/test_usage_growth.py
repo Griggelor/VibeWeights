@@ -29,6 +29,8 @@ def test_usage_readout_growth_preserves_sources(snapshot,tmp_path):
         for i,(x,label) in enumerate(TRAIN):
             ep=f'usage-{i}';ids.append(ep)
             assert run(p,ep,x,label,all_active=True)['verified']
+        for i in range(16):
+            assert run(p,f'parent-practice-{i}',*TRAIN[i%4],all_active=True)['verified']
         training,proof=collect_usage(db,'s',ids,port=1,oracle_id='source')
         candidate=FrozenPrefix(enc.store,2)
         out=tmp_path/'candidate'
