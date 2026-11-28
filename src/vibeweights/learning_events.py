@@ -177,6 +177,11 @@ class LearningEvents:
                 (parent['id'],receipt['target'],receipt['group'],expert)).fetchone()
             if m['sha256']!=member['core_sha256'] or current!=(member['head'],member['head_sha256']) or not joined:
                 raise ContractError('stale recruitment binding')
+        intent=receipt.get('recruitment',{})
+        if intent.get('contract')=='learned-recruitment-v1':
+            from .request_heads import validate_intent
+            if intent.get('state')!='READY' or requester not in validate_intent(self.learning,receipt,parent['kind']):
+                raise ContractError('learned recruitment not authorized')
         core=self.learning.catalog.manifest(requester)
         topic=identifier(core['source_topic'])
         if any(f['scope']==receipt['scope'] and f['topic']==topic for f in result['facts']):
@@ -206,6 +211,10 @@ class LearningEvents:
         with self.learning._guard():
             conflicts=self._conflicts()
             payloads=tuple(self._recruitment_payload(run,x,conflicts) for x in requesters)
+            raw=self.learning.db.execute('SELECT receipt FROM group_runs_v08 WHERE id=?',(run,)).fetchone()
+            intent=json.loads(raw[0]).get('recruitment',{})
+            if intent.get('contract')=='learned-recruitment-v1' and set(requesters)!=set(intent['requesters']):
+                raise ContractError('complete learned recruitment batch required')
             events=tuple(self._insert('RECRUIT',p) for p in payloads)
             self.db.commit()
         return events
