@@ -1,0 +1,38 @@
+{
+  "version": "0.8.0.dev12",
+  "baseline_commit": "5d9e22799644ef262b9127c950b67051b300c461",
+  "tests": {
+    "tests": 212,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "previous_cases": 206,
+  "new_cases": 6,
+  "test_duration_seconds": 67.42,
+  "command": "OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=\"$PWD/src\" PYTHONUTF8=1 python -m pytest -q --junitxml=evidence/v08-group-work-tests.xml",
+  "python": "3.13.5",
+  "torch": "2.10.0+cpu",
+  "safetensors": "0.7.0",
+  "pytest": "9.0.2",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "device": "CPU",
+  "group_fixture": {
+    "admitted_neural_heads": 3,
+    "joined_members": 2,
+    "input": 4,
+    "verified_mid": 9,
+    "verified_answer": 29,
+    "restart_input": 7,
+    "restart_answer": 47,
+    "each_member_ablated": "STAGNATION; no answer",
+    "nonmember_shortcut": "excluded",
+    "original_core_artifact_hashes_unchanged": true
+  },
+  "limitations": [
+    "host-defined task, numeric topics and independent validators",
+    "DIRECT affine cores, trained participation heads only",
+    "host-triggered group execution, no autonomous recursive recruitment",
+    "no general cross-database recovery, source index, real LLM, fragment assimilation, GPU, Windows or remote CI validation"
+  ]
+}

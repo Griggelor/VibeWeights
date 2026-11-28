@@ -3,7 +3,7 @@
 **A self-organizing, self-learning, self-optimizing and self-scaling neural ecosystem**
 
 ![Research prototype](https://img.shields.io/badge/status-research%20prototype-orange)
-![Version](https://img.shields.io/badge/development-v0.8.0.dev11-blue)
+![Version](https://img.shields.io/badge/development-v0.8.0.dev12-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 
 **Local-first AI research · Decentralized neural experts · Weight-space programming · Continual learning**
@@ -396,6 +396,10 @@ The full [research survey](docs/FORSCHUNG_2026-11-26.md) and [learning/evolution
 
 Independent holdouts must not become synthesis inputs. Report failures as research results. Distinguish expert activation, causal contribution, user satisfaction, factual correctness, resource consumption and independent capability. Do not equate greater parameter count or test count with intelligence.
 
+## Development snapshot v0.8.0.dev12 — executing voluntary neural groups
+
+**212 local CPU tests passed** (206 previous + 6 new). The new group-work adapter connects admitted local perception heads and their event groups to the existing numerical Environment. Only current participating resident cores can execute; group signals are isolated by run, intermediate proposals require independent validation, and no central cognitive router orders members. The synthetic demonstration uses two DIRECT affine experts with trained participation heads: input 4 yields intermediate 9 and answer 29, input 7 after restart yields 47. Either member's ablation prevents the answer, even with an equivalent nonmember shortcut still resident. Historical receipts bind event, group, task, member/core/head hashes, limits, verification topics, hypotheses and traces. See [group execution](docs/GROUP_WORK_v08.md) and [test evidence](evidence/v08-group-work-summary.json). Host-defined numeric tasks, validators and invocation; no autonomous recursive recruitment, semantic routing, learned cooperation consolidation, real LLM, imported fragment or GPU/Windows validation.
+
 ## Development snapshot v0.8.0.dev11 — trained local perception heads
 
 **206 local CPU tests passed** (201 previous + 5 new). A small independently trained affine multilabel head now makes local group participation proposals from six binary event metadata features. Heads are bound to immutable core hashes, persist as hashed SafeTensors payloads, and require disjoint positive/negative acceptance inputs. Two heads trained on different local policies make different decisions for the same event. Tests cover restart, rejection, artifact corruption, stale events, multiple repair targets and archive exclusion. Group labels and feature encoders remain host-defined. This is actual weight-based local participation, not learned semantic perception, autonomous group execution or fragment assimilation. See [perception implementation](docs/PERCEPTION_HEADS_v08.md) and [evidence](evidence/v08-perception-summary.json). The structural assimilation research objective and two principle graphics are now documented separately.
@@ -540,7 +544,7 @@ The commands above are for the existing Python research prototype, not the futur
 | Stage | Priority / deliverable |
 |---|---|
 | Public baseline | v0.7.0 source, weights and evidence imported; verify Windows/Linux CI |
-| Knowledge-first learning (P0) | Bounded recall, relational transfer, recovery, retention, model-directed selection, task-driven learning, additive extension and conflict-triggered correction implemented. Global cross-domain repair slice implemented. Persistent event delivery and local callback groups implemented. First trained binary-metadata perception heads implemented. Next: semantic perception, group execution, indexed dependencies, unified source/memory transactions, bounded scheduling, real model exercise and method/transfer holdouts |
+| Knowledge-first learning (P0) | Bounded recall, relational transfer, recovery, retention, model-directed selection, task-driven learning, additive extension and conflict-triggered correction implemented. Global cross-domain repair slice implemented. Persistent event delivery and local callback groups implemented. First trained binary-metadata perception heads implemented. First voluntary group execution demonstrated. Next: semantic perception, group-result learning, recursive recruitment, indexed dependencies, unified source/memory transactions, bounded scheduling, real model exercise and method/transfer holdouts |
 | Unified Environment | Migrate the regular chat/API to the new core; generic events, dynamic topology, private recurrence, independent result release |
 | Memory | Universal semantic ABI, source/relationship indexing, cooperation and feedback integration, recovery, physical budgets |
 | Bootstrap | Real authorized local models; text vs latent adapter experiments, independent ablations |
@@ -564,6 +568,7 @@ The detailed project documents are currently primarily in German; this English o
 | [Platform v0.5](docs/platform_v05.md) | Reference runtime, API, telemetry and limits |
 | [Research survey](docs/FORSCHUNG_2026-11-26.md) | Literature and implications |
 | [Research supplement](docs/FORSCHUNG_ERGAENZUNG_v05.md) | Exploration, selection, learning and attribution |
+| [Voluntary group work v0.8.dev12](docs/GROUP_WORK_v08.md) | Execution through existing Environment, group scopes, causal ablation and historical receipts |
 | [Local perception heads v0.8.dev11](docs/PERCEPTION_HEADS_v08.md) | Trained local participation policies, independent acceptance and event integration |
 | [Multi-scale fragment assimilation](docs/FRAGMENT_ASSIMILATION.md) | Research objective 3, multiple cuts, figures and falsifiable experiments |
 | [Global learning events v0.8.dev10](docs/LEARNING_EVENTS_v08.md) | Persistent global event transport, overlapping voluntary groups, bounded callback delivery |
