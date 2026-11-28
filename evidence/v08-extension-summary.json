@@ -1,0 +1,25 @@
+{
+  "version": "0.8.0.dev7",
+  "baseline": "f762aa5ca8eaa03fff22f96252cec8f28503008d",
+  "tests": {
+    "tests": 184,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "new_tests": 10,
+  "elapsed_seconds": 44.57,
+  "python": "3.13.5",
+  "torch": "2.10.0+cpu",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "device": "cpu",
+  "real_llm": false,
+  "windows_gpu": false,
+  "remote_ci": false,
+  "limits": [
+    "host-authorized single-fact extension",
+    "synthetic oracle and model doubles",
+    "conflict output injected in test",
+    "no shared memory/learning transaction or indexed transitive source checks"
+  ]
+}

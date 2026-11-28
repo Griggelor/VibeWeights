@@ -3,7 +3,7 @@
 **A self-organizing, self-learning, self-optimizing and self-scaling neural ecosystem**
 
 ![Research prototype](https://img.shields.io/badge/status-research%20prototype-orange)
-![Version](https://img.shields.io/badge/development-v0.8.0.dev6-blue)
+![Version](https://img.shields.io/badge/development-v0.8.0.dev7-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 
 **Local-first AI research · Decentralized neural experts · Weight-space programming · Continual learning**
@@ -386,6 +386,10 @@ The full [research survey](docs/FORSCHUNG_2026-11-26.md) and [learning/evolution
 
 Independent holdouts must not become synthesis inputs. Report failures as research results. Distinguish expert activation, causal contribution, user satisfaction, factual correctness, resource consumption and independent capability. Do not equate greater parameter count or test count with intelligence.
 
+## Development snapshot v0.8.0.dev7 — additive extension of existing knowledge domains
+
+**184 local CPU tests passed** (174 regression cases + 10 new cases). A recorded abstention in an existing typed domain can now trigger a host-authorized, single-fact teacher intake. The current gap is checked before and after model I/O. Independent verification, durable fact/intake commit, DIRECT or TRAINED staging and separate promotion add a new expert without changing its predecessors. The new expert must abstain on all other entity IDs. Existing facts, including historical or pending records, block redundant intake. Persistent conflict reviews compare live conflicting outputs against an independent oracle but do not modify weights, quarantine or archive experts automatically. Tests use synthetic oracles and model doubles, including an injected conflicting output. See [implementation](docs/EXTENSION_LEARNING_v08.md), [tests](tests/test_extension_learning_v08.py) and [evidence](evidence/v08-extension-summary.json). The three VRAM/SSD states, additive consolidation and independent selection are unchanged. No general semantic learning, real LLM, physical GPU measurement, Windows validation or remote CI is claimed.
+
 ## Development snapshot v0.8.0.dev6 — learning from observed task gaps
 
 **174 local CPU tests passed** (165 regression cases + 9 new cases). The opt-in typed knowledge-query path records observed answers, abstentions, conflicts, reserved domains and genuinely missing domains. An indexed task journal restricts the model's learning choices to observed, currently eligible gaps among host-approved domains. Persistent plans bind the policy and evidence; empty plans cause no model calls. The existing independently verified teacher intake and additive promotion remain separate. The extended LM Studio calendar exercise tests the same query before learning and after promotion; the local tests simulate model responses, not real LLM inference. This is not yet a general chat migration or free-form autonomous learning.
@@ -508,7 +512,7 @@ The commands above are for the existing Python research prototype, not the futur
 | Stage | Priority / deliverable |
 |---|---|
 | Public baseline | v0.7.0 source, weights and evidence imported; verify Windows/Linux CI |
-| Knowledge-first learning (P0) | Bounded recall, relational transfer, recovery, ten-package retention, model-directed selection and task-driven missing-domain learning implemented. Next: existing-domain extension, real model exercise, unified source/memory transactions, scalable dependency checks and method/transfer holdouts |
+| Knowledge-first learning (P0) | Bounded recall, relational transfer, recovery, retention, model-directed selection, task-driven domain learning and additive single-fact extension implemented. Next: unified source/memory transactions, indexed dependencies, real model exercise and method/transfer holdouts |
 | Unified Environment | Migrate the regular chat/API to the new core; generic events, dynamic topology, private recurrence, independent result release |
 | Memory | Universal semantic ABI, source/relationship indexing, cooperation and feedback integration, recovery, physical budgets |
 | Bootstrap | Real authorized local models; text vs latent adapter experiments, independent ablations |
@@ -531,6 +535,7 @@ The detailed project documents are currently primarily in German; this English o
 | [Platform v0.5](docs/platform_v05.md) | Reference runtime, API, telemetry and limits |
 | [Research survey](docs/FORSCHUNG_2026-11-26.md) | Literature and implications |
 | [Research supplement](docs/FORSCHUNG_ERGAENZUNG_v05.md) | Exploration, selection, learning and attribution |
+| [Knowledge extension v0.8.dev7](docs/EXTENSION_LEARNING_v08.md) | Additive fact extension, independent conflict review and recovery |
 | [Task-driven learning v0.8.dev6](docs/TASK_LEARNING_v08.md) | Typed task observations, indexed gap evidence and extended LM Studio exercise |
 | [Model-initiated learning v0.8.dev5](docs/LEARNING_INITIATIVE_v08.md) | Bounded initiative, persistent decisions and opt-in LM Studio exercise |
 | [Learning recovery and economics v0.8.dev4](docs/LEARNING_RECOVERY_v08.md) | Durable intents, crash tests, cost comparison and ten-package retention |
