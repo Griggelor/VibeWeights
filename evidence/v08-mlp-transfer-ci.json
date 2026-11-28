@@ -1,0 +1,55 @@
+{
+  "version": "0.8.0.dev23",
+  "date": "2026-11-28",
+  "tested_commit": "972a8d3413a6d15236b8d357d4763d0b77ab4407",
+  "run_id": 46145571563,
+  "run_url": "https://github.com/Griggelor/VibeWeights/actions/runs/46145571563",
+  "jobs": [
+    {
+      "os": "windows-latest",
+      "python": "3.12",
+      "job": 140980758184,
+      "seconds": 237.9,
+      "passed": 262,
+      "failed": 0,
+      "device_probe": "PASS",
+      "weight_reproduction": "success",
+      "smoke_tests": "success"
+    },
+    {
+      "os": "windows-latest",
+      "python": "3.13",
+      "job": 140980758082,
+      "seconds": 295.01,
+      "passed": 262,
+      "failed": 0,
+      "device_probe": "PASS",
+      "weight_reproduction": "success",
+      "smoke_tests": "success"
+    },
+    {
+      "os": "ubuntu-latest",
+      "python": "3.12",
+      "job": 140980758219,
+      "seconds": 82.36,
+      "passed": 262,
+      "failed": 0,
+      "device_probe": "PASS",
+      "weight_reproduction": "success",
+      "smoke_tests": "success"
+    },
+    {
+      "os": "ubuntu-latest",
+      "python": "3.13",
+      "job": 140980757854,
+      "seconds": 79.65,
+      "passed": 262,
+      "failed": 0,
+      "device_probe": "PASS",
+      "weight_reproduction": "success",
+      "smoke_tests": "success"
+    }
+  ],
+  "scope": "CPU reference only, no Strix Halo GPU/UMA acceptance",
+  "metadata_updated_after_test": true
+}

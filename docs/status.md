@@ -1,8 +1,12 @@
-# Status v0.8.0.dev22
+# Status v0.8.0.dev23
 
-**Ziel 1 (Environment) in Arbeit; keine Environment-Abnahme.** 258/258 CPU-Tests auf Windows und Linux (Python 3.12/3.13) inklusive Geräteprobe, Artefaktreproduktion und Smoke-Tests bestanden. Siehe [Memory Architecture v0.7](MEMORY_ARCHITECTURE_v07.md), [Implementierung v0.6](platform_v06.md), [Zielarchitektur](ARCHITEKTUR_v06.md) und [Review v0.5](review/v0.5.0/REVIEW_UND_ROADMAP_v06.md). Der reguläre Chat/API-Pfad ist weiterhin die korrigierte arithmetische Referenz; der neue Environment-Pfad ist opt-in.
+**Ziel 1 (Environment) in Arbeit; keine Environment-Abnahme.** 262/262 CPU-Tests auf Windows und Linux (Python 3.12/3.13) inklusive Geräteprobe, Artefaktreproduktion und Smoke-Tests bestanden. Siehe [Memory Architecture v0.7](MEMORY_ARCHITECTURE_v07.md), [Implementierung v0.6](platform_v06.md), [Zielarchitektur](ARCHITEKTUR_v06.md) und [Review v0.5](review/v0.5.0/REVIEW_UND_ROADMAP_v06.md). Der reguläre Chat/API-Pfad ist weiterhin die korrigierte arithmetische Referenz; der neue Environment-Pfad ist opt-in.
 
-## Entwicklungsstand v0.8.0.dev22 (Quadratischer nichtlinearer Kompetenztransfer)
+## Entwicklungsstand v0.8.0.dev23 (Trainierbare verdeckte ReLU-Schicht)
+
+Unabhängige MLP-Kompetenz aus verifizierten Gruppenbeobachtungen, CPU-Float64 LBFGS, vier trainierte FP32-Tensoren, immutable Operationsbindung und tatsächliche Tensorbytes, unabhängige Holdouts, Recovery, Wiederbeteiligung, Quarantäne. 262/262 je vier CI-Jobs; Windows 3.12 237,90 s, 3.13 295,01 s, Linux 3.12 82,36 s, 3.13 79,65 s. Alle Geräteproben, Artefakt- und Smoke-Prüfungen erfolgreich. [CI](https://github.com/Griggelor/VibeWeights/actions/runs/46145571563), [Rohdaten](../evidence/v08-mlp-transfer-ci.json), [Vertrag](MLP_TRANSFER_v08.md). Host-definierte Modellbreite und synthetische Aufgabe; keine allgemeine Architekturwahl, kein importiertes Modellfragment oder GPU-/UMA-Nachweis.
+
+## Historischer Entwicklungsstand v0.8.0.dev22 (Quadratischer nichtlinearer Kompetenztransfer)
 
 Unabhängiger trainierter quadratischer Kern aus verifizierten Gruppenbeobachtungen, feste Feature-Basis mit Kreuztermen, CPU-SGD, getrennte Holdouts, operationgebundene Artefakthashes, persistente Residenz und Quarantäne. Neue Kompetenzen können nach Neustart erneut an Kooperationen teilnehmen. 258/258 Tests je vier CI-Jobs, Windows 3.12 227,17 s, 3.13 348,14 s, Linux 3.12 60,82 s, 3.13 59,49 s; alle Geräteproben, Artefakt- und Smoke-Prüfungen erfolgreich. [CI](https://github.com/Griggelor/VibeWeights/actions/runs/46143869357), [Rohdaten](../evidence/v08-quadratic-transfer-ci.json), [Vertrag](QUADRATIC_TRANSFER_v08.md). Noch keine allgemeine trainierbare verdeckte Schicht, importierten Modellfragmente oder GPU-/UMA-Abnahme.
 

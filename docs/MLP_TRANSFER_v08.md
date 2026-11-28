@@ -1,6 +1,6 @@
 # dev23 candidate — trainable ReLU hidden layers
 
-Base: dev22 code revision `aac7a2aa02c6980d0a4454cc4a30dd151e32da3d`, CPU CI accepted; inherited dev22 release metadata separately. **dev23 production CI pending.** Primary target Windows 11 / AMD Strix Halo.
+Base: dev22 code revision `aac7a2aa02c6980d0a4454cc4a30dd151e32da3d`, CPU CI accepted; inherited dev22 release metadata separately. **CPU reference accepted on the tested code revision; release metadata CI pending.** Primary target Windows 11 / AMD Strix Halo.
 
 ## Hypothesis and contract
 
@@ -23,3 +23,7 @@ All four parameter tensors changed for each revised model. Width 2 reproduced th
 ## Integration tests
 
 Four tests cover real MLP+affine cooperation, trained transfer, separate holdout admission, persisted/new-group inference, weight-only subprocess, parent quarantine; undertraining rejection; interrupted staging recovery; all-tensor residency budget and operation metadata mismatch. CI pending. Next: acceptance, then broader nonlinear tasks and structural model-fragment assimilation. No arbitrary pretrained fragment import, learned semantic latent space or Strix Halo GPU measurement claimed.
+
+## CPU CI acceptance
+
+[Run 46145571563](https://github.com/Griggelor/VibeWeights/actions/runs/46145571563): four green jobs, 262/262 each, all device probes, rebuilds and smokes. [Machine-readable evidence](../evidence/v08-mlp-transfer-ci.json). Target GPU acceptance remains open.

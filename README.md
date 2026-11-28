@@ -3,7 +3,7 @@
 **A self-organizing, self-learning, self-optimizing and self-scaling neural ecosystem**
 
 ![Research prototype](https://img.shields.io/badge/status-research%20prototype-orange)
-![Version](https://img.shields.io/badge/development-v0.8.0.dev22-blue)
+![Version](https://img.shields.io/badge/development-v0.8.0.dev23-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 
 **Local-first AI research · Decentralized neural experts · Weight-space programming · Continual learning**
@@ -396,7 +396,11 @@ The full [research survey](docs/FORSCHUNG_2026-11-26.md) and [learning/evolution
 
 Independent holdouts must not become synthesis inputs. Report failures as research results. Distinguish expert activation, causal contribution, user satisfaction, factual correctness, resource consumption and independent capability. Do not equate greater parameter count or test count with intelligence.
 
-## Development snapshot v0.8.0.dev22 — nonlinear quadratic competency transfer
+## Development snapshot v0.8.0.dev23 — trainable MLP experts
+
+**262/262 CPU tests passed on Windows and Linux with Python 3.12/3.13**, including device probes, artifact reproduction and all smoke tests ([CI](https://github.com/Griggelor/VibeWeights/actions/runs/46145571563), [JSON evidence](evidence/v08-mlp-transfer-ci.json)). Verified nonlinear coalition observations train both affine layers of an independent ReLU MLP. Four content-bound FP32 tensors, actual tensor-byte budget, independent holdout gate, recovery, weight-only inference, rejoining and quarantine. The model architecture is host-selected; synthetic controlled task only. Negative experiments and inspected development holdouts are documented separately. No pretrained fragment or GPU/UMA acceptance yet. See [contract](docs/MLP_TRANSFER_v08.md), [isolated experiments](evidence/v08-mlp-transfer-isolated.json) and [journal](docs/DEVELOPMENT_LOG.md).
+
+## Historical development snapshot v0.8.0.dev22 — nonlinear quadratic competency transfer
 
 **258/258 CPU tests passed on Windows and Linux with Python 3.12/3.13**, including device probe, artifact reproduction and all smoke tests ([CI](https://github.com/Griggelor/VibeWeights/actions/runs/46143869357), [JSON evidence](evidence/v08-quadratic-transfer-ci.json)). A two-core coalition with a quadratic and an affine expert transfers verified input/output observations into a separate trained nonlinear core. Fixed quadratic feature ABI; learned readout, immutable operation-bound SafeTensors artifact, independent holdouts, resident byte accounting, restart, rejoining and quarantine gates. No parent tensor copy or removal. This is a bounded nonlinear reference, not arbitrary learned features or pretrained fragment assimilation. Windows 11 / AMD Strix Halo GPU/UMA acceptance remains open. See [contract](docs/QUADRATIC_TRANSFER_v08.md), [isolated evidence](evidence/v08-quadratic-transfer-isolated.json) and [journal](docs/DEVELOPMENT_LOG.md).
 
