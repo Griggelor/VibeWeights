@@ -29,7 +29,7 @@ def build(root):
         data={f'{kind}.{k}':v for kind,clauses in [('work',work),('join',join)] for k,v in construct_gate(len(FEATURES),clauses).items()}
         p=d/f'{name}.safetensors'; save_file(data,str(p))
         m={'id':name,'version':'0.4.0','abi':'coalition.scalar.1','features':list(FEATURES),'weight_origin':'DIRECT','parameters':sum(t.numel() for t in data.values()),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}
-        (d/f'{name}.json').write_text(json.dumps(m,indent=2)+'\n',encoding='utf-8')
+        (d/f'{name}.json').write_text(json.dumps(m,indent=2)+'\n',encoding='utf-8',newline='\n')
 
 def load_heads(root,name):
     d=Path(root)/'artifacts/coalition'; p=d/f'{name}.safetensors'; m=json.loads((d/f'{name}.json').read_text(encoding='utf-8'))
