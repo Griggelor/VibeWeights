@@ -1,0 +1,228 @@
+{
+  "status": "PASS",
+  "model": {
+    "config_sha256": "504a6b58c4271583724e66584b6b7698aea18450209df6b2f7582df0e89cee59",
+    "license_sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+    "model_id": "Qwen/Qwen3-0.6B-Base",
+    "origin": "PRETRAINED",
+    "revision": "da87bfb608c14b7cf20ba1ce41287e8de496c0cd",
+    "weights_bytes": 1192135096,
+    "weights_sha256": "cd2a512003e2f9f3cd3c32a9c3573f820bb28c940f73c57b1ddaa983d9223eba"
+  },
+  "device": "cpu",
+  "compute_dtype": "float32",
+  "source_dtype_preserved": true,
+  "torch": "2.10.0+cpu",
+  "transformers": "4.57.1",
+  "atol": 0.00001,
+  "rtol": 0.00001,
+  "token_cases": [
+    [
+      17
+    ],
+    [
+      12,
+      34,
+      56,
+      78
+    ],
+    [
+      11,
+      22,
+      33,
+      44,
+      55,
+      66,
+      77,
+      88,
+      99,
+      111,
+      123
+    ],
+    [
+      11,
+      22,
+      33,
+      44,
+      55,
+      66,
+      77,
+      88,
+      99,
+      111,
+      123,
+      48
+    ],
+    [
+      11,
+      22,
+      33,
+      44,
+      55,
+      66,
+      77,
+      88,
+      99,
+      111,
+      123,
+      48,
+      54
+    ]
+  ],
+  "partitions": {
+    "6": [
+      {
+        "tokens": 1,
+        "max_abs_error": 0,
+        "mean_abs_error": 0,
+        "logits_close": true,
+        "argmax_equal": true
+      },
+      {
+        "tokens": 4,
+        "max_abs_error": 0,
+        "mean_abs_error": 0,
+        "logits_close": true,
+        "argmax_equal": true
+      },
+      {
+        "tokens": 11,
+        "max_abs_error": 0,
+        "mean_abs_error": 0,
+        "logits_close": true,
+        "argmax_equal": true
+      },
+      {
+        "tokens": 12,
+        "max_abs_error": 0,
+        "mean_abs_error": 0,
+        "logits_close": true,
+        "argmax_equal": true
+      },
+      {
+        "tokens": 13,
+        "max_abs_error": 0,
+        "mean_abs_error": 0,
+        "logits_close": true,
+        "argmax_equal": true
+      }
+    ],
+    "8": [
+      {
+        "tokens": 1,
+        "max_abs_error": 0,
+        "mean_abs_error": 0,
+        "logits_close": true,
+        "argmax_equal": true
+      },
+      {
+        "tokens": 4,
+        "max_abs_error": 0,
+        "mean_abs_error": 0,
+        "logits_close": true,
+        "argmax_equal": true
+      },
+      {
+        "tokens": 11,
+        "max_abs_error": 0,
+        "mean_abs_error": 0,
+        "logits_close": true,
+        "argmax_equal": true
+      },
+      {
+        "tokens": 12,
+        "max_abs_error": 0,
+        "mean_abs_error": 0,
+        "logits_close": true,
+        "argmax_equal": true
+      },
+      {
+        "tokens": 13,
+        "max_abs_error": 0,
+        "mean_abs_error": 0,
+        "logits_close": true,
+        "argmax_equal": true
+      }
+    ],
+    "16": [
+      {
+        "tokens": 1,
+        "max_abs_error": 0,
+        "mean_abs_error": 0,
+        "logits_close": true,
+        "argmax_equal": true
+      },
+      {
+        "tokens": 4,
+        "max_abs_error": 0,
+        "mean_abs_error": 0,
+        "logits_close": true,
+        "argmax_equal": true
+      },
+      {
+        "tokens": 11,
+        "max_abs_error": 0,
+        "mean_abs_error": 0,
+        "logits_close": true,
+        "argmax_equal": true
+      },
+      {
+        "tokens": 12,
+        "max_abs_error": 0,
+        "mean_abs_error": 0,
+        "logits_close": true,
+        "argmax_equal": true
+      },
+      {
+        "tokens": 13,
+        "max_abs_error": 0,
+        "mean_abs_error": 0,
+        "logits_close": true,
+        "argmax_equal": true
+      }
+    ]
+  },
+  "manifest_sha256": "77fa7c2305b4973d0529670d3275b67c7e1b24255f65267a5e3eebeb9e115f69",
+  "logical_parameters": 596049920,
+  "unique_payload_bytes": 1192099840,
+  "scope": "fixed original-order reproduction only; not assimilation or semantic competence",
+  "source_acquisition": "pinned_hub_download",
+  "elapsed_seconds": 27.43618995899999,
+  "fragment_sizes": {
+    "6": [
+      94385664,
+      94385664,
+      94385664,
+      94385664,
+      62923776
+    ],
+    "8": [
+      125847552,
+      125847552,
+      125847552,
+      62923776
+    ],
+    "16": [
+      251695104,
+      188771328
+    ]
+  },
+  "unique_artifact_bytes": 1192129352,
+  "ci": {
+    "run": 46148469004,
+    "commit": "b9d051921343914dc2f153e75268b0f4c7453c16",
+    "job": 140989577938,
+    "tiny_windows": {
+      "job": 140989578106,
+      "passed": 4,
+      "seconds": 4.99
+    },
+    "tiny_linux": {
+      "job": 140989578163,
+      "passed": 4,
+      "seconds": 2.74
+    },
+    "baseline_run": 46148468885,
+    "baseline_conclusion": "success"
+  }
+}

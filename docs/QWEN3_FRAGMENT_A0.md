@@ -1,6 +1,6 @@
 # dev24 candidate — Qwen3 structural fragments, A0
 
-**Implementation candidate; no test result yet.** Base dev23 release-metadata commit `0d790de241a0ed769defa57c168f0be356068614`, functional code accepted in CI 46145571563. This implements the structure-oriented blind-cut variant B and stage A0 of [FRAGMENT_ASSIMILATION.md](FRAGMENT_ASSIMILATION.md). Reproduction is a necessary prerequisite, not evidence of assimilation or autonomous cooperation.
+**A0 CPU reference passed on the tested revision; release metadata CI pending.** Base dev23 release-metadata commit `0d790de241a0ed769defa57c168f0be356068614`, functional code accepted in CI 46145571563. This implements the structure-oriented blind-cut variant B and stage A0 of [FRAGMENT_ASSIMILATION.md](FRAGMENT_ASSIMILATION.md). Reproduction is a necessary prerequisite, not evidence of assimilation or autonomous cooperation.
 
 ## Source and architecture
 
@@ -31,3 +31,7 @@ Separate workflow [fragment-reference.yml](../.github/workflows/fragment-referen
 Container check: Transformers absent, no model cache, local DNS fails for GitHub and Hugging Face. Source model config, license and revision verified from upstream repository listing, not downloaded locally. GitHub connector can write code and remote CI can attempt acquisition. Any network or parity failure must be recorded before acceptance.
 
 Next A1: adapter contract and actual local heads on imported spans, negative controls (random weights, reversed order, adapter-only, original chain), independent task evidence, then multi-scale cooperation. No catalog admission, PRETRAINED expert admission, learning, autonomous routing, or assimilation claim in A0. No Strix Halo GPU claim.
+
+## Measured acceptance
+
+CI 46148469004, code b9d051921343914dc2f153e75268b0f4c7453c16: 15/15 full-logit comparisons exactly equal, all argmax equal. 596,049,920 parameters, 1,192,099,840 bytes unique tensor payload; 27.436 s combined experiment elapsed on remote CPU (not a benchmark). Tiny architecture Windows 4/4 (4.99 s), Linux 4/4 (2.74 s). Baseline CI 46148468885 successful. [Raw report](../evidence/v08-qwen3-fragment-a0.json). No assimilation claim.

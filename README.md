@@ -3,7 +3,7 @@
 **A self-organizing, self-learning, self-optimizing and self-scaling neural ecosystem**
 
 ![Research prototype](https://img.shields.io/badge/status-research%20prototype-orange)
-![Version](https://img.shields.io/badge/development-v0.8.0.dev23-blue)
+![Version](https://img.shields.io/badge/development-v0.8.0.dev24-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 
 **Local-first AI research · Decentralized neural experts · Weight-space programming · Continual learning**
@@ -396,7 +396,11 @@ The full [research survey](docs/FORSCHUNG_2026-11-26.md) and [learning/evolution
 
 Independent holdouts must not become synthesis inputs. Report failures as research results. Distinguish expert activation, causal contribution, user satisfaction, factual correctness, resource consumption and independent capability. Do not equate greater parameter count or test count with intelligence.
 
-## Development snapshot v0.8.0.dev23 — trainable MLP experts
+## Development snapshot v0.8.0.dev24 — Qwen3 structural fragments A0
+
+Actual pinned Qwen3-0.6B-Base weights extracted into immutable decoder-block artifacts; 596,049,920 parameters, 1,192,099,840 bytes unique source tensor payload. Three logical partitions (6/8/16 blocks, including remainders) reproduce all 15 reference comparisons with zero maximum logit error in FP32 CPU execution. Four tiny architecture tests pass on both Windows and Linux; baseline CPU CI passed. [CI](https://github.com/Griggelor/VibeWeights/actions/runs/46148469004), [raw report](evidence/v08-qwen3-fragment-a0.json), [contract](docs/QWEN3_FRAGMENT_A0.md). Fixed original order only; no semantic assimilation, admitted fragment experts or GPU acceptance yet.
+
+## Historical development snapshot v0.8.0.dev23 — trainable MLP experts
 
 **262/262 CPU tests passed on Windows and Linux with Python 3.12/3.13**, including device probes, artifact reproduction and all smoke tests ([CI](https://github.com/Griggelor/VibeWeights/actions/runs/46145571563), [JSON evidence](evidence/v08-mlp-transfer-ci.json)). Verified nonlinear coalition observations train both affine layers of an independent ReLU MLP. Four content-bound FP32 tensors, actual tensor-byte budget, independent holdout gate, recovery, weight-only inference, rejoining and quarantine. The model architecture is host-selected; synthetic controlled task only. Negative experiments and inspected development holdouts are documented separately. No pretrained fragment or GPU/UMA acceptance yet. See [contract](docs/MLP_TRANSFER_v08.md), [isolated experiments](evidence/v08-mlp-transfer-isolated.json) and [journal](docs/DEVELOPMENT_LOG.md).
 
