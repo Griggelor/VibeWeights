@@ -44,3 +44,7 @@ Versuch `social_experiment.py`: fünf opak bezeichnete eingefrorene affine Kerne
 [Real-fragment social trial](REAL_FRAGMENT_SOCIAL.md): zwei echte Qwen3-Prefix-Readouts mit strikter separater A1-Abnahme, strukturierte gemeinsame Token-/Ausgabeports, neutrale lokale Köpfe, historisches Rekrutieren, Shots und unabhängige Nutzungs-Holdouts. Host-definierte Readout-/Portsemantik bleibt offen als spätere Aufgabe; keine allgemeine autonome Kompetenzentdeckung behauptet. CI offen.
 
 Actual dev29: joint real-fragment tasks 45/48 with learned recall vs 0/48 without; overall 75/144, single form goal zero activity. [Evidence](../evidence/v08-real-fragment-social-ci.json). Distinguish local self-activation credit from coalition partner credit; no blanket success or general competence claim.
+
+## dev30: individuelle Aktivierungsbewertung
+
+[Vertrag](SOCIAL_CREDIT_v08.md): getrennte isolierte Utility für Selbstaktivierung, unveränderte marginale Bewertung historischer Partner. Opt-in, gleiche Schwellen, frische matched Holdouts. Kein zusätzlicher Core-Forward; zusätzliche Oracle-Auswertungen explizit. Noch keine Messwerte.
