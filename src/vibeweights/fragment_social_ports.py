@@ -39,10 +39,14 @@ class FragmentPortCore:
         self.artifact_sha256=_hash({'contract':'fragment-port-v1','core':core.artifact_sha256,
                                    'port':port,'scale':self.scale})
 
-    def contribute(self,payload):
+    def assert_live(self):
         if _hash({'contract':'fragment-port-v1','core':self._core.artifact_sha256,
                   'port':self.port,'scale':self.scale})!=self.artifact_sha256:
             raise ContractError('social fragment port changed')
+        self._core.assert_live()
+
+    def contribute(self,payload):
+        self.assert_live()
         tokens=unpack_tokens(payload)[self.port]
         bit,=self._core.contribute(tokens)
         if bit not in (0.,1.):raise ContractError('social fragment bit')

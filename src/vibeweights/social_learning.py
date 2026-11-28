@@ -13,6 +13,7 @@ from .abi import ContractError
 from .coalition import Cooperation, Op
 from .environment import identifier
 from .qwen3_fragments import _hash
+from . import social_revisions
 
 CONTRACT='social-episodes-v1'
 SELF_THRESHOLD=.35
@@ -62,14 +63,18 @@ class SocialFragmentCore:
         self.artifact_sha256=_hash(competence.m)
         self._tensor_sha=_hash({k:v.tolist() for k,v in sorted(competence.t.items())})
 
-    @torch.inference_mode()
-    def contribute(self,payload):
+    def assert_live(self):
         e=self._expert
         if (_hash(e.m)!=self.artifact_sha256 or
             _hash({k:v.tolist() for k,v in sorted(e.t.items())})!=self._tensor_sha):
             raise ContractError('social fragment adapter changed')
-        if any(type(x) is not int for x in payload):raise ContractError('fragment token input')
         e.assert_usage_live()
+
+    @torch.inference_mode()
+    def contribute(self,payload):
+        self.assert_live()
+        e=self._expert
+        if any(type(x) is not int for x in payload):raise ContractError('fragment token input')
         x=e.encoder.features(payload)
         return (float((e.t['w']@x+e.t['b']).item()>0),)
 
@@ -85,7 +90,7 @@ class SocialPopulation:
         if not isinstance(cooperation,Cooperation) or type(width) is not int or not 1<=width<=64:
             raise ContractError('social store/width')
         if credit_policy not in CREDIT_POLICIES:raise ContractError('social credit policy')
-        self.db=cooperation.db;self.width=width;self.credit_policy=credit_policy
+        self._cooperation=cooperation;self.db=cooperation.db;self.width=width;self.credit_policy=credit_policy
         cores=tuple(cores)
         if not 1<=len(cores)<=32:raise ContractError('social population bounds')
         self.cores={}
@@ -117,9 +122,61 @@ class SocialPopulation:
 
     def _bind(self,session):
         spec=json.dumps(self.spec,sort_keys=True,separators=(',',':'));sha=_hash(self.spec)
-        row=self.db.execute('SELECT contract,spec_sha FROM social_population_v1 WHERE session=?',(session,)).fetchone()
-        if row is None:self.db.execute('INSERT INTO social_population_v1 VALUES(?,?,?)',(session,spec,sha))
-        elif row!=(spec,sha):raise ContractError('social session population changed')
+        chain=social_revisions.history(self.db,session)
+        if not chain:
+            self.db.execute('INSERT INTO social_population_v1 VALUES(?,?,?)',(session,spec,sha))
+            return [(self.spec,sha)]
+        if chain[-1]!=(self.spec,sha):raise ContractError('social session population changed')
+        return chain
+
+    def extend(self,session,new_cores,*,expected_sha,allow_reference=False):
+        """Explicit authorized additive revision, returning a new runtime handle.
+
+        Existing head rows are not copied or modified. An admitted usage
+        fragment must have live source evidence in the same Cooperation DB
+        and matching output port. Analytic reference cores are opt-in only.
+        Old runtime handles fail closed after the revision. No implicit
+        removal or global routing, and no new expert inherits old heads.
+        """
+        from .fragment_social_ports import FragmentPortCore
+        identifier(session)
+        if type(allow_reference) is not bool:raise ContractError('social growth reference flag')
+        if self.db.in_transaction:raise ContractError('social growth requires idle store')
+        new_cores=tuple(new_cores)
+        if not new_cores or len(self.cores)+len(new_cores)>32:raise ContractError('social growth bounds')
+        if any(c.id in self.cores for c in new_cores):raise ContractError('social growth cannot replace expert')
+        if _hash(self.spec)!=expected_sha:raise ContractError('social population stale revision')
+        if {k:c.artifact_sha256 for k,c in sorted(self.cores.items())}!=self.identities:
+            raise ContractError('social core identity changed')
+        # Construct and validate the candidate handle before opening the
+        # transaction: __init__ performs idempotent SQLite schema setup.
+        # Reuse the same store wrapper, without executing any core.
+        grown=SocialPopulation(self._cooperation,[*self.cores.values(),*new_cores],
+                               width=self.width,credit_policy=self.credit_policy)
+        self.db.execute('BEGIN IMMEDIATE')
+        try:
+            chain=social_revisions.history(self.db,session)
+            if not chain or chain[-1]!=(self.spec,expected_sha):
+                raise ContractError('social population stale revision')
+            for core in new_cores:
+                if isinstance(core,FragmentPortCore):
+                    expert=core._core._expert
+                    proof=expert.m.get('usage_evidence')
+                    if (not proof or expert._evidence_store is not self._cooperation
+                        or proof['port']!=core.port or core.scale!=(1.,.25)[core.port]
+                        or expert.m['report'].get('admitted') is not True):
+                        raise ContractError('social growth requires admitted usage readout')
+                    core.assert_live()
+                elif not (allow_reference and isinstance(core,AffineSocialCore)):
+                    raise ContractError('social growth requires admitted usage readout')
+                if self.db.execute('SELECT 1 FROM social_heads_v1 WHERE session=? AND (owner=? OR peer=?) LIMIT 1',
+                                   (session,core.id,core.id)).fetchone():
+                    raise ContractError('social growth new identity already has history')
+            social_revisions.append(self.db,session,expected_sha,grown.spec)
+            self.db.commit()
+            return grown
+        except BaseException:
+            self.db.rollback();raise
 
     def _head(self,session,owner,peer):
         row=self.db.execute('SELECT revision,episode,previous,weights,sha FROM social_heads_v1 WHERE session=? AND owner=? AND peer=? ORDER BY revision DESC LIMIT 1',(session,owner,peer)).fetchone()
@@ -172,11 +229,14 @@ class SocialPopulation:
         spec_sha=_hash(spec)
         self.db.execute('BEGIN IMMEDIATE')
         try:
-            self._bind(session)
+            chain=self._bind(session)
             prior=self.db.execute('SELECT spec_sha,receipt,receipt_sha FROM social_episodes_v1 WHERE session=? AND episode=?',(session,episode)).fetchone()
             if prior:
                 receipt=json.loads(prior[1])
-                if prior[0]!=spec_sha or _hash(receipt)!=prior[2]:raise ContractError('social episode identity/integrity')
+                if _hash(receipt)!=prior[2]:raise ContractError('social episode identity/integrity')
+                old,_=social_revisions.historical(chain,receipt)
+                if (prior[0]!=_hash({**spec,'population':old}) or receipt.get('spec_sha256')!=prior[0]):
+                    raise ContractError('social episode identity/integrity')
                 self.db.commit()
                 return {**receipt,'historical':True}
             scores={k:float(self._head(session,k,'')[0]@x) for k in self.identities}
@@ -253,6 +313,7 @@ class SocialPopulation:
                      'released':total if full['verified'] else None,'utility':full['utility'],
                      'without':without,'marginal':marginal,'updates':changes,
                      'core_calls':len(contributions),'oracle_calls':1+len(without)}
+            if len(chain)>1:receipt['population_sha256']=chain[-1][1]
             if isolated is not None:
                 receipt['isolated_activation']=isolated
                 receipt['oracle_calls']+=1+len(contributions)
