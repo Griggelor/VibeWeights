@@ -1,0 +1,84 @@
+{
+  "version": "0.8.0.dev22-candidate",
+  "scope": "isolated reproduction of mathematical trainer, not production import or GPU test",
+  "torch": "2.10.0+cpu",
+  "omp_threads": 1,
+  "mkl_threads": 1,
+  "optimizer": "SGD",
+  "initialization": "zero",
+  "experiments": [
+    {
+      "input_width": 1,
+      "training_inputs": [
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3
+      ],
+      "steps": 512,
+      "loss_initial": 654.5,
+      "loss_final": 2.6145104287324965e-29,
+      "readout": [
+        3,
+        6
+      ],
+      "bias": 5,
+      "holdout_inputs": [
+        -8,
+        -5,
+        4,
+        6,
+        9
+      ],
+      "outputs": [
+        365,
+        140,
+        113,
+        239,
+        518
+      ],
+      "expected": [
+        365,
+        140,
+        113,
+        239,
+        518
+      ]
+    },
+    {
+      "input_width": 2,
+      "training_grid": [
+        -1,
+        0,
+        1
+      ],
+      "rank": 6,
+      "steps": 1024,
+      "loss_initial": 38.611111111111114,
+      "loss_final": 6.89157651922245e-30,
+      "readout": [
+        4,
+        -2,
+        2,
+        3,
+        -1
+      ],
+      "bias": 7,
+      "holdout_inputs": [
+        [
+          2,
+          -3
+        ]
+      ],
+      "outputs": [
+        2
+      ],
+      "expected": [
+        2
+      ]
+    }
+  ]
+}

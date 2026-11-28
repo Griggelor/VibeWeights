@@ -3,7 +3,7 @@
 **A self-organizing, self-learning, self-optimizing and self-scaling neural ecosystem**
 
 ![Research prototype](https://img.shields.io/badge/status-research%20prototype-orange)
-![Version](https://img.shields.io/badge/development-v0.8.0.dev18-blue)
+![Version](https://img.shields.io/badge/development-v0.8.0.dev21-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 
 **Local-first AI research · Decentralized neural experts · Weight-space programming · Continual learning**
@@ -396,7 +396,11 @@ The full [research survey](docs/FORSCHUNG_2026-11-26.md) and [learning/evolution
 
 Independent holdouts must not become synthesis inputs. Report failures as research results. Distinguish expert activation, causal contribution, user satisfaction, factual correctness, resource consumption and independent capability. Do not equate greater parameter count or test count with intelligence.
 
-## Development snapshot v0.8.0.dev18 — targeted recursive recruitment
+## Development snapshot v0.8.0.dev21 — learned recruitment and bound task continuation
+
+**253/253 CPU tests passed on all four Windows/Linux × Python 3.12/3.13 configurations**, including explicit CPU device lifecycle, byte-exact artifact reproduction and all smoke tests ([CI](https://github.com/Griggelor/VibeWeights/actions/runs/46142418702), [JSON evidence](evidence/v08-task-continuation-ci.json)). dev19 adds local opt-in missing-input requests and durable idempotent dispatch; dev20 adds independently trained core-bound request heads with deliberate abstention and no symbolic fallback; dev21 continues a single typed task through locally emitted child events without a host-selected requester or child, preserving group scope, task identity and persistent budgets. Controlled three-run chain yields 95 from input 4, excludes unrelated group, and recovers after interruption. Host still supplies group key, typed task, acceptance labels and validators; fixed metadata features, affine numeric reference. Windows 11 / AMD Strix Halo is the primary target; hardware GPU/UMA acceptance remains open. See [local requests](docs/LOCAL_RECRUITMENT_v08.md), [learned heads](docs/NEURAL_REQUEST_HEADS_v08.md), [continuation](docs/TASK_CONTINUATION_v08.md), [target acceptance](docs/TARGET_WINDOWS_STRIX_HALO.md) and [journal](docs/DEVELOPMENT_LOG.md).
+
+## Historical development snapshot v0.8.0.dev18 — targeted recursive recruitment
 
 **242/242 CPU tests passed on Windows and Linux with Python 3.12 and 3.13**; artifact reproduction and all smoke tests passed in [GitHub CI](https://github.com/Griggelor/VibeWeights/actions/runs/46141672717). A stagnating voluntary group can publish a missing-input RECRUIT event bound to its current run, participating cores/heads and ancestry. New v2 local perception heads independently decide whether to join; v1 heads abstain. Controlled two-depth chain consumer → middle → provider yields 95 from input 4 after restart; unrelated expert abstains. Missing/stale evidence, quarantine, receipt tampering and depth exhaustion are tested. Global event carries topic metadata, not task values. Host still selects the requester and starts each run; no learned request initiation or automatic continuation in this version. Primary target is Windows 11 / AMD Strix Halo; CPU CI is not GPU/UMA acceptance. See [contract](docs/TARGETED_RECRUITMENT_v08.md), [CI evidence](evidence/v08-targeted-recruitment-ci-final.json) and [journal](docs/DEVELOPMENT_LOG.md).
 
@@ -568,7 +572,7 @@ The commands above are for the existing Python research prototype, not the futur
 | Stage | Priority / deliverable |
 |---|---|
 | Public baseline | v0.7.0 source, weights and evidence imported; verify Windows/Linux CI |
-| Knowledge-first learning (P0) | Bounded recall, relational transfer, recovery, retention, model-directed selection, task-driven learning, additive extension and conflict-triggered correction implemented. Global cross-domain repair slice implemented. Persistent event delivery and local callback groups implemented. First trained binary-metadata perception heads implemented. First voluntary group execution and evidence-bound DIRECT group consolidation demonstrated. Indexed declared dependencies and incremental source guard implemented. Source-local atomic REMEMBER implemented. First affine TRAINED group transfer demonstrated. Two-generation learned-expert participation demonstrated. Targeted recursive recruitment demonstrated. Next: learned local request initiation, bound task continuation, nonlinear transfer, semantic perception, broader catalog/file recovery, bounded scheduling and real model/fragment experiments |
+| Knowledge-first learning (P0) | Bounded recall, relational transfer, recovery, retention, model-directed selection, task-driven learning, additive extension and conflict-triggered correction implemented. Global cross-domain repair slice implemented. Persistent event delivery and local callback groups implemented. First trained binary-metadata perception heads implemented. First voluntary group execution and evidence-bound DIRECT group consolidation demonstrated. Indexed declared dependencies and incremental source guard implemented. Source-local atomic REMEMBER implemented. First affine TRAINED group transfer demonstrated. Two-generation learned-expert participation demonstrated. Targeted recursive recruitment demonstrated. Learned local request initiation and bound task continuation demonstrated. Next: nonlinear transfer, semantic perception, broader catalog/file recovery, bounded scheduling and real model/fragment experiments |
 | Unified Environment | Migrate the regular chat/API to the new core; generic events, dynamic topology, private recurrence, independent result release |
 | Memory | Universal semantic ABI, source/relationship indexing, cooperation and feedback integration, recovery, physical budgets |
 | Bootstrap | Real authorized local models; text vs latent adapter experiments, independent ablations |

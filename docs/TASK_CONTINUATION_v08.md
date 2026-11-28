@@ -1,6 +1,6 @@
 # v0.8.0.dev21 candidate — bound task continuation
 
-**Not accepted yet.** Basis: dev20 `14bc45df97f5c273fe8cd36eea8e2f7ba83a5965`. Primary target Windows 11 / AMD Strix Halo; CPU reference and remote CPU CI. No GPU execution claimed.
+**CPU reference accepted on the tested code revision; release metadata CI pending.** Basis: dev20 `14bc45df97f5c273fe8cd36eea8e2f7ba83a5965`. Primary target Windows 11 / AMD Strix Halo; CPU reference and remote CPU CI. No GPU execution claimed.
 
 ## Hypothesis and contract
 
@@ -28,3 +28,7 @@ Four new integration tests: three-run automatic learned chain with unrelated gro
 Commits: executor `5831c694c59f33e749c737e250d2cc67c263a335`, tests `cf35ded59f434dccabe0533d5cff786e9fb66f35`, CI queue efficiency `e7ba15e921ce00465bdb5352bdbf9cfae7445f66`. CI runs on main pushes and pull requests; superseded revisions of the same PR are cancelled, no test matrix or verification stage removed. Local DNS remains unavailable. Windows dev18 suite passed both Python versions on run 46141672717, additional stages pending when written. dev19 Linux 245/245 before the LF/device-probe follow-up, dev20 CI pending.
 
 Next: finish Windows dev18/19/20/21 acceptance in sequence. Then non-affine transfer with independent holdout gate, heterogeneous structural fragment assimilation, and explicit target-host GPU acceptance.
+
+## Abnahme
+
+[CI 46142418702](https://github.com/Griggelor/VibeWeights/actions/runs/46142418702) auf `bce96a02ff120610ea770160a607ec0f8fb6c33c`: 253/253 Tests je Windows/Linux/Python 3.12 und 3.13; Geräteprobe, Gewichtsreproduktion und sämtliche Smoke-Tests erfolgreich. [JSON-Evidenz](../evidence/v08-task-continuation-ci.json). Der tatsächliche Strix-Halo-GPU-Lauf bleibt offen.
