@@ -138,7 +138,7 @@ class PerceptionHeads:
                 int(expert in impulse.get('affected',())),int(target=='local'),int(repair)]
         if version==2:
             recruit=e['kind']=='RECRUIT'
-            values.extend((int(recruit),int(recruit and m['target_topic']==p['requested_topic']),
+            values.extend((int(recruit),int(recruit and m.get('target_topic')==p['requested_topic']),
                            int(recruit and expert==p['requester'])))
         return values
 
