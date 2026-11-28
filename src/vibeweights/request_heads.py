@@ -70,6 +70,43 @@ def decide(learning,expert,features):
         return {**ref,'features':list(features),'request':bool(score.item()>0)}
 
 
+def local_features(manifest,scope,facts,event_kind,goal):
+    """Only port presence in this scope and two bits of task metadata."""
+    topics={f['topic'] for f in facts if f['scope']==scope}
+    return [int(manifest['source_topic'] not in topics),
+            int(manifest['target_topic'] not in topics),
+            int(event_kind=='RECRUIT'),int(goal==manifest['target_topic'])]
+
+
+def validate_intent(learning,receipt,event_kind):
+    """Recompute all bound decisions before dispatch/liveness; no fallback.
+
+    Unbound experts abstain. A head added after the historical run is not
+    retroactive: only original bindings are validated, not new decisions.
+    """
+    intent=receipt.get('recruitment',{})
+    if intent.get('contract')!='learned-recruitment-v1':
+        raise ContractError('learned recruitment contract required')
+    refs=intent.get('decisions')
+    if type(refs) is not list:
+        raise ContractError('learned recruitment decisions')
+    members=[m['expert'] for m in receipt['members']]
+    if len(refs)>len(members) or len({d['expert'] for d in refs})!=len(refs):
+        raise ContractError('duplicate or excess request decisions')
+    requesters=[]
+    for d in refs:
+        expert=d['expert']
+        if expert not in members:raise ContractError('request decision outside group')
+        m=_core(learning,expert)
+        features=local_features(m,receipt['scope'],receipt['result']['facts'],event_kind,receipt['goal'])
+        actual=decide(learning,expert,features)
+        if actual!=d:raise ContractError('stale learned request decision')
+        if d['request'] and features[0]:requesters.append(expert)
+    if requesters!=intent.get('requesters'):
+        raise ContractError('learned request list mismatch')
+    return tuple(requesters)
+
+
 class RequestHeads:
     def __init__(self,learning):
         self.learning=learning;self.db=learning.db
