@@ -129,11 +129,11 @@ def evaluate(pop,session,usage,*,prefix='held',recall=True,shots=0,all_active=Fa
     return {**stats(rows),'by_goal':{str(g):stats([x for x in rows if x['goal']==g]) for g in range(3)},'rows':rows}
 
 
-def run_seed(root,seed,cores,trainsets,usage):
+def run_seed(root,seed,cores,trainsets,usage,*,credit_policy='leave-one-out-v1'):
     def open_pop():
         store=Cooperation(root/f'seed-{seed}.sqlite')
         memo=[OfflineMemo(c) for c in cores]
-        return store,SocialPopulation(store,[*memo,Distractor()],width=3),memo
+        return store,SocialPopulation(store,[*memo,Distractor()],width=3,credit_policy=credit_policy),memo
     def counts(memo):
         return {m.id:{'calls':m.calls,'actual_forwards':m.forwards} for m in memo}
     store,pop,memo=open_pop()
