@@ -1,8 +1,12 @@
 name: VibeWeights CPU CI
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
@@ -31,6 +35,8 @@ jobs:
           python -m pip check
       - name: Verify checked-in weights and run suite
         run: python -m pytest -q --junitxml=ci-results.xml
+      - name: Explicit CPU device population probe
+        run: python scripts/probe_population_device.py --device cpu --output device-probe.json
       - name: Rebuild weights and verify no changes
         run: |
           python scripts/build_weights.py
@@ -53,5 +59,7 @@ jobs:
         if: always()
         with:
           name: tests-${{ matrix.os }}-py${{ matrix.python }}
-          path: ci-results.xml
+          path: |
+            ci-results.xml
+            device-probe.json
           if-no-files-found: warn

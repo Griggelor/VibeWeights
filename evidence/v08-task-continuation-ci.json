@@ -1,0 +1,55 @@
+{
+  "version": "0.8.0.dev21",
+  "date": "2026-11-28",
+  "tested_commit": "bce96a02ff120610ea770160a607ec0f8fb6c33c",
+  "run_id": 46142418702,
+  "run_url": "https://github.com/Griggelor/VibeWeights/actions/runs/46142418702",
+  "jobs": [
+    {
+      "os": "windows-latest",
+      "python": "3.12",
+      "job": 140971089134,
+      "seconds": 229.81,
+      "passed": 253,
+      "failed": 0,
+      "device_probe": "PASS",
+      "weight_reproduction": "success",
+      "smoke_tests": "success"
+    },
+    {
+      "os": "windows-latest",
+      "python": "3.13",
+      "job": 140971089430,
+      "seconds": 254.43,
+      "passed": 253,
+      "failed": 0,
+      "device_probe": "PASS",
+      "weight_reproduction": "success",
+      "smoke_tests": "success"
+    },
+    {
+      "os": "ubuntu-latest",
+      "python": "3.12",
+      "job": 140971089349,
+      "seconds": 49.18,
+      "passed": 253,
+      "failed": 0,
+      "device_probe": "PASS",
+      "weight_reproduction": "success",
+      "smoke_tests": "success"
+    },
+    {
+      "os": "ubuntu-latest",
+      "python": "3.13",
+      "job": 140971089494,
+      "seconds": 61.04,
+      "passed": 253,
+      "failed": 0,
+      "device_probe": "PASS",
+      "weight_reproduction": "success",
+      "smoke_tests": "success"
+    }
+  ],
+  "scope": "CPU only, includes dev19 and dev20 functionality; GPU/UMA target-host acceptance open",
+  "metadata_updated_after_test": true
+}

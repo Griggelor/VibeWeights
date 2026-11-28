@@ -10,6 +10,7 @@ from .abi import ContractError
 from .environment import Environment, Limits, Signal, identifier
 from .knowledge_learning import _hash
 from .perception import PerceptionHeads
+from .request_heads import RequestHeads, decide, local_features, validate_intent
 
 
 class _Member:
@@ -28,13 +29,22 @@ class _Member:
             if s.scope == self.scope and s.topic == self.source:
                 yield Signal(self.scope, self.target, self.population.compute(self.id, s.values))
 
+    def recruitment_request(self, snapshot):
+        """Local typed dependency check; no access to other experts' state."""
+        if not self.relevant(snapshot):
+            return self.id
+        return None
+
 
 class GroupWork:
-    def __init__(self, heads):
+    def __init__(self, heads, *, request_heads=None):
         if not isinstance(heads, PerceptionHeads): raise ContractError('perception heads required')
         self.heads = heads
         self.bus = heads.bus
         self.learning = heads.learning
+        if request_heads is not None and (not isinstance(request_heads,RequestHeads) or request_heads.learning is not self.learning):
+            raise ContractError('request heads must share learning owner')
+        self.request_heads=request_heads
         self.db = self.learning.db
         self.db.execute('''CREATE TABLE IF NOT EXISTS group_runs_v08(
           id TEXT PRIMARY KEY, receipt TEXT NOT NULL, sha TEXT NOT NULL)''')
@@ -49,13 +59,23 @@ class GroupWork:
         return data
 
     def execute(self, run, event, target, group, inputs, goal, validators, *, oracle_id,
-                limits=Limits(steps=64,rounds=16,signals=256)):
+                limits=Limits(steps=64,rounds=16,signals=256), recruitment_budget=0,
+                recruitment_policy='typed'):
         """One group-local numeric task; no manual ordering or external experts.
 
         Validators map topic to independent callable(snapshot, values). The
         caller's oracle identity is a trusted attestation. IDs are immutable;
         retry a failed or historical execution with a new run ID.
+
+        A positive recruitment_budget authorizes publication of missing-topic
+        metadata proposed by local adapters after clean stagnation. All or none
+        of the local requests are dispatched. Receipt first, source commit
+        second; dispatch_recruitment recovers an interrupted publication.
         """
+        if type(recruitment_budget) is not int or not 0<=recruitment_budget<=64:
+            raise ContractError('local recruitment budget')
+        if recruitment_policy not in ('typed','learned') or (recruitment_policy=='learned' and (not recruitment_budget or self.request_heads is None)):
+            raise ContractError('local recruitment policy')
         for x in (run,event,group,goal,oracle_id): identifier(x)
         if type(target) is not str or len(target)>140: raise ContractError('group target')
         if (not isinstance(limits,Limits) or limits.steps>1024 or limits.rounds>64 or
@@ -108,8 +128,59 @@ class GroupWork:
             data={'contract':'group-work-v1','run':run,'event':event,'target':target,'group':group,
                   'scope':scope,'members':bindings,'inputs':inputs,'goal':goal,'oracle_id':oracle_id,
                   'validator_topics':sorted(validators),'limits':asdict(limits),'result':result}
+            if recruitment_budget:
+                requesters=[]; decisions=[]
+                state='NOT_APPLICABLE'
+                if result['status']=='STAGNATION':
+                    snapshot=tuple(Signal(f['scope'],f['topic'],tuple(f['values'])) for f in result['facts'])
+                    if recruitment_policy=='learned':
+                        for m in manifests:
+                            features=local_features(m,scope,result['facts'],e['kind'],goal)
+                            decision=decide(l,m['id'],features)
+                            if decision is not None:
+                                decisions.append(decision)
+                                # Publication safety gate, not a decision fallback.
+                                if decision['request'] and features[0]:
+                                    requesters.append(m['id'])
+                    else:
+                        requesters=[req for adapter in adapters
+                                    if (req:=adapter.recruitment_request(snapshot)) is not None]
+                    if not requesters:
+                        state='NO_REQUEST'
+                    elif e['kind']=='RECRUIT' and e['payload']['depth']>=4:
+                        state='DEPTH_LIMIT'
+                    elif len(requesters)>recruitment_budget:
+                        state='BUDGET'
+                    else:
+                        state='READY'
+                data['recruitment']={'contract':'local-recruitment-v1','budget':recruitment_budget,
+                                     'requesters':requesters,'state':state}
+                if recruitment_policy=='learned':
+                    data['recruitment'].update(contract='learned-recruitment-v1',decisions=decisions)
             # Normalize tuples to JSON lists so persisted and immediate views match.
             raw=json.dumps(data,sort_keys=True,allow_nan=False); data=json.loads(raw)
             with self.db:
                 self.db.execute('INSERT INTO group_runs_v08 VALUES(?,?,?)',(run,raw,_hash(data)))
+        if recruitment_budget:
+            self.dispatch_recruitment(run)
         return data
+
+    def dispatch_recruitment(self, run):
+        """Resume opt-in local intents, never repeat the group calculation.
+
+        The original receipt is immutable. A successful source-DB commit may
+        be replayed safely by content hash. Stale ancestry prevents dispatch.
+        The two databases are deliberately not claimed to commit atomically.
+        """
+        data=self.receipt(run)
+        intent=data.get('recruitment')
+        if not intent or intent['state']!='READY':
+            return ()
+        if (intent.get('contract') not in ('local-recruitment-v1','learned-recruitment-v1') or
+            type(intent['budget']) is not int or not 1<=len(intent['requesters'])<=intent['budget']<=64 or
+            data['result']['status']!='STAGNATION' or data['result']['faults']):
+            raise ContractError('invalid local recruitment intent')
+        if intent['contract']=='learned-recruitment-v1':
+            with self.learning._guard():
+                validate_intent(self.learning,data,self.bus.event(data['event'])['kind'])
+        return self.bus.publish_recruitments(run,intent['requesters'])

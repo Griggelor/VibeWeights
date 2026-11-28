@@ -85,7 +85,31 @@ Verbindliche Arbeitsweise ab v0.8.0.dev13 (Nutzeranforderung): Jede Implementier
 - **Korrektur:** explizites `newline='\\n'` in Coalition-Manifestgenerator, bestehender strenger Bytes-Vergleich bleibt unverändert. Commit `2a8d1753c555f5602233eea72097f914c434a15c`, [CI 46141672717](https://github.com/Griggelor/VibeWeights/actions/runs/46141672717) gestartet, Ergebnis offen.
 - **Zielsystem:** Windows 11 / AMD Strix Halo (Nutzervorgabe). CPU-CI ist Basisprüfung, keine GPU-/UMA-Abnahme. Lokaler Container: Git, cURL und Python-Namensauflösung unabhängig erneut geprüft, DNS-Fehler auch für andere öffentliche Domains. GitHub-Connector funktioniert; kein Fehler des Zielrechners.
 
+### dev19 – Geräte-Abnahme zusätzlich zur lokalen Rekrutierung
+
+- Basis `a352250fa350a2196af8e79a1ff313c6df7184ae`; lokale Request-Initiierung und Batch-Recovery gemäß `docs/LOCAL_RECRUITMENT_v08.md`. Windows-LF-Fix übernommen (`7dc16f8f34ac93657cffa9ae365246420ea4e49e`).
+- Neu: `scripts/probe_population_device.py` (`0e3f3dce4f5953f29b47e1eb44aeec5e791258e5`), explizites CPU-/torch.cuda-Gerät, tatsächliche Tensorresidenz, Inferenz, Archivierung und Wiederaktivierung nach Neustart, keine CPU-Fallbacks. CI-CPU-Probe und JSON-Evidenz (`bfa19d895cd073246e36d8108d190e0686070478`). `docs/TARGET_WINDOWS_STRIX_HALO.md` definiert Abnahmestufen. Keine tatsächliche GPU-Ausführung oder Performancebehauptung. Dev19 noch nicht abgenommen.
+
+### dev20 – trainierbare lokale Anfrageentscheidung
+
+- **Basis:** dev19-Kandidat `a3e2d5b3d31d0075003d7532c08760c5a9051c59`. Hypothese: separat trainierte Experten können in derselben fehlenden Eingabesituation unterschiedlich entscheiden (Request vs. Abstention). Keine zentrale Auswahl.
+- **Methode:** eigener CPU-SGD-Request-Head, vier lokale binäre Merkmale, unabhängige Holdouts, unveränderliche Core-/Head-/Report-Bindung, keine symbolische Ersatzentscheidung. Integriert als opt-in learned policy; vollständiger Batch, erneute Gewichtsentscheidung bei Dispatch und Liveness. Vier neue Tests inklusive Neustart, Korruption und Ablehnung.
+- **Messung:** isoliertes PyTorch-Experiment 2.10.0+cpu, 512 SGD-Schritte, je 8 Trainings- und 8 disjunkte Holdout-Fälle, finale Verluste 0,06857049465179443 und 0,10157248377799988, jeweils 8/8 korrekt. Produktionspfad noch nicht ausgeführt. Details: [NEURAL_REQUEST_HEADS_v08.md](NEURAL_REQUEST_HEADS_v08.md).
+- **Grenzen:** künstliche Host-Labels, CPU-Referenz, keine allgemeine semantische oder autonome Aufgabenfortsetzung. Windows-CI und GPU-Abnahme bleiben Pflicht. Lokaler Git-Klon und DNS unabhängig erneut geprüft und blockiert.
+
+### dev21 – gebundene automatische Aufgabenfortsetzung
+
+- **Basis:** dev20-Kandidat `14bc45df97f5c273fe8cd36eea8e2f7ba83a5965`. Hypothese: Ein typisierter Auftrag kann über lokal initiierte Folgeevents ohne Host-Auswahl des Child-Events weiterbearbeitet werden.
+- **Methode:** `RecruitmentContinuation` mit unveränderlicher Task-/Oracle-/Budget-Bindung, deterministischem Event-Sweep ohne fachliche Auswahl, ursprünglicher Gruppenkey als Datengrenze, vollständige Zustellung vor Gruppenlauf, persistente Budgetreservierungen und Wiederaufnahme vorhandener Receipts. Historische Resultate niemals als neue verifizierte Antwort. Vier neue Tests inklusive fremder Gruppe und Fault Injection. [Vertrag und Versuchsplan](TASK_CONTINUATION_v08.md).
+- **CI:** Nur Main-Push und Pull-Request plus manueller Dispatch; überholte Revisionen desselben PR werden abgebrochen, keine Matrix-/Testreduktion. Dev18: 242/242 auf allen vier Plattformkonfigurationen in Lauf 46141672717; Windows-Rebuild und Smokes zum Schreibzeitpunkt noch offen. Dev19: beide Linux-Jobs 245/245 auf vorherigem Stand. Dev20/21 Integration noch offen. Kein neuer behaupteter Messwert für dev21.
+- **Grenzen:** Keine allgemeine Planung, kein GPU-Nachweis, Validatorcode bleibt Host-Attestation. Nächster Schritt sequenzielle Abnahme, danach nichtlinearer Kompetenztransfer.
+
 ### dev18 – vollständige CPU-CI-Abnahme
 
 - Getesteter Codecommit `2a8d1753c555f5602233eea72097f914c434a15c`, [Run 46141672717](https://github.com/Griggelor/VibeWeights/actions/runs/46141672717): vier erfolgreiche Jobs. Windows 3.12 242/242 in 221,09 s, Windows 3.13 242/242 in 228,33 s, Ubuntu 3.12 242/242 in 65,21 s, Ubuntu 3.13 242/242 in 38,78 s. Alle Artefakt-Rebuilds, Language-, Application-, Exploration-, Environment- und Memory-Smoke-Tests erfolgreich. [Maschinenlesbarer Nachweis](../evidence/v08-targeted-recruitment-ci-final.json).
 - Versions-/Statusmetadaten danach auf dev18 aktualisiert. Der Codecommit nach der LF-Korrektur ist funktional vollständig geprüft; Metadatencommit erhält eigene CI. Kein GPU-/UMA-Echtlauf. Nachfolgende Kandidaten dev19/20/21 separat, keine implizite Abnahme.
+
+### dev21 – vollständige CPU-CI-Abnahme und Release-Metadaten
+
+- Getesteter Commit `bce96a02ff120610ea770160a607ec0f8fb6c33c`, [Run 46142418702](https://github.com/Griggelor/VibeWeights/actions/runs/46142418702): Windows 3.12 253/253 (229,81 s), Windows 3.13 253/253 (254,43 s), Ubuntu 3.12 253/253 (49,18 s), Ubuntu 3.13 253/253 (61,04 s). Alle vier Geräteproben, Artefakt-Rebuilds und Smoke-Tests erfolgreich. [JSON-Evidenz](../evidence/v08-task-continuation-ci.json). Enthält die vollständige dev19/20-Funktionalität. dev20 eigenständiger Run 46142403133 ebenfalls vier grüne Jobs; dev19 eigenständiger Run 46142395098 zum Erfassungszeitpunkt teilweise offen.
+- dev18 exakter Release-Head CI 46142329650 vollständig erfolgreich; PR #1 in main übernommen (74094396d80d07db914f3f6a20b1dcd8cb324). Dev21 Versionsmetadaten jetzt auf dev21 aktualisiert; erneute Exact-Head-CI erforderlich. Keine GPU-/UMA-Echtlaufabnahme.

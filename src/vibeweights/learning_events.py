@@ -177,6 +177,11 @@ class LearningEvents:
                 (parent['id'],receipt['target'],receipt['group'],expert)).fetchone()
             if m['sha256']!=member['core_sha256'] or current!=(member['head'],member['head_sha256']) or not joined:
                 raise ContractError('stale recruitment binding')
+        intent=receipt.get('recruitment',{})
+        if intent.get('contract')=='learned-recruitment-v1':
+            from .request_heads import validate_intent
+            if intent.get('state')!='READY' or requester not in validate_intent(self.learning,receipt,parent['kind']):
+                raise ContractError('learned recruitment not authorized')
         core=self.learning.catalog.manifest(requester)
         topic=identifier(core['source_topic'])
         if any(f['scope']==receipt['scope'] and f['topic']==topic for f in result['facts']):
@@ -188,11 +193,31 @@ class LearningEvents:
 
     def publish_recruitment(self, run, requester):
         """Host-authorized publication; recipients still choose locally."""
+        return self.publish_recruitments(run,(requester,))[0]
+
+    def publish_recruitments(self, run, requesters):
+        """Validate all requests before one source-DB commit; idempotent retry.
+
+        The caller authorizes publication of topic metadata, not task values.
+        The source guard revalidates the historical run and all its ancestors.
+        No semantic ranking or selection of the requested experts.
+        """
+        identifier(run)
+        if type(requesters) not in (tuple,list) or not 1<=len(requesters)<=64:
+            raise ContractError('recruitment batch budget')
+        requesters=tuple(identifier(x) for x in requesters)
+        if len(set(requesters))!=len(requesters):
+            raise ContractError('duplicate recruitment requester')
         with self.learning._guard():
-            payload=self._recruitment_payload(run,requester,self._conflicts())
-            event=self._insert('RECRUIT',payload)
+            conflicts=self._conflicts()
+            payloads=tuple(self._recruitment_payload(run,x,conflicts) for x in requesters)
+            raw=self.learning.db.execute('SELECT receipt FROM group_runs_v08 WHERE id=?',(run,)).fetchone()
+            intent=json.loads(raw[0]).get('recruitment',{})
+            if intent.get('contract')=='learned-recruitment-v1' and set(requesters)!=set(intent['requesters']):
+                raise ContractError('complete learned recruitment batch required')
+            events=tuple(self._insert('RECRUIT',p) for p in payloads)
             self.db.commit()
-        return event
+        return events
 
     def event(self, event):
         identifier(event)
