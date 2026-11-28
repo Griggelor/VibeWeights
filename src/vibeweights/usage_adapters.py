@@ -12,6 +12,7 @@ from .coalition import Cooperation
 from .environment import identifier
 from .qwen3_fragments import _hash
 from .fragment_social_ports import unpack_tokens
+from . import social_revisions
 
 CONTRACT='usage-readout-evidence-v1'
 
@@ -24,9 +25,9 @@ def collect_usage(cooperation,session,episode_ids,*,port,oracle_id):
         raise ContractError('usage evidence request')
     for s in (session,oracle_id,*episode_ids):identifier(s)
     db=cooperation.db
-    row=db.execute('SELECT contract,spec_sha FROM social_population_v1 WHERE session=?',(session,)).fetchone()
-    if row is None:raise ContractError('usage source population missing')
-    spec=json.loads(row[0]);population_sha=row[1]
+    chain=social_revisions.history(db,session)
+    if not chain:raise ContractError('usage source population missing')
+    spec,population_sha=chain[0]
     if (_hash(spec)!=population_sha or spec.get('contract')!='social-episodes-v1'
         or spec.get('width')!=3 or spec.get('output_width')!=2
         or not isinstance(spec.get('cores'),dict)):
@@ -45,10 +46,11 @@ def collect_usage(cooperation,session,episode_ids,*,port,oracle_id):
             or receipt.get('released')!=receipt.get('candidate')
             or type(receipt.get('released')) is not list or len(receipt['released'])!=2):
             raise ContractError('usage requires verified joint output')
+        revision,revision_sha=social_revisions.historical(chain,receipt)
         released=receipt['released'];contrib=receipt.get('contributions');marginal=receipt.get('marginal')
         if (not isinstance(contrib,dict) or not isinstance(marginal,dict)
             or set(contrib)!=set(marginal) or set(contrib)!=set(receipt.get('members',[]))
-            or len(contrib)<2 or not set(contrib)<=set(spec['cores'])
+            or len(contrib)<2 or not set(contrib)<=set(revision['cores'])
             or any(type(v) is not list or len(v)!=2 or any(type(x) not in (int,float) or not math.isfinite(x) for x in v) for v in contrib.values())):
             raise ContractError('usage contribution provenance')
         if ([math.fsum(v[i] for v in contrib.values()) for i in range(2)]!=released
@@ -58,8 +60,10 @@ def collect_usage(cooperation,session,episode_ids,*,port,oracle_id):
         tokens=unpack_tokens(receipt['payload'])[port]
         if tokens in seen:raise ContractError('usage duplicate training input')
         seen.add(tokens);cases.append((tokens,int(released[port]>0)))
-        refs.append({'episode':episode,'receipt_sha256':raw[2],
-                     'contributors':{k:spec['cores'][k] for k in sorted(contrib)}})
+        source={'episode':episode,'receipt_sha256':raw[2],
+                'contributors':{k:revision['cores'][k] for k in sorted(contrib)}}
+        if revision_sha!=population_sha:source['population_sha256']=revision_sha
+        refs.append(source)
     if {y for _,y in cases}!={0,1}:raise ContractError('usage both classes required')
     proof={'contract':CONTRACT,'session':session,'oracle_id':oracle_id,'port':port,
            'population_sha256':population_sha,'sources':refs,'training_sha256':_hash(cases)}
