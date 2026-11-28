@@ -18,14 +18,17 @@ from .qwen3_fragments import FragmentStore, DecoderSpan, _hf, _hash, _write
 CONTRACT='fragment-adapter-a1-v1'
 HEAD_FEATURES=('topic_matches','input_available','recruitment','priority')
 MODES=('pretrained','random','embedding-only')
+POOLINGS=('mean-l2-v1','token-l2-mean-v1','last-l2-v1')
+CONDITIONINGS=('none','train-centered-radius-v1')
 
 
 class FrozenPrefix:
     """Experimental native-token input adapter and frozen fragment encoder."""
-    def __init__(self,store,stop,*,mode='pretrained'):
+    def __init__(self,store,stop,*,mode='pretrained',pooling='mean-l2-v1'):
         if not isinstance(store,FragmentStore) or type(stop) is not int or not 1<=stop<=store.config.num_hidden_layers or mode not in MODES:
             raise ContractError('fragment prefix contract')
-        self.store=store;self.stop=stop;self.mode=mode
+        if pooling not in POOLINGS:raise ContractError('fragment pooling contract')
+        self.store=store;self.stop=stop;self.mode=mode;self.pooling=pooling
         self.embedding=store._load(store.manifest['embedding'])['weight'].to(store.device,dtype=torch.float32)
         if tuple(self.embedding.shape)!=(store.config.vocab_size,store.config.hidden_size):
             raise ContractError('fragment embedding shape')
@@ -50,6 +53,8 @@ class FrozenPrefix:
                   'embedding_sha256':store.manifest['embedding']['sha256'],
                   'block_sha256':[b['sha256'] for b in store.manifest['blocks'][:stop]] if mode=='pretrained' else [],
                   'random_seed':29 if mode=='random' else None}
+        # Preserve default v1 identity; new representations are explicitly bound.
+        if pooling!='mean-l2-v1':self.ref['pooling']=pooling
         self.core_bytes=0 if self.span is None else sum(p.numel()*p.element_size() for layer in self.span.layers for p in layer.parameters())
         self.embedding_bytes=self.embedding.numel()*self.embedding.element_size()
 
@@ -63,9 +68,44 @@ class FrozenPrefix:
         tokens=self.tokens(tokens)
         h=torch.nn.functional.embedding(torch.tensor([tokens],device=self.store.device),self.embedding)
         if self.span is not None:h=self.span.forward(h)
-        pooled=h.mean(dim=1).squeeze(0)
-        if not torch.isfinite(pooled).all():raise ContractError('adapter nonfinite latent')
-        return torch.nn.functional.normalize(pooled,dim=0,eps=1e-12).cpu()
+        return pool_latent(h,self.pooling).cpu()
+
+
+def pool_latent(h,pooling):
+    if (not isinstance(h,torch.Tensor) or h.ndim!=3 or h.shape[0]!=1 or not h.shape[1] or
+        not h.shape[2] or h.dtype!=torch.float32 or not torch.isfinite(h).all() or pooling not in POOLINGS):
+        raise ContractError('adapter latent pooling contract')
+    if pooling=='token-l2-mean-v1':
+        pooled=torch.nn.functional.normalize(h,dim=-1,eps=1e-12).mean(dim=1).squeeze(0)
+    elif pooling=='last-l2-v1':pooled=h[0,-1]
+    else:pooled=h.mean(dim=1).squeeze(0)
+    if not torch.isfinite(pooled).all():raise ContractError('adapter nonfinite latent')
+    return torch.nn.functional.normalize(pooled,dim=0,eps=1e-12)
+
+
+def condition_training(x,conditioning):
+    """Fit an isotropic affine normalization exclusively from training latents."""
+    if (conditioning not in CONDITIONINGS or not isinstance(x,torch.Tensor) or x.ndim!=2 or
+        not len(x) or not x.shape[1] or not torch.isfinite(x).all()):
+        raise ContractError('adapter conditioning contract')
+    x=x.to(dtype=torch.float64,device='cpu')
+    center=x.mean(dim=0)
+    radius=float((x-center).square().sum(dim=1).mean().sqrt())
+    gain=min(1000.,1./max(radius,1e-6)) if conditioning!='none' else 1.
+    origin=center if conditioning!='none' else torch.zeros_like(center)
+    return (x-origin)*gain,origin,gain,{'contract':conditioning,'training_radius':radius,
+        'training_mean_norm':float(center.norm()),'gain':gain,
+        'training_latent_sha256':_hash(x.tolist())}
+
+
+def fold_conditioning(w,b,center,gain):
+    # No extra persistent adapter dimensions. Evaluate the exported FP32
+    # readout itself, never the more favorable float64 fit.
+    w=w.double()*gain;b=b.double()-w@center
+    w,b=w.float(),b.float()
+    if not torch.isfinite(w).all() or not torch.isfinite(b).all():
+        raise ContractError('adapter nonfinite folded weights')
+    return w,b
 
 
 def _cases(encoder,cases):
@@ -110,7 +150,7 @@ def _head_cases(priority):
     return x,(x[:,0]*x[:,1]).long()
 
 
-def fit_experiment(encoder,training,holdout,*,topic,training_oracle,holdout_oracle,output,steps=64):
+def fit_experiment(encoder,training,holdout,*,topic,training_oracle,holdout_oracle,output,steps=64,conditioning='none'):
     """Fit once, evaluate disjoint labels, atomically persist candidate and receipt.
 
     A failed control is a result, not a workflow error. Only a fully passed
@@ -123,7 +163,10 @@ def fit_experiment(encoder,training,holdout,*,topic,training_oracle,holdout_orac
     output=Path(output).resolve()
     if output.exists():raise ContractError('adapter output already exists')
     x=torch.stack([encoder.features(v) for v,_ in train]);y=torch.tensor([v for _,v in train])
-    w,b,stats=_fit(x,y,steps,regularization=0.001)
+    normalized,center,gain,conditioning_stats=condition_training(x,conditioning)
+    w,b,stats=_fit(normalized,y,steps,regularization=0.001)
+    w,b=fold_conditioning(w,b,center,gain)
+    stats['conditioning']=conditioning_stats
     # Heads have their own objective and metadata-only disjoint input split.
     hx,hy=_head_cases(0);hw,hb,head_stats=_fit(hx,hy,64,regularization=0.001)
     tx=torch.stack([encoder.features(v) for v,_ in test]);ty=torch.tensor([v for _,v in test])
@@ -141,7 +184,7 @@ def fit_experiment(encoder,training,holdout,*,topic,training_oracle,holdout_orac
         tensors={'w':w,'b':b,'head_w':hw,'head_b':hb}
         save_file(tensors,str(stage/'adapter.safetensors'),metadata={'contract':CONTRACT})
         spec={'contract':CONTRACT,'core':encoder.ref,'topic':topic,'features':list(HEAD_FEATURES),
-              'pooling':'mean-l2-v1','adapter_sha256':digest(stage/'adapter.safetensors'),
+              'pooling':encoder.pooling,'adapter_sha256':digest(stage/'adapter.safetensors'),
               'adapter_parameters':sum(t.numel() for t in tensors.values()),
               'core_fp32_bytes':encoder.core_bytes,'embedding_fp32_bytes':encoder.embedding_bytes,
               'report':report,'torch':str(torch.__version__)}
@@ -158,7 +201,7 @@ class FragmentCompetence:
         self.encoder=encoder;root=Path(root)
         e=json.loads((root/'manifest.json').read_text(encoding='utf-8'));m=e['manifest']
         if (_hash(m)!=e['sha256'] or m['contract']!=CONTRACT or m['core']!=encoder.ref or
-            m['features']!=list(HEAD_FEATURES) or m['pooling']!='mean-l2-v1'):
+            m['features']!=list(HEAD_FEATURES) or m['pooling']!=encoder.pooling):
             raise ContractError('adapter manifest/core integrity')
         r=m['report']
         if encoder.mode!='pretrained' or r['admitted'] is not True or r['passed'] is not True or any(
