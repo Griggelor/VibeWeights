@@ -89,7 +89,7 @@ class Population:
     @property
     def tensor_bytes(self):
         return sum(t.numel()*t.element_size() for e in self._resident.values()
-                   for t in (e.w, e.b))
+                   for t in e.tensors)
 
     def _check(self):
         if self._closed:
