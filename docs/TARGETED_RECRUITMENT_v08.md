@@ -67,3 +67,7 @@ Request-Generierung während laufender Gruppen, sichere Wiederaufnahme,
 gemeinsame Rekrutierungsbudgets und nichtlineare Kompetenzübertragung.
 Keine freie semantische Wahrnehmung, keine autonome Lernjob-Initiierung,
 keine reale LLM-/Fragment-/GPU-/Windows-Abnahme.
+
+## Abnahme auf Windows und Linux
+
+[CI 46141672717](https://github.com/Griggelor/VibeWeights/actions/runs/46141672717) am korrigierten Codecommit `2a8d1753c555f5602233eea72097f914c434a15c`: vier grüne Jobs, jeweils 242/242 Tests einschließlich beider neuer Rekrutierungstests, Artefaktreproduktion und aller Smoke-Tests. [Maschinenlesbare Messdaten](../evidence/v08-targeted-recruitment-ci-final.json). Windows 11 / AMD Strix Halo ist das primäre Zielsystem; GitHub Windows CPU CI ersetzt keinen GPU-/UMA-Echtlauf. Host-initiierte Veröffentlichung bleibt Grenze von dev18.
