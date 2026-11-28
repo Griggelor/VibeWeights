@@ -142,9 +142,12 @@ class LearningEvents:
         contracts, not a learned request-generation policy.
         """
         identifier(run); identifier(requester)
-        if not self.db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='group_runs_v08'").fetchone():
+        # Run receipts and admitted heads belong to the catalog, while
+        # event memberships belong to the source/knowledge database.
+        catalog_db=self.learning.db
+        if not catalog_db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='group_runs_v08'").fetchone():
             raise ContractError('group work required')
-        row=self.db.execute('SELECT receipt,sha FROM group_runs_v08 WHERE id=?',(run,)).fetchone()
+        row=catalog_db.execute('SELECT receipt,sha FROM group_runs_v08 WHERE id=?',(run,)).fetchone()
         if row is None: raise ContractError('unknown recruitment run')
         receipt=json.loads(row[0])
         if _hash(receipt)!=row[1] or receipt.get('run')!=run or receipt.get('contract')!='group-work-v1':
@@ -167,7 +170,7 @@ class LearningEvents:
             if expert not in residents:
                 raise ContractError('stale recruitment member')
             m=self.learning.catalog.manifest(expert)
-            current=self.db.execute('''SELECT b.head,h.sha FROM perception_bindings_v08 b
+            current=catalog_db.execute('''SELECT b.head,h.sha FROM perception_bindings_v08 b
                 JOIN perception_heads_v08 h ON h.id=b.head WHERE b.expert=?''',(expert,)).fetchone()
             joined=self.db.execute('''SELECT 1 FROM learning_event_members_v08
                 WHERE event=? AND target=? AND name=? AND expert=?''',
