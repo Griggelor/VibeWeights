@@ -1,0 +1,2619 @@
+{
+  "status": "COMPLETED",
+  "source": {
+    "config_sha256": "504a6b58c4271583724e66584b6b7698aea18450209df6b2f7582df0e89cee59",
+    "license_sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+    "model_id": "Qwen/Qwen3-0.6B-Base",
+    "origin": "PRETRAINED",
+    "revision": "da87bfb608c14b7cf20ba1ce41287e8de496c0cd",
+    "weights_bytes": 1192135096,
+    "weights_sha256": "cd2a512003e2f9f3cd3c32a9c3573f820bb28c940f73c57b1ddaa983d9223eba"
+  },
+  "device": "cpu",
+  "training_texts": [
+    [
+      "The gardener was delighted by the beautiful flowers.",
+      1
+    ],
+    [
+      "The delivery driver was helpful and courteous.",
+      1
+    ],
+    [
+      "I loved every moment of the exhibition.",
+      1
+    ],
+    [
+      "The software saved me hours of tedious work.",
+      1
+    ],
+    [
+      "The hotel room was spotless and comfortable.",
+      1
+    ],
+    [
+      "The children laughed happily at the puppet show.",
+      1
+    ],
+    [
+      "The new headphones sound wonderfully clear.",
+      1
+    ],
+    [
+      "We were impressed by the team's excellent work.",
+      1
+    ],
+    [
+      "The garden looked neglected and ugly.",
+      0
+    ],
+    [
+      "The driver was hostile and unhelpful.",
+      0
+    ],
+    [
+      "I could not stand the dreadful exhibition.",
+      0
+    ],
+    [
+      "The software crashed and wasted my entire morning.",
+      0
+    ],
+    [
+      "The hotel room was filthy and uncomfortable.",
+      0
+    ],
+    [
+      "The children were frightened by the awful show.",
+      0
+    ],
+    [
+      "The headphones produce a horrible distorted sound.",
+      0
+    ],
+    [
+      "The team's careless work was a huge disappointment.",
+      0
+    ]
+  ],
+  "holdout_texts": [
+    [
+      "The mountain walk was a joyful adventure.",
+      1
+    ],
+    [
+      "My appointment went smoothly and I felt respected.",
+      1
+    ],
+    [
+      "This jacket is beautifully made and fits perfectly.",
+      1
+    ],
+    [
+      "The museum guide made the visit fascinating.",
+      1
+    ],
+    [
+      "The mechanic did an outstanding job.",
+      1
+    ],
+    [
+      "The bakery's pastries were absolutely superb.",
+      1
+    ],
+    [
+      "The festival was a cheerful and memorable occasion.",
+      1
+    ],
+    [
+      "I am grateful for the thoughtful support.",
+      1
+    ],
+    [
+      "The mountain walk turned into a miserable ordeal.",
+      0
+    ],
+    [
+      "The appointment was chaotic and humiliating.",
+      0
+    ],
+    [
+      "This jacket fell apart after one wearing.",
+      0
+    ],
+    [
+      "The museum tour was painfully dull.",
+      0
+    ],
+    [
+      "The mechanic made the problem even worse.",
+      0
+    ],
+    [
+      "The pastries were stale and tasted terrible.",
+      0
+    ],
+    [
+      "The festival was an unpleasant disaster.",
+      0
+    ],
+    [
+      "I was upset by the dismissive treatment.",
+      0
+    ]
+  ],
+  "training_tokens": [
+    [
+      [
+        785,
+        21881,
+        798,
+        572,
+        33972,
+        553,
+        279,
+        6233,
+        19281,
+        13
+      ],
+      1
+    ],
+    [
+      [
+        785,
+        9691,
+        5579,
+        572,
+        10950,
+        323,
+        88188,
+        13
+      ],
+      1
+    ],
+    [
+      [
+        40,
+        10245,
+        1449,
+        4445,
+        315,
+        279,
+        27001,
+        13
+      ],
+      1
+    ],
+    [
+      [
+        785,
+        3162,
+        6781,
+        752,
+        4115,
+        315,
+        65738,
+        975,
+        13
+      ],
+      1
+    ],
+    [
+      [
+        785,
+        9500,
+        3054,
+        572,
+        7702,
+        1717,
+        323,
+        10655,
+        13
+      ],
+      1
+    ],
+    [
+      [
+        785,
+        2841,
+        31527,
+        36775,
+        518,
+        279,
+        49448,
+        1473,
+        13
+      ],
+      1
+    ],
+    [
+      [
+        785,
+        501,
+        43001,
+        5112,
+        59985,
+        2797,
+        13
+      ],
+      1
+    ],
+    [
+      [
+        1654,
+        1033,
+        24404,
+        553,
+        279,
+        2083,
+        594,
+        9073,
+        975,
+        13
+      ],
+      1
+    ],
+    [
+      [
+        785,
+        13551,
+        6966,
+        50433,
+        323,
+        27261,
+        13
+      ],
+      0
+    ],
+    [
+      [
+        785,
+        5579,
+        572,
+        32515,
+        323,
+        650,
+        8653,
+        1262,
+        13
+      ],
+      0
+    ],
+    [
+      [
+        40,
+        1410,
+        537,
+        2498,
+        279,
+        80852,
+        27001,
+        13
+      ],
+      0
+    ],
+    [
+      [
+        785,
+        3162,
+        33753,
+        323,
+        38828,
+        847,
+        4453,
+        6556,
+        13
+      ],
+      0
+    ],
+    [
+      [
+        785,
+        9500,
+        3054,
+        572,
+        77342,
+        323,
+        28113,
+        13
+      ],
+      0
+    ],
+    [
+      [
+        785,
+        2841,
+        1033,
+        59078,
+        553,
+        279,
+        24607,
+        1473,
+        13
+      ],
+      0
+    ],
+    [
+      [
+        785,
+        43001,
+        8193,
+        264,
+        27102,
+        61136,
+        5112,
+        13
+      ],
+      0
+    ],
+    [
+      [
+        785,
+        2083,
+        594,
+        83734,
+        975,
+        572,
+        264,
+        6765,
+        40598,
+        13
+      ],
+      0
+    ]
+  ],
+  "holdout_tokens": [
+    [
+      [
+        785,
+        16301,
+        4227,
+        572,
+        264,
+        82112,
+        17943,
+        13
+      ],
+      1
+    ],
+    [
+      [
+        5050,
+        17635,
+        3937,
+        38411,
+        323,
+        358,
+        6476,
+        30287,
+        13
+      ],
+      1
+    ],
+    [
+      [
+        1986,
+        26208,
+        374,
+        31619,
+        1865,
+        323,
+        18304,
+        13942,
+        13
+      ],
+      1
+    ],
+    [
+      [
+        785,
+        23971,
+        8474,
+        1865,
+        279,
+        3947,
+        26291,
+        13
+      ],
+      1
+    ],
+    [
+      [
+        785,
+        44139,
+        1521,
+        458,
+        18781,
+        2618,
+        13
+      ],
+      1
+    ],
+    [
+      [
+        785,
+        65144,
+        594,
+        3267,
+        4019,
+        1033,
+        10875,
+        32589,
+        13
+      ],
+      1
+    ],
+    [
+      [
+        785,
+        18780,
+        572,
+        264,
+        70314,
+        323,
+        32496,
+        13101,
+        13
+      ],
+      1
+    ],
+    [
+      [
+        40,
+        1079,
+        25195,
+        369,
+        279,
+        42666,
+        1824,
+        13
+      ],
+      1
+    ],
+    [
+      [
+        785,
+        16301,
+        4227,
+        6519,
+        1119,
+        264,
+        49639,
+        73681,
+        13
+      ],
+      0
+    ],
+    [
+      [
+        785,
+        17635,
+        572,
+        51987,
+        323,
+        91738,
+        13
+      ],
+      0
+    ],
+    [
+      [
+        1986,
+        26208,
+        11052,
+        10747,
+        1283,
+        825,
+        12233,
+        13
+      ],
+      0
+    ],
+    [
+      [
+        785,
+        23971,
+        7216,
+        572,
+        75599,
+        40530,
+        13
+      ],
+      0
+    ],
+    [
+      [
+        785,
+        44139,
+        1865,
+        279,
+        3491,
+        1496,
+        10960,
+        13
+      ],
+      0
+    ],
+    [
+      [
+        785,
+        3267,
+        4019,
+        1033,
+        50351,
+        323,
+        60480,
+        17478,
+        13
+      ],
+      0
+    ],
+    [
+      [
+        785,
+        18780,
+        572,
+        458,
+        46889,
+        20763,
+        13
+      ],
+      0
+    ],
+    [
+      [
+        40,
+        572,
+        22459,
+        553,
+        279,
+        13432,
+        533,
+        6380,
+        13
+      ],
+      0
+    ]
+  ],
+  "arms": [
+    [
+      "p6-baseline",
+      "pretrained",
+      6,
+      "mean-l2-v1",
+      "none"
+    ],
+    [
+      "p6-pool",
+      "pretrained",
+      6,
+      "token-l2-mean-v1",
+      "none"
+    ],
+    [
+      "p6-condition",
+      "pretrained",
+      6,
+      "mean-l2-v1",
+      "train-centered-radius-v1"
+    ],
+    [
+      "p6-combined",
+      "pretrained",
+      6,
+      "token-l2-mean-v1",
+      "train-centered-radius-v1"
+    ],
+    [
+      "r6-combined",
+      "random",
+      6,
+      "token-l2-mean-v1",
+      "train-centered-radius-v1"
+    ],
+    [
+      "e-combined",
+      "embedding-only",
+      6,
+      "token-l2-mean-v1",
+      "train-centered-radius-v1"
+    ],
+    [
+      "p16-combined",
+      "pretrained",
+      16,
+      "token-l2-mean-v1",
+      "train-centered-radius-v1"
+    ],
+    [
+      "r16-combined",
+      "random",
+      16,
+      "token-l2-mean-v1",
+      "train-centered-radius-v1"
+    ]
+  ],
+  "models": {
+    "p6-baseline": {
+      "contract": "fragment-adapter-a1-v1",
+      "core": {
+        "contract": "qwen3-native-prefix-v1",
+        "store_sha256": "77fa7c2305b4973d0529670d3275b67c7e1b24255f65267a5e3eebeb9e115f69",
+        "source_origin": "PRETRAINED",
+        "start": 0,
+        "stop": 6,
+        "mode": "pretrained",
+        "embedding_sha256": "443759d45e1b02d3f0ff8a7858a70f0168e6f643319792d4566e098e696ee3f8",
+        "block_sha256": [
+          "695213bca689e96a0f7e62846d21982358aa635dbc407d3d936c7e22b7301bf7",
+          "6a6e02e7329ad11882ad40a5b5f6e27ec0d9680d6271ffcaf1e8cde3e25b15f4",
+          "ab179afd738b06c10b66b9d542ef33845292c3a9a10953ca041bdfb25e8322a4",
+          "b3a84b19573986fdb07a36bbcddbb2368986e9d2120d86e81fa641172c87efa0",
+          "0150873a1d01d3d7fbe6a9fe37ad521e52216f5ecbfdad7d68e1a5f9d288b951",
+          "5ceb498fba17ef9b315cd668e8f081c052ea85ce8929ca3a662702ae5cd31cf0"
+        ],
+        "random_seed": null
+      },
+      "topic": "sentiment",
+      "features": [
+        "topic_matches",
+        "input_available",
+        "recruitment",
+        "priority"
+      ],
+      "pooling": "mean-l2-v1",
+      "adapter_sha256": "19d9f86f018ff8039a8714e589bea636ea377a7422552de0721c81f568915c6c",
+      "adapter_parameters": 1030,
+      "core_fp32_bytes": 377542656,
+      "embedding_fp32_bytes": 622329856,
+      "report": {
+        "training": {
+          "cases": 16,
+          "passed": 16,
+          "expected": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "predictions": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "scores": [
+            0.0015742643736302853,
+            0.00029870992875657976,
+            0.0017758437898010015,
+            0.0008519916445948184,
+            0.00019019178580492735,
+            0.0013769257348030806,
+            0.0005558849079534411,
+            0.00143722677603364,
+            -0.0009896629489958286,
+            -0.0015842174179852009,
+            -0.0013311798684298992,
+            -0.0012325639836490154,
+            -0.0005490834009833634,
+            -0.0003779717371799052,
+            -0.0010116496123373508,
+            -0.0010060453787446022
+          ]
+        },
+        "holdout": {
+          "cases": 16,
+          "passed": 13,
+          "expected": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "predictions": [
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "scores": [
+            -0.000020761683117598295,
+            0.00011355924652889371,
+            0.0004963555838912725,
+            0.0006599275511689484,
+            -0.0000025086337700486183,
+            0.00037612233427353203,
+            0.00034874118864536285,
+            0.0011894030030816793,
+            -0.001117257634177804,
+            -0.0008117338293232024,
+            -0.0002850446617230773,
+            -0.00027802411932498217,
+            -0.0002094729570671916,
+            -0.0007257101242430508,
+            -0.0006811093189753592,
+            0.000017848156858235598
+          ]
+        },
+        "head_training": {
+          "cases": 8,
+          "passed": 8,
+          "expected": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "predictions": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "scores": [
+            -8.539137840270996,
+            -8.539142608642578,
+            -3.093719482421875,
+            -3.093724250793457,
+            -3.093719482421875,
+            -3.093724250793457,
+            2.351698875427246,
+            2.351694107055664
+          ]
+        },
+        "head_holdout": {
+          "cases": 8,
+          "passed": 8,
+          "expected": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "predictions": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "scores": [
+            -8.539137840270996,
+            -8.539142608642578,
+            -3.093719482421875,
+            -3.093724250793457,
+            -3.093719482421875,
+            -3.093724250793457,
+            2.351698875427246,
+            2.351694107055664
+          ]
+        },
+        "passed": false,
+        "admitted": false,
+        "training_oracle": "authored-train-v2",
+        "holdout_oracle": "authored-test-v2",
+        "training_sha256": "1e77f8958a30eac30c940d6cabe4fcb394f2a1f56d1905e8c56d47bd6886a534",
+        "holdout_sha256": "266e973cf0977e1a134c63110d66845ad2f283b460dbb3b1b19d055580d5871d",
+        "adapter_fit": {
+          "initial_loss": 0.6931471805599453,
+          "final_loss": 0.6928949396282,
+          "steps": 64,
+          "optimizer": "LBFGS",
+          "l2": 0.001,
+          "conditioning": {
+            "contract": "none",
+            "training_radius": 0.008963973586216156,
+            "training_mean_norm": 0.9999599000472411,
+            "gain": 1,
+            "training_latent_sha256": "cc0590727f27b82b570720702e09e932ec856e0c46ce04066a44447bb88978a3"
+          }
+        },
+        "head_fit": {
+          "initial_loss": 0.6931471805599453,
+          "final_loss": 0.10425774198096768,
+          "steps": 64,
+          "optimizer": "LBFGS",
+          "l2": 0.001
+        }
+      },
+      "torch": "2.10.0+cpu"
+    },
+    "p6-pool": {
+      "contract": "fragment-adapter-a1-v1",
+      "core": {
+        "contract": "qwen3-native-prefix-v1",
+        "store_sha256": "77fa7c2305b4973d0529670d3275b67c7e1b24255f65267a5e3eebeb9e115f69",
+        "source_origin": "PRETRAINED",
+        "start": 0,
+        "stop": 6,
+        "mode": "pretrained",
+        "embedding_sha256": "443759d45e1b02d3f0ff8a7858a70f0168e6f643319792d4566e098e696ee3f8",
+        "block_sha256": [
+          "695213bca689e96a0f7e62846d21982358aa635dbc407d3d936c7e22b7301bf7",
+          "6a6e02e7329ad11882ad40a5b5f6e27ec0d9680d6271ffcaf1e8cde3e25b15f4",
+          "ab179afd738b06c10b66b9d542ef33845292c3a9a10953ca041bdfb25e8322a4",
+          "b3a84b19573986fdb07a36bbcddbb2368986e9d2120d86e81fa641172c87efa0",
+          "0150873a1d01d3d7fbe6a9fe37ad521e52216f5ecbfdad7d68e1a5f9d288b951",
+          "5ceb498fba17ef9b315cd668e8f081c052ea85ce8929ca3a662702ae5cd31cf0"
+        ],
+        "random_seed": null,
+        "pooling": "token-l2-mean-v1"
+      },
+      "topic": "sentiment",
+      "features": [
+        "topic_matches",
+        "input_available",
+        "recruitment",
+        "priority"
+      ],
+      "pooling": "token-l2-mean-v1",
+      "adapter_sha256": "cb2279bb327b250acd19ad14163d1f9f943cb86c2a865cff403a93dfb4a98f59",
+      "adapter_parameters": 1030,
+      "core_fp32_bytes": 377542656,
+      "embedding_fp32_bytes": 622329856,
+      "report": {
+        "training": {
+          "cases": 16,
+          "passed": 16,
+          "expected": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "predictions": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "scores": [
+            1.052773118019104,
+            0.6808522939682007,
+            1.5605860948562622,
+            0.9366991519927979,
+            0.43122634291648865,
+            1.0909245014190674,
+            0.967994749546051,
+            1.010762095451355,
+            -1.1690655946731567,
+            -1.1967828273773193,
+            -1.4329506158828735,
+            -1.0667423009872437,
+            -0.499301552772522,
+            -0.6134713888168335,
+            -0.917575478553772,
+            -0.8231062889099121
+          ]
+        },
+        "holdout": {
+          "cases": 16,
+          "passed": 15,
+          "expected": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "predictions": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "scores": [
+            -0.07065969705581665,
+            0.019080638885498047,
+            0.5601252913475037,
+            0.793297529220581,
+            0.24109235405921936,
+            0.43981361389160156,
+            0.2777523994445801,
+            1.2297728061676025,
+            -0.9469233751296997,
+            -0.7326767444610596,
+            -0.2862529158592224,
+            -0.2786703109741211,
+            -0.06600630283355713,
+            -0.6403964757919312,
+            -0.7505375146865845,
+            -0.16142749786376953
+          ]
+        },
+        "head_training": {
+          "cases": 8,
+          "passed": 8,
+          "expected": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "predictions": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "scores": [
+            -8.539137840270996,
+            -8.539142608642578,
+            -3.093719482421875,
+            -3.093724250793457,
+            -3.093719482421875,
+            -3.093724250793457,
+            2.351698875427246,
+            2.351694107055664
+          ]
+        },
+        "head_holdout": {
+          "cases": 8,
+          "passed": 8,
+          "expected": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "predictions": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "scores": [
+            -8.539137840270996,
+            -8.539142608642578,
+            -3.093719482421875,
+            -3.093724250793457,
+            -3.093719482421875,
+            -3.093724250793457,
+            2.351698875427246,
+            2.351694107055664
+          ]
+        },
+        "passed": false,
+        "admitted": false,
+        "training_oracle": "authored-train-v2",
+        "holdout_oracle": "authored-test-v2",
+        "training_sha256": "1e77f8958a30eac30c940d6cabe4fcb394f2a1f56d1905e8c56d47bd6886a534",
+        "holdout_sha256": "266e973cf0977e1a134c63110d66845ad2f283b460dbb3b1b19d055580d5871d",
+        "adapter_fit": {
+          "initial_loss": 0.6931471805599453,
+          "final_loss": 0.4576800765245667,
+          "steps": 64,
+          "optimizer": "LBFGS",
+          "l2": 0.001,
+          "conditioning": {
+            "contract": "none",
+            "training_radius": 0.3747621150372447,
+            "training_mean_norm": 0.9271210029713711,
+            "gain": 1,
+            "training_latent_sha256": "35341b72261290d877162a5d91b469ec24772707f93f34e0b84589dc6c531003"
+          }
+        },
+        "head_fit": {
+          "initial_loss": 0.6931471805599453,
+          "final_loss": 0.10425774198096768,
+          "steps": 64,
+          "optimizer": "LBFGS",
+          "l2": 0.001
+        }
+      },
+      "torch": "2.10.0+cpu"
+    },
+    "p6-condition": {
+      "contract": "fragment-adapter-a1-v1",
+      "core": {
+        "contract": "qwen3-native-prefix-v1",
+        "store_sha256": "77fa7c2305b4973d0529670d3275b67c7e1b24255f65267a5e3eebeb9e115f69",
+        "source_origin": "PRETRAINED",
+        "start": 0,
+        "stop": 6,
+        "mode": "pretrained",
+        "embedding_sha256": "443759d45e1b02d3f0ff8a7858a70f0168e6f643319792d4566e098e696ee3f8",
+        "block_sha256": [
+          "695213bca689e96a0f7e62846d21982358aa635dbc407d3d936c7e22b7301bf7",
+          "6a6e02e7329ad11882ad40a5b5f6e27ec0d9680d6271ffcaf1e8cde3e25b15f4",
+          "ab179afd738b06c10b66b9d542ef33845292c3a9a10953ca041bdfb25e8322a4",
+          "b3a84b19573986fdb07a36bbcddbb2368986e9d2120d86e81fa641172c87efa0",
+          "0150873a1d01d3d7fbe6a9fe37ad521e52216f5ecbfdad7d68e1a5f9d288b951",
+          "5ceb498fba17ef9b315cd668e8f081c052ea85ce8929ca3a662702ae5cd31cf0"
+        ],
+        "random_seed": null
+      },
+      "topic": "sentiment",
+      "features": [
+        "topic_matches",
+        "input_available",
+        "recruitment",
+        "priority"
+      ],
+      "pooling": "mean-l2-v1",
+      "adapter_sha256": "e65f4c3d823daead57014616ce5b5f036a0c36764618adcbc20878dd45e91f49",
+      "adapter_parameters": 1030,
+      "core_fp32_bytes": 377542656,
+      "embedding_fp32_bytes": 622329856,
+      "report": {
+        "training": {
+          "cases": 16,
+          "passed": 16,
+          "expected": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "predictions": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "scores": [
+            2.520383358001709,
+            1.8816685676574707,
+            2.8203091621398926,
+            2.2500839233398438,
+            1.414635181427002,
+            2.317763328552246,
+            1.990009069442749,
+            2.5415287017822266,
+            -2.2439160346984863,
+            -2.5251240730285645,
+            -2.6678504943847656,
+            -2.4553380012512207,
+            -1.3620011806488037,
+            -1.9542818069458008,
+            -2.1290109157562256,
+            -2.3332948684692383
+          ]
+        },
+        "holdout": {
+          "cases": 16,
+          "passed": 15,
+          "expected": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "predictions": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "scores": [
+            -0.0606616735458374,
+            0.6784720420837402,
+            1.6800041198730469,
+            1.6738905906677246,
+            0.4549591541290283,
+            1.0244646072387695,
+            0.9160604476928711,
+            2.665743827819824,
+            -2.5813050270080566,
+            -1.5399458408355713,
+            -0.3538961410522461,
+            -0.622614860534668,
+            -0.22216129302978516,
+            -1.4813618659973145,
+            -1.6290955543518066,
+            -0.39112043380737305
+          ]
+        },
+        "head_training": {
+          "cases": 8,
+          "passed": 8,
+          "expected": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "predictions": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "scores": [
+            -8.539137840270996,
+            -8.539142608642578,
+            -3.093719482421875,
+            -3.093724250793457,
+            -3.093719482421875,
+            -3.093724250793457,
+            2.351698875427246,
+            2.351694107055664
+          ]
+        },
+        "head_holdout": {
+          "cases": 8,
+          "passed": 8,
+          "expected": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "predictions": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "scores": [
+            -8.539137840270996,
+            -8.539142608642578,
+            -3.093719482421875,
+            -3.093724250793457,
+            -3.093719482421875,
+            -3.093724250793457,
+            2.351698875427246,
+            2.351694107055664
+          ]
+        },
+        "passed": false,
+        "admitted": false,
+        "training_oracle": "authored-train-v2",
+        "holdout_oracle": "authored-test-v2",
+        "training_sha256": "1e77f8958a30eac30c940d6cabe4fcb394f2a1f56d1905e8c56d47bd6886a534",
+        "holdout_sha256": "266e973cf0977e1a134c63110d66845ad2f283b460dbb3b1b19d055580d5871d",
+        "adapter_fit": {
+          "initial_loss": 0.6931471805599453,
+          "final_loss": 0.21911975548769705,
+          "steps": 64,
+          "optimizer": "LBFGS",
+          "l2": 0.001,
+          "conditioning": {
+            "contract": "train-centered-radius-v1",
+            "training_radius": 0.008963973586216156,
+            "training_mean_norm": 0.9999599000472411,
+            "gain": 111.55766919457389,
+            "training_latent_sha256": "cc0590727f27b82b570720702e09e932ec856e0c46ce04066a44447bb88978a3"
+          }
+        },
+        "head_fit": {
+          "initial_loss": 0.6931471805599453,
+          "final_loss": 0.10425774198096768,
+          "steps": 64,
+          "optimizer": "LBFGS",
+          "l2": 0.001
+        }
+      },
+      "torch": "2.10.0+cpu"
+    },
+    "p6-combined": {
+      "contract": "fragment-adapter-a1-v1",
+      "core": {
+        "contract": "qwen3-native-prefix-v1",
+        "store_sha256": "77fa7c2305b4973d0529670d3275b67c7e1b24255f65267a5e3eebeb9e115f69",
+        "source_origin": "PRETRAINED",
+        "start": 0,
+        "stop": 6,
+        "mode": "pretrained",
+        "embedding_sha256": "443759d45e1b02d3f0ff8a7858a70f0168e6f643319792d4566e098e696ee3f8",
+        "block_sha256": [
+          "695213bca689e96a0f7e62846d21982358aa635dbc407d3d936c7e22b7301bf7",
+          "6a6e02e7329ad11882ad40a5b5f6e27ec0d9680d6271ffcaf1e8cde3e25b15f4",
+          "ab179afd738b06c10b66b9d542ef33845292c3a9a10953ca041bdfb25e8322a4",
+          "b3a84b19573986fdb07a36bbcddbb2368986e9d2120d86e81fa641172c87efa0",
+          "0150873a1d01d3d7fbe6a9fe37ad521e52216f5ecbfdad7d68e1a5f9d288b951",
+          "5ceb498fba17ef9b315cd668e8f081c052ea85ce8929ca3a662702ae5cd31cf0"
+        ],
+        "random_seed": null,
+        "pooling": "token-l2-mean-v1"
+      },
+      "topic": "sentiment",
+      "features": [
+        "topic_matches",
+        "input_available",
+        "recruitment",
+        "priority"
+      ],
+      "pooling": "token-l2-mean-v1",
+      "adapter_sha256": "db4959200d7392b318461c97f8cf9261825a264f301945318c0c11749f3ad4cd",
+      "adapter_parameters": 1030,
+      "core_fp32_bytes": 377542656,
+      "embedding_fp32_bytes": 622329856,
+      "report": {
+        "training": {
+          "cases": 16,
+          "passed": 16,
+          "expected": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "predictions": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "scores": [
+            2.3792238235473633,
+            1.9433059692382812,
+            3.1283206939697266,
+            2.248385429382324,
+            1.4709304571151733,
+            2.3374695777893066,
+            2.3113274574279785,
+            2.31268310546875,
+            -2.5526182651519775,
+            -2.542879819869995,
+            -2.932915449142456,
+            -2.44815731048584,
+            -1.4627509117126465,
+            -1.8724277019500732,
+            -2.224194288253784,
+            -2.106785297393799
+          ]
+        },
+        "holdout": {
+          "cases": 16,
+          "passed": 15,
+          "expected": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "predictions": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "scores": [
+            -0.18240809440612793,
+            0.3171968460083008,
+            1.5628560781478882,
+            1.9797215461730957,
+            0.8430482745170593,
+            1.1804935932159424,
+            0.6497116088867188,
+            3.056893825531006,
+            -2.239064931869507,
+            -1.7197997570037842,
+            -0.5371289253234863,
+            -0.7934818267822266,
+            -0.09737205505371094,
+            -1.4774062633514404,
+            -1.9198167324066162,
+            -0.4465447664260864
+          ]
+        },
+        "head_training": {
+          "cases": 8,
+          "passed": 8,
+          "expected": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "predictions": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "scores": [
+            -8.539137840270996,
+            -8.539142608642578,
+            -3.093719482421875,
+            -3.093724250793457,
+            -3.093719482421875,
+            -3.093724250793457,
+            2.351698875427246,
+            2.351694107055664
+          ]
+        },
+        "head_holdout": {
+          "cases": 8,
+          "passed": 8,
+          "expected": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "predictions": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "scores": [
+            -8.539137840270996,
+            -8.539142608642578,
+            -3.093719482421875,
+            -3.093724250793457,
+            -3.093719482421875,
+            -3.093724250793457,
+            2.351698875427246,
+            2.351694107055664
+          ]
+        },
+        "passed": false,
+        "admitted": false,
+        "training_oracle": "authored-train-v2",
+        "holdout_oracle": "authored-test-v2",
+        "training_sha256": "1e77f8958a30eac30c940d6cabe4fcb394f2a1f56d1905e8c56d47bd6886a534",
+        "holdout_sha256": "266e973cf0977e1a134c63110d66845ad2f283b460dbb3b1b19d055580d5871d",
+        "adapter_fit": {
+          "initial_loss": 0.6931471805599453,
+          "final_loss": 0.2121002561197352,
+          "steps": 64,
+          "optimizer": "LBFGS",
+          "l2": 0.001,
+          "conditioning": {
+            "contract": "train-centered-radius-v1",
+            "training_radius": 0.3747621150372447,
+            "training_mean_norm": 0.9271210029713711,
+            "gain": 2.668359366849602,
+            "training_latent_sha256": "35341b72261290d877162a5d91b469ec24772707f93f34e0b84589dc6c531003"
+          }
+        },
+        "head_fit": {
+          "initial_loss": 0.6931471805599453,
+          "final_loss": 0.10425774198096768,
+          "steps": 64,
+          "optimizer": "LBFGS",
+          "l2": 0.001
+        }
+      },
+      "torch": "2.10.0+cpu"
+    },
+    "r6-combined": {
+      "contract": "fragment-adapter-a1-v1",
+      "core": {
+        "contract": "qwen3-native-prefix-v1",
+        "store_sha256": "77fa7c2305b4973d0529670d3275b67c7e1b24255f65267a5e3eebeb9e115f69",
+        "source_origin": "PRETRAINED",
+        "start": 0,
+        "stop": 6,
+        "mode": "random",
+        "embedding_sha256": "443759d45e1b02d3f0ff8a7858a70f0168e6f643319792d4566e098e696ee3f8",
+        "block_sha256": [],
+        "random_seed": 29,
+        "pooling": "token-l2-mean-v1"
+      },
+      "topic": "sentiment",
+      "features": [
+        "topic_matches",
+        "input_available",
+        "recruitment",
+        "priority"
+      ],
+      "pooling": "token-l2-mean-v1",
+      "adapter_sha256": "466c9318f8361a619408787238cd8b995c774170f853041f96652df3025c07f7",
+      "adapter_parameters": 1030,
+      "core_fp32_bytes": 377542656,
+      "embedding_fp32_bytes": 622329856,
+      "report": {
+        "training": {
+          "cases": 16,
+          "passed": 16,
+          "expected": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "predictions": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "scores": [
+            1.6538474559783936,
+            1.4635376930236816,
+            2.0807559490203857,
+            1.6474888324737549,
+            0.7305408716201782,
+            1.4803602695465088,
+            1.48921799659729,
+            2.594881296157837,
+            -1.792198896408081,
+            -1.5914485454559326,
+            -1.8127496242523193,
+            -1.6441023349761963,
+            -0.8873740434646606,
+            -1.364009141921997,
+            -1.734745740890503,
+            -1.9420905113220215
+          ]
+        },
+        "holdout": {
+          "cases": 16,
+          "passed": 11,
+          "expected": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "predictions": [
+            0,
+            1,
+            1,
+            0,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "scores": [
+            -0.6675517559051514,
+            0.2404078245162964,
+            2.438880681991577,
+            -0.4363914728164673,
+            -0.2917764186859131,
+            0.048241496086120605,
+            -0.581918478012085,
+            1.685481071472168,
+            -0.6261446475982666,
+            -1.2133793830871582,
+            2.5543036460876465,
+            -0.5220893621444702,
+            -0.5197222232818604,
+            -0.3537081480026245,
+            -0.51407790184021,
+            -0.31215453147888184
+          ]
+        },
+        "head_training": {
+          "cases": 8,
+          "passed": 8,
+          "expected": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "predictions": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "scores": [
+            -8.539137840270996,
+            -8.539142608642578,
+            -3.093719482421875,
+            -3.093724250793457,
+            -3.093719482421875,
+            -3.093724250793457,
+            2.351698875427246,
+            2.351694107055664
+          ]
+        },
+        "head_holdout": {
+          "cases": 8,
+          "passed": 8,
+          "expected": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "predictions": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "scores": [
+            -8.539137840270996,
+            -8.539142608642578,
+            -3.093719482421875,
+            -3.093724250793457,
+            -3.093719482421875,
+            -3.093724250793457,
+            2.351698875427246,
+            2.351694107055664
+          ]
+        },
+        "passed": false,
+        "admitted": false,
+        "training_oracle": "authored-train-v2",
+        "holdout_oracle": "authored-test-v2",
+        "training_sha256": "1e77f8958a30eac30c940d6cabe4fcb394f2a1f56d1905e8c56d47bd6886a534",
+        "holdout_sha256": "266e973cf0977e1a134c63110d66845ad2f283b460dbb3b1b19d055580d5871d",
+        "adapter_fit": {
+          "initial_loss": 0.6931471805599453,
+          "final_loss": 0.32072229920777073,
+          "steps": 64,
+          "optimizer": "LBFGS",
+          "l2": 0.001,
+          "conditioning": {
+            "contract": "train-centered-radius-v1",
+            "training_radius": 0.6878813477648235,
+            "training_mean_norm": 0.7258231544932984,
+            "gain": 1.4537390834180393,
+            "training_latent_sha256": "043c282ff3df3290fbaa158318fbe6455d1071fcd0d60149ed98caa20ab80c13"
+          }
+        },
+        "head_fit": {
+          "initial_loss": 0.6931471805599453,
+          "final_loss": 0.10425774198096768,
+          "steps": 64,
+          "optimizer": "LBFGS",
+          "l2": 0.001
+        }
+      },
+      "torch": "2.10.0+cpu"
+    },
+    "e-combined": {
+      "contract": "fragment-adapter-a1-v1",
+      "core": {
+        "contract": "qwen3-native-prefix-v1",
+        "store_sha256": "77fa7c2305b4973d0529670d3275b67c7e1b24255f65267a5e3eebeb9e115f69",
+        "source_origin": "PRETRAINED",
+        "start": 0,
+        "stop": 6,
+        "mode": "embedding-only",
+        "embedding_sha256": "443759d45e1b02d3f0ff8a7858a70f0168e6f643319792d4566e098e696ee3f8",
+        "block_sha256": [],
+        "random_seed": null,
+        "pooling": "token-l2-mean-v1"
+      },
+      "topic": "sentiment",
+      "features": [
+        "topic_matches",
+        "input_available",
+        "recruitment",
+        "priority"
+      ],
+      "pooling": "token-l2-mean-v1",
+      "adapter_sha256": "e9f75d5c750d80af98bcef92a7d98aadb16aea73711c822ec8b5e87457b3b7cf",
+      "adapter_parameters": 1030,
+      "core_fp32_bytes": 0,
+      "embedding_fp32_bytes": 622329856,
+      "report": {
+        "training": {
+          "cases": 16,
+          "passed": 16,
+          "expected": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "predictions": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "scores": [
+            2.460364580154419,
+            1.9645309448242188,
+            2.601196765899658,
+            2.5801758766174316,
+            1.8571590185165405,
+            2.198322296142578,
+            2.437513589859009,
+            2.197863817214966,
+            -2.6604297161102295,
+            -2.0691306591033936,
+            -2.2911648750305176,
+            -2.5373191833496094,
+            -2.090414524078369,
+            -1.917569637298584,
+            -2.5779807567596436,
+            -2.1425132751464844
+          ]
+        },
+        "holdout": {
+          "cases": 16,
+          "passed": 11,
+          "expected": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "predictions": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            1
+          ],
+          "scores": [
+            -0.4808516502380371,
+            0.3206680119037628,
+            1.331970453262329,
+            0.9529622197151184,
+            0.09038025140762329,
+            0.46820536255836487,
+            -0.332683265209198,
+            1.9178462028503418,
+            -1.6560006141662598,
+            -1.6621878147125244,
+            0.48337459564208984,
+            -1.1122534275054932,
+            0.04929906129837036,
+            -2.211949110031128,
+            -1.9821033477783203,
+            0.10713934898376465
+          ]
+        },
+        "head_training": {
+          "cases": 8,
+          "passed": 8,
+          "expected": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "predictions": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "scores": [
+            -8.539137840270996,
+            -8.539142608642578,
+            -3.093719482421875,
+            -3.093724250793457,
+            -3.093719482421875,
+            -3.093724250793457,
+            2.351698875427246,
+            2.351694107055664
+          ]
+        },
+        "head_holdout": {
+          "cases": 8,
+          "passed": 8,
+          "expected": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "predictions": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "scores": [
+            -8.539137840270996,
+            -8.539142608642578,
+            -3.093719482421875,
+            -3.093724250793457,
+            -3.093719482421875,
+            -3.093724250793457,
+            2.351698875427246,
+            2.351694107055664
+          ]
+        },
+        "passed": false,
+        "admitted": false,
+        "training_oracle": "authored-train-v2",
+        "holdout_oracle": "authored-test-v2",
+        "training_sha256": "1e77f8958a30eac30c940d6cabe4fcb394f2a1f56d1905e8c56d47bd6886a534",
+        "holdout_sha256": "266e973cf0977e1a134c63110d66845ad2f283b460dbb3b1b19d055580d5871d",
+        "adapter_fit": {
+          "initial_loss": 0.6931471805599453,
+          "final_loss": 0.2048547313526342,
+          "steps": 64,
+          "optimizer": "LBFGS",
+          "l2": 0.001,
+          "conditioning": {
+            "contract": "train-centered-radius-v1",
+            "training_radius": 0.7420346480974003,
+            "training_mean_norm": 0.6703615594074638,
+            "gain": 1.3476459658103983,
+            "training_latent_sha256": "9ba96a9b5aa6b367f142c74cae604d99121028d116f67042288323a575d2b910"
+          }
+        },
+        "head_fit": {
+          "initial_loss": 0.6931471805599453,
+          "final_loss": 0.10425774198096768,
+          "steps": 64,
+          "optimizer": "LBFGS",
+          "l2": 0.001
+        }
+      },
+      "torch": "2.10.0+cpu"
+    },
+    "p16-combined": {
+      "contract": "fragment-adapter-a1-v1",
+      "core": {
+        "contract": "qwen3-native-prefix-v1",
+        "store_sha256": "77fa7c2305b4973d0529670d3275b67c7e1b24255f65267a5e3eebeb9e115f69",
+        "source_origin": "PRETRAINED",
+        "start": 0,
+        "stop": 16,
+        "mode": "pretrained",
+        "embedding_sha256": "443759d45e1b02d3f0ff8a7858a70f0168e6f643319792d4566e098e696ee3f8",
+        "block_sha256": [
+          "695213bca689e96a0f7e62846d21982358aa635dbc407d3d936c7e22b7301bf7",
+          "6a6e02e7329ad11882ad40a5b5f6e27ec0d9680d6271ffcaf1e8cde3e25b15f4",
+          "ab179afd738b06c10b66b9d542ef33845292c3a9a10953ca041bdfb25e8322a4",
+          "b3a84b19573986fdb07a36bbcddbb2368986e9d2120d86e81fa641172c87efa0",
+          "0150873a1d01d3d7fbe6a9fe37ad521e52216f5ecbfdad7d68e1a5f9d288b951",
+          "5ceb498fba17ef9b315cd668e8f081c052ea85ce8929ca3a662702ae5cd31cf0",
+          "06c608b76ca93878f6e1be859ccf084cdb4357ab797c9355f141ef77488aa9c9",
+          "061f14818120391159ed8889ac4d66e30782d4f24c4a09fe1b1a38bda52c0c27",
+          "cce4b1d580915241820de7e03868aafba80a7514291af98e45c199260a3a70bb",
+          "4fc6d4ce0154a21d0147266ab45c363591831597255383211766ebc0c39a2850",
+          "26c9a06f671153d4e3d92c0685a6995e339220a84c3b133efef1b038fd627835",
+          "3744785ac7bfca062242aab4d588bb3b0601a15648f2f6c04e8d036423dc2804",
+          "2f4bb725e7c7b7a7e447f3afc0d5efd97e85ba511710351e00d6e7e64299b257",
+          "d09189f046af7f2bed5d98410db4bd7a81a75e772c1a242c82ed5257637e767a",
+          "47327bbde058555092365ddf125e39fec52cf721e652adcf79fc160444c5b9a1",
+          "b58bf0c99d6ac06a1ce255be283d05d346cafd04f497f753ff9e8ef4d3bfe9aa"
+        ],
+        "random_seed": null,
+        "pooling": "token-l2-mean-v1"
+      },
+      "topic": "sentiment",
+      "features": [
+        "topic_matches",
+        "input_available",
+        "recruitment",
+        "priority"
+      ],
+      "pooling": "token-l2-mean-v1",
+      "adapter_sha256": "6bc088caea8dde098ef0a009bece600bcec7e52e2c55c8ce42de3b89c9c9ef28",
+      "adapter_parameters": 1030,
+      "core_fp32_bytes": 1006780416,
+      "embedding_fp32_bytes": 622329856,
+      "report": {
+        "training": {
+          "cases": 16,
+          "passed": 16,
+          "expected": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "predictions": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "scores": [
+            2.5346298217773438,
+            2.4321372509002686,
+            3.7423653602600098,
+            2.448131561279297,
+            1.7136601209640503,
+            2.222905397415161,
+            2.7380847930908203,
+            3.3185269832611084,
+            -2.8006656169891357,
+            -2.8037807941436768,
+            -2.872421979904175,
+            -2.7534749507904053,
+            -1.807174801826477,
+            -2.2535979747772217,
+            -2.5111896991729736,
+            -2.6808383464813232
+          ]
+        },
+        "holdout": {
+          "cases": 16,
+          "passed": 16,
+          "expected": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "predictions": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "scores": [
+            0.9118015170097351,
+            2.3482468128204346,
+            3.5589632987976074,
+            1.8394783735275269,
+            1.7179062366485596,
+            2.2414515018463135,
+            1.2387382984161377,
+            2.8282082080841064,
+            -1.7015584707260132,
+            -1.795584797859192,
+            -0.6420447826385498,
+            -0.4575110077857971,
+            -1.1999340057373047,
+            -1.5970178842544556,
+            -2.1433231830596924,
+            -1.8929522037506104
+          ]
+        },
+        "head_training": {
+          "cases": 8,
+          "passed": 8,
+          "expected": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "predictions": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "scores": [
+            -8.539137840270996,
+            -8.539142608642578,
+            -3.093719482421875,
+            -3.093724250793457,
+            -3.093719482421875,
+            -3.093724250793457,
+            2.351698875427246,
+            2.351694107055664
+          ]
+        },
+        "head_holdout": {
+          "cases": 8,
+          "passed": 8,
+          "expected": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "predictions": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "scores": [
+            -8.539137840270996,
+            -8.539142608642578,
+            -3.093719482421875,
+            -3.093724250793457,
+            -3.093719482421875,
+            -3.093724250793457,
+            2.351698875427246,
+            2.351694107055664
+          ]
+        },
+        "passed": true,
+        "admitted": true,
+        "training_oracle": "authored-train-v2",
+        "holdout_oracle": "authored-test-v2",
+        "training_sha256": "1e77f8958a30eac30c940d6cabe4fcb394f2a1f56d1905e8c56d47bd6886a534",
+        "holdout_sha256": "266e973cf0977e1a134c63110d66845ad2f283b460dbb3b1b19d055580d5871d",
+        "adapter_fit": {
+          "initial_loss": 0.6931471805599453,
+          "final_loss": 0.16945425925247198,
+          "steps": 64,
+          "optimizer": "LBFGS",
+          "l2": 0.001,
+          "conditioning": {
+            "contract": "train-centered-radius-v1",
+            "training_radius": 0.33386060421820946,
+            "training_mean_norm": 0.9426224534109063,
+            "gain": 2.9952620565749815,
+            "training_latent_sha256": "71d5534aa9c14bdc6b7f4cf6291b8bcfad82fa5fd75c3e858a20927fefba77e3"
+          }
+        },
+        "head_fit": {
+          "initial_loss": 0.6931471805599453,
+          "final_loss": 0.10425774198096768,
+          "steps": 64,
+          "optimizer": "LBFGS",
+          "l2": 0.001
+        }
+      },
+      "torch": "2.10.0+cpu"
+    },
+    "r16-combined": {
+      "contract": "fragment-adapter-a1-v1",
+      "core": {
+        "contract": "qwen3-native-prefix-v1",
+        "store_sha256": "77fa7c2305b4973d0529670d3275b67c7e1b24255f65267a5e3eebeb9e115f69",
+        "source_origin": "PRETRAINED",
+        "start": 0,
+        "stop": 16,
+        "mode": "random",
+        "embedding_sha256": "443759d45e1b02d3f0ff8a7858a70f0168e6f643319792d4566e098e696ee3f8",
+        "block_sha256": [],
+        "random_seed": 29,
+        "pooling": "token-l2-mean-v1"
+      },
+      "topic": "sentiment",
+      "features": [
+        "topic_matches",
+        "input_available",
+        "recruitment",
+        "priority"
+      ],
+      "pooling": "token-l2-mean-v1",
+      "adapter_sha256": "154095d706bfb337d605715c10e1f1a8babec29d14261869c089b1b218b1c227",
+      "adapter_parameters": 1030,
+      "core_fp32_bytes": 1006780416,
+      "embedding_fp32_bytes": 622329856,
+      "report": {
+        "training": {
+          "cases": 16,
+          "passed": 16,
+          "expected": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "predictions": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "scores": [
+            1.616053581237793,
+            1.2337920665740967,
+            1.8897879123687744,
+            1.3454604148864746,
+            0.4440661668777466,
+            1.2194602489471436,
+            1.409368634223938,
+            2.805114269256592,
+            -1.7060699462890625,
+            -1.4102723598480225,
+            -1.6738264560699463,
+            -1.2962076663970947,
+            -0.6269679069519043,
+            -1.36698579788208,
+            -1.5527451038360596,
+            -1.713094711303711
+          ]
+        },
+        "holdout": {
+          "cases": 16,
+          "passed": 11,
+          "expected": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "predictions": [
+            0,
+            1,
+            1,
+            0,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "scores": [
+            -0.5680966377258301,
+            1.310247778892517,
+            2.315124034881592,
+            -0.20653104782104492,
+            -0.5185139179229736,
+            0.1563420295715332,
+            -1.0115337371826172,
+            1.0385388135910034,
+            -0.3787119388580322,
+            -1.2569048404693604,
+            2.6874446868896484,
+            -0.4714308977127075,
+            -0.16092681884765625,
+            -0.23163223266601562,
+            -0.9053139686584473,
+            -0.5434058904647827
+          ]
+        },
+        "head_training": {
+          "cases": 8,
+          "passed": 8,
+          "expected": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "predictions": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "scores": [
+            -8.539137840270996,
+            -8.539142608642578,
+            -3.093719482421875,
+            -3.093724250793457,
+            -3.093719482421875,
+            -3.093724250793457,
+            2.351698875427246,
+            2.351694107055664
+          ]
+        },
+        "head_holdout": {
+          "cases": 8,
+          "passed": 8,
+          "expected": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "predictions": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "scores": [
+            -8.539137840270996,
+            -8.539142608642578,
+            -3.093719482421875,
+            -3.093724250793457,
+            -3.093719482421875,
+            -3.093724250793457,
+            2.351698875427246,
+            2.351694107055664
+          ]
+        },
+        "passed": false,
+        "admitted": false,
+        "training_oracle": "authored-train-v2",
+        "holdout_oracle": "authored-test-v2",
+        "training_sha256": "1e77f8958a30eac30c940d6cabe4fcb394f2a1f56d1905e8c56d47bd6886a534",
+        "holdout_sha256": "266e973cf0977e1a134c63110d66845ad2f283b460dbb3b1b19d055580d5871d",
+        "adapter_fit": {
+          "initial_loss": 0.6931471805599453,
+          "final_loss": 0.35549373351343677,
+          "steps": 64,
+          "optimizer": "LBFGS",
+          "l2": 0.001,
+          "conditioning": {
+            "contract": "train-centered-radius-v1",
+            "training_radius": 0.6504493665604367,
+            "training_mean_norm": 0.7595496303830398,
+            "gain": 1.5373986837560931,
+            "training_latent_sha256": "5dcdc1e963ce2266e69134c7acf013067baff538b88710f12324a86f030a8dc8"
+          }
+        },
+        "head_fit": {
+          "initial_loss": 0.6931471805599453,
+          "final_loss": 0.10425774198096768,
+          "steps": 64,
+          "optimizer": "LBFGS",
+          "l2": 0.001
+        }
+      },
+      "torch": "2.10.0+cpu"
+    }
+  },
+  "elapsed_seconds": 46.66331592,
+  "scope": "prespecified authored follow-up, all arms reported, no independent benchmark or autonomous assimilation",
+  "ci": {
+    "run": 46163192152,
+    "job": 141034868345,
+    "commit": "ad8b355544f208a6f2e4e30f3bef960c1a993160",
+    "tiny_run": 46163192111,
+    "baseline_run": 46163192188,
+    "previous_experiment_regression_run": 46163192145
+  }
+}

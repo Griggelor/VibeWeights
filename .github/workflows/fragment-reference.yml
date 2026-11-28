@@ -5,6 +5,7 @@ on:
       - 'src/vibeweights/qwen3_fragments.py'
       - 'src/vibeweights/fragment_adapters.py'
       - 'scripts/probe_fragment_adapters.py'
+      - 'scripts/probe_fragment_conditioning.py'
       - 'scripts/probe_qwen3_fragments.py'
       - 'experiments/fragment_tests/**'
       - '.github/workflows/fragment-reference.yml'

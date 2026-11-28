@@ -53,3 +53,9 @@ A0-Nachweis erbracht am Codecommit b9d051921343914dc2f153e75268b0f4c7453c16: ech
 [Erster Adapter-/Head-Vertrag](FRAGMENT_ADAPTER_A1.md): eingefrorener nativer Prefix plus trainierter binärer Ausgabekopf, unabhängiger lokaler Beteiligungskopf, separate Holdout-Freigabe, unveränderliche Provenienz, drei Kontrollarme (importiert / zufällige Decoder / Embedding-only). Keine universelle latente ABI, keine allgemeine Population-Aufnahme oder Assimilationsbehauptung. Ergebnisse offen.
 
 A1 erster Vergleich: 7/12 Pretrained, 5/12 Zufall, 6/12 Embedding-only; keine Aufnahme. [Rohdaten](../evidence/v08-fragment-adapter-a1.json). A1 bleibt offen; A2 nicht als nachgewiesen behandeln.
+
+## A1 Folgerunde dev26 (Kandidat)
+
+[Latente Konditionierung](FRAGMENT_CONDITIONING_A1.md): vierarmiger Vergleich für Pooling/Skalierung am 6-Block-Prefix, 16-Block-Skalenpaar, gematchte Zufalls- und Embeddingkontrolle. Neue Holdouts; unveränderte Abnahmeschwelle. Keine dynamische Kooperation behauptet. Ergebnisse offen.
+
+A1 dev26: p16-combined 16/16 disjunkte Holdouts und experimentell freigegeben, alle Zufalls-/Embedding-Kontrollen je 11/16. [Rohdaten](../evidence/v08-fragment-conditioning-a1.json). Entscheidung des Nutzers: Kompetenzen nicht vorab willkürlich zuweisen, sondern systematisch durch Aktivierungsprofile und kausale Interventionen kartieren. A1 bleibt eng begrenzt; keine allgemeine Assimilation.

@@ -1,8 +1,12 @@
-# Status v0.8.0.dev25
+# Status v0.8.0.dev26
 
 **Ziel 1 (Environment) in Arbeit; keine Environment-Abnahme.** 262/262 CPU-Tests auf Windows und Linux (Python 3.12/3.13) inklusive Geräteprobe, Artefaktreproduktion und Smoke-Tests bestanden. Siehe [Memory Architecture v0.7](MEMORY_ARCHITECTURE_v07.md), [Implementierung v0.6](platform_v06.md), [Zielarchitektur](ARCHITEKTUR_v06.md) und [Review v0.5](review/v0.5.0/REVIEW_UND_ROADMAP_v06.md). Der reguläre Chat/API-Pfad ist weiterhin die korrigierte arithmetische Referenz; der neue Environment-Pfad ist opt-in.
 
-## Entwicklungsstand v0.8.0.dev25 (Erster A1-Adapterversuch)
+## Entwicklungsstand v0.8.0.dev26 (Latente Konditionierung A1)
+
+16-Block-Pretrained-Prefix erstmals 16/16 Training und 16/16 disjunkte authored Sentiment-Holdouts, lokaler Kopf bestanden; experimentelle Aufnahme. 6-Block-Baseline 13/16, drei verbesserte 6-Block-Varianten je 15/16, Zufall 6/16 Blöcke und Embedding-only je 11/16. Alle technischen CPU-CI-Läufe erfolgreich. [CI](https://github.com/Griggelor/VibeWeights/actions/runs/46163192152), [Rohdaten](../evidence/v08-fragment-conditioning-a1.json). Kleine feste Datenfamilie, kein allgemeiner Kompetenz-/Assimilationsnachweis. Nächster Schritt: systematische Kompetenzkartierung, kausale Block-/Fragmenttests und unabhängige Bestätigung; GPU offen.
+
+## Historischer Entwicklungsstand v0.8.0.dev25 (Erster A1-Adapterversuch)
 
 Alle technischen CI-Jobs erfolgreich. Echter eingefrorener Qwen3-Prefix 6 Blöcke mit trainiertem Ausgabeadapter, Zufallsdecoder und Embedding-only: Training 11/12, 12/12, 12/12; Holdout 7/12, 5/12, 6/12. Je 8/8 lokale Kopf-Holdouts. Keine Kompetenzaufnahme, Assimilationshypothese nicht bestätigt. [CI](https://github.com/Griggelor/VibeWeights/actions/runs/46160839256), [Rohdaten](../evidence/v08-fragment-adapter-a1.json), [Vertrag](FRAGMENT_ADAPTER_A1.md). Nächster Versuch: latente Signalaufbereitung und Mehrskalenvergleich mit neuen Holdouts. Keine Population-Integration oder GPU-Abnahme.
 
