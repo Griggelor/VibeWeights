@@ -1,8 +1,12 @@
-# Status v0.8.0.dev26
+# Status v0.8.0.dev28
 
-**Ziel 1 (Environment) in Arbeit; keine Environment-Abnahme.** 262/262 CPU-Tests auf Windows und Linux (Python 3.12/3.13) inklusive Geräteprobe, Artefaktreproduktion und Smoke-Tests bestanden. Siehe [Memory Architecture v0.7](MEMORY_ARCHITECTURE_v07.md), [Implementierung v0.6](platform_v06.md), [Zielarchitektur](ARCHITEKTUR_v06.md) und [Review v0.5](review/v0.5.0/REVIEW_UND_ROADMAP_v06.md). Der reguläre Chat/API-Pfad ist weiterhin die korrigierte arithmetische Referenz; der neue Environment-Pfad ist opt-in.
+**Ziel 1 (Environment) in Arbeit; keine Environment-Abnahme.** 266/266 CPU-Tests auf Windows und Linux (Python 3.12/3.13) inklusive Geräteprobe, Artefaktreproduktion und Smoke-Tests bestanden. Siehe [Memory Architecture v0.7](MEMORY_ARCHITECTURE_v07.md), [Implementierung v0.6](platform_v06.md), [Zielarchitektur](ARCHITEKTUR_v06.md) und [Review v0.5](review/v0.5.0/REVIEW_UND_ROADMAP_v06.md). Der reguläre Chat/API-Pfad ist weiterhin die korrigierte arithmetische Referenz; der neue Environment-Pfad ist opt-in.
 
-## Entwicklungsstand v0.8.0.dev26 (Latente Konditionierung A1)
+## Entwicklungsstand v0.8.0.dev28 (Soziale Selbstorganisation)
+
+Drei Seeds, je 600 Lernimpulse, 24 neue Prüffälle nach SQLite-Neustart. 72/72 mit lokaler Selbstaktivierung, historischer Einladung und Trainingsshots; 144 Kernaufrufe und 72 Einladungen. Ohne Recall 0/72, ohne Trainingsshots 0/72, eingefrorene zufällige Shots 3/72, alle aktiv 0/72. 266/266 Basis-Tests je CI-Job, 13/13 optionale Fragmenttests auf Windows und Linux. [CI](https://github.com/Griggelor/VibeWeights/actions/runs/46171935723), [Messzusammenfassung](../evidence/v08-social-learning-ci.json), [Vertrag](EMERGENT_SOCIAL_HEADS.md). Host-konstruierter additiver numerischer Referenzfall, keine reale Mehrfragmentkooperation oder GPU-Abnahme. Optionaler dev27-Scanner nicht Voraussetzung.
+
+## Historischer Entwicklungsstand v0.8.0.dev26 (Latente Konditionierung A1)
 
 16-Block-Pretrained-Prefix erstmals 16/16 Training und 16/16 disjunkte authored Sentiment-Holdouts, lokaler Kopf bestanden; experimentelle Aufnahme. 6-Block-Baseline 13/16, drei verbesserte 6-Block-Varianten je 15/16, Zufall 6/16 Blöcke und Embedding-only je 11/16. Alle technischen CPU-CI-Läufe erfolgreich. [CI](https://github.com/Griggelor/VibeWeights/actions/runs/46163192152), [Rohdaten](../evidence/v08-fragment-conditioning-a1.json). Kleine feste Datenfamilie, kein allgemeiner Kompetenz-/Assimilationsnachweis. Nächster Schritt: systematische Kompetenzkartierung, kausale Block-/Fragmenttests und unabhängige Bestätigung; GPU offen.
 

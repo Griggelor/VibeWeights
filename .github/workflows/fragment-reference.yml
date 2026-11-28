@@ -6,6 +6,8 @@ on:
       - 'src/vibeweights/fragment_adapters.py'
       - 'scripts/probe_fragment_adapters.py'
       - 'scripts/probe_fragment_conditioning.py'
+      - 'src/vibeweights/competence_mapping.py'
+      - 'scripts/probe_competence_mapping.py'
       - 'scripts/probe_qwen3_fragments.py'
       - 'experiments/fragment_tests/**'
       - '.github/workflows/fragment-reference.yml'
