@@ -232,7 +232,13 @@ class FragmentCompetence:
         if set(t)!=set(shapes) or any(tuple(t[k].shape)!=s or t[k].dtype!=torch.float32 or not torch.isfinite(t[k]).all() for k,s in shapes.items()):
             raise ContractError('adapter tensor contract')
         if sum(x.numel() for x in t.values())!=m['adapter_parameters']:raise ContractError('adapter parameter count')
-        self.m=m;self.t=t
+        self.m=m;self.t=t;self._evidence_store=evidence_store
+
+    def assert_usage_live(self):
+        if 'usage_evidence' in self.m:
+            from .usage_adapters import validate_usage
+            if _hash(validate_usage(self._evidence_store,self.m['usage_evidence']))!=self.m['report']['training_sha256']:
+                raise ContractError('usage evidence adapter mismatch')
 
     @torch.inference_mode()
     def propose(self,topic,*,input_available,recruitment=False,priority=False):
@@ -247,6 +253,7 @@ class FragmentCompetence:
         if not self.propose(topic,input_available=tokens is not None,recruitment=recruitment,priority=priority):
             return None
         if tokens is None:raise ContractError('adapter input missing')
+        self.assert_usage_live()
         x=self.encoder.features(tokens)
         score=float((self.t['w']@x+self.t['b']).item())
         return int(score>0)
