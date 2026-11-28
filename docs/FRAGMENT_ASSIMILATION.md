@@ -59,3 +59,7 @@ A1 erster Vergleich: 7/12 Pretrained, 5/12 Zufall, 6/12 Embedding-only; keine Au
 [Latente Konditionierung](FRAGMENT_CONDITIONING_A1.md): vierarmiger Vergleich für Pooling/Skalierung am 6-Block-Prefix, 16-Block-Skalenpaar, gematchte Zufalls- und Embeddingkontrolle. Neue Holdouts; unveränderte Abnahmeschwelle. Keine dynamische Kooperation behauptet. Ergebnisse offen.
 
 A1 dev26: p16-combined 16/16 disjunkte Holdouts und experimentell freigegeben, alle Zufalls-/Embedding-Kontrollen je 11/16. [Rohdaten](../evidence/v08-fragment-conditioning-a1.json). Entscheidung des Nutzers: Kompetenzen nicht vorab willkürlich zuweisen, sondern systematisch durch Aktivierungsprofile und kausale Interventionen kartieren. A1 bleibt eng begrenzt; keine allgemeine Assimilation.
+
+## Kompetenzkartierung (dev27-Kandidat, Nutzerimpuls)
+
+[Diagnosevertrag](COMPETENCE_MAPPING.md): systematische Mehrdomänen-Abfrage des vollständigen Ursprungsmodells, blockweise Aktivierungsprofile, reversible kausale Bypass-Interventionen auf Einzelblock und Mehrskalenschnitt. Diagnose getrennt vom Betriebsrouting; kein automatisches Kompetenzlabel aus Aktivierung, keine Aufnahme ohne unabhängige Fragmentabnahme. CI offen.
