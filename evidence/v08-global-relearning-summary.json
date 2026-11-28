@@ -1,0 +1,34 @@
+{
+  "version": "0.8.0.dev9",
+  "baseline_commit": "258a8d5c0ca54ea153a1206d903705ca414cb9f9",
+  "tests": {
+    "tests": 194,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "previous_cases": 191,
+  "new_cases": 3,
+  "command": "python -m pytest -q --junitxml=evidence/v08-global-relearning-tests.xml",
+  "wall_seconds": 53.71,
+  "environment": {
+    "python": "3.13.5",
+    "torch": "2.10.0+cpu",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "device": "cpu"
+  },
+  "evidence": [
+    "three typed domains, transitive descendant reconstruction",
+    "immutable original artifacts",
+    "insufficient evidence blocks reconstruction",
+    "interrupted build resumes",
+    "rejected global repair retried with new ID"
+  ],
+  "limits": [
+    "host-supplied independent oracle",
+    "pollable global impulse, no broadcast bus",
+    "no autonomous scheduling",
+    "no physical GPU or Windows or remote CI or real LLM test",
+    "local conflict retry and full cross-DB atomicity pending"
+  ]
+}

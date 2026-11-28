@@ -3,7 +3,7 @@
 **A self-organizing, self-learning, self-optimizing and self-scaling neural ecosystem**
 
 ![Research prototype](https://img.shields.io/badge/status-research%20prototype-orange)
-![Version](https://img.shields.io/badge/development-v0.8.0.dev8-blue)
+![Version](https://img.shields.io/badge/development-v0.8.0.dev9-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 
 **Local-first AI research · Decentralized neural experts · Weight-space programming · Continual learning**
@@ -386,6 +386,10 @@ The full [research survey](docs/FORSCHUNG_2026-11-26.md) and [learning/evolution
 
 Independent holdouts must not become synthesis inputs. Report failures as research results. Distinguish expert activation, causal contribution, user satisfaction, factual correctness, resource consumption and independent capability. Do not equate greater parameter count or test count with intelligence.
 
+## Development snapshot v0.8.0.dev9 — global relearning impulses
+
+**194 local CPU tests passed** (191 previous + 3 new). Relearning may be local, group-scoped or global. A durable conflict is exposed as a pollable global impulse. After local correction, the impulse persists until pending declared downstream competencies are independently re-established and admitted. Three typed domains demonstrate transitive cross-domain reconstruction, unchanged originals, evidence rejection, restart and retry with new IDs after failed admission. New DIRECT/TRAINED candidates use independent current evidence rather than replaying obsolete facts. See [implementation](docs/GLOBAL_RELEARNING_v08.md) and [evidence](evidence/v08-global-relearning-summary.json). The slice does not yet broadcast events, recruit groups autonomously, run a global scheduler, replay arbitrary original relation programs or prove real LLM/GPU/Windows operation.
+
 ## Development snapshot v0.8.0.dev8 — conflict-triggered correction and relearning
 
 **191 local CPU tests passed** (184 previous cases, including one intentionally updated conflict-contract test, and seven new cases). The typed task path now marks disputed facts CONFLICTED in the immutable knowledge ledger, atomically records a persistent repair case and withholds the answer. Conflicting participants and declared dependents enter separate safety quarantine; original weights remain intact. Independently verified evidence can confirm or correct the fact and stage a new DIRECT or TRAINED expert. Other independently confirmed current facts of affected same-domain experts are restored where possible; unresolved dependents remain listed for reconstruction. The typed conflict closes only after independent promotion. The source guard blocks outdated records for live memory reads and bootstrap context. Recovery tests use injected exceptions and database reopen, not new hard process-crash tests.
@@ -518,7 +522,7 @@ The commands above are for the existing Python research prototype, not the futur
 | Stage | Priority / deliverable |
 |---|---|
 | Public baseline | v0.7.0 source, weights and evidence imported; verify Windows/Linux CI |
-| Knowledge-first learning (P0) | Bounded recall, relational transfer, recovery, retention, model-directed selection, task-driven learning, additive extension and conflict-triggered correction implemented. Next: autonomous bounded evidence/retry scheduling, cross-domain repair, indexed dependencies, unified source/memory transactions, real model exercise and method/transfer holdouts |
+| Knowledge-first learning (P0) | Bounded recall, relational transfer, recovery, retention, model-directed selection, task-driven learning, additive extension and conflict-triggered correction implemented. Global cross-domain repair slice implemented. Next: autonomous bounded evidence/retry scheduling, global event delivery, indexed dependencies, unified source/memory transactions, real model exercise and method/transfer holdouts |
 | Unified Environment | Migrate the regular chat/API to the new core; generic events, dynamic topology, private recurrence, independent result release |
 | Memory | Universal semantic ABI, source/relationship indexing, cooperation and feedback integration, recovery, physical budgets |
 | Bootstrap | Real authorized local models; text vs latent adapter experiments, independent ablations |
@@ -541,6 +545,7 @@ The detailed project documents are currently primarily in German; this English o
 | [Platform v0.5](docs/platform_v05.md) | Reference runtime, API, telemetry and limits |
 | [Research survey](docs/FORSCHUNG_2026-11-26.md) | Literature and implications |
 | [Research supplement](docs/FORSCHUNG_ERGAENZUNG_v05.md) | Exploration, selection, learning and attribution |
+| [Global relearning v0.8.dev9](docs/GLOBAL_RELEARNING_v08.md) | Persistent global impulse, independently verified cross-domain repair and retry |
 | [Conflict-triggered relearning v0.8.dev8](docs/CONFLICT_LEARNING_v08.md) | Uncertain facts, persistent repair cases, additive correction and independent admission |
 | [Knowledge extension v0.8.dev7](docs/EXTENSION_LEARNING_v08.md) | Additive fact extension, independent conflict review and recovery |
 | [Task-driven learning v0.8.dev6](docs/TASK_LEARNING_v08.md) | Typed task observations, indexed gap evidence and extended LM Studio exercise |

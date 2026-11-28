@@ -1,5 +1,7 @@
 # v0.8.0.dev8 — Konfliktstatus, persistenter Klärungsauftrag und additives Nachlernen
 
+Historischer Stand dev8. Für globale Impulse, domänenübergreifende unabhängige Rekonstruktion und Retry globaler Kandidaten siehe [dev9](GLOBAL_RELEARNING_v08.md).
+
 ## Verbindlicher Vertrag
 
 Ein tatsächlicher Wissenswiderspruch ist kein bloßes Telemetrieereignis. Ein betroffener Wissenseintrag darf nicht weiter als gesichert verwendet werden. Die Klärung wird persistent als Lernbedarf erfasst. Eine unabhängige Evidenz muss bestätigen oder korrigieren, anschließend wird ein neuer Kandidat erzeugt und separat freigegeben. Keine Mehrheitsentscheidung zwischen Experten als Wahrheit, kein Überschreiben oder evolutionäres Löschen von Gewichten. Die drei regulären Residency-Zustände bleiben ACTIVE (VRAM), LOW_ACTIVE_IMPORTANT (VRAM), ARCHIVED (SSD); QUARANTINED ist eine gesonderte Sicherheitssperre.
