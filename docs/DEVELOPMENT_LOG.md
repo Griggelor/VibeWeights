@@ -108,3 +108,8 @@ Verbindliche Arbeitsweise ab v0.8.0.dev13 (Nutzeranforderung): Jede Implementier
 
 - Getesteter Codecommit `2a8d1753c555f5602233eea72097f914c434a15c`, [Run 46141672717](https://github.com/Griggelor/VibeWeights/actions/runs/46141672717): vier erfolgreiche Jobs. Windows 3.12 242/242 in 221,09 s, Windows 3.13 242/242 in 228,33 s, Ubuntu 3.12 242/242 in 65,21 s, Ubuntu 3.13 242/242 in 38,78 s. Alle Artefakt-Rebuilds, Language-, Application-, Exploration-, Environment- und Memory-Smoke-Tests erfolgreich. [Maschinenlesbarer Nachweis](../evidence/v08-targeted-recruitment-ci-final.json).
 - Versions-/Statusmetadaten danach auf dev18 aktualisiert. Der Codecommit nach der LF-Korrektur ist funktional vollständig geprüft; Metadatencommit erhält eigene CI. Kein GPU-/UMA-Echtlauf. Nachfolgende Kandidaten dev19/20/21 separat, keine implizite Abnahme.
+
+### dev21 – vollständige CPU-CI-Abnahme und Release-Metadaten
+
+- Getesteter Commit `bce96a02ff120610ea770160a607ec0f8fb6c33c`, [Run 46142418702](https://github.com/Griggelor/VibeWeights/actions/runs/46142418702): Windows 3.12 253/253 (229,81 s), Windows 3.13 253/253 (254,43 s), Ubuntu 3.12 253/253 (49,18 s), Ubuntu 3.13 253/253 (61,04 s). Alle vier Geräteproben, Artefakt-Rebuilds und Smoke-Tests erfolgreich. [JSON-Evidenz](../evidence/v08-task-continuation-ci.json). Enthält die vollständige dev19/20-Funktionalität. dev20 eigenständiger Run 46142403133 ebenfalls vier grüne Jobs; dev19 eigenständiger Run 46142395098 zum Erfassungszeitpunkt teilweise offen.
+- dev18 exakter Release-Head CI 46142329650 vollständig erfolgreich; PR #1 in main übernommen (74094396d80d07db914f3f6a20b1dcd8cb324). Dev21 Versionsmetadaten jetzt auf dev21 aktualisiert; erneute Exact-Head-CI erforderlich. Keine GPU-/UMA-Echtlaufabnahme.
