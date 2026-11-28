@@ -1,0 +1,843 @@
+{
+  "status": "COMPLETED",
+  "elapsed_seconds": 76.528319955,
+  "admissions": {
+    "sent": true,
+    "form": true
+  },
+  "arms": {
+    "leave-one-out-v1": [
+      {
+        "seed": 7,
+        "holdouts": {
+          "learned": {
+            "passed": 16,
+            "cases": 48,
+            "core_calls": 32,
+            "invitations": 16,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 32,
+                "invitations": 16
+              }
+            }
+          },
+          "without_recall": {
+            "passed": 0,
+            "cases": 48,
+            "core_calls": 16,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 16,
+                "invitations": 0
+              }
+            }
+          },
+          "frozen_random_shots": {
+            "passed": 4,
+            "cases": 48,
+            "core_calls": 96,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 32,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 32,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 4,
+                "core_calls": 32,
+                "invitations": 0
+              }
+            }
+          },
+          "without_training_shots": {
+            "passed": 0,
+            "cases": 48,
+            "core_calls": 0,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              }
+            }
+          },
+          "all_active": {
+            "passed": 0,
+            "cases": 48,
+            "core_calls": 144,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 48,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 48,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 48,
+                "invitations": 0
+              }
+            }
+          }
+        }
+      },
+      {
+        "seed": 19,
+        "holdouts": {
+          "learned": {
+            "passed": 32,
+            "cases": 48,
+            "core_calls": 48,
+            "invitations": 16,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 16,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 32,
+                "invitations": 16
+              }
+            }
+          },
+          "without_recall": {
+            "passed": 16,
+            "cases": 48,
+            "core_calls": 32,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 16,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 16,
+                "invitations": 0
+              }
+            }
+          },
+          "frozen_random_shots": {
+            "passed": 3,
+            "cases": 48,
+            "core_calls": 96,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 32,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 32,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 3,
+                "core_calls": 32,
+                "invitations": 0
+              }
+            }
+          },
+          "without_training_shots": {
+            "passed": 0,
+            "cases": 48,
+            "core_calls": 0,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              }
+            }
+          },
+          "all_active": {
+            "passed": 0,
+            "cases": 48,
+            "core_calls": 144,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 48,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 48,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 48,
+                "invitations": 0
+              }
+            }
+          }
+        }
+      },
+      {
+        "seed": 41,
+        "holdouts": {
+          "learned": {
+            "passed": 32,
+            "cases": 48,
+            "core_calls": 48,
+            "invitations": 16,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 16,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 32,
+                "invitations": 16
+              }
+            }
+          },
+          "without_recall": {
+            "passed": 16,
+            "cases": 48,
+            "core_calls": 32,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 16,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 16,
+                "invitations": 0
+              }
+            }
+          },
+          "frozen_random_shots": {
+            "passed": 4,
+            "cases": 48,
+            "core_calls": 96,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 32,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 32,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 4,
+                "core_calls": 32,
+                "invitations": 0
+              }
+            }
+          },
+          "without_training_shots": {
+            "passed": 0,
+            "cases": 48,
+            "core_calls": 0,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              }
+            }
+          },
+          "all_active": {
+            "passed": 0,
+            "cases": 48,
+            "core_calls": 144,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 48,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 48,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 48,
+                "invitations": 0
+              }
+            }
+          }
+        }
+      }
+    ],
+    "isolated-activation-v2": [
+      {
+        "seed": 7,
+        "holdouts": {
+          "learned": {
+            "passed": 48,
+            "cases": 48,
+            "core_calls": 64,
+            "invitations": 16,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 16,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 16,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 32,
+                "invitations": 16
+              }
+            }
+          },
+          "without_recall": {
+            "passed": 32,
+            "cases": 48,
+            "core_calls": 48,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 16,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 16,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 16,
+                "invitations": 0
+              }
+            }
+          },
+          "frozen_random_shots": {
+            "passed": 4,
+            "cases": 48,
+            "core_calls": 96,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 32,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 32,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 4,
+                "core_calls": 32,
+                "invitations": 0
+              }
+            }
+          },
+          "without_training_shots": {
+            "passed": 0,
+            "cases": 48,
+            "core_calls": 0,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              }
+            }
+          },
+          "all_active": {
+            "passed": 0,
+            "cases": 48,
+            "core_calls": 144,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 48,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 48,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 48,
+                "invitations": 0
+              }
+            }
+          }
+        }
+      },
+      {
+        "seed": 19,
+        "holdouts": {
+          "learned": {
+            "passed": 48,
+            "cases": 48,
+            "core_calls": 64,
+            "invitations": 16,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 16,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 16,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 32,
+                "invitations": 16
+              }
+            }
+          },
+          "without_recall": {
+            "passed": 32,
+            "cases": 48,
+            "core_calls": 48,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 16,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 16,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 16,
+                "invitations": 0
+              }
+            }
+          },
+          "frozen_random_shots": {
+            "passed": 3,
+            "cases": 48,
+            "core_calls": 96,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 32,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 32,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 3,
+                "core_calls": 32,
+                "invitations": 0
+              }
+            }
+          },
+          "without_training_shots": {
+            "passed": 0,
+            "cases": 48,
+            "core_calls": 0,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              }
+            }
+          },
+          "all_active": {
+            "passed": 0,
+            "cases": 48,
+            "core_calls": 144,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 48,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 48,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 48,
+                "invitations": 0
+              }
+            }
+          }
+        }
+      },
+      {
+        "seed": 41,
+        "holdouts": {
+          "learned": {
+            "passed": 48,
+            "cases": 48,
+            "core_calls": 64,
+            "invitations": 16,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 16,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 16,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 32,
+                "invitations": 16
+              }
+            }
+          },
+          "without_recall": {
+            "passed": 32,
+            "cases": 48,
+            "core_calls": 48,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 16,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 16,
+                "core_calls": 16,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 16,
+                "invitations": 0
+              }
+            }
+          },
+          "frozen_random_shots": {
+            "passed": 4,
+            "cases": 48,
+            "core_calls": 96,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 32,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 32,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 4,
+                "core_calls": 32,
+                "invitations": 0
+              }
+            }
+          },
+          "without_training_shots": {
+            "passed": 0,
+            "cases": 48,
+            "core_calls": 0,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 0,
+                "invitations": 0
+              }
+            }
+          },
+          "all_active": {
+            "passed": 0,
+            "cases": 48,
+            "core_calls": 144,
+            "invitations": 0,
+            "by_goal": {
+              "0": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 48,
+                "invitations": 0
+              },
+              "1": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 48,
+                "invitations": 0
+              },
+              "2": {
+                "cases": 16,
+                "passed": 0,
+                "core_calls": 48,
+                "invitations": 0
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "ci": {
+    "run": 46174815565,
+    "job": 141071021014,
+    "commit": "07502bb450de9fe24bcb5e75eee36b90e08cc103",
+    "artifact": [
+      {
+        "id": 15275540868,
+        "name": "isolated-credit-evidence",
+        "size_in_bytes": 51065,
+        "expired": false
+      }
+    ],
+    "baseline_run": 46174815478,
+    "tiny_run": 46174815526,
+    "regression_runs": [
+      46174815401,
+      46174815605
+    ]
+  }
+}

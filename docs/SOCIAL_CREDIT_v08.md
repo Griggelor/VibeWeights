@@ -1,6 +1,6 @@
 # dev30 candidate — distinguish individual and cooperative credit
 
-**Implementation and prespecified experiment, results pending.** dev29 actual outcome: 45/48 joint tasks vs 0/48 without recall, but only 75/144 overall; one individual goal 0/48 with no activation. Both real fragment readouts passed original admission; form controls also 16/16, no pretrained-specific advantage. [Evidence](../evidence/v08-real-fragment-social-ci.json).
+**Real matched experiment passed; baseline release CI pending when recorded.** dev29 actual outcome: 45/48 joint tasks vs 0/48 without recall, but only 75/144 overall; one individual goal 0/48 with no activation. Both real fragment readouts passed original admission; form controls also 16/16, no pretrained-specific advantage. [Evidence](../evidence/v08-real-fragment-social-ci.json).
 
 ## Defect hypothesis
 
@@ -17,3 +17,7 @@ Limitation: this favors individually helpful initiation; genuinely synergistic c
 Same real fragment readouts, train examples, goal format, seeds 7/19/41, 600 learning episodes/seed, 0/1/2 training shots, controls and thresholds as dev29. Both policies evaluated on 16 completely new authored sentence pairs (48 tasks/seed), checked disjoint from adapter train/admission and dev29 usage. No new readout selection or tuning on these cases. Report both policies and per-goal outcomes, including failed admissions or incomplete results. Exact same core handles, separate session/DB directories. All underlying assumptions and limitations of dev29 remain. No automatic claim of real model advantage from punctuation task. CPU reference only.
 
 Three regression tests: known clipping counterexample, useful self-selection after restart and credit-policy identity, atomic rollback after additional oracle failure. Existing dev28 default tests must remain unchanged. Actual remote results pending. Next: independently evidenced adapter candidates learned from usage, productive shot-triggered invitations, latent communication beyond fixed ports; do not skip individual activation verification.
+
+## Actual measured results
+
+[CI 46174815565](https://github.com/Griggelor/VibeWeights/actions/runs/46174815565), job 141071021014, code 07502bb450de9fe24bcb5e75eee36b90e08cc103. Both pretrained readouts admitted. Old learned 80/144 (individual first 32/48, second 0/48, joint 48/48), isolated self-credit 144/144 (48/48 in each goal, 48/48 each seed), 192 core calls and 48 invitations. New without recall 96/144 (joint 0/48), frozen random shots 11/144, no training shots and all-active 0/144. Same old controls, old no-recall 32/144. Same thresholds, no change to peer credit. 76.528 seconds total remote CPU, not a performance benchmark. [Verified log summary](../evidence/v08-social-credit-ci.json), full report retained in Actions artifact. General semantic alignment, autonomous readout acquisition and real hardware remain open. Form is still not pretrained-specific as dev29 controls passed; tasks are small authored structured-port cases repeated across seeds, not 144 independent text pairs. Next: independently admitted readouts trained from committed social-use receipts.

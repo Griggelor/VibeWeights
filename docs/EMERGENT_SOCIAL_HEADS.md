@@ -48,3 +48,5 @@ Actual dev29: joint real-fragment tasks 45/48 with learned recall vs 0/48 withou
 ## dev30: individuelle Aktivierungsbewertung
 
 [Vertrag](SOCIAL_CREDIT_v08.md): getrennte isolierte Utility für Selbstaktivierung, unveränderte marginale Bewertung historischer Partner. Opt-in, gleiche Schwellen, frische matched Holdouts. Kein zusätzlicher Core-Forward; zusätzliche Oracle-Auswertungen explizit. Noch keine Messwerte.
+
+Actual dev30 matched fresh comparison: 144/144 vs old 80/144; without recall 96/144, without training shots 0/144. [Evidence](../evidence/v08-social-credit-ci.json). Controlled reference, not autonomous readout acquisition. Next: readout candidates learned exclusively from verified historical social results.
