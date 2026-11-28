@@ -18,6 +18,7 @@ CONTRACT='social-episodes-v1'
 SELF_THRESHOLD=.35
 INVITE_THRESHOLD=.2
 ACCEPT_THRESHOLD=-.1
+CREDIT_POLICIES=('leave-one-out-v1','isolated-activation-v2')
 
 
 def _vector(x,*,limit=128):
@@ -79,10 +80,11 @@ class SocialPopulation:
     no central ranking. Additive group execution is a restricted test ABI.
     A shot is an explicit experimental inclusion, not a forced positive reward.
     """
-    def __init__(self,cooperation,cores,*,width):
+    def __init__(self,cooperation,cores,*,width,credit_policy='leave-one-out-v1'):
         if not isinstance(cooperation,Cooperation) or type(width) is not int or not 1<=width<=64:
             raise ContractError('social store/width')
-        self.db=cooperation.db;self.width=width
+        if credit_policy not in CREDIT_POLICIES:raise ContractError('social credit policy')
+        self.db=cooperation.db;self.width=width;self.credit_policy=credit_policy
         cores=tuple(cores)
         if not 1<=len(cores)<=32:raise ContractError('social population bounds')
         self.cores={}
@@ -109,6 +111,8 @@ class SocialPopulation:
           PRIMARY KEY(session,owner,peer,revision));
         ''')
         self.spec={'contract':CONTRACT,'width':width,'output_width':self.output_width,'cores':self.identities}
+        # Preserve default v1 session identity and historical receipts.
+        if credit_policy!='leave-one-out-v1':self.spec['credit_policy']=credit_policy
 
     def _bind(self,session):
         spec=json.dumps(self.spec,sort_keys=True,separators=(',',':'));sha=_hash(self.spec)
@@ -218,9 +222,18 @@ class SocialPopulation:
             total=value();full=assess(total)
             without={k:assess(value(k)) for k in contributions}
             marginal={k:max(-1.,min(1.,full['utility']-v['utility'])) for k,v in without.items()}
+            isolated=None;self_credit=marginal
+            if self.credit_policy=='isolated-activation-v2':
+                # Separate the question 'would my own contribution help an
+                # empty workspace?' from 'did this partner help this group?'.
+                # Reuse actual contributions; no additional core forwards.
+                empty=assess([0.]*self.output_width)
+                solo={k:assess(v) for k,v in contributions.items()}
+                self_credit={k:max(-1.,min(1.,v['utility']-empty['utility'])) for k,v in solo.items()}
+                isolated={'empty':empty,'solo':solo,'credit':self_credit}
             changes=[]
             if learn:
-                for k,r in marginal.items():
+                for k,r in self_credit.items():
                     changes.append(self._update(session,episode,k,'',x,r,.15))
                 for owner in sorted(members):
                     for peer in sorted(members-{owner}):
@@ -239,6 +252,9 @@ class SocialPopulation:
                      'released':total if full['verified'] else None,'utility':full['utility'],
                      'without':without,'marginal':marginal,'updates':changes,
                      'core_calls':len(contributions),'oracle_calls':1+len(without)}
+            if isolated is not None:
+                receipt['isolated_activation']=isolated
+                receipt['oracle_calls']+=1+len(contributions)
             self.db.execute('INSERT INTO social_episodes_v1 VALUES(?,?,?,?,?)',
                 (session,episode,spec_sha,json.dumps(receipt,sort_keys=True,separators=(',',':')),_hash(receipt)))
             self.db.commit()
