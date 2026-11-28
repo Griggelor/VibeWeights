@@ -65,7 +65,7 @@ def derive_relation(learning, *, first_job, second_job, result_domain, job_id,
 
 
 def stage_teacher_knowledge(learning, teacher, *, domain, request, job_id, expert_id,
-                            oracle, oracle_id, method='TRAINED', steps=80):
+                            oracle, oracle_id, method='TRAINED', steps=80, initiative_sha256=None):
     """Use a local text-bridge proposal as data, never as verification authority.
 
     Host authorizes request and supplies independent oracle. Only strict JSON
@@ -79,6 +79,8 @@ def stage_teacher_knowledge(learning, teacher, *, domain, request, job_id, exper
         raise ContractError('teacher/domain contract')
     for value in (job_id,expert_id,oracle_id): identifier(value)
     source=identifier('teacher:'+job_id)
+    if initiative_sha256 is not None and (type(initiative_sha256) is not str or len(initiative_sha256)!=64 or any(c not in '0123456789abcdef' for c in initiative_sha256)):
+        raise ContractError('initiative receipt digest')
     if type(request) is not str or not request.strip() or len(request)>8000:
         raise ContractError('teacher request bounds')
     if method not in ('DIRECT','TRAINED') or type(steps) is not int or not 1<=steps<=256:
@@ -122,6 +124,7 @@ def stage_teacher_knowledge(learning, teacher, *, domain, request, job_id, exper
         metadata={'contract':'local-teacher-json-v1','teacher_id':teacher.spec.id,'model':teacher.spec.model,
                   'oracle_id':oracle_id,'request_sha256':hashlib.sha256(request.encode()).hexdigest(),
                   'proposal_sha256':hashlib.sha256(raw.encode()).hexdigest(),'verified_facts':len(ids)}
+        if initiative_sha256 is not None: metadata['initiative_sha256']=initiative_sha256
         learning.record_intake(job_id=job_id,expert_id=expert_id,domain=domain,ids=ids,method=method,
                                steps=steps,derivation=metadata)
         learning.knowledge.db.commit()

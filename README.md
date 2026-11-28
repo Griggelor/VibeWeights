@@ -3,7 +3,7 @@
 **A self-organizing, self-learning, self-optimizing and self-scaling neural ecosystem**
 
 ![Research prototype](https://img.shields.io/badge/status-research%20prototype-orange)
-![Version](https://img.shields.io/badge/development-v0.8.0.dev4-blue)
+![Version](https://img.shields.io/badge/development-v0.8.0.dev5-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 
 **Local-first AI research · Decentralized neural experts · Weight-space programming · Continual learning**
@@ -386,6 +386,14 @@ The full [research survey](docs/FORSCHUNG_2026-11-26.md) and [learning/evolution
 
 Independent holdouts must not become synthesis inputs. Report failures as research results. Distinguish expert activation, causal contribution, user satisfaction, factual correctness, resource consumption and independent capability. Do not equate greater parameter count or test count with intelligence.
 
+## Development snapshot v0.8.0.dev5 — bounded model-initiated learning
+
+**165 local CPU tests passed** (153 regression cases + 12 new cases). The bootstrap model can select or decline a missing knowledge domain from a bounded host-approved opportunity set. The persistent initiative receipt binds the approved policy and selected target to the subsequent teacher intake. Strict JSON, independent factual verification, explicit host staging and independent candidate promotion remain mandatory. No model can authorize its own admission.
+
+An opt-in LM Studio exercise offers two Gregorian calendar domains, with Python's standard-library calendar as an independent oracle. Separate propose, stage, promote and inspect commands are provided; promotion requires no model server. The local HTTP transport test uses simulated responses, not a real LLM. This is bounded model-directed selection, not autonomous semantic discovery or open-ended self-learning.
+
+See [implementation and LM Studio instructions](docs/LEARNING_INITIATIVE_v08.md), [exercise](scripts/learning_initiative_lmstudio.py) and [test evidence](evidence/v08-initiative-summary.json). The additive population and three VRAM/SSD lifecycle states remain unchanged.
+
 ## Development snapshot v0.8.0.dev4 — recoverable learning and learning economics
 
 **153 local CPU tests passed** (142 regression cases + 11 new cases). Verified teacher and relation fact batches now commit a durable learning intent in the same source-database transaction. Explicit recovery reconstructs incomplete jobs and builds, checks source revisions and identity, and returns an existing staged or admitted artifact without duplicating it. Recovery never bypasses independent promotion. Six actual process-exit tests cover committed boundaries through admission; this is not universal cross-database or power-loss atomicity.
@@ -494,7 +502,7 @@ The commands above are for the existing Python research prototype, not the futur
 | Stage | Priority / deliverable |
 |---|---|
 | Public baseline | v0.7.0 source, weights and evidence imported; verify Windows/Linux CI |
-| Knowledge-first learning (P0) | Bounded recall, relational transfer, explicit recovery and ten-package retention demonstrated. Next: unified source/memory transactions, scalable dependency checks, real teacher, autonomous proposals and method/transfer holdouts |
+| Knowledge-first learning (P0) | Bounded recall, relational transfer, recovery, ten-package retention and model-directed selection implemented. Next: real model exercise, unified source/memory transactions, scalable dependency checks and method/transfer holdouts |
 | Unified Environment | Migrate the regular chat/API to the new core; generic events, dynamic topology, private recurrence, independent result release |
 | Memory | Universal semantic ABI, source/relationship indexing, cooperation and feedback integration, recovery, physical budgets |
 | Bootstrap | Real authorized local models; text vs latent adapter experiments, independent ablations |
@@ -517,6 +525,7 @@ The detailed project documents are currently primarily in German; this English o
 | [Platform v0.5](docs/platform_v05.md) | Reference runtime, API, telemetry and limits |
 | [Research survey](docs/FORSCHUNG_2026-11-26.md) | Literature and implications |
 | [Research supplement](docs/FORSCHUNG_ERGAENZUNG_v05.md) | Exploration, selection, learning and attribution |
+| [Model-initiated learning v0.8.dev5](docs/LEARNING_INITIATIVE_v08.md) | Bounded initiative, persistent decisions and opt-in LM Studio exercise |
 | [Learning recovery and economics v0.8.dev4](docs/LEARNING_RECOVERY_v08.md) | Durable intents, crash tests, cost comparison and ten-package retention |
 | [Relational learning v0.8.dev3](docs/RELATION_LEARNING_v08.md) | Derived facts, additive candidate, live source guards and teacher proposal verification |
 | [Knowledge acquisition v0.8.dev2](docs/KNOWLEDGE_LEARNING_v08.md) | First DIRECT/TRAINED weights, learning ledger, evaluation, source audit and evidence |

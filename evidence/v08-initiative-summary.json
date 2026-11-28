@@ -1,0 +1,23 @@
+{
+  "version": "0.8.0.dev5",
+  "baseline": "0.8.0.dev4",
+  "baseline_commit": "a6acb169ec9f5bc8779a9f7e195bd7abcc542b3b",
+  "tests": {
+    "tests": 165,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "new_tests": 12,
+  "regression_tests": 153,
+  "duration_seconds": 48.826,
+  "command": "python -m pytest -q --junitxml=evidence/v08-initiative-tests.xml",
+  "python": "3.13.5",
+  "torch": "2.10.0+cpu",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "local_http_fixture": true,
+  "real_llm": false,
+  "remote_ci": false,
+  "windows_gpu": false,
+  "scope": "host-approved missing domains; model selects or skips; explicit stage and promote; calendar fixture CLI; no arbitrary autonomous learning"
+}
