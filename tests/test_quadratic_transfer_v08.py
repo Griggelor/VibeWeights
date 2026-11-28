@@ -141,3 +141,19 @@ def test_quadratic_training_recovery(tmp_path,monkeypatch):
     assert m['state']=='STAGED' and g.job('quadratic-job')['build']==build
     assert g.promote('quadratic-job',holdout(),oracle_id='independent-holdout')
     close(c,p,k)
+
+
+def test_quadratic_artifact_binds_operation(tmp_path):
+    c,p,k,a,l=fixture(tmp_path)
+    common={'source_topic':'input','target_scope':'global','target_topic':'output'}
+    affine=c.stage_affine('linear','linear',[[1,2]],[3],**common)
+    quadratic=c.stage_quadratic('curve','curve',[[1,2]],[3],input_width=1,**common)
+    assert affine['sha256']!=quadratic['sha256']
+    assert p.admit('linear',[((2,4),(13,))])
+    assert p.admit('curve',[((2,),(13,))])
+    # Identical coefficient tensors do not imply identical semantics.
+    raw=dict(c.manifest('curve'));raw.pop('state')
+    raw['op']='affine';raw['shape']=[1,2]
+    with c.db:c.db.execute('UPDATE experts SET manifest=? WHERE id=?',(json.dumps(raw,sort_keys=True),'curve'))
+    with pytest.raises(ContractError,match='operation binding'):c.load('curve')
+    close(c,p,k)

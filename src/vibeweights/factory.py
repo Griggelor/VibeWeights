@@ -4,6 +4,7 @@ No executable manifests, untrusted generator execution or automatic promotion.
 from pathlib import Path
 import hashlib, json, sqlite3, math, uuid
 import torch
+from safetensors import safe_open
 from safetensors.torch import save_file, load_file
 from .abi import ContractError
 from .environment import identifier, Signal
@@ -84,7 +85,8 @@ class Catalog:
         # Unique staging path; artifacts named by content digest, not by arbitrary manifest paths.
         temp=self.root/(uuid.uuid4().hex+'.tmp')
         try:
-            save_file({'w':w,'b':b},str(temp)); sha=digest(temp); path=self.root/(sha+'.safetensors')
+            metadata={'vibeweights_contract':f'quadratic-upper-v1:{input_width}'} if op=='quadratic' else None
+            save_file({'w':w,'b':b},str(temp),metadata=metadata); sha=digest(temp); path=self.root/(sha+'.safetensors')
             if path.exists():
                 if digest(path)!=sha: raise ContractError('corrupt existing artifact')
             else: temp.replace(path)
@@ -100,13 +102,16 @@ class Catalog:
         if type(byte_budget) is not int or byte_budget<1: raise ContractError('byte budget')
         path=self.root/(m['sha256']+'.safetensors')
         if not path.is_file() or path.stat().st_size!=m['bytes'] or m['bytes']>byte_budget or digest(path)!=m['sha256']: raise ContractError('artifact budget or integrity')
-        tensors=load_file(str(path))
-        if set(tensors)!={'w','b'}:raise ContractError('tensor keys')
-        w,b=tensors['w'],tensors['b']
         shape=m['shape'];op=m['op']
         if m['abi']!='numeric-events/0.1' or op not in ('affine','quadratic') or type(shape) is not list or len(shape)!=2 or any(type(n) is not int or not 1<=n<=4096 for n in shape):
             raise ContractError('numeric core ABI')
         expected=shape if op=='affine' else [shape[0],quadratic_width(shape[1])]
+        with safe_open(str(path),framework='pt',device='cpu') as artifact:
+            metadata=artifact.metadata() or {}
+            expected_metadata={'vibeweights_contract':f'quadratic-upper-v1:{shape[1]}'} if op=='quadratic' else {}
+            if metadata!=expected_metadata:raise ContractError('numeric artifact operation binding')
+            if set(artifact.keys())!={'w','b'}:raise ContractError('tensor keys')
+            w,b=artifact.get_tensor('w'),artifact.get_tensor('b')
         if (list(w.shape)!=expected or b.shape!=(shape[0],) or m['parameters']!=w.numel()+b.numel() or
             (op=='quadratic' and m['parameters']>65536) or
             any(t.dtype!=torch.float32 or not torch.isfinite(t).all() for t in (w,b))):

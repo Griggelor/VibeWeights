@@ -21,3 +21,7 @@ Four new integration tests: transfer from genuine quadratic+affine cooperation, 
 ## Boundaries
 
 The feature basis is developer-chosen, not discovered; general nonlinear MLP training, architecture discovery, heterogeneous pretrained fragment assimilation, learned latent interface and GPU execution remain open. No autonomous group learning authority is added. Full-rank sample requirement constrains practical dimensionality more than the declared input limit. No evidence of general reasoning.
+
+## Artifact operation binding
+
+The nonlinear SafeTensors file includes the exact fixed feature contract and logical input width as one metadata field. Equal coefficient tensors in affine and quadratic experts are not treated as identical artifacts. Catalog loading validates that operation metadata matches the manifest and rejects mismatches. Legacy affine artifacts still use no metadata. A fifth integration test covers hash distinction and manifest operation substitution.
