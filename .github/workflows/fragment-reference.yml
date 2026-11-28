@@ -1,0 +1,80 @@
+name: Qwen3 structural fragment A0
+on:
+  pull_request:
+    paths:
+      - 'src/vibeweights/qwen3_fragments.py'
+      - 'scripts/probe_qwen3_fragments.py'
+      - 'experiments/fragment_tests/**'
+      - '.github/workflows/fragment-reference.yml'
+      - 'pyproject.toml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: fragment-a0-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  tiny-architecture:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    env:
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned CPU and fragment dependencies
+        run: |
+          python -m pip install torch==2.10.0 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install safetensors==0.7.0 pytest==9.0.2
+          python -m pip install -e ".[fragments,test]"
+          python -m pip check
+      - name: Tiny Qwen3 architecture integration tests
+        run: python -m pytest -q experiments/fragment_tests --junitxml=fragment-tests.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fragment-tests-${{ matrix.os }}
+          path: fragment-tests.xml
+          if-no-files-found: warn
+  real-reference:
+    # One explicit public model-download experiment in the fragment PR;
+    # later repetitions can be started using workflow_dispatch.
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.ref == 'dev24-qwen3-fragments'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      OMP_NUM_THREADS: '2'
+      MKL_NUM_THREADS: '2'
+      PYTHONUTF8: '1'
+      HF_HUB_DISABLE_TELEMETRY: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned CPU and fragment dependencies
+        run: |
+          python -m pip install torch==2.10.0 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install safetensors==0.7.0
+          python -m pip install -e ".[fragments]"
+          python -m pip check
+      - name: Download exact public revision and compare three partitions
+        run: python scripts/probe_qwen3_fragments.py --download-pinned-qwen3 --output fragment-store --report qwen3-parity.json --device cpu
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qwen3-real-a0-report
+          path: |
+            qwen3-parity.json
+            fragment-store/manifest.json
+            fragment-store/config.json
+            fragment-store/LICENSE
+          if-no-files-found: warn

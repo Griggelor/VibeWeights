@@ -9,6 +9,7 @@ requires-python = ">=3.10"
 dependencies = ["torch>=2.2,<3", "safetensors>=0.4,<1", "numpy>=1.26,<3"]
 [project.optional-dependencies]
 test = ["pytest>=8,<10"]
+fragments = ["transformers==4.57.1"]
 [tool.setuptools.packages.find]
 where = ["src"]
 [tool.pytest.ini_options]
