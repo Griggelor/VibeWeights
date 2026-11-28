@@ -118,12 +118,19 @@ class Population:
         return self._resident[id].compute(values)
 
     @source_checked
-    def run(self, inputs, goal, validators, *, ledger=None, **options):
+    def run(self, inputs, goal, validators, *, ledger=None, memory_run_id=None, **options):
         """Numerical runtime sees only resident, approved experts."""
         self._check()
+        if any(k.startswith('_') for k in options):
+            raise ContractError('internal environment options')
         if (self._source_owner is not None and options.get('knowledge') is self._source_owner.knowledge
                 and options.get('remember_experts')):
-            raise ContractError('live source-guarded run must be read-only on source ledger')
+            if ledger is not None:
+                raise ContractError('guarded memory run uses atomic source receipt, not external ledger')
+            return self._source_owner.memory_runs.execute(tuple(self._resident.values()),inputs,goal,validators,
+                run_id=memory_run_id,**options)
+        if memory_run_id is not None:
+            raise ContractError('memory run identity requires guarded memory path')
         return Environment(tuple(self._resident.values()), validators, ledger).run(inputs, goal, **options)
 
     @source_checked

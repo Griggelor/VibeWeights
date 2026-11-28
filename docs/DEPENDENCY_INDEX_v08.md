@@ -1,5 +1,7 @@
 # v0.8.0.dev14 – Indexierter Abhängigkeitsgraph und inkrementelle Quellenprüfung
 
+Historischer Stand dev14. [dev15](MEMORY_TRANSACTION_v08.md) ergänzt den atomaren Source-/REMEMBER-Schreibpfad mit Ausführungsreceipt; vollständige Cross-DB-/Datei-Recovery bleibt offen.
+
 ## Ziel und Vertrag
 
 Globales Nachlernen, Konsolidierung und spätere Fragmentassimilation benötigen einen skalierbaren Rückwärtsindex. Bisher prüfte der Source-Guard bei jedem äußeren Aufruf sämtliche Lernjobs und durchlief alle Manifest-Elternbeziehungen. Dev14 ersetzt diesen Pfad im bestehenden `KnowledgeLearning` durch einen abgeleiteten SQLite-Index und transaktionale Änderungsjournale. Die fachliche Validierung `_check_sources` bleibt unverändert: aktuelle verifizierte globale Heads, deklarierte transitive Quellen, Record-Hashes und Datensatzhash müssen übereinstimmen. Keine Änderung der Gewichte, der drei regulären Residency-Klassen oder der unabhängigen Freigabe. Quarantäne bleibt Sicherheitsmaßnahme, keine evolutionäre Löschung.

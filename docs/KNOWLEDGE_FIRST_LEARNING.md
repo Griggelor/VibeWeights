@@ -126,3 +126,8 @@ Jede Implementierungsrunde dokumentiert Ausgangsstand, Hypothesen, Entscheidunge
 ## Ergänzung dev14: indexierte deklarierte Provenienz
 
 [dev14](DEPENDENCY_INDEX_v08.md) indexiert die in Lernjobs dokumentierten transitiven Quellensnapshots und die Elternkanten von Manifesten. Transaktionslokale Änderungsjournale ermöglichen gezielte Wiederprüfung und Sicherheitsquarantäne; erste und explizite Vollprüfungen bleiben verfügbar. Keine semantische Entdeckung und keine Cross-DB-Atomarität daraus ableiten. Unabhängige Freigabe und additive Population bleiben unverändert.
+
+
+## Ergänzung dev15: quellengesicherte atomare Memory-Schreiboperation
+
+[dev15](MEMORY_TRANSACTION_v08.md) integriert den regulären REMEMBER-Pfad mit dem Learning-Source-Guard. Verifizierte Erkenntnis, Head, Änderungsjournal und historisches Ausführungsreceipt werden in derselben Source-Transaktion gespeichert. Konservative deklarierte Quellenbindung schützt spätere Live-Reads, eine feste Run-ID ermöglicht kontrollierten Wiederanlauf. Kein automatisch autorisierter Learning-Intake, keine allgemeine Katalog-/Datei-Atomarität. Lern- und Freigabeoperationen bleiben separat geprüft.

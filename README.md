@@ -3,7 +3,7 @@
 **A self-organizing, self-learning, self-optimizing and self-scaling neural ecosystem**
 
 ![Research prototype](https://img.shields.io/badge/status-research%20prototype-orange)
-![Version](https://img.shields.io/badge/development-v0.8.0.dev14-blue)
+![Version](https://img.shields.io/badge/development-v0.8.0.dev15-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 
 **Local-first AI research · Decentralized neural experts · Weight-space programming · Continual learning**
@@ -396,6 +396,10 @@ The full [research survey](docs/FORSCHUNG_2026-11-26.md) and [learning/evolution
 
 Independent holdouts must not become synthesis inputs. Report failures as research results. Distinguish expert activation, causal contribution, user satisfaction, factual correctness, resource consumption and independent capability. Do not equate greater parameter count or test count with intelligence.
 
+## Development snapshot v0.8.0.dev15 — source-guarded atomic memory writes
+
+**230 local CPU tests passed** (223 previous + 7 new). The opt-in guarded Population REMEMBER path now commits a verified goal record, current head, source-index events and a hash-bound historical run receipt in the same source SQLite transaction. Conservative provenance includes loaded records, proposing cores and declared ancestors' source revisions. Public nested writes are rejected before opening a transaction. Two real process-exit tests show no partial record/receipt before commit and both durable after commit; a stable run ID prevents duplicate execution. A later source revision invalidates the remembered result for live verified reads and quarantines the dependent cores. See [implementation](docs/MEMORY_TRANSACTION_v08.md), [test evidence](evidence/v08-memory-transaction-summary.json) and [development journal](docs/DEVELOPMENT_LOG.md). This is source-local atomicity, not a catalog/file-wide transaction. A test-only REMEMBER action adapter drives actual affine weights; no new neural memory head, automatic learning intake, real LLM/fragment, GPU/Windows or remote CI validation.
+
 ## Development snapshot v0.8.0.dev14 — indexed provenance and incremental source validation
 
 **223 local CPU tests passed** (217 previous + 6 new). The live source guard now uses SQLite reverse indexes for declared source revisions and expert-parent edges, transaction-local change journals, and process-local checkpoints. A first or explicitly requested full audit revalidates the catalog; an unchanged incremental audit reloads no job snapshots. In the 100-job plus three-descendant demonstration, 100 alternating measurements per mode yielded median 53.39 µs incremental vs 10,780.77 µs full guard-only validation. A source correction checks one job and quarantines its four affected experts, leaving 99 resident and every original artifact hash unchanged. No general inference speedup or GPU claim. See [implementation](docs/DEPENDENCY_INDEX_v08.md), [raw measurements](evidence/v08-dependency-demo.json), [test evidence](evidence/v08-dependency-summary.json) and [development journal](docs/DEVELOPMENT_LOG.md). Trusted single owner, declared provenance only, startup rebuild and validation remain linear, growing journals, other catalog scans and cross-database recovery still open. No real LLM, fragment or GPU/Windows validation.
@@ -552,7 +556,7 @@ The commands above are for the existing Python research prototype, not the futur
 | Stage | Priority / deliverable |
 |---|---|
 | Public baseline | v0.7.0 source, weights and evidence imported; verify Windows/Linux CI |
-| Knowledge-first learning (P0) | Bounded recall, relational transfer, recovery, retention, model-directed selection, task-driven learning, additive extension and conflict-triggered correction implemented. Global cross-domain repair slice implemented. Persistent event delivery and local callback groups implemented. First trained binary-metadata perception heads implemented. First voluntary group execution and evidence-bound DIRECT group consolidation demonstrated. Indexed declared dependencies and incremental source guard implemented. Next: unified source/memory transactions, trained group transfer, semantic perception, recursive recruitment, bounded scheduling and real model/fragment experiments |
+| Knowledge-first learning (P0) | Bounded recall, relational transfer, recovery, retention, model-directed selection, task-driven learning, additive extension and conflict-triggered correction implemented. Global cross-domain repair slice implemented. Persistent event delivery and local callback groups implemented. First trained binary-metadata perception heads implemented. First voluntary group execution and evidence-bound DIRECT group consolidation demonstrated. Indexed declared dependencies and incremental source guard implemented. Source-local atomic REMEMBER implemented. Next: broader catalog/file recovery and shared job identities, trained group transfer, semantic perception, recursive recruitment, bounded scheduling and real model/fragment experiments |
 | Unified Environment | Migrate the regular chat/API to the new core; generic events, dynamic topology, private recurrence, independent result release |
 | Memory | Universal semantic ABI, source/relationship indexing, cooperation and feedback integration, recovery, physical budgets |
 | Bootstrap | Real authorized local models; text vs latent adapter experiments, independent ablations |
@@ -576,6 +580,7 @@ The detailed project documents are currently primarily in German; this English o
 | [Platform v0.5](docs/platform_v05.md) | Reference runtime, API, telemetry and limits |
 | [Research survey](docs/FORSCHUNG_2026-11-26.md) | Literature and implications |
 | [Research supplement](docs/FORSCHUNG_ERGAENZUNG_v05.md) | Exploration, selection, learning and attribution |
+| [Atomic memory writes v0.8.dev15](docs/MEMORY_TRANSACTION_v08.md) | Source-guarded REMEMBER, provenance, atomic receipt and crash recovery |
 | [Dependency index v0.8.dev14](docs/DEPENDENCY_INDEX_v08.md) | Indexed reverse provenance, incremental source guard and benchmark |
 | [Group consolidation v0.8.dev13](docs/GROUP_LEARNING_v08.md) | Evidence-bound DIRECT composition, independent holdouts, weight-only execution and timing |
 | [Development journal](docs/DEVELOPMENT_LOG.md) | Intermediate experiments, failures, decisions, final evidence and limitations |

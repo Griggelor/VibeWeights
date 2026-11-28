@@ -87,6 +87,8 @@ class KnowledgeLearning:
         CREATE UNIQUE INDEX IF NOT EXISTS conflict_open_v08 ON conflict_cases_v08(topic,entity) WHERE closed=0;
         ''')
         self.dependencies=DependencyIndex(self)
+        from .memory_transaction import MemoryRunTransaction
+        self.memory_runs=MemoryRunTransaction(self)
         self._locked_depth=0
         self._guard_depth=0
         population._source_owner=self

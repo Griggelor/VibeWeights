@@ -1,0 +1,46 @@
+{
+  "version": "0.8.0.dev15",
+  "baseline_commit": "bd305958e849b6d9bd6d94bb0c1a679dd193d0f7",
+  "tests": {
+    "tests": 230,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "duration_seconds": 78.18,
+  "previous_tests": 223,
+  "new_tests": 7,
+  "intermediate": [
+    {
+      "file": "v08-memory-transaction-intermediate-1.log",
+      "tests": 30,
+      "failures": 0,
+      "duration_seconds": 10.21
+    }
+  ],
+  "environment": {
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "python": "3.13.5",
+    "torch": "2.10.0+cpu",
+    "sqlite": "3.46.1",
+    "device": "cpu",
+    "thread_limits": {
+      "OMP_NUM_THREADS": 1,
+      "MKL_NUM_THREADS": 1,
+      "OPENBLAS_NUM_THREADS": 1
+    }
+  },
+  "process_exit_boundaries": [
+    "before source commit: both fact and receipt absent; same run ID retry allowed",
+    "after source commit: both fact and receipt present; duplicate ID rejected"
+  ],
+  "limitations": [
+    "single trusted owner",
+    "test-only Python REMEMBER action adapter",
+    "declared provenance only",
+    "source-local atomicity, not cross-database or weight-file atomicity",
+    "manual expert quarantine without source revision does not automatically invalidate independent memory record",
+    "no automatic mapping of run records into typed learning jobs",
+    "no real LLM, imported fragment, Windows, GPU or remote CI validation"
+  ]
+}

@@ -109,7 +109,8 @@ class KnowledgeLedger:
         return result
 
     def store(self,access,*,scope,key,topic,values,source,kind='semantic',status='OBSERVED',expected=None,parents=(),space=None,embedding=None):
-        """Host-only append in its own transaction."""
+        """Host-only append in its own transaction; never roll back a caller."""
+        if self.db.in_transaction: raise ContractError('nested public knowledge write')
         with self.db:
             self.db.execute('BEGIN IMMEDIATE')
             return self._store_locked(access,scope=scope,key=key,topic=topic,values=values,
@@ -169,6 +170,7 @@ class KnowledgeLedger:
         scores=[(math.fsum(a*b for a,b in zip(q,json.loads(emb))),rid) for rid,emb in rows]
         return tuple(rid for _,rid in sorted(scores,key=lambda t:(-t[0],t[1]))[:limit])
     def link(self,access,src,relation,dst):
+        if self.db.in_transaction: raise ContractError('nested public knowledge write')
         identifier(relation); a=self.read(src,access); b=self.read(dst,access)
         if a.scope!=b.scope and b.scope!='global': raise ContractError('relation scope cannot be widened')
         with self.db: self.db.execute('INSERT OR IGNORE INTO knowledge_links_v1 VALUES(?,?,?)',(src,relation,dst))

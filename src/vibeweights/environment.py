@@ -64,12 +64,12 @@ class Environment:
     def __init__(self,experts,validators,ledger=None):
         self.experts=tuple(sorted(experts,key=lambda e:e.id)); self.validators=dict(validators); self.ledger=ledger
         if len({identifier(e.id) for e in self.experts})!=len(self.experts): raise ContractError('duplicate instance')
-    def run(self,inputs,goal,*,limits=Limits(),seed=0,knowledge=None,access=None,context_limits=None,remember_experts=()):
+    def run(self,inputs,goal,*,limits=Limits(),seed=0,knowledge=None,access=None,context_limits=None,remember_experts=(),_remember_writer=None,_run_id=None):
         from .context import WorkingContext, ContextLimits
         from .knowledge import Access
         context=WorkingContext(knowledge,access or {},context_limits or ContextLimits()) if knowledge is not None else None
         remember_experts=frozenset(identifier(x) for x in remember_experts)
-        run_id=uuid.uuid4().hex; proposal_parents=defaultdict(set)
+        run_id=uuid.uuid4().hex if _run_id is None else identifier(_run_id); proposal_parents=defaultdict(set)
         if type(seed) is not int: raise ContractError('seed')
         identifier(goal[0]); identifier(goal[1]); facts={}; hypotheses=defaultdict(set); trace=[]; faults=[]; seen=set(); steps=probes=0; status='STAGNATION'; rng=random.Random(seed)
         for x in inputs:
@@ -157,6 +157,8 @@ class Environment:
         if context is not None:
             result['memory_actions']=context.actions
             result['memory_trace']=context.trace
+        if _remember_writer is not None and faults:
+            status='INVALID'; result['status']=status; result['value']=None
         if context is not None and status=='OK':
             requested=tuple(e for e in sorted(remember_experts) if context.view(e).remember and (e,facts[goal]) in hypotheses[goal])
             if requested:
@@ -164,9 +166,12 @@ class Environment:
                 # loaded record revisions as conservative provenance, even after eviction.
                 parents=tuple(sorted({rid for e in requested for rid in proposal_parents[(*goal,e,facts[goal])]}))
                 try:
-                    rec=knowledge.store(context.access.get(requested[0],Access(requested[0])),scope=goal[0],key='result:'+run_id,topic=goal[1],values=facts[goal],source='run:'+run_id,status='VERIFIED',parents=parents)
-                    result['remembered']={'id':rec.id,'experts':requested,'parents':parents}
+                    fields=dict(scope=goal[0],key='result:'+run_id,topic=goal[1],values=facts[goal],source='run:'+run_id,status='VERIFIED',parents=parents)
+                    actor=context.access.get(requested[0],Access(requested[0]))
+                    rec=knowledge.store(actor,**fields) if _remember_writer is None else _remember_writer(result,actor,**fields)
+                    result['remembered']={'id':rec.id,'experts':requested,'parents':rec.parents}
                 except Exception as exc:
+                    if _remember_writer is not None: raise
                     result['memory_commit_error']=str(exc)[:160]
         if self.ledger: result['run_id']=self.ledger.save(result,run_id)
         return result
