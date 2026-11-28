@@ -51,3 +51,5 @@ A0-Nachweis erbracht am Codecommit b9d051921343914dc2f153e75268b0f4c7453c16: ech
 ## Implementierungsstand A1 (dev25-Kandidat)
 
 [Erster Adapter-/Head-Vertrag](FRAGMENT_ADAPTER_A1.md): eingefrorener nativer Prefix plus trainierter binärer Ausgabekopf, unabhängiger lokaler Beteiligungskopf, separate Holdout-Freigabe, unveränderliche Provenienz, drei Kontrollarme (importiert / zufällige Decoder / Embedding-only). Keine universelle latente ABI, keine allgemeine Population-Aufnahme oder Assimilationsbehauptung. Ergebnisse offen.
+
+A1 erster Vergleich: 7/12 Pretrained, 5/12 Zufall, 6/12 Embedding-only; keine Aufnahme. [Rohdaten](../evidence/v08-fragment-adapter-a1.json). A1 bleibt offen; A2 nicht als nachgewiesen behandeln.

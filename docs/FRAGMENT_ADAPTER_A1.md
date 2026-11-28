@@ -1,6 +1,6 @@
 # dev25 candidate — A1 frozen fragment adapter and local participation head
 
-**Implementation candidate; results pending.** Base dev24 release metadata `abad0b78a124cd901e8d1e174afffda3bfddf2c2`. A0 real-model CPU parity verified at `b9d051921343914dc2f153e75268b0f4c7453c16`. This is the first restricted A1 experiment, not yet general fragment assimilation.
+**Technical CPU CI passed; competence experiment negative, no admission. Release metadata CI pending.** Base dev24 release metadata `abad0b78a124cd901e8d1e174afffda3bfddf2c2`. A0 real-model CPU parity verified at `b9d051921343914dc2f153e75268b0f4c7453c16`. This is the first restricted A1 experiment, not yet general fragment assimilation.
 
 ## Design
 
@@ -28,3 +28,7 @@ python scripts/probe_fragment_adapters.py --download-pinned-qwen3 --output fragm
 ```
 
 Actual experiment requires model download and several GB of memory/disk. No implicit GPU fallback. This is separate from target Windows 11 / Strix Halo hardware acceptance.
+
+## Actual result
+
+Run 46160839256, code 67075d59de22cc2199194e0af6f411c8e327f8e2: pretrained 11/12 training, 7/12 holdout; random 12/12, 5/12; embedding-only 12/12, 6/12. All metadata heads 8/8 held out. No candidate admitted. Pretrained final regularized loss 0.692910362651911 vs initial 0.6931471805599453; holdout logits within +/-0.0012. Hypothesis for next round: pooling may suppress discriminative directions and/or regularization scale is unsuitable; not yet a causal diagnosis. [Full report](../evidence/v08-fragment-adapter-a1.json). Technical baseline and tiny CI successful; no competence or GPU claim.
