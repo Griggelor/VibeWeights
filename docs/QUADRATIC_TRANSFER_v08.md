@@ -1,6 +1,6 @@
 # v0.8.0.dev22 candidate — nonlinear behavioral transfer
 
-**Candidate, not accepted.** Base dev21 `bce96a02ff120610ea770160a607ec0f8fb6c33c`. Primary target Windows 11 / AMD Strix Halo. CPU reference only in this slice.
+**CPU reference accepted on the tested code revision; release metadata CI pending.** Base dev21 `bce96a02ff120610ea770160a607ec0f8fb6c33c`. Primary target Windows 11 / AMD Strix Halo. CPU reference only in this slice.
 
 ## Hypothesis and implementation
 
@@ -25,3 +25,7 @@ The feature basis is developer-chosen, not discovered; general nonlinear MLP tra
 ## Artifact operation binding
 
 The nonlinear SafeTensors file includes the exact fixed feature contract and logical input width as one metadata field. Equal coefficient tensors in affine and quadratic experts are not treated as identical artifacts. Catalog loading validates that operation metadata matches the manifest and rejects mismatches. Legacy affine artifacts still use no metadata. A fifth integration test covers hash distinction and manifest operation substitution.
+
+## CPU CI acceptance
+
+[Run 46143869357](https://github.com/Griggelor/VibeWeights/actions/runs/46143869357): four green jobs, 258/258 each, all device probes, rebuilds and smokes. [Machine-readable evidence](../evidence/v08-quadratic-transfer-ci.json). Target GPU acceptance remains open.

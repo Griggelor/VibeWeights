@@ -1,0 +1,136 @@
+{
+  "scope": "isolated torch CPU experiment replicating trainer, not production module or independent post-selection evaluation",
+  "torch": "2.10.0+cpu",
+  "threads": 1,
+  "seed": 7,
+  "steps": 256,
+  "optimizer": "LBFGS",
+  "activation": "relu",
+  "training_dtype": "float64",
+  "export_dtype": "float32",
+  "training_inputs": [
+    -4,
+    -3.5,
+    -3,
+    -2.5,
+    -2,
+    -1.5,
+    -1,
+    -0.5,
+    0,
+    0.5,
+    1,
+    1.5,
+    2,
+    2.5,
+    3,
+    3.5,
+    4
+  ],
+  "training_formula": "3*max(0,2*x-1)+2",
+  "holdout_inputs": [
+    -8,
+    -5,
+    0.25,
+    0.75,
+    5,
+    8
+  ],
+  "holdout_expected": [
+    2,
+    2,
+    2,
+    3.5,
+    29,
+    47
+  ],
+  "abs_tol": 0.000001,
+  "rel_tol": 0.000001,
+  "experiments": [
+    {
+      "hidden": 1,
+      "initial_loss": 97.23794488311876,
+      "final_loss": 3.0404007169410852e-21,
+      "training_passed": 17,
+      "holdout_passed": 6,
+      "outputs": [
+        2,
+        2,
+        2,
+        3.5,
+        29.000001907348633,
+        47
+      ],
+      "all_four_tensors_changed": true
+    },
+    {
+      "hidden": 2,
+      "initial_loss": 95.90424393741792,
+      "final_loss": 1.6796376014721377e-20,
+      "training_passed": 17,
+      "holdout_passed": 6,
+      "outputs": [
+        2,
+        2,
+        2,
+        3.5,
+        28.999998092651367,
+        47
+      ],
+      "all_four_tensors_changed": true
+    },
+    {
+      "hidden": 4,
+      "initial_loss": 125.48970961352504,
+      "final_loss": 1.2373910996231948e-20,
+      "training_passed": 17,
+      "holdout_passed": 4,
+      "outputs": [
+        1.718524694442749,
+        1.9955577850341797,
+        2,
+        3.5,
+        29.000003814697266,
+        47.000003814697266
+      ],
+      "all_four_tensors_changed": true
+    }
+  ],
+  "initial_failed_trial": {
+    "training_inputs": [
+      -4,
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "seeds": [
+      17,
+      41,
+      7
+    ],
+    "hidden_widths": [
+      2,
+      4,
+      8
+    ],
+    "all_nine_variants_failed_holdout": true,
+    "example": {
+      "seed": 7,
+      "hidden": 2,
+      "final_loss": 4.0969124861999455e-20,
+      "max_abs_error": 0.02670741081237793
+    }
+  },
+  "additional_grid": {
+    "hidden": 2,
+    "inputs": "-8 to 8, step 0.25, overlaps training and acceptance",
+    "passed": 65,
+    "cases": 65,
+    "max_abs_error": 0.000003814697265625
+  }
+}
