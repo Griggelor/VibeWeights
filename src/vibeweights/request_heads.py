@@ -17,7 +17,7 @@ def _core(learning,expert):
     m=learning.catalog.manifest(expert)
     if m['state'] not in RESIDENT or expert not in learning.population.resident_ids():
         raise ContractError('resident request core required')
-    if m['abi']!='numeric-events/0.1' or m['op']!='affine' or m['target_scope']!='global':
+    if m['abi']!='numeric-events/0.1' or m['op'] not in ('affine','quadratic') or m['target_scope']!='global':
         raise ContractError('unsupported request core')
     return m
 
