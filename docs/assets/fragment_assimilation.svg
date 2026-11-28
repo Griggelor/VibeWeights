@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 670" role="img" aria-labelledby="title desc"><title id="title">Multi-Scale Fragment Assimilation</title><desc id="desc">Three partitions of a model with different boundaries, followed by overlapping cooperating groups of fragments.</desc><rect width="760" height="670" rx="18" fill="#f8fafc"/><g font-family="Arial,sans-serif" fill="#172b42">
+<text x="30" y="38" font-size="23" font-weight="bold">Multi-Scale Fragment Assimilation</text><text x="30" y="66" font-size="15">Original model – illustrative 1B parameters</text>
+<rect x="30.0" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="47.5" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="65.0" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="82.5" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="100.0" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="117.5" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="135.0" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="152.5" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="170.0" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="187.5" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="205.0" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="222.5" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="240.0" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="257.5" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="275.0" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="292.5" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="310.0" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="327.5" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="345.0" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="362.5" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="380.0" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="397.5" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="415.0" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="432.5" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="450.0" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="467.5" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="485.0" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="502.5" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="520.0" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="537.5" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="555.0" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="572.5" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="590.0" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="607.5" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="625.0" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="642.5" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="660.0" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="677.5" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="695.0" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<rect x="712.5" y="78" width="15" height="29" rx="2" fill="#8496ac"/>
+<text x="30" y="135" font-size="16" font-weight="bold">A · ~100M</text>
+<rect x="30.0" y="145" width="67.0" height="33" rx="4" fill="#4387c7"/>
+<rect x="100.0" y="145" width="67.0" height="33" rx="4" fill="#4387c7"/>
+<rect x="170.0" y="145" width="67.0" height="33" rx="4" fill="#4387c7"/>
+<rect x="240.0" y="145" width="67.0" height="33" rx="4" fill="#4387c7"/>
+<rect x="310.0" y="145" width="67.0" height="33" rx="4" fill="#4387c7"/>
+<rect x="380.0" y="145" width="67.0" height="33" rx="4" fill="#4387c7"/>
+<rect x="450.0" y="145" width="67.0" height="33" rx="4" fill="#4387c7"/>
+<rect x="520.0" y="145" width="67.0" height="33" rx="4" fill="#4387c7"/>
+<rect x="590.0" y="145" width="67.0" height="33" rx="4" fill="#4387c7"/>
+<rect x="660.0" y="145" width="67.0" height="33" rx="4" fill="#4387c7"/>
+<text x="30" y="207" font-size="16" font-weight="bold">B · ~130M</text>
+<rect x="30.0" y="217" width="88.0" height="33" rx="4" fill="#42966a"/>
+<rect x="121.0" y="217" width="88.0" height="33" rx="4" fill="#42966a"/>
+<rect x="212.0" y="217" width="88.0" height="33" rx="4" fill="#42966a"/>
+<rect x="303.0" y="217" width="88.0" height="33" rx="4" fill="#42966a"/>
+<rect x="394.0" y="217" width="88.0" height="33" rx="4" fill="#42966a"/>
+<rect x="484.99999999999994" y="217" width="88.0" height="33" rx="4" fill="#42966a"/>
+<rect x="576.0" y="217" width="88.0" height="33" rx="4" fill="#42966a"/>
+<rect x="667.0" y="217" width="59.99999999999999" height="33" rx="4" fill="#42966a"/>
+<text x="30" y="279" font-size="16" font-weight="bold">C · ~255M</text>
+<rect x="30.0" y="289" width="175.5" height="33" rx="4" fill="#9670c8"/>
+<rect x="208.5" y="289" width="175.5" height="33" rx="4" fill="#9670c8"/>
+<rect x="387.0" y="289" width="175.5" height="33" rx="4" fill="#9670c8"/>
+<rect x="565.5" y="289" width="161.5" height="33" rx="4" fill="#9670c8"/>
+<text x="380" y="350" text-anchor="middle" font-size="14">22 illustrative fragments · varying boundaries · shared original provenance</text><path d="M30 369 H730" stroke="#cbd5e1"/><text x="30" y="401" font-size="18" font-weight="bold">Local heads and overlapping cooperation</text>
+<circle cx="76.0" cy="445.0" r="13" fill="#4387c7"/><circle cx="76.0" cy="445.0" r="4" fill="white"/>
+<circle cx="205.9" cy="429.1" r="13" fill="#4387c7"/><circle cx="205.9" cy="429.1" r="4" fill="white"/>
+<circle cx="330.9" cy="444.7" r="13" fill="#4387c7"/><circle cx="330.9" cy="444.7" r="4" fill="white"/>
+<circle cx="448.5" cy="429.7" r="13" fill="#4387c7"/><circle cx="448.5" cy="429.7" r="4" fill="white"/>
+<circle cx="560.1" cy="443.8" r="13" fill="#4387c7"/><circle cx="560.1" cy="443.8" r="4" fill="white"/>
+<circle cx="669.6" cy="430.9" r="13" fill="#4387c7"/><circle cx="669.6" cy="430.9" r="4" fill="white"/>
+<circle cx="62.3" cy="495.3" r="13" fill="#4387c7"/><circle cx="62.3" cy="495.3" r="4" fill="white"/>
+<circle cx="181.7" cy="485.6" r="13" fill="#4387c7"/><circle cx="181.7" cy="485.6" r="4" fill="white"/>
+<circle cx="308.2" cy="493.4" r="13" fill="#4387c7"/><circle cx="308.2" cy="493.4" r="4" fill="white"/>
+<circle cx="438.5" cy="487.7" r="13" fill="#4387c7"/><circle cx="438.5" cy="487.7" r="4" fill="white"/>
+<circle cx="567.6" cy="491.2" r="16" fill="#42966a"/><circle cx="567.6" cy="491.2" r="4" fill="white"/>
+<circle cx="691.0" cy="489.9" r="16" fill="#42966a"/><circle cx="691.0" cy="489.9" r="4" fill="white"/>
+<circle cx="87.0" cy="542.0" r="16" fill="#42966a"/><circle cx="87.0" cy="542.0" r="4" fill="white"/>
+<circle cx="197.6" cy="545.1" r="16" fill="#42966a"/><circle cx="197.6" cy="545.1" r="4" fill="white"/>
+<circle cx="307.4" cy="539.8" r="16" fill="#42966a"/><circle cx="307.4" cy="539.8" r="4" fill="white"/>
+<circle cx="421.4" cy="547.2" r="16" fill="#42966a"/><circle cx="421.4" cy="547.2" r="4" fill="white"/>
+<circle cx="542.7" cy="537.9" r="16" fill="#42966a"/><circle cx="542.7" cy="537.9" r="4" fill="white"/>
+<circle cx="670.4" cy="548.9" r="16" fill="#42966a"/><circle cx="670.4" cy="548.9" r="4" fill="white"/>
+<circle cx="80.9" cy="589.4" r="20" fill="#9670c8"/><circle cx="80.9" cy="589.4" r="4" fill="white"/>
+<circle cx="209.0" cy="603.2" r="20" fill="#9670c8"/><circle cx="209.0" cy="603.2" r="4" fill="white"/>
+<circle cx="330.7" cy="588.4" r="20" fill="#9670c8"/><circle cx="330.7" cy="588.4" r="4" fill="white"/>
+<circle cx="445.1" cy="603.9" r="20" fill="#9670c8"/><circle cx="445.1" cy="603.9" r="4" fill="white"/>
+<ellipse cx="200" cy="467" rx="160" ry="50" transform="rotate(18 200 467)" stroke="#b87923" stroke-width="2.5" stroke-dasharray="7 5" fill="none"/>
+<ellipse cx="482" cy="532" rx="167" ry="48" transform="rotate(-30 482 532)" stroke="#b87923" stroke-width="2.5" stroke-dasharray="7 5" fill="none"/>
+<ellipse cx="218" cy="566" rx="165" ry="52" transform="rotate(-12 218 566)" stroke="#b87923" stroke-width="2.5" stroke-dasharray="7 5" fill="none"/>
+<text x="380" y="650" text-anchor="middle" font-size="14">Concept only · groups are not predetermined or proven functional</text></g></svg>

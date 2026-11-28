@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 510" role="img" aria-labelledby="title desc"><title id="title">Imported expert with VibeWeights heads and adapters</title><desc id="desc">Global latent workspace communicates with a perception head, input adapter, frozen imported core, and output adapter.</desc><rect width="700" height="510" rx="18" fill="#f8fafc"/><g font-family="Arial,sans-serif" fill="#172b42" text-anchor="middle">
+<rect x="135" y="22" width="430" height="52" rx="10" fill="#e2e8f0" stroke="#8496ac"/><text x="350" y="54" font-size="20">Global latent workspace</text>
+<rect x="65" y="108" width="570" height="377" rx="15" fill="#f1f5f9" stroke="#8496ac" stroke-dasharray="7 5"/>
+<rect x="94" y="125" width="512" height="57" rx="9" fill="#d9eee2" stroke="#42966a"/><text x="350" y="153.5" font-size="20" font-weight="bold">VibeWeights perception head</text>
+<text x="350" y="172.5" font-size="14">Local participation decision</text>
+<rect x="94" y="204" width="512" height="49" rx="9" fill="#fbedd5" stroke="#b87923"/><text x="350" y="234.5" font-size="20" font-weight="bold">Latent input adapter</text>
+<rect x="94" y="276" width="512" height="85" rx="9" fill="#d8e9fa" stroke="#4387c7"/><text x="350" y="318.5" font-size="20" font-weight="bold">Imported neural core</text>
+<text x="350" y="337.5" font-size="14">~100M / ~130M / ~255M · initially frozen</text>
+<rect x="94" y="384" width="512" height="55" rx="9" fill="#fbedd5" stroke="#b87923"/><text x="350" y="417.5" font-size="20" font-weight="bold">Latent output adapter</text>
+<path d="M350 74 V122 m-6 -7 l6 7 l6 -7" stroke="#52657a" stroke-width="2" fill="none"/>
+<path d="M350 182 V201 m-6 -7 l6 7 l6 -7" stroke="#52657a" stroke-width="2" fill="none"/>
+<path d="M350 253 V273 m-6 -7 l6 7 l6 -7" stroke="#52657a" stroke-width="2" fill="none"/>
+<path d="M350 361 V381 m-6 -7 l6 7 l6 -7" stroke="#52657a" stroke-width="2" fill="none"/>
+<text x="350" y="465" font-size="13">Preserve tensor shapes, original operations and necessary state</text></g></svg>

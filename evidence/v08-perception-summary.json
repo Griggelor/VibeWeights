@@ -1,0 +1,26 @@
+{
+  "version": "0.8.0.dev11",
+  "baseline": "bf09c54f89f93329722d39a9c498f73bebebbd27",
+  "tests": {
+    "tests": 206,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "new_cases": 5,
+  "duration_s": 66.328,
+  "environment": {
+    "python": "3.13.5",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "torch": "2.10.0+cpu",
+    "safetensors": "0.7.0",
+    "pytest": "9.0.2"
+  },
+  "command": "OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONUTF8=1 PYTHONPATH=\"$PWD/src\" python -m pytest -q --junitxml=evidence/v08-perception-tests.xml",
+  "limitations": [
+    "CPU only",
+    "synthetic binary metadata, no real LLM",
+    "no real Transformer fragment import",
+    "no Windows/GPU/remote CI validation"
+  ]
+}

@@ -1,5 +1,7 @@
 # v0.8.0.dev10 – Globaler Lern-Eventbus und freiwillige Arbeitsgruppen
 
+Historischer Stand dev10. [dev11](PERCEPTION_HEADS_v08.md) ergänzt echte trainierte lokale Wahrnehmungsköpfe; weiterhin keine semantische Wahrnehmung oder autonome Gruppenausführung.
+
 ## Ziel und Abgrenzung
 
 Globale Lernimpulse sind nicht auf Fehlerkorrektur begrenzt. Auch neue unabhängig bestätigte Kompetenzen können weitere Exploration anstoßen. Ein globaler Impuls eröffnet eine populationsweite Beteiligung, erzwingt jedoch weder ein Training aller Experten noch eine zentral ausgewählte Expertengruppe. Der technische Dienst speichert, verteilt und begrenzt Impulse. Fachliche Interessen und Gruppenschlüssel werden von den einzelnen lokalen Vorschlagsadaptern bestimmt. Lernen und Konsolidieren bleiben additiv; nur unabhängige Selektion archiviert. ACTIVE und LOW_ACTIVE_IMPORTANT sind im VRAM vorgesehen, ARCHIVED auf SSD. Keine RAM-Zwischenstufe oder evolutionäre Löschung.

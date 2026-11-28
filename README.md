@@ -3,7 +3,7 @@
 **A self-organizing, self-learning, self-optimizing and self-scaling neural ecosystem**
 
 ![Research prototype](https://img.shields.io/badge/status-research%20prototype-orange)
-![Version](https://img.shields.io/badge/development-v0.8.0.dev10-blue)
+![Version](https://img.shields.io/badge/development-v0.8.0.dev11-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 
 **Local-first AI research · Decentralized neural experts · Weight-space programming · Continual learning**
@@ -39,7 +39,7 @@ This is not a rejection of conventional models or training. Existing open-weight
 |---|---|
 | **1. Environment** | A stable, extensible runtime for independently developed modules. Demonstrate dynamic cooperation, memory, recurrence, feedback, variants, language interfaces and resource management through a unified application path. |
 | **2. Bootstrap intelligence** | Establish enough language, abstraction, reasoning and verification capability to learn. Acquire a previously absent, defined competency from an authorized teacher and apply it to unseen tasks without that teacher. |
-| **3. Assimilation** | Learn from existing models, retain their useful knowledge and methods, and reduce dependence on them. Demonstrate lasting transfer across several task classes. |
+| **3. Assimilation** | Learn from existing models, retain their useful knowledge and methods, and reduce dependence on them. Compare behavioral, structural (multi-scale fragments) and weight-space assimilation; demonstrate lasting transfer across several task classes. |
 | **4. Research** | Learn from documentation, publications, observations and experiments with traceable sources and counterevidence. |
 | **5. Curiosity and exploration** | Discover learning questions and competence gaps autonomously, run permitted experiments, and measure improvements under controlled budgets. |
 
@@ -196,6 +196,16 @@ There are two distinct levels of sparsity: self-organized participation among Vi
 The bootstrap model is a productive participant, not the same role as an external teacher or constructor. Initially the integration is an explicitly marked text bridge to a local compatible inference server. The research target is validated, bidirectional latent communication. Extracting hidden states without alignment is insufficient.
 
 Assimilation may transfer facts into persistent memory, methods into reusable representations, bounded competencies into directly constructed networks, or learned behavior through explicitly recorded distillation. Copying individual internal MoE blocks does not automatically produce independent experts, since their function depends on the surrounding model.
+
+### Multi-scale fragment assimilation — research objective
+
+In addition to behavioral assimilation (teachers) and weight-space assimilation (analysis, extraction and synthesis), structural assimilation tests whether pretrained model fragments become useful autonomous experts through local perception heads, latent input/output adapters and voluntary cooperation. Compare blind parameter-size cuts (~100M / ~130M / ~255M), structure-preserving blind cuts, intelligently proposed cuts and hybrids. Keep initial redundancy; consolidate additively and archive only through independent selection.
+
+![Multi-scale cuts and overlapping expert cooperation](docs/assets/fragment_assimilation.svg)
+
+![Imported neural core with local head and adapters](docs/assets/fragment_expert_head.svg)
+
+Start with a small open-weights model such as Qwen3-0.6B-Base. First establish exact reconstruction of the original model, then evaluate fragment assimilation without the intact teacher, randomized-core controls, adapter-only controls, fixed vs self-organized cooperation and budget-matched distillation. **This is a research hypothesis, not a demonstrated capability.** See the [experiment and acceptance contract](docs/FRAGMENT_ASSIMILATION.md).
 
 The goal is to transfer **functional competencies**, not necessarily to dismantle the original model. Bootstrap models should remain available where they add unique value. They can be hibernated when independently evaluated alternatives are sufficient.
 
@@ -386,6 +396,10 @@ The full [research survey](docs/FORSCHUNG_2026-11-26.md) and [learning/evolution
 
 Independent holdouts must not become synthesis inputs. Report failures as research results. Distinguish expert activation, causal contribution, user satisfaction, factual correctness, resource consumption and independent capability. Do not equate greater parameter count or test count with intelligence.
 
+## Development snapshot v0.8.0.dev11 — trained local perception heads
+
+**206 local CPU tests passed** (201 previous + 5 new). A small independently trained affine multilabel head now makes local group participation proposals from six binary event metadata features. Heads are bound to immutable core hashes, persist as hashed SafeTensors payloads, and require disjoint positive/negative acceptance inputs. Two heads trained on different local policies make different decisions for the same event. Tests cover restart, rejection, artifact corruption, stale events, multiple repair targets and archive exclusion. Group labels and feature encoders remain host-defined. This is actual weight-based local participation, not learned semantic perception, autonomous group execution or fragment assimilation. See [perception implementation](docs/PERCEPTION_HEADS_v08.md) and [evidence](evidence/v08-perception-summary.json). The structural assimilation research objective and two principle graphics are now documented separately.
+
 ## Development snapshot v0.8.0.dev10 — persistent global learning events
 
 **201 local CPU tests passed** (194 previous + 7 new). Persistent global RELEARN events reflect live conflict and reconstruction snapshots. Explicit KNOWLEDGE events announce newly admitted, independently verified experts for further exploration. Resident experts can receive the same global events and local proposal adapters may form overlapping groups or decline participation. Decisions and memberships are committed together, repeated responses are idempotent, obsolete events are withheld, and a persistent round-robin cursor bounds delivery and prevents repeated callback failure from starving later participants. No automatic archive loading, training, or admission. See [implementation](docs/LEARNING_EVENTS_v08.md) and [evidence](evidence/v08-learning-events-summary.json). This is a host-driven persistent pull/outbox transport with local Python callbacks, not a distributed network push, trained perception heads, autonomous group execution, or a full compute/time/VRAM budget.
@@ -526,12 +540,13 @@ The commands above are for the existing Python research prototype, not the futur
 | Stage | Priority / deliverable |
 |---|---|
 | Public baseline | v0.7.0 source, weights and evidence imported; verify Windows/Linux CI |
-| Knowledge-first learning (P0) | Bounded recall, relational transfer, recovery, retention, model-directed selection, task-driven learning, additive extension and conflict-triggered correction implemented. Global cross-domain repair slice implemented. Persistent event delivery and local callback groups implemented. Next: neural perception, group execution, autonomous bounded evidence/retry scheduling, indexed dependencies, unified source/memory transactions, real model exercise and method/transfer holdouts |
+| Knowledge-first learning (P0) | Bounded recall, relational transfer, recovery, retention, model-directed selection, task-driven learning, additive extension and conflict-triggered correction implemented. Global cross-domain repair slice implemented. Persistent event delivery and local callback groups implemented. First trained binary-metadata perception heads implemented. Next: semantic perception, group execution, indexed dependencies, unified source/memory transactions, bounded scheduling, real model exercise and method/transfer holdouts |
 | Unified Environment | Migrate the regular chat/API to the new core; generic events, dynamic topology, private recurrence, independent result release |
 | Memory | Universal semantic ABI, source/relationship indexing, cooperation and feedback integration, recovery, physical budgets |
 | Bootstrap | Real authorized local models; text vs latent adapter experiments, independent ablations |
 | Factory and evolution | Declarative operator graphs, safe candidate generation, feedback reflection, learning jobs, consolidation and independently retained skill acquisition |
 | Hardware and Studio | Q4 tests, GGUF, native CPU parity, Vulkan/HIP benchmarking on Strix Halo, cache, portable Windows release |
+| Structural assimilation research | Small-model reconstruction, multi-scale blind and intelligent fragment import, local heads and adapters, matched controls, additive consolidation and independent selection; see [experiment contract](docs/FRAGMENT_ASSIMILATION.md) |
 | Environment acceptance | End-to-end tests, followed by systematic bootstrap intelligence, assimilation, research and curiosity experiments |
 
 See [development status and acceptance plan](docs/status.md) for implementation details.
@@ -549,6 +564,8 @@ The detailed project documents are currently primarily in German; this English o
 | [Platform v0.5](docs/platform_v05.md) | Reference runtime, API, telemetry and limits |
 | [Research survey](docs/FORSCHUNG_2026-11-26.md) | Literature and implications |
 | [Research supplement](docs/FORSCHUNG_ERGAENZUNG_v05.md) | Exploration, selection, learning and attribution |
+| [Local perception heads v0.8.dev11](docs/PERCEPTION_HEADS_v08.md) | Trained local participation policies, independent acceptance and event integration |
+| [Multi-scale fragment assimilation](docs/FRAGMENT_ASSIMILATION.md) | Research objective 3, multiple cuts, figures and falsifiable experiments |
 | [Global learning events v0.8.dev10](docs/LEARNING_EVENTS_v08.md) | Persistent global event transport, overlapping voluntary groups, bounded callback delivery |
 | [Global relearning v0.8.dev9](docs/GLOBAL_RELEARNING_v08.md) | Persistent global impulse, independently verified cross-domain repair and retry |
 | [Conflict-triggered relearning v0.8.dev8](docs/CONFLICT_LEARNING_v08.md) | Uncertain facts, persistent repair cases, additive correction and independent admission |

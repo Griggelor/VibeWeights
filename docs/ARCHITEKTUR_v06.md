@@ -45,3 +45,8 @@ Verdichtung kann häufige kollektive Fähigkeiten in einen kleineren Experten ü
 ## Abnahme der Bootstrap-Strategie
 
 Vergleich: Bootstrap allein; Bootstrap + Environment; Environment ohne Bootstrap; Lehrer offline; später eingefrorenes vs weiterlernendes Gesamtsystem. Gleiche Aufgaben, unabhängige Holdouts, vergleichbare Budgets. Keine bloße Verschiebung der Lösungsarbeit in Encoder, Decoder, Testorakel oder externes Modell als Lernnachweis. Ein dauerhaft nicht mehr benötigter Bootstrap-Experte kann ausgelagert werden; einzigartige Kompetenzen rechtfertigen Koexistenz.
+
+
+## Ergänzung vom 28.11.2026 — strukturelle Assimilation
+
+Ziel 3 umfasst neben Behavioral und Weight-Space Assimilation nun ausdrücklich [Multi-Scale Fragment Assimilation](FRAGMENT_ASSIMILATION.md) als Forschungsweg. Unterschiedlich große vortrainierte Fragmente, lokale Wahrnehmungsköpfe, latente Adapter, freie Gruppen, additive Konsolidierung und unabhängige Selektion. Der neue Vertrag präzisiert die Abnahmekriterien, keine bereits implementierte Fragmentarchitektur.
