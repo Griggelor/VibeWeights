@@ -11,6 +11,8 @@ def create_revision_table(db):
         session TEXT NOT NULL, revision INTEGER NOT NULL, previous_sha TEXT NOT NULL,
         spec TEXT NOT NULL, spec_sha TEXT NOT NULL, PRIMARY KEY(session,revision),
         UNIQUE(session,spec_sha))""")
+    db.execute('''CREATE TABLE IF NOT EXISTS social_population_revision_heads_v1(
+        session TEXT PRIMARY KEY, revision INTEGER NOT NULL, spec_sha TEXT NOT NULL)''')
 
 
 def _decode(raw,sha):
@@ -54,6 +56,10 @@ def history(db,session):
         if rev!=n or parent!=result[-1][1] or not additive(result[-1][0],spec):
             raise ContractError('social population revision ancestry')
         result.append((spec,sha))
+    # A missing/truncated tail must not silently resurrect an old population.
+    head=db.execute('SELECT revision,spec_sha FROM social_population_revision_heads_v1 WHERE session=?',(session,)).fetchone()
+    if (len(result)>1 and head!=(len(result)-1,result[-1][1])) or (len(result)==1 and head is not None):
+        raise ContractError('social population revision head integrity')
     return result
 
 
@@ -78,4 +84,5 @@ def append(db,session,expected_sha,current):
     create_revision_table(db)
     db.execute('INSERT INTO social_population_revisions_v1 VALUES(?,?,?,?,?)',
                (session,len(chain),expected_sha,raw,sha))
+    db.execute('INSERT INTO social_population_revision_heads_v1 VALUES(?,?,?) ON CONFLICT(session) DO UPDATE SET revision=excluded.revision,spec_sha=excluded.spec_sha',(session,len(chain),sha))
     return sha

@@ -141,6 +141,7 @@ class SocialPopulation:
         from .fragment_social_ports import FragmentPortCore
         identifier(session)
         if type(allow_reference) is not bool:raise ContractError('social growth reference flag')
+        if self.db.in_transaction:raise ContractError('social growth requires idle store')
         new_cores=tuple(new_cores)
         if not new_cores or len(self.cores)+len(new_cores)>32:raise ContractError('social growth bounds')
         if any(c.id in self.cores for c in new_cores):raise ContractError('social growth cannot replace expert')
