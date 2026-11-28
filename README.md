@@ -3,7 +3,7 @@
 **A self-organizing, self-learning, self-optimizing and self-scaling neural ecosystem**
 
 ![Research prototype](https://img.shields.io/badge/status-research%20prototype-orange)
-![Version](https://img.shields.io/badge/development-v0.8.0.dev5-blue)
+![Version](https://img.shields.io/badge/development-v0.8.0.dev6-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 
 **Local-first AI research · Decentralized neural experts · Weight-space programming · Continual learning**
@@ -386,6 +386,12 @@ The full [research survey](docs/FORSCHUNG_2026-11-26.md) and [learning/evolution
 
 Independent holdouts must not become synthesis inputs. Report failures as research results. Distinguish expert activation, causal contribution, user satisfaction, factual correctness, resource consumption and independent capability. Do not equate greater parameter count or test count with intelligence.
 
+## Development snapshot v0.8.0.dev6 — learning from observed task gaps
+
+**174 local CPU tests passed** (165 regression cases + 9 new cases). The opt-in typed knowledge-query path records observed answers, abstentions, conflicts, reserved domains and genuinely missing domains. An indexed task journal restricts the model's learning choices to observed, currently eligible gaps among host-approved domains. Persistent plans bind the policy and evidence; empty plans cause no model calls. The existing independently verified teacher intake and additive promotion remain separate. The extended LM Studio calendar exercise tests the same query before learning and after promotion; the local tests simulate model responses, not real LLM inference. This is not yet a general chat migration or free-form autonomous learning.
+
+See [implementation and exercise](docs/TASK_LEARNING_v08.md), [task-learning tests](tests/test_task_learning_v08.py) and [test evidence](evidence/v08-task-learning-summary.json). Existing domain extension, automatic reactivation, general source dependency indexing and combined source/memory transactions remain open.
+
 ## Development snapshot v0.8.0.dev5 — bounded model-initiated learning
 
 **165 local CPU tests passed** (153 regression cases + 12 new cases). The bootstrap model can select or decline a missing knowledge domain from a bounded host-approved opportunity set. The persistent initiative receipt binds the approved policy and selected target to the subsequent teacher intake. Strict JSON, independent factual verification, explicit host staging and independent candidate promotion remain mandatory. No model can authorize its own admission.
@@ -502,7 +508,7 @@ The commands above are for the existing Python research prototype, not the futur
 | Stage | Priority / deliverable |
 |---|---|
 | Public baseline | v0.7.0 source, weights and evidence imported; verify Windows/Linux CI |
-| Knowledge-first learning (P0) | Bounded recall, relational transfer, recovery, ten-package retention and model-directed selection implemented. Next: real model exercise, unified source/memory transactions, scalable dependency checks and method/transfer holdouts |
+| Knowledge-first learning (P0) | Bounded recall, relational transfer, recovery, ten-package retention, model-directed selection and task-driven missing-domain learning implemented. Next: existing-domain extension, real model exercise, unified source/memory transactions, scalable dependency checks and method/transfer holdouts |
 | Unified Environment | Migrate the regular chat/API to the new core; generic events, dynamic topology, private recurrence, independent result release |
 | Memory | Universal semantic ABI, source/relationship indexing, cooperation and feedback integration, recovery, physical budgets |
 | Bootstrap | Real authorized local models; text vs latent adapter experiments, independent ablations |
@@ -525,6 +531,7 @@ The detailed project documents are currently primarily in German; this English o
 | [Platform v0.5](docs/platform_v05.md) | Reference runtime, API, telemetry and limits |
 | [Research survey](docs/FORSCHUNG_2026-11-26.md) | Literature and implications |
 | [Research supplement](docs/FORSCHUNG_ERGAENZUNG_v05.md) | Exploration, selection, learning and attribution |
+| [Task-driven learning v0.8.dev6](docs/TASK_LEARNING_v08.md) | Typed task observations, indexed gap evidence and extended LM Studio exercise |
 | [Model-initiated learning v0.8.dev5](docs/LEARNING_INITIATIVE_v08.md) | Bounded initiative, persistent decisions and opt-in LM Studio exercise |
 | [Learning recovery and economics v0.8.dev4](docs/LEARNING_RECOVERY_v08.md) | Durable intents, crash tests, cost comparison and ten-package retention |
 | [Relational learning v0.8.dev3](docs/RELATION_LEARNING_v08.md) | Derived facts, additive candidate, live source guards and teacher proposal verification |

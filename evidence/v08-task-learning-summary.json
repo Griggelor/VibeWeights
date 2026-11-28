@@ -1,0 +1,22 @@
+{
+  "version": "0.8.0.dev6",
+  "baseline": "0.8.0.dev5",
+  "baseline_commit": "efb590cbba05a2a4f63f95b8e9aec615fab4c568",
+  "tests": {
+    "tests": 174,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "new_tests": 9,
+  "regression_tests": 165,
+  "duration_seconds": 43.717,
+  "command": "python -m pytest -q --junitxml=evidence/v08-task-learning-tests.xml",
+  "python": "3.13.5",
+  "torch": "2.10.0+cpu",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "real_llm": false,
+  "remote_ci": false,
+  "windows_gpu": false,
+  "scope": "typed task observations; indexed missing-domain evidence; model selection and independent promotion; calendar CLI with simulated responses; no autonomous scheduler, general semantic inference or source dependency index"
+}
