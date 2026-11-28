@@ -152,7 +152,10 @@ class FragmentStore:
         self.root=Path(root).resolve();self.device=torch.device(device);self.max_tokens=max_tokens
         if self.device.type not in ('cpu','cuda') or type(max_tokens) is not int or not 1<=max_tokens<=128:
             raise ContractError('fragment execution bounds')
-        if self.device.type=='cuda' and not torch.cuda.is_available():raise ContractError('requested GPU unavailable')
+        if self.device.type=='cuda':
+            if not torch.cuda.is_available():raise ContractError('requested GPU unavailable')
+            self.device=torch.device('cuda',torch.cuda.current_device() if self.device.index is None else self.device.index)
+        elif self.device.index is not None:raise ContractError('invalid CPU device index')
         envelope=json.loads((self.root/'manifest.json').read_text(encoding='utf-8'))
         m=envelope['manifest']
         if _hash(m)!=envelope['sha256'] or m['contract']!=CONTRACT or m['transformers']!=TRANSFORMERS_VERSION:
@@ -246,6 +249,14 @@ class DecoderSpan:
 
 def compare(snapshot,store,token_cases):
     """Independent Hugging Face full model vs extracted fixed-order chains."""
+    snapshot=Path(snapshot).resolve()
+    for name,key in [('config.json','config_sha256'),('model.safetensors','weights_sha256'),('LICENSE','license_sha256')]:
+        if digest(snapshot/name)!=store.manifest['source'][key]:raise ContractError('reference source differs from extracted source')
+    if type(token_cases) not in (list,tuple) or not 1<=len(token_cases)<=14:
+        raise ContractError('reference case count')
+    if any(type(x) not in (list,tuple) or not 1<=len(x)<=min(store.max_tokens,store.config.max_position_embeddings)-2 or
+           any(type(t) is not int or not 0<=t<store.config.vocab_size for t in x) for x in token_cases):
+        raise ContractError('reference token bounds')
     _,Model,*_=_hf()
     model=Model.from_pretrained(str(snapshot),local_files_only=True,use_safetensors=True,
                                 trust_remote_code=False,dtype=torch.float32,attn_implementation='eager')
