@@ -126,3 +126,14 @@ Verbindliche Arbeitsweise ab v0.8.0.dev13 (Nutzeranforderung): Jede Implementier
 
 - Getesteter Commit `aac7a2aa02c6980d0a4454cc4a30dd151e32da3d`, [Run 46143869357](https://github.com/Griggelor/VibeWeights/actions/runs/46143869357): vier erfolgreiche Jobs je 258/258 Tests. Windows 3.12 227,17 s, 3.13 348,14 s, Linux 3.12 60,82 s, 3.13 59,49 s. Geräteprobe, Artefaktreproduktion und alle Smoke-Tests erfolgreich. [JSON-Evidenz](../evidence/v08-quadratic-transfer-ci.json).
 - dev21 exakter Release-Head CI 46143757749 vollständig erfolgreich, PR #4 in main übernommen (719a9bc15c2af52e83bd0a75deb977ffb3388061). dev22 Versionsmetadaten jetzt auf dev22 aktualisiert, erneute Exact-Head-CI erforderlich. Keine Strix-Halo-GPU-Abnahme.
+
+### dev23 – trainierbare verdeckte ReLU-Schicht
+
+- Basis dev22 `aac7a2aa02c6980d0a4454cc4a30dd151e32da3d`; Implementierung `0d9debece0e7c9cd53f828639af80f383dc782a0`, vier Integrationstests `4f26719732b4d79d9b9eb881ee8d4e7fd2ea705f`. Host wählt Hidden-Width, Trainer optimiert alle vier Tensoren ausschließlich aus beobachteten Paaren, operationgebundener Artifact-Hash, tatsächliche Tensorbytes, bestehender Quellen-/Abnahmevertrag.
+- Zwischenfehler: neun Varianten des ersten Integer-Gitters verfehlen die Holdout-Toleranz, auch bei nahezu Null Trainingsverlust. Revidiertes Halbpunktgitter, seed 7, 256 LBFGS-Schritte: Width 1 und 2 je 17/17 Training + 6/6 Holdouts; Width 4 nur 4/6 Holdouts trotz 17/17 Training. Keine Lockerung der Toleranz. Width 2 zusätzlich 65/65 Viertelgitter (überlappt teilweise). Isolierte lokale mathematische Versuche, keine Produktionsintegration; Holdouts in der Entwicklungsphase eingesehen, kein unberührter Post-Selection-Benchmark. [Rohdaten](../evidence/v08-mlp-transfer-isolated.json), [Vertrag](MLP_TRANSFER_v08.md).
+- CI-Abnahme noch offen. Keine autonome Architekturwahl, allgemeine Deep-Learning-Kompetenz, Fragmentassimilation oder GPU-/UMA-Abnahme.
+
+### dev23 – vollständige CPU-CI-Abnahme
+
+- Getesteter Commit `972a8d3413a6d15236b8d357d4763d0b77ab4407`, [Run 46145571563](https://github.com/Griggelor/VibeWeights/actions/runs/46145571563): 262/262 je vier Jobs. Windows 3.12 237,90 s, 3.13 295,01 s, Ubuntu 3.12 82,36 s, 3.13 79,65 s. Alle Geräteproben, Artefaktreproduktion und Smoke-Tests erfolgreich. [JSON-Evidenz](../evidence/v08-mlp-transfer-ci.json).
+- dev22 exakter Release-Head CI 46145498894 vollständig erfolgreich; PR #5 in main übernommen (3c99e38065a051fbd9e77270a0b3f54e0203cdfc). dev23 Metadaten auf dev23 aktualisiert; erneute Exact-Head-CI erforderlich. GPU-/UMA-Abnahme offen. Nächster Schritt: A0 strukturorientierte Blindfragmentierung gemäß FRAGMENT_ASSIMILATION.md, keine vorweggenommene Assimilationsbehauptung.

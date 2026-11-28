@@ -103,7 +103,7 @@ class GroupWork:
                 if (target,group) not in self.heads.propose(expert,e):
                     raise ContractError('current neural participation required')
                 m=l.catalog.manifest(expert)
-                if m['abi']!='numeric-events/0.1' or m['op'] not in ('affine','quadratic') or m['target_scope']!='global':
+                if m['abi']!='numeric-events/0.1' or m['op'] not in ('affine','quadratic','mlp') or m['target_scope']!='global':
                     raise ContractError('unsupported group core ABI')
                 manifests.append(m)
                 head=self.db.execute('SELECT head FROM perception_bindings_v08 WHERE expert=?',(expert,)).fetchone()[0]
