@@ -50,7 +50,7 @@ def source_checked(fn):
 
 
 class Population:
-    """Own resident affine tensors; explicit selection, never automatic eviction.
+    """Own resident numeric expert tensors; explicit selection, never automatic eviction.
 
     Call between inference runs from one trusted owner. The catalog is persistent;
     resident objects are reconstructed on restart. A byte budget counts tensor
@@ -99,7 +99,7 @@ class Population:
             raise ContractError('catalog changed outside population; reopen')
 
     def _prepare(self, manifest, *, experimental):
-        # Affine catalog stores FP32 parameters; file bytes have a separate limit.
+        # Numeric catalog stores FP32 parameters; file bytes have a separate limit.
         needed = 4*manifest['parameters']
         if needed + self.tensor_bytes > self.tensor_budget:
             raise ContractError('resident tensor budget; no automatic eviction')

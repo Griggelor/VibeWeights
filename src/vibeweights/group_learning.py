@@ -4,7 +4,7 @@ import math
 import torch
 from .abi import ContractError
 from .environment import Signal, identifier
-from .factory import case_digest
+from .factory import case_digest, quadratic_width, quadratic_features
 from .group_work import GroupWork
 from .knowledge_learning import _hash
 from .population import RESIDENT
@@ -49,6 +49,19 @@ def train_affine(observations, steps):
         'export_dtype':'float32','dataset_sha256':_hash(observations),'torch_version':str(torch.__version__)}
 
 
+def train_quadratic(observations,steps):
+    """Train readout from observations only; no parent weights or holdout labels."""
+    x=torch.tensor([v[0] for v in observations],dtype=torch.float64,device='cpu')
+    if x.ndim!=2 or not torch.isfinite(x).all() or x.abs().max().item()>1000:
+        raise ContractError('quadratic training sample bounds')
+    width=quadratic_width(x.shape[1])
+    if width+1>len(x):raise ContractError('quadratic training rank')
+    z=quadratic_features(x).tolist()
+    w,b,stats=train_affine([[v,y] for v,(_,y) in zip(z,observations)],steps)
+    stats.update(dataset_sha256=_hash(observations),feature_contract='quadratic-upper-v1',input_width=x.shape[1],feature_width=width)
+    return w,b,stats
+
+
 class GroupLearning:
     def __init__(self, work):
         if not isinstance(work,GroupWork): raise ContractError('group work required')
@@ -71,7 +84,7 @@ class GroupLearning:
         if _hash(spec)!=row[2] or spec['expert']!=row[0]: raise ContractError('group job integrity')
         report=self.db.execute('SELECT receipt FROM group_learning_reports_v08 WHERE job_id=?',(job,)).fetchone()
         result={'spec':spec,'report':None if report is None else json.loads(report[0])}
-        if spec['contract']=='group-trained-v1':
+        if spec['contract'] in ('group-trained-v1','group-quadratic-v1'):
             stats=self.db.execute('SELECT stats FROM group_training_builds_v08 WHERE job_id=?',(job,)).fetchone()
             result['build']=None if stats is None else json.loads(stats[0])
         return result
@@ -96,7 +109,7 @@ class GroupLearning:
         """Require multiple successful runs of the same unambiguous affine chain."""
         l=self.learning; w=self.work
         for x in (job,expert,family): identifier(x)
-        if method not in ('DIRECT','TRAINED') or type(steps) is not int or not 1<=steps<=1024:
+        if method not in ('DIRECT','TRAINED','TRAINED_QUADRATIC') or type(steps) is not int or not 1<=steps<=1024:
             raise ContractError('group learning method/budget')
         if type(runs) not in (tuple,list) or not 2<=len(runs)<=64 or len(set(runs))!=len(runs): raise ContractError('group evidence count')
         with l._guard():
@@ -107,6 +120,10 @@ class GroupLearning:
             chains=[(a,b) for a,b in (ms,ms[::-1]) if a['source_topic']==source and a['target_topic']==b['source_topic'] and b['target_topic']==goal and len({source,a['target_topic'],goal})==3 and a['shape'][0]==b['shape'][1]]
             if len(chains)!=1: raise ContractError('unambiguous affine chain required')
             a,b=chains[0]; parents=[a['id'],b['id']]; seen=[]
+            if method!='TRAINED_QUADRATIC' and any(m['op']!='affine' for m in (a,b)):
+                raise ContractError('nonlinear chain requires quadratic transfer')
+            if method=='TRAINED_QUADRATIC':
+                quadratic_width(a['shape'][1])
             for r in receipts:
                 if any(r[k]!=base[k] for k in ('event','target','group','members','goal','oracle_id','validator_topics')) or set(r['inputs'])!={source}: raise ContractError('incompatible group evidence')
                 out=r['result']; x=r['inputs'][source]
@@ -120,8 +137,8 @@ class GroupLearning:
                   'event':base['event'],'target':base['target'],'group':base['group'],'source':source,'goal':goal,
                   'runs':[{'id':r['run'],'sha256':_hash(r)} for r in receipts], 'observations':seen,
                   'input_width':a['shape'][1],'output_width':b['shape'][0]}
-            if method=='TRAINED':
-                spec.update(contract='group-trained-v1',steps=steps,torch_version=str(torch.__version__),
+            if method!='DIRECT':
+                spec.update(contract='group-quadratic-v1' if method=='TRAINED_QUADRATIC' else 'group-trained-v1',steps=steps,torch_version=str(torch.__version__),
                             training_oracle=base['oracle_id'],target_scope=b['target_scope'])
             self._live(spec)
             raw=json.dumps(spec,sort_keys=True)
@@ -133,16 +150,20 @@ class GroupLearning:
                 with self.db: self.db.execute('INSERT INTO group_learning_jobs_v08 VALUES(?,?,?,?)',(job,expert,raw,_hash(spec)))
             if any(m['id']==expert for m in l.catalog.list()):
                 m=l.catalog.manifest(expert)
-                if m.get('group_job')!=job or m['parents']!=parents or m['origin']!=method: raise ContractError('group artifact mismatch')
+                if m.get('group_job')!=job or m['parents']!=parents or m['origin']!=('DIRECT' if method=='DIRECT' else 'TRAINED') or m['op']!=('quadratic' if method=='TRAINED_QUADRATIC' else 'affine'): raise ContractError('group artifact mismatch')
                 return m
             if method=='DIRECT':
                 return l.catalog.compose_affine(expert,family,*parents,byte_budget=l.population.artifact_budget,group_job=job)
-            matrix,bias,stats=train_affine(spec['observations'],steps)
+            trainer=train_quadratic if method=='TRAINED_QUADRATIC' else train_affine
+            matrix,bias,stats=trainer(spec['observations'],steps)
             encoded=json.dumps(stats,sort_keys=True)
             prior=self.db.execute('SELECT stats FROM group_training_builds_v08 WHERE job_id=?',(job,)).fetchone()
             if prior is not None and prior!=(encoded,): raise ContractError('group training build changed')
             if prior is None:
                 with self.db: self.db.execute('INSERT INTO group_training_builds_v08 VALUES(?,?)',(job,encoded))
+            if method=='TRAINED_QUADRATIC':
+                return l.catalog.stage_quadratic(expert,family,matrix,bias,input_width=spec['input_width'],
+                    source_topic=source,target_scope=spec['target_scope'],target_topic=goal,parents=parents,origin='TRAINED',group_job=job)
             return l.catalog.stage_affine(expert,family,matrix,bias,source_topic=source,target_scope=spec['target_scope'],
                 target_topic=goal,parents=parents,origin='TRAINED',group_job=job)
 
@@ -152,10 +173,10 @@ class GroupLearning:
         with l._guard():
             spec=self.job(job)['spec']; self._live(spec)
             m=l.catalog.manifest(spec['expert'])
-            if spec['contract']=='group-trained-v1':
+            if spec['contract'] in ('group-trained-v1','group-quadratic-v1'):
                 if oracle_id==spec['training_oracle']: raise ContractError('independent training holdout oracle required')
                 if self.job(job)['build'] is None or m['origin']!='TRAINED': raise ContractError('trained group build required')
-            if m.get('group_job')!=job or m['parents']!=spec['parents']: raise ContractError('group artifact mismatch')
+            if m.get('group_job')!=job or m['parents']!=spec['parents'] or m['op']!=('quadratic' if spec['contract']=='group-quadratic-v1' else 'affine'): raise ContractError('group artifact mismatch')
             if type(cases) not in (list,tuple) or not 3<=len(cases)<=256: raise ContractError('group holdout count')
             seen={tuple(x) for x,_ in spec['observations']}; normalized=[]
             for x,y in cases:
