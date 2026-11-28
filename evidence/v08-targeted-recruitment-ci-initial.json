@@ -1,0 +1,79 @@
+{
+  "version": "0.8.0.dev18-candidate",
+  "date": "2026-11-28",
+  "baseline": "301ed10e06d2c10204e724b3fe5b39d526cc906a",
+  "ci": {
+    "run_id": 46139264831,
+    "command": "python -m pytest -q --junitxml=ci-results.xml",
+    "status": "failure",
+    "root_cause": "SafeTensors 0.7.0 imports NumPy in _tobytes; NumPy was not installed or declared",
+    "jobs": [
+      {
+        "os": "ubuntu-latest",
+        "python": "3.13",
+        "job": 140961361225,
+        "passed": 116,
+        "failed": 126,
+        "seconds": 34.98
+      },
+      {
+        "os": "ubuntu-latest",
+        "python": "3.12",
+        "job": 140961361427,
+        "passed": 116,
+        "failed": 126,
+        "seconds": 41.35
+      },
+      {
+        "os": "windows-latest",
+        "python": "3.13",
+        "job": 140961361364,
+        "passed": 116,
+        "failed": 126,
+        "seconds": 78.31
+      },
+      {
+        "os": "windows-latest",
+        "python": "3.12",
+        "job": 140961361477,
+        "passed": 116,
+        "failed": 126,
+        "seconds": 119.05
+      }
+    ],
+    "scope": "No functional acceptance; 123 failures per job explicitly reported missing numpy, three process-exit tests report return code 1 instead of 73."
+  },
+  "fix": {
+    "dependency_commit": "5bf8f9422a4a95cee18d4509581823749c944019",
+    "ci_commit": "f169442e11596b45b88ee65ff307ae147003fa62",
+    "rerun_id": 46140991996
+  },
+  "isolated_rule_recheck": {
+    "environment": {
+      "torch": "2.10.0+cpu",
+      "numpy": "2.3.5",
+      "safetensors": "0.7.0"
+    },
+    "training_cases_per_rule": 256,
+    "disjoint_holdouts_per_rule": 256,
+    "steps": 512,
+    "learning_rate": 0.5,
+    "zero_initialization": true,
+    "serialized_roundtrip": true,
+    "rules": [
+      {
+        "name": "consumer",
+        "loss_before": 0.6931471824645996,
+        "loss_after": 0.036666348576545715,
+        "passed": 256
+      },
+      {
+        "name": "provider",
+        "loss_before": 0.6931471824645996,
+        "loss_after": 0.11805253475904465,
+        "passed": 256
+      }
+    ],
+    "scope": "Isolated artificial rule fitting and SafeTensors round-trip, not GroupWork integration."
+  }
+}
