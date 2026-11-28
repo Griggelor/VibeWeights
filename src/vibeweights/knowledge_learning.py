@@ -79,6 +79,11 @@ class KnowledgeLearning:
         CREATE TABLE IF NOT EXISTS learning_intakes_v08(
           job_id TEXT PRIMARY KEY, expert_id TEXT NOT NULL UNIQUE,
           spec TEXT NOT NULL, created_ns INTEGER NOT NULL);
+        CREATE TABLE IF NOT EXISTS conflict_cases_v08(
+          task TEXT PRIMARY KEY, topic TEXT NOT NULL, entity INTEGER NOT NULL,
+          receipt TEXT NOT NULL, uncertain_id INTEGER NOT NULL,
+          resolution TEXT, closed INTEGER NOT NULL DEFAULT 0);
+        CREATE UNIQUE INDEX IF NOT EXISTS conflict_open_v08 ON conflict_cases_v08(topic,entity) WHERE closed=0;
         ''')
         self._locked_depth=0
         self._guard_depth=0
@@ -323,6 +328,9 @@ class KnowledgeLearning:
             try: self._check_sources(job)
             except ContractError: invalid.add(job['expert_id'])
         manifests=self.catalog.list()
+        # Persisted observations are a safety hold, never evolutionary selection.
+        for (raw,) in self.knowledge.db.execute('SELECT receipt FROM conflict_cases_v08'):
+            invalid.update(json.loads(raw)['suspects'])
         # Include descendants of already quarantined parents, even from a later audit.
         invalid.update(m['id'] for m in manifests if m['state']=='QUARANTINED')
         changed=True

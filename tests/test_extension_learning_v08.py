@@ -68,7 +68,7 @@ def test_pending_resume_after_failure(tmp_path,monkeypatch):
     assert p.resident_ids()==('base',);close(c,p,k)
 
 
-def test_conflict_review_no_mutation(tmp_path,monkeypatch):
+def test_conflict_review_preserves_safety_hold(tmp_path,monkeypatch):
     c,p,k,a,l,d,t,e=setup(tmp_path);stage(e,Model('{"entity":2,"label":2}'));assert e.promote('new-job',{2:2}.get,oracle_id='oracle')
     original=p.compute
     def faulty(id,x):
@@ -79,7 +79,8 @@ def test_conflict_review_no_mutation(tmp_path,monkeypatch):
     r=e.review_conflict('review','conflict',{2:2}.get,oracle_id='oracle')
     assert r['disagreeing']==['base'] and r['outcome']=='EVIDENCE_RECORDED'
     assert e.review_conflict('review','conflict',{2:2}.get,oracle_id='oracle')==r
-    assert p.resident_ids()==('base','new')
+    assert p.resident_ids()==()
+    assert {m['state'] for m in c.list()}=={'QUARANTINED'}
     assert e.review_conflict('unknown','conflict',{}.get,oracle_id='oracle')['outcome']=='UNRESOLVED'
     with pytest.raises(ContractError): e.review_conflict('review','conflict',{2:1}.get,oracle_id='oracle')
     close(c,p,k)

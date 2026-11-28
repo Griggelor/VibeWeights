@@ -96,15 +96,16 @@ class ExtensionLearning:
         return l.promote(job_id,lambda i: oracle(i) if i==policy['entity'] else None,oracle_id=oracle_id)
 
     def review_conflict(self,review,task,oracle,*,oracle_id):
-        """Record independent evidence about a current disagreement; no state change."""
+        """Review the durable observed outputs; the conflict hold already exists."""
         for value in (review,task,oracle_id): identifier(value)
         if not callable(oracle): raise ContractError('oracle required')
         l=self.learning; obs=self.tasks.observation(task)
         if obs['outcome']!='CONFLICT': raise ContractError('recorded conflict required')
         d=Domain(**obs['domain']); entity=obs['entity']
         with l._guard():
-            outputs=self._outputs(d,entity)
-            if len({v for v in outputs.values() if v is not None})<2: raise ContractError('conflict no longer present')
+            outputs=obs.get('outputs')
+            if not isinstance(outputs,dict) or len({v for v in outputs.values() if v is not None})<2:
+                raise ContractError('missing persisted conflict evidence')
             expected=oracle(entity);d.target(expected)
             receipt={'review':review,'task_sha256':_hash(obs),'oracle_id':oracle_id,'expected':expected,'outputs':outputs,
                      'disagreeing':sorted(k for k,v in outputs.items() if v is not None and v!=expected) if expected is not None else [],

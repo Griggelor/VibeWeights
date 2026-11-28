@@ -10,6 +10,7 @@ from .environment import identifier
 from .knowledge_learning import Domain, _hash
 from .learning_initiative import LearningInitiative
 from .population import RESIDENT
+from .conflict_learning import open_case, record_conflict
 
 
 class TaskLearning:
@@ -40,8 +41,10 @@ class TaskLearning:
         if not isinstance(domain, Domain) or type(entity) is not int or not 0 <= entity < domain.entities:
             raise ContractError('task domain/entity contract')
         l = self.learning
+        new_conflict=False
         with l._guard():
-            if self.db.execute('SELECT 1 FROM task_observations_v08 WHERE task=?',(task,)).fetchone():
+            if (self.db.execute('SELECT 1 FROM task_observations_v08 WHERE task=?',(task,)).fetchone() or
+                l.knowledge.db.execute('SELECT 1 FROM conflict_cases_v08 WHERE task=?',(task,)).fetchone()):
                 raise ContractError('duplicate task observation')
             jobs = []
             reserved = False
@@ -55,9 +58,14 @@ class TaskLearning:
                 if j['state'] not in RESIDENT or not j['report'] or not j['report']['accepted']:
                     raise ContractError('task expert not approved')
                 jobs.append(j)
-            outputs = [domain.decode(l.population.compute(j['expert_id'],domain.encode(entity))) for j in jobs]
-            known = {v for v in outputs if v is not None}
-            if len(known) > 1: outcome, answer = 'CONFLICT', None
+            case=open_case(l,domain,entity)
+            outputs = {} if case else {j['expert_id']:domain.decode(l.population.compute(j['expert_id'],domain.encode(entity))) for j in jobs}
+            known = {v for v in outputs.values() if v is not None}
+            if case is not None: outcome, answer = 'CONFLICT', None
+            elif len(known) > 1:
+                case=record_conflict(l,task,domain,entity,outputs)
+                new_conflict=True
+                outcome, answer = 'CONFLICT', None
             elif known: outcome, answer = 'ANSWERED', next(iter(known))
             elif jobs: outcome, answer = 'ABSTAINED', None
             else:
@@ -69,13 +77,19 @@ class TaskLearning:
                 answer = None
             receipt = {'task':task,'domain':asdict(domain),'entity':entity,'outcome':outcome,
                        'answer':answer,'experts':[j['expert_id'] for j in jobs]}
+            if case is not None:
+                receipt['conflict_case']=case['task']
+                receipt['outputs']=case['outputs']
             with self.db:
                 self.db.execute('INSERT INTO task_observations_v08(task,topic,domain_sha,outcome,receipt) VALUES(?,?,?,?,?)',
                     (task,domain.topic,_hash(asdict(domain)),outcome,json.dumps(receipt,sort_keys=True)))
+        if new_conflict: l.audit_sources()
         return receipt
 
     def observation(self, task):
         row=self.db.execute('SELECT receipt FROM task_observations_v08 WHERE task=?',(task,)).fetchone()
+        if row is None:
+            row=self.learning.knowledge.db.execute('SELECT receipt FROM conflict_cases_v08 WHERE task=?',(task,)).fetchone()
         if row is None: raise ContractError('unknown task observation')
         return json.loads(row[0])
 

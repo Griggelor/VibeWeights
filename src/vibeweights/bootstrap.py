@@ -34,8 +34,7 @@ class BootstrapExpert:
         if type(record_ids) is not tuple or len(record_ids)>32 or len(set(record_ids))!=len(record_ids): raise ContractError('context record IDs')
         records=[]
         for rid in record_ids:
-            rec=ledger.read(rid,access)
-            if rec.status!='VERIFIED': raise ContractError('unverified bootstrap context')
+            rec=ledger.current_verified(rid,access)
             records.append({'id':rec.id,'version':rec.version,'topic':rec.topic,'values':rec.values,'source':rec.source})
         payload=json.dumps({'request':text,'reference_data':records},ensure_ascii=False,allow_nan=False)
         if len(payload)>max_chars: raise ContractError('bootstrap context character budget')

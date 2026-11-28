@@ -1,5 +1,7 @@
 # v0.8.0.dev7 – Additive Ergänzung vorhandener Wissensdomänen
 
+Historischer Stand dev7. Die ursprüngliche Konfliktprüfung ohne Populationseingriff wurde in [dev8](CONFLICT_LEARNING_v08.md) durch automatische Unsicherheitsmarkierung, persistente Klärungsaufträge und separate Sicherheitsquarantäne erweitert; Review selbst bleibt ohne weitere Gewichtsänderung.
+
 ## Ziel und Vertrag
 
 Dev6 erkennt fehlende Domänen und Enthaltungen in typisierten numerischen Aufgaben. Dev7 ergänzt den Fall einer einzelnen unbekannten Entität in einer bereits bestehenden Domäne. Die vorhandenen Experten bleiben unverändert. Kein zentraler Router, keine automatische Ablösung, keine evolutionäre Löschung und keine RAM-Zwischenstufe. Die regulären Zustände ACTIVE / LOW_ACTIVE_IMPORTANT / ARCHIVED bleiben unverändert.

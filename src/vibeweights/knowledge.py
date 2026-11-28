@@ -7,7 +7,7 @@ from .abi import ContractError
 from .environment import identifier
 
 KINDS = ('semantic','episodic','procedural','cooperation','reflection','hypothesis')
-STATES = ('OBSERVED','HYPOTHESIS','VERIFIED')
+STATES = ('OBSERVED','HYPOTHESIS','VERIFIED','UNCERTAIN','CONFLICTED','INVALIDATED')
 
 def integer(value, low=1, high=2**63-1):
     if type(value) is not int or not low <= value <= high:
@@ -92,6 +92,22 @@ class KnowledgeLedger:
         row=self.db.execute('SELECT * FROM knowledge_v1 WHERE id=?',(rid,)).fetchone()
         if row is None or row[1] not in access.scopes: raise ContractError('record unavailable')
         return self._record(row)
+    def current_verified(self,rid,access):
+        """Trusted live read: historical revisions remain inspectable via read()."""
+        pending=[rid]; seen=set(); result=None
+        while pending:
+            item=pending.pop()
+            if item in seen: continue
+            if len(seen)>=512: raise ContractError('source dependency bound')
+            rec=self.read(item,access)
+            if rec.status!='VERIFIED' or self.db.execute(
+                'SELECT id FROM knowledge_heads_v1 WHERE scope=? AND key=?',
+                (rec.scope,rec.key)).fetchone()!=(item,):
+                raise ContractError('current verified knowledge required')
+            if item==rid: result=rec
+            seen.add(item); pending.extend(rec.parents)
+        return result
+
     def store(self,access,*,scope,key,topic,values,source,kind='semantic',status='OBSERVED',expected=None,parents=(),space=None,embedding=None):
         """Host-only append in its own transaction."""
         with self.db:

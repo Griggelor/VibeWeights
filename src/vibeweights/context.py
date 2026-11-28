@@ -65,8 +65,7 @@ class WorkingContext:
             if any(v is not None for v in (action.topic,action.relation,action.space,action.query)): raise ContractError('record arguments')
             rid=integer(action.record)
             if action.op==Op.READ:
-                rec=self.ledger.read(rid,access)
-                if rec.status!='VERIFIED': raise ContractError('unverified record is not a trusted context fact')
+                rec=self.ledger.current_verified(rid,access)
                 records=tuple(r for r in records if r.id!=rid)+(rec,)
             else: records=tuple(r for r in records if r.id!=rid)
         if len(records)>self.limits.records or sum(len(r.values)+len(r.embedding or ()) for r in records)>self.limits.components: raise ContractError('working context budget exceeded')

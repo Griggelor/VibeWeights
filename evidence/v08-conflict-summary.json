@@ -1,0 +1,31 @@
+{
+  "version": "0.8.0.dev8",
+  "baseline": "0.8.0.dev7",
+  "baseline_tests": 184,
+  "new_tests": 7,
+  "tests": {
+    "tests": 191,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "duration_seconds": 43.796,
+  "python": "3.13.5",
+  "torch": "2.10.0+cpu",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "test_command": "PYTHONPATH=$PWD/src python -m pytest -q --junitxml=evidence/v08-conflict-tests.xml",
+  "targeted_tests": 26,
+  "real_llm": false,
+  "gpu": false,
+  "windows": false,
+  "remote_ci": false,
+  "limitations": [
+    "synthetic injected expert conflicts; no real source dispute",
+    "trusted host executes evidence-based correction",
+    "recovery via exception injection and reopen, not hard crash",
+    "domain-external descendant reconstruction remains pending",
+    "no retry after permanently failed candidate with changed policy",
+    "full dependency index and unified cross-DB transaction open"
+  ],
+  "modified_regression": "test_conflict_review_no_mutation -> test_conflict_review_preserves_safety_hold; intentional revised conflict contract"
+}
